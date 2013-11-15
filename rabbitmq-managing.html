@@ -8,22 +8,15 @@
                 
                 <!-- Use title if it's in the page YAML frontmatter -->
                 <title>Deploy Applications | Pivotal CF Docs</title>
-                <!-- 
+                
                 <link href="../../stylesheets/master.css" media="screen,print" rel="stylesheet" type="text/css" />
                 <link href="../../stylesheets/styles.css" media="screen,print" rel="stylesheet" type="text/css" />
                 <link href="../../stylesheets/documentation.css" media="screen,print" rel="stylesheet" type="text/css" />
                 <link href="../../stylesheets/breadcrumbs.css" media="screen,print" rel="stylesheet" type="text/css" />
                 <link href="../../stylesheets/printable.css" media="print" rel="stylesheet" type="text/css" />
                 
-                <script src="../../javascripts/all.js" type="text/javascript"></script>-->
-                
-                <link href="http://cf-p1-docs-staging.cfapps.io/stylesheets//master.css" media="screen,print" rel="stylesheet" type="text/css" />
-                <link href="http://cf-p1-docs-staging.cfapps.io/stylesheets//styles.css" media="screen,print" rel="stylesheet" type="text/css" />
-                <link href="http://cf-p1-docs-staging.cfapps.io/stylesheets//documentation.css" media="screen,print" rel="stylesheet" type="text/css" />
-                <link href="http://cf-p1-docs-staging.cfapps.io/stylesheets//breadcrumbs.css" media="screen,print" rel="stylesheet" type="text/css" />
-                <link href="http://cf-p1-docs-staging.cfapps.io/stylesheets//printable.css" media="print" rel="stylesheet" type="text/css" />
-                
-                <script src="http://cf-p1-docs-staging.cfapps.io/javascripts/all.js" type="text/javascript"></script>                
+                <script src="../../javascripts/all.js" type="text/javascript"></script>
+                         
                 <link href='/images/favicon.ico' rel='shortcut icon'></link></meta></meta>                    
     </head>    
     <body class="devguide devguide_deploy-apps devguide_deploy-apps_index">
@@ -50,15 +43,9 @@
                     </li>
                     </ul>
                 </div>
-                <div class="body-container content">
-                    
+                <div class="body-container content">                    
                     <h3 class="title-container">Managing RabbitMQ Using the Pivotal CF Installer</h3>
-                    <p>The Pivotal CF installer enables cloud operators to deploy a single RabbitMQ broker as a service in Pivotal CF. You can deploy the broker as a single node or a cluster of largely any size. The installation includes a load balancer (<code>haproxy</code>) that works on the following ports:</p>
-                    <ul>
-                        <li>AMQP: 5672</li>
-                        <li>AMQPS: 5671</li>
-                        <li>Management: 15672</li>
-                    </ul>
+                    <p>The Pivotal CF installer enables cloud operators to deploy a RabbitMQ service in Pivotal CF. You can deploy the service as a single node or a cluster of largely any size. The installation includes a load balancer (<code>haproxy</code>) that works on the ports for all available plugins:</p>
                     <p>You can create RabbitMQ service instances (virtual hosts, or vhosts) and then bind applications to those instances. Binding applications amounts to creating user accounts with permissions to access the relevant vhost. The URIs that are injected into the <code>VCAP_SERVICES</code> environment variable for applications running on Pivotal CF point to the IP address of the load balancer. Consequently, you can change the size of your RabbitMQ cluster from the installer and redeploy the service instance, and the load balancer is reconfigured automatically, with no need to change any details within your applications on Pivotal CF.</p>
                     <h2>Deploying a RabbitMQ Service Instance</h2>
                     <p>To deploy a RabbitMQ service instance:</p>
@@ -69,6 +56,7 @@
                         <li>Specify the Erlang cookie value. This value is useful if you want other machines running Erlang to interact directly with the Erlang nodes running RabbitMQ -- for example, if you want to run rabbitmqctl from a machine that is not part of the RabbitMQ cluster.</li>
                         <li>Optionally provide a complete <strong>rabbitmq.config</strong> file. Note that this file is provided to all nodes in the cluster.</li>
                         <li>Resize the RabbitMQ cluster without losing state.</li>
+                        <li>Change which ports are load balanced by <strong>haproxy</strong>. The default ports of all available plugins are load balanced initially. If you install extra protocol plugins or provide a custom configuration that changes the ports that RabbitMQ listens on, then you must update the list of load-balanced ports. Note that you must always leave the management plugin listening on port 15672 and load balance that port.</li>
                     </ol>
                     <h2>Accessing the Management Interface</h2>
                     <p>From a web browser:</p>
