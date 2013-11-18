@@ -70,14 +70,14 @@
                     <p>The following options are available to run commands such as <code>rabbitmqctl</code> on the RabbitMQ service:</p>
                     <ul>
                         <li>
-                            <p>Open a SSH (secure shell) connection to a machine running <strong>rabbitmq-server</strong>. The RabbitMQ component of the installer displays the IP addresses on the <strong>Status</strong> tab and the access account information on the <strong>Credentials</strong> tab. Bring RabbitMQ and Erlang into your environment. Then you can use <code>rabbitmqctl</code>:</p>
-                            <p>bash-4.1# . /var/vcap/packages/erlang/enable; . /var/vcap/packages/rabbitmq-server/enable
-                                bash-4.1# rabbitmqctl cluster<em>status
-                                    Cluster status of node rabbit@node0 ...
-                                    [{nodes,[{disc,[rabbit@node0,rabbit@node1,rabbit@node2,rabbit@node3]}]},
-                                    {running</em>nodes,[rabbit@node3,rabbit@node2,rabbit@node1,rabbit@node0]},
-                                {partitions,[]}]
-                                ...done.</p>
+                            <p>Open a SSH (secure shell) connection to a machine running <strong>rabbitmq-server</strong>. The RabbitMQ component of the installer displays the IP addresses on the <strong>Status</strong> tab and the access account information on the <strong>Credentials</strong> tab. Bring RabbitMQ and Erlang into your environment. Then you can use <code>rabbitmqctl</code>:</p>                            
+                            <p><pre><code>bash-4.1# . /var/vcap/packages/erlang/enable; . /var/vcap/packages/rabbitmq-server/enable
+bash-4.1# rabbitmqctl cluster_status
+Cluster status of node rabbit@node0 ...
+[{nodes,[{disc,[rabbit@node0,rabbit@node1,rabbit@node2,rabbit@node3]}]},
+{running_nodes,[rabbit@node3,rabbit@node2,rabbit@node1,rabbit@node0]},
+{partitions,[]}]
+...done.</code></pre></p>
                         </li>
                         <li>
                             <p>Install RabbitMQ and Erlang on a machine of your choice. (The software versions must match the software installed in the cluster. The management user interface displays the RabbitMQ and Erlang versions.) Set your ~/.erlang.cookie to match the cookie used in the cluster. (You may have provided the cookie as part of the installation). The clustered nodes are always named numerically from node0 upwards. Set up your <strong>/etc/hosts</strong> file so that node0 is the first IP address of your cluster of RabbitMQ, node1 is the second IP address, and so on. You should then be able to run <code>rabbitmqctl</code> locally.</p>
