@@ -37,14 +37,16 @@
                 <div id="sub-nav" class="nav-container">
                     <ul class="menu">
                         <li class="first expanded js-maintopic"><a href="index.html">Overview</a></li>
-                        <li class="first expanded js-maintopic"><a href="rabbitmq-managing.html">Managing RabbitMQ Using the Pivotal CF Installer</a></li>
+                        <li class="first expanded js-maintopic"><a href="managing.html">Installing and Managing the RabbitMQ Service</a></li>
+                        <li class="first expanded js-maintopic"><a href="vcap-services.html">RabbitMQ Entries in the VCAP_SERVICES Environment Variable</a></li>
+                        <li class="first expanded js-maintopic"><a href="rabbitmq-cluster.html">Accessing the RabbitMQ Cluster Directly</a></li>
                         <li class="first expanded js-maintopic"><a href="http://previous.rabbitmq.com/v3_1_x/documentation.html"  target="_blank">Using RabbitMQ</a></li>
                     </ul>
                     </li>
                     </ul>
                 </div>
                 <div class="body-container content">                    
-                    <h3 class="title-container">Managing RabbitMQ Using the Pivotal CF Installer</h3>
+                    <h3 class="title-container">Installing and Managing the RabbitMQ Service</h3>
                     <p>The Pivotal CF installer enables cloud operators to deploy a RabbitMQ service in Pivotal CF. You can deploy the service as a single node or a cluster of largely any size. The installation includes a load balancer (<code>haproxy</code>) that works on the ports for all available plugins:</p>
                     <p>You can create RabbitMQ service instances (virtual hosts, or vhosts) and then bind applications to those instances. Binding applications amounts to creating user accounts with permissions to access the relevant vhost. The URIs that are injected into the <code>VCAP_SERVICES</code> environment variable for applications running on Pivotal CF point to the IP address of the load balancer. Consequently, you can change the size of your RabbitMQ cluster from the installer and redeploy the service instance, and the load balancer is reconfigured automatically, with no need to change any details within your applications on Pivotal CF.</p>
                     <h2>Deploying a RabbitMQ Service Instance</h2>
@@ -67,74 +69,6 @@
                         <li>Enter the username and password that you provided in the RabbitMQ configuration. The account information is also displayed on the <strong>Credentials</strong> tab of the RabbitMQ component of the Pivotal CF installer.</li>
                     </ol>
                     <p>Users who create RabbitMQ service instances using the Pivotal CF web console or command-line interface can also access the management interface. Click the <strong>Manage</strong> button in the web console. The management interface URL is also inserted into the <code>VCAP_SERVICES</code> environment variable provided to applications running on Pivotal CF.</p>
-                    
-                    <h2>RabbitMQ Entries in the VCAP_SERVICES Environment Variable</h2>
-                    <p>Applications running in Pivotal CF can access service instances that are bound to them by credentials passed to them through the VCAP_SERVICES environment variable.</p>
-                    <h3>Example</h3>
-                    <p><pre><code>
- {"p-rabbitmq-3.1.5":
-  [{"name": "myrabbit",
-    "label": "p-rabbitmq-3.1.5",
-    "tags":["rabbitmq","messaging","message-queue","amqp"],
-    "plan": "standard",
-    "credentials":
-      {"uri": "amqp://u6e10e2df0903ecac86bc03f396c6d2b56089769b:p262615006c0001a482577e0d7a5400dca3ed40c3@10.26.152.25/5686900df5c8a9fa28668536ce0d3ddba206c3d4",
-       "vhost": "5686900df5c8a9fa28668536ce0d3ddba206c3d4",
-       "username": "u6e10e2df0903ecac86bc03f396c6d2b56089769b",
-       "password": "p262615006c0001a482577e0d7a5400dca3ed40c3",
-       "hostname": "10.26.152.25",
-       "http_api_uri": "http://u6e10e2df0903ecac86bc03f396c6d2b56089769b:p262615006c0001a482577e0d7a5400dca3ed40c3@10.26.152.25:15672/api/",
-       "protocols":
-         {"amqp":
-           {"uri": "amqp://u6e10e2df0903ecac86bc03f396c6d2b56089769b:p262615006c0001a482577e0d7a5400dca3ed40c3@10.26.152.25:5672/5686900df5c8a9fa28668536ce0d3ddba206c3d4",
-            "username": "u6e10e2df0903ecac86bc03f396c6d2b56089769b",
-            "password": "p262615006c0001a482577e0d7a5400dca3ed40c3",
-            "port": 5672,
-            "host": "10.26.152.25",
-            "vhost": "5686900df5c8a9fa28668536ce0d3ddba206c3d4"},
-          "management":
-            {"uri": "http://u6e10e2df0903ecac86bc03f396c6d2b56089769b:p262615006c0001a482577e0d7a5400dca3ed40c3@10.26.152.25:15672/api/",
-             "username": "u6e10e2df0903ecac86bc03f396c6d2b56089769b",
-             "password": "p262615006c0001a482577e0d7a5400dca3ed40c3",
-             "port": 15672,
-             "host": "10.26.152.25",
-             "path": "/api/"}
-         }
-      }
-   }]</code></pre></p>
-                    <p>Two sets of <code>credentials</code> object properties are available:</p>
-                    <ul>
-                        <li>The <code>uri</code>, <code>vhost</code>, <code>username</code>, <code>password</code> and <code>hostname</code> properties are provided for backward compatibility with other cloud messaging providers. These properties only provide access to RabbitMQ over AMQP, and therefore using them is discouraged.</li>
-                        <li>The <code>credentials.protocols</code> object is more flexible. This object includes a key for each protocol enabled in the RabbitMQ broker. 
-                            The example includes keys for AMQP and management, but other possible keys include MQTT and STOMP. Note that if SSL is enabled via the installer, 
-                            then the keys for AMQP and management are adjusted to <code>amqp+ssl</code> and <code>management+ssl</code> respectively. However, other protocols are not adjusted automatically
-                            for use with the supplied SSL keys and require configuration by supplying a custom <strong>rabbitmq.config</strong> file via the installer.
-                            <p>The values associated with each of these keys gives access credentials specific to each protocol. Each key consists of a full URI along with the individual components to facilitate ease of use with client libraries that do not support the full URIs.</p></li>
-                    </ul>
-                    <h3>Updating the VCAP_SERVICES Environment Variable</h3>
-                    <p>If you adjust the plugins and protocols enabled for RabbitMQ via the installer, then you will need to force the <code>VCAP_SERVICES</code> environment 
-                        variables to be regenerated. In common with all services in Pivotal CF, the <code>VCAP_SERVICES</code> environment variable for an 
-                        application is only modified when the application is bound to a service instance. To update the variable so that it reflects the current set 
-                        of protocols and features enabled in RabbitMQ, you need to unbind the application from the relevant RabbitMQ service instance and then rebind it, and restart the application. The application should then find the updated environment variables reflecting the current set 
-                        of enabled protocols.</p>
-                    
-                    <h2>Accessing the RabbitMQ Cluster Directly</h2>
-                    <p>The following options are available to run commands such as <code>rabbitmqctl</code> on the RabbitMQ service:</p>
-                    <ul>
-                        <li>
-                            <p>Open a SSH (secure shell) connection to a machine running <strong>rabbitmq-server</strong>. The RabbitMQ component of the installer displays the IP addresses on the <strong>Status</strong> tab and the access account information on the <strong>Credentials</strong> tab. Bring RabbitMQ and Erlang into your environment. Then you can use <code>rabbitmqctl</code>:</p>                            
-                            <p><pre><code>bash-4.1# . /var/vcap/packages/erlang/enable; . /var/vcap/packages/rabbitmq-server/enable
-bash-4.1# rabbitmqctl cluster_status
-Cluster status of node rabbit@node0 ...
-[{nodes,[{disc,[rabbit@node0,rabbit@node1,rabbit@node2,rabbit@node3]}]},
-{running_nodes,[rabbit@node3,rabbit@node2,rabbit@node1,rabbit@node0]},
-{partitions,[]}]
-...done.</code></pre></p>
-                        </li>
-                        <li>
-                            <p>Install RabbitMQ and Erlang on a machine of your choice. (The software versions must match the software installed in the cluster. The management user interface displays the RabbitMQ and Erlang versions.) Set your ~/.erlang.cookie to match the cookie used in the cluster. (You may have provided the cookie as part of the installation). The clustered nodes are always named numerically from node0 upwards. Set up your <strong>/etc/hosts</strong> file so that node0 is the first IP address of your cluster of RabbitMQ, node1 is the second IP address, and so on. You should then be able to run <code>rabbitmqctl</code> locally.</p>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>

@@ -8,7 +8,7 @@
                 
                 <!-- Use title if it's in the page YAML frontmatter -->
                 <title>Deploy Applications | Pivotal CF Docs</title>
-
+                
                 <link href="../../stylesheets/master.css" media="screen,print" rel="stylesheet" type="text/css" />
                 <link href="../../stylesheets/styles.css" media="screen,print" rel="stylesheet" type="text/css" />
                 <link href="../../stylesheets/documentation.css" media="screen,print" rel="stylesheet" type="text/css" />
@@ -16,8 +16,8 @@
                 <link href="../../stylesheets/printable.css" media="print" rel="stylesheet" type="text/css" />
                 
                 <script src="../../javascripts/all.js" type="text/javascript"></script>
-                
-                <link href='/images/favicon.ico' rel='shortcut icon'></link></meta></meta>           
+                         
+                <link href='/images/favicon.ico' rel='shortcut icon'></link></meta></meta>                    
     </head>    
     <body class="devguide devguide_deploy-apps devguide_deploy-apps_index">
         <div class='header-wrap'>
@@ -46,19 +46,23 @@
                     </ul>
                 </div>
                 <div class="body-container content">                    
-                    <h3 class="title-container">RabbitMQ</h3>
-                    <p>RabbitMQ is a fast and dependable open-source message server that supports a wide range of use cases including reliable integration, content based routing and global data delivery, and high volume monitoring and data ingestion.</p>
-                    <p>Emerging as the defacto standard for cloud messaging, RabbitMQ is used for efficient communication between servers, applications and devices, and creates lasting value by enabling rapid development of modern decentralized application and data architectures that can scale with your business needs.</p>
-                    <p>The Pivotal CF installer enables cloud operators to deploy a RabbitMQ service in Pivotal CF. You can deploy the service as a single node or a cluster.</p>
-                    <h2>Features</h2>
+                    <h3 class="title-container">Accessing the RabbitMQ Cluster Directly</h3>
+                    <p>The following options are available to run commands such as <code>rabbitmqctl</code> on the RabbitMQ service:</p>
                     <ul>
-                        <li>The RabbitMQ service enables application developers to provision protocol plugins and management API access to the deployed RabbitMQ service for their Pivotal CF applications. Each service instance corresponds to a unique RabbitMQ vhost (virtual host), and each service binding corresponds to a unique user with access limited to the vhost of the bound service instance. The management  user interface is accessible to developers through the Pivotal CF console.</li>
-                        <li>The service can be configured to require SSL (Secure Sockets Layer) connections for AMQP and the management API.</li>
-                        <li>The deployment includes a load balancer in front of the clustered RabbitMQ nodes to provide resource balancing between the nodes. Applications can connect to the service without any awareness of the cluster topology. </li>
-                        <li>The initial configuration, including the number of nodes and their specifications, a list of enabled plugins, and other parameters can be altered dynamically later. You can upgrade RabbitMQ and its dependencies later to suit your development needs.</li>
-                        <li>The RabbitMQ management API, user and command-line interfaces are available to operators and application developers, the latter with non-administrator privileges. The administrative command-line interface is available to operators only. </li>
-                        <li>Pivotal CF deploys open-source RabbitMQ. Support for Pivotal RabbitMQ is expected at a later date.</li>
-                    </ul>                
+                        <li>
+                            <p>Open a SSH (secure shell) connection to a machine running <strong>rabbitmq-server</strong>. The RabbitMQ component of the installer displays the IP addresses on the <strong>Status</strong> tab and the access account information on the <strong>Credentials</strong> tab. Bring RabbitMQ and Erlang into your environment. Then you can use <code>rabbitmqctl</code>:</p>                            
+                            <p><pre><code>bash-4.1# . /var/vcap/packages/erlang/enable; . /var/vcap/packages/rabbitmq-server/enable
+bash-4.1# rabbitmqctl cluster_status
+Cluster status of node rabbit@node0 ...
+[{nodes,[{disc,[rabbit@node0,rabbit@node1,rabbit@node2,rabbit@node3]}]},
+{running_nodes,[rabbit@node3,rabbit@node2,rabbit@node1,rabbit@node0]},
+{partitions,[]}]
+...done.</code></pre></p>
+                        </li>
+                        <li>
+                            <p>Install RabbitMQ and Erlang on a machine of your choice. (The software versions must match the software installed in the cluster. The management user interface displays the RabbitMQ and Erlang versions.) Set your ~/.erlang.cookie to match the cookie used in the cluster. (You may have provided the cookie as part of the installation). The clustered nodes are always named numerically from node0 upwards. Set up your <strong>/etc/hosts</strong> file so that node0 is the first IP address of your cluster of RabbitMQ, node1 is the second IP address, and so on. You should then be able to run <code>rabbitmqctl</code> locally.</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
