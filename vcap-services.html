@@ -87,7 +87,7 @@
                             The example includes keys for AMQP and management, but other possible keys include MQTT and STOMP. Note that if SSL is enabled via the installer, 
                             then the keys for AMQP and management are adjusted to <code>amqp+ssl</code> and <code>management+ssl</code> respectively. However, other protocols are not adjusted automatically
                             for use with the supplied SSL keys and require configuration by supplying a custom <strong>rabbitmq.config</strong> file via the installer.
-                            <p>The values associated with each of these keys gives access credentials specific to each protocol. Each key consists of a full URI along with the individual components to facilitate ease of use with client libraries that do not support the full URIs.</p></li>
+                            <p>The values associated with each of these keys gives access credentials specific to each protocol. Each associated object contains a full URI along with the individual components to facilitate ease of use with client libraries that do not support the full URIs.</p></li>
                     </ul>
                     <h3>Updating the VCAP_SERVICES Environment Variable</h3>
                     <p>If you adjust the plugins and protocols enabled for RabbitMQ via the installer, then you will need to force the <code>VCAP_SERVICES</code> environment 
