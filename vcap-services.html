@@ -2,23 +2,22 @@
 <html>
     <head>
         <meta charset="utf-8">
-            
+
             <!-- Always force latest IE rendering engine or request Chrome Frame -->
             <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-                
+
                 <!-- Use title if it's in the page YAML frontmatter -->
                 <title>Deploy Applications | Pivotal CF Docs</title>
-                
-                <link href="../../stylesheets/master.css" media="screen,print" rel="stylesheet" type="text/css" />
-                <link href="../../stylesheets/styles.css" media="screen,print" rel="stylesheet" type="text/css" />
-                <link href="../../stylesheets/documentation.css" media="screen,print" rel="stylesheet" type="text/css" />
-                <link href="../../stylesheets/breadcrumbs.css" media="screen,print" rel="stylesheet" type="text/css" />
-                <link href="../../stylesheets/printable.css" media="print" rel="stylesheet" type="text/css" />
-                
+
+			  <link href="../../stylesheets/master.css" media="screen,print" rel="stylesheet" type="text/css" />
+			  <link href="../../stylesheets/breadcrumbs.css" media="screen,print" rel="stylesheet" type="text/css" />
+			  <link href="../../stylesheets/search.css" media="screen,print" rel="stylesheet" type="text/css" />
+			  <link href="../../stylesheets/printable.css" media="print" rel="stylesheet" type="text/css" />
+
                 <script src="../../javascripts/all.js" type="text/javascript"></script>
-                         
-                <link href='/images/favicon.ico' rel='shortcut icon'></link></meta></meta>                    
-    </head>    
+
+                <link href='/images/favicon.ico' rel='shortcut icon'></link></meta></meta>
+    </head>
     <body class="devguide devguide_deploy-apps devguide_deploy-apps_index">
         <div class='header-wrap'>
             <div class='container por'>
@@ -45,7 +44,7 @@
                     </li>
                     </ul>
                 </div>
-                <div class="body-container content">                    
+                <div class="body-container content">
                     <h3 class="title-container">RabbitMQ Entries in the VCAP_SERVICES Environment Variable</h3>
                     <p>Applications running in Pivotal CF can access service instances that are bound to them by credentials passed to them through the VCAP_SERVICES environment variable.</p>
                     <h3>Example</h3>
@@ -83,22 +82,22 @@
                     <p>Two sets of <code>credentials</code> object properties are available:</p>
                     <ul>
                         <li>The <code>uri</code>, <code>vhost</code>, <code>username</code>, <code>password</code> and <code>hostname</code> properties are provided for backward compatibility with other cloud messaging providers. These properties only provide access to RabbitMQ over AMQP, and therefore using them is discouraged.</li>
-                        <li>The <code>credentials.protocols</code> object is more flexible. This object includes a key for each protocol enabled in the RabbitMQ broker. 
-                            The example includes keys for AMQP and management, but other possible keys include MQTT and STOMP. Note that if SSL is enabled via the installer, 
+                        <li>The <code>credentials.protocols</code> object is more flexible. This object includes a key for each protocol enabled in the RabbitMQ broker.
+                            The example includes keys for AMQP and management, but other possible keys include MQTT and STOMP. Note that if SSL is enabled via the installer,
                             then the keys for AMQP and management are adjusted to <code>amqp+ssl</code> and <code>management+ssl</code> respectively. However, other protocols are not adjusted automatically
                             for use with the supplied SSL keys and require configuration by supplying a custom <strong>rabbitmq.config</strong> file via the installer.
                             <p>The values associated with each of these keys gives access credentials specific to each protocol. Each associated object contains a full URI along with the individual components to facilitate ease of use with client libraries that do not support the full URIs.</p></li>
                     </ul>
                     <h3>Updating the VCAP_SERVICES Environment Variable</h3>
-                    <p>If you adjust the plugins and protocols enabled for RabbitMQ via the installer, then you will need to force the <code>VCAP_SERVICES</code> environment 
-                        variables to be regenerated. In common with all services in Pivotal CF, the <code>VCAP_SERVICES</code> environment variable for an 
-                        application is only modified when the application is bound to a service instance. To update the variable so that it reflects the current set 
-                        of protocols and features enabled in RabbitMQ, you need to unbind the application from the relevant RabbitMQ service instance and then rebind it, and restart the application. The application should then find the updated environment variables reflecting the current set 
+                    <p>If you adjust the plugins and protocols enabled for RabbitMQ via the installer, then you will need to force the <code>VCAP_SERVICES</code> environment
+                        variables to be regenerated. In common with all services in Pivotal CF, the <code>VCAP_SERVICES</code> environment variable for an
+                        application is only modified when the application is bound to a service instance. To update the variable so that it reflects the current set
+                        of protocols and features enabled in RabbitMQ, you need to unbind the application from the relevant RabbitMQ service instance and then rebind it, and restart the application. The application should then find the updated environment variables reflecting the current set
                         of enabled protocols.</p>
                 </div>
             </div>
         </div>
-        
+
         <div class='footer-wrap'>
             <div class="container">
                 <div class='span-2'>
@@ -124,7 +123,7 @@
                 </div>
             </div>
         </div>
-        
+
         <script type="text/javascript">
     (function() {
         var didInit = false;
