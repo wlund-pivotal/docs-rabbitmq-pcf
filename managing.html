@@ -66,13 +66,13 @@
                     <h2>Deploying a RabbitMQ Service Instance</h2>
                     <p>To deploy a RabbitMQ service instance:</p>
                     <ol>
-                        <li>Enter an administrator username and password for RabbitMQ. This account grants full administrative access to RabbitMQ through the management user interface.</li>
-                        <li>Choose the plugins to enable. You must leave the management plugin enabled; otherwise, RabbitMQ will not work.</li>
-                        <li>Provide SSL (secure sockets layer) keys and certificates for use by the RabbitMQ cluster. Note that SSL is simultaneously provided on the AMQPS port (5671) and the management port (15672). If you provide SSL keys and certificates, then you are disabling non-SSL support. No other plugins are automatically configured for use with SSL. SSL settings are applied equally across all machines in the cluster.</li>
-                        <li>Specify the Erlang cookie value. This value is useful if you want other machines running Erlang to interact directly with the Erlang nodes running RabbitMQ -- for example, if you want to run rabbitmqctl from a machine that is not part of the RabbitMQ cluster.</li>
-                        <li>Optionally provide a complete <strong>rabbitmq.config</strong> file. Note that this file is provided to all nodes in the cluster.</li>
-                        <li>Resize the RabbitMQ cluster without losing state.</li>
-                        <li>Change which ports are load balanced by <strong>haproxy</strong>. The default ports of all available plugins are load balanced initially. If you install extra protocol plugins or provide a custom configuration that changes the ports that RabbitMQ listens on, then you must update the list of load-balanced ports. Note that you must always leave the management plugin listening on port 15672 and load balance that port.</li>
+                        <li><b>Required</b>. Enter an administrator username and password for RabbitMQ. This account grants full administrative access to RabbitMQ through the management user interface.</li>
+                        <li><b>Optional</b>. Choose the plugins to enable. You must leave the management plugin enabled; otherwise, RabbitMQ will not work.</li>
+                        <li><b>Optional</b>. Provide SSL (secure sockets layer) keys and certificates for use by the RabbitMQ cluster. Note that SSL is simultaneously provided on the AMQPS port (5671) and the management port (15672). If you provide SSL keys and certificates, then you are disabling non-SSL support. No other plugins are automatically configured for use with SSL. SSL settings are applied equally across all machines in the cluster.</li>
+                        <li><b>Optional</b>. Specify the Erlang cookie value. This value is useful if you want other machines running Erlang to interact directly with the Erlang nodes running RabbitMQ -- for example, if you want to run rabbitmqctl from a machine that is not part of the RabbitMQ cluster.</li>
+                        <li><b>Optional</b>. Provide a complete <strong>rabbitmq.config</strong> file. Note that this file is provided to all nodes in the cluster.</li>
+                        <li><b>Optional</b>. Resize the RabbitMQ cluster without losing state.</li>
+                        <li><b>Optional</b>. Change which ports are load balanced by <strong>haproxy</strong>. The default ports of all available plugins are load balanced initially. If you install extra protocol plugins or provide a custom configuration that changes the ports that RabbitMQ listens on, then you must update the list of load-balanced ports. Note that you must always leave the management plugin listening on port 15672 and load balance that port.</li>
                     </ol>
                     <h2>Accessing the Management Interface</h2>
                     <p>From a web browser:</p>
