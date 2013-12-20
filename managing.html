@@ -93,30 +93,22 @@
 
           <ul class="breadcrumbs"> <li><a href="index.html">Pivotal RabbitMQ Documentation</a></li> <li class="active"><span>Deploying and Managing the RabbitMQ Service</span></li></ul>
                     
-                    <h3 class="title-container">Deploying and Managing the RabbitMQ Service</h3>
-                    <p>The Pivotal CF installer enables cloud operators to deploy a RabbitMQ service in Pivotal CF. You can deploy the service as a single node or a cluster of largely any size. The installation includes a load balancer (<code>haproxy</code>) that works on the ports for all available plugins:</p>
-                    <p>You can create RabbitMQ service instances (virtual hosts, or vhosts) and then bind applications to those instances. Binding applications amounts to creating user accounts with permissions to access the relevant vhost. The URIs that are injected into the <code>VCAP_SERVICES</code> environment variable for applications running on Pivotal CF point to the IP address of the load balancer. Consequently, you can change the size of your RabbitMQ cluster from the installer and redeploy the service instance, and the load balancer is reconfigured automatically, with no need to change any details within your applications on Pivotal CF.</p>
-                    <h2>Deploying a RabbitMQ Service Instance</h2>
-                    <p>To deploy a RabbitMQ service instance:</p>
-                    <ol>
-                        <li><strong>Required</strong>. Enter an administrator username and password for RabbitMQ. This account grants full administrative access to RabbitMQ through the management user interface.</li>
-                        <li><strong>Optional</strong>. Choose the plugins to enable. You must leave the management plugin enabled; otherwise, RabbitMQ will not work.</li>
-                        <li><strong>Optional</strong>. Provide SSL (secure sockets layer) keys and certificates for use by the RabbitMQ cluster. See <a href="http://www.rabbitmq.com/ssl.html">SSL Support</a> for instructions on generating SSL certificates. Note that SSL is simultaneously provided on the AMQPS port (5671) and the management port (15672). If you provide SSL keys and certificates, then you are disabling non-SSL support. No other plugins are automatically configured for use with SSL. SSL settings are applied equally across all machines in the cluster.</li>
-                        <li><strong>Optional</strong>. Specify the Erlang cookie value. This value is useful if you want other machines running Erlang to interact directly with the Erlang nodes running RabbitMQ -- for example, if you want to run rabbitmqctl from a machine that is not part of the RabbitMQ cluster.</li>
-                        <li><strong>Optional</strong>. Provide a complete <strong>rabbitmq.config</strong> file. Note that this file is provided to all nodes in the cluster.</li>
-                        <li><strong>Optional</strong>. Resize the RabbitMQ cluster without losing state.</li>
-                        <li><strong>Optional</strong>. Change which ports are load balanced by <strong>haproxy</strong>. The default ports of all available plugins are load balanced initially. If you install extra protocol plugins or provide a custom configuration that changes the ports that RabbitMQ listens on, then you must update the list of load-balanced ports. Note that you must always leave the management plugin listening on port 15672 and load balance that port.</li>
-                    </ol>
-                    <h2>Accessing the Management Interface</h2>
-                    <p>From a web browser:</p>
-                    <ol>
-                        <li>Navigate to the RabbitMQ component of the Pivotal CF installer.</li>
-                        <li>Click on the <strong>Status</strong> tab. The tab displays the IP address of the load balancer.</li>
-                        <li>In a web browser, navigate to the load balancer IP address on port 15672.</li>
-                        <li>Enter the username and password that you provided in the RabbitMQ configuration. The account information is also displayed on the <strong>Credentials</strong> tab of the RabbitMQ component of the Pivotal CF installer.</li>
-                    </ol>
-                    <p>Users who create RabbitMQ service instances using the Pivotal CF web console or command-line interface can also access the management interface. Click the <strong>Manage</strong> button in the web console. The management interface URL is also inserted into the <code>VCAP_SERVICES</code> environment variable provided to applications running on Pivotal CF.</p>
-
+                   <h3 class="title-container">Deploying and Managing the RabbitMQ Service</h3>
+                    <p>The Pivotal Cloud Foundry installer will install zero or one RabbitMQ clusters of largely any size. The installation has a load balancer (<code>haproxy</code>) which spreads connections on all of the default ports for all of the shipped plugins across all the machines within the cluster.</p>
+					<p>There is integration with Cloud Foundry. From Cloud Foundry you can create instances of RabbitMQ (which amount to <strong>vhosts</strong>) and then bind apps to those instances (which amount to creating user accounts with permissions to access the relevant <strong>vhost</strong>). The URIs which are injected into the <code>VCAP_SERVICES</code> environment variable for apps running on Cloud Foundry point at the IP of the load balancer. Consquently you can change the size of your RabbitMQ cluster from the installer, redeploy, and find the load balancer automatically reconfigured and no need to change any details within your apps on Cloud Foundry.</p>
+					<p>Via the installer you:</p>
+					<ol>
+						<li>must choose an admin username and password for RabbitMQ. This will grant you full admin access to RabbitMQ via the Managment UI.</li>
+						<li>can choose which plugins you wish to enable. You must leave the Management plugin enabled otherwise nothing will work.</li>
+						<li>can provide SSL keys and certificates for use by the RabbitMQ cluster. Note SSL is simultaneously provided on the amqps port (5671) and the management port (15672). If you provide SSL keys and certificates, you are disabling non-SSL support. No other plugins are automatically configured for use with SSL. Note SSL settings are applied equally across all machines in the cluster.</li>
+						<li>can specify the Erlang cookie value. This is useful if you wish to use other machines running Erlang to interact directly with the Erlang nodes running RabbitMQ, e.g. if you wish to run <code>rabbitmqctl</code> from a machine that is not part of the RabbitMQ cluster.</li>
+						<li>can provide a full <code>rabbitmq.config</code> file, if you need to. Note this file is provided to all the nodes in the cluster.</li>
+						<li>can easily resize the RabbitMQ cluster without losing state.</li>
+						<li>can change which ports are load-balanced by <code>haproxy</code>. By default all the default ports of all the available plugins will be load-balanced. However, if you install extra protocol plugins, or provide a custom configuration which changes the ports that RabbitMQ listens on then you must update the list of load-balanced ports. Note that you must always leave the management plugin listening on port 15672 and load balance that port.</li>
+					</ol>
+				<h2>Accessing RabbitMQ Management plugin</h2>
+					<p>To gain access to the Management UI as the admin user, after installation inspect the Status tab within the RabbitMQ components of the installer. This will give you the IP of the load balancer. In a browser, go to this IP on port 15672. The username and password is the username and password you provided in the RabbitMQ configuration, which is also shown in the Credentials tab.</p>
+					<p>Users of Cloud Foundry who create instances via the Cloud Foundry web console, or the <code>cf</code> CLI also get access to the Management UI. This is done using credentials that provide access only to their particular <strong>vhost</strong>. The appropriate URL is accessible via the Manage button within the Cloud Foundry web console, but is also injected into the <code>VCAP_SERVICES</code> environment variable provided to apps running on Cloud Foundry.</p>
         </div><!-- end of body-container content-->
       </div><!-- end of container -->
     </div><!--end of container-fluid-->
