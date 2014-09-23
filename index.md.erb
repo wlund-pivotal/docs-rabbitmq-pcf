@@ -11,7 +11,7 @@ The Pivotal CF installer enables cloud operators to deploy a RabbitMQ service in
 ## <a id="features"></a>Features
 
 * The RabbitMQ service enables application developers to provision protocol plugins and management API access to the deployed RabbitMQ service for their Pivotal CF applications. Each service instance corresponds to a unique RabbitMQ vhost (virtual host), and each service binding corresponds to a unique user with access limited to the vhost of the bound service instance. The management  user interface is accessible to developers through the Pivotal CF console.
-* The service can be configured to require SSL (Secure Sockets Layer) connections for AMQP and the management API.
+* The service can be configured to require SSL (Secure Sockets Layer) connections for AMQP 0-9-1, MQTT, STOMP, and the management API.
 * The deployment includes a load balancer in front of the clustered RabbitMQ nodes to provide resource balancing between the nodes. Applications can connect to the service without any awareness of the cluster topology. 
 * The initial configuration, including the number of nodes and their specifications, a list of enabled plugins, and other parameters can be altered dynamically later. You can upgrade RabbitMQ and its dependencies later to suit your development needs.
 * The RabbitMQ management API, user and command-line interfaces are available to operators and application developers, the latter with non-administrator privileges. The administrative command-line interface is available to operators only. 
