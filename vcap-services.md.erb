@@ -1,5 +1,5 @@
 ---
-breadcrumb: Pivotal RabbitMQ for Pivotal CF Documentation
+breadcrumb: RabbitMQ for Pivotal CF Documentation
 title: RabbitMQ Entries in the VCAP_SERVICES Environment Variable
 ---
 
@@ -156,6 +156,4 @@ support the full URIs.
 
 ## <a id="vcap"></a>Updating the VCAP_SERVICES Environment Variable
 
-If you adjust the plugins and protocols enabled for RabbitMQ via the installer, you will need to force the <code>VCAP_SERVICES</code> environment variables to be regenerated. In common with all services in Pivotal Cloud Foundry, the <code>VCAP_SERVICES</code> environment variable for an application is only modified when the application is bound to a service instance. Thus to update it so that it reflects the current set of protocols and features enabled in RabbitMQ, you need to unbind the application from the relevant RabbitMQ service instance, then rebind it, and then restart the application. The application should then find updated environment variables reflecting the current set of enabled protocols.
-
-       
+If you adjust the plugins and protocols enabled for RabbitMQ via the installer, you will need to force the <code>VCAP_SERVICES</code> environment variables to be regenerated. In common with all services in Pivotal Cloud Foundry, the <code>VCAP_SERVICES</code> environment variable for an application is only modified when the application is bound to a service instance. To update it so that it reflects the current set of protocols and features enabled in RabbitMQ, you can restage your application using the CLI with `cf restage <application name>`. This will cause your application to be restaged and have the updated bindings injected.
