@@ -4,15 +4,15 @@ title: Deploying and Managing the RabbitMQ Service
 ---
 
 ## Deployment
-Deploying RabbitMQ for Pivotal CF through Ops Manager will deploy a RabbitMQ cluster of **2 nodes** as default. The deployment includes a load balancer `haproxy` which spreads connections on all of the default ports, for all of the shipped plugins across all of the machines within the cluster. 
+Deploying RabbitMQ for Pivotal CF through Ops Manager will deploy a RabbitMQ cluster of **2 nodes** as default. The deployment includes a load balancer `haproxy` which spreads connections on all of the default ports, for all of the shipped plugins across all of the machines within the cluster.
 
 ### Configuration
-          
-On the RabbitMQ for Pivotal CF tile in Ops Manager, you:          
 
-* must choose an admin username and password for RabbitMQ. This will grant you full admin access to RabbitMQ via the Managment UI.
+On the RabbitMQ for Pivotal CF tile in Ops Manager, you:
+
+* must choose an admin username and password for RabbitMQ. This will grant you full admin access to RabbitMQ via the Management UI.
 * can choose which plugins you wish to enable. You must leave the Management plugin enabled otherwise nothing will work.
-* can provide SSL keys and certificates for use by the RabbitMQ cluster. Note SSL is simultaneously provided on the amqps port (5671) and the management port (15672). If you provide SSL keys and certificates, you are disabling non-SSL support. No other plugins are automatically configured for use with SSL. Note SSL settings are applied equally across all machines in the cluster.
+* can provide SSL keys and certificates for use by the RabbitMQ cluster. Note SSL is simultaneously provided on the AMQPS port (5671) and the management port (15672). If you provide SSL keys and certificates, you are disabling non-SSL support. No other plugins are automatically configured for use with SSL. Note SSL settings are applied equally across all machines in the cluster.
 * can specify the Erlang cookie value. This is useful if you wish to use other machines running Erlang to interact directly with the Erlang nodes running RabbitMQ, e.g. if you wish to run <code>rabbitmqctl</code> from a machine that is not part of the RabbitMQ cluster.
 * can provide a full <code>rabbitmq.config</code> file, if you need to. Note this file is provided to all the nodes in the cluster.
 * can easily resize the RabbitMQ cluster without losing state. The load balancer is automatically reconfigured with all available nodes
@@ -20,20 +20,20 @@ On the RabbitMQ for Pivotal CF tile in Ops Manager, you:
 
 ## Using RabbitMQ in your application
 
-RabbitMQ is shown in the services marketplace, either in the developer console or through `cf marketplace` on the CLI. 
+RabbitMQ is shown in the services marketplace, either in the developer console or through `cf marketplace` on the CLI.
 
 Application developers can create an instance of the application with `cf create-service p-rabbitmq standard <your name>`.
-For this service an instance equals a **Vhost** on the RabbitMQ cluster. 
+For this service an instance equals a **Vhost** on the RabbitMQ cluster.
 
-Creating a binding gives the user permissions to access this Vhost and associated management dashboard. 
-          
+Creating a binding gives the user permissions to access this Vhost and associated management dashboard.
+
 ## RabbitMQ management dashboard
-        
-To gain access to the management dashboard as the `admin` user, visit http://pivotal-rabbitmq.your.cf.installation.com 
+
+To gain access to the management dashboard as the `admin` user, visit http://pivotal-rabbitmq.your.cf.installation.com
 
 The username and password is the username and password you provided in the RabbitMQ configuration, which is also shown in the Credentials tab.
-          
+
 Users of Cloud Foundry who create instances via the developer web console, or the <code>cf</code> CLI also get access to the Management UI. This is done using credentials that provide access only to their particular <strong>vhost</strong>. The appropriate URL is accessible via the Manage button within the developer web console, but is also injected into the <code>VCAP_SERVICES</code> environment variable provided to apps running on Cloud Foundry. This can also be found via the CLI using `cf env <your app name>`.
 
 
-       
+
