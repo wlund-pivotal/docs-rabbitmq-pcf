@@ -1,8 +1,8 @@
 ---
-title: Redis for Pivotal CF
+title: RabbitMQ for Pivotal CF Documentation
 ---
 
-# Resource requirements for Redis for Pivotal CF
+# Resource requirements
 These are the default resource and IP requirements for installing the tile
 <table border="1" class="nice">
 	<tr>
@@ -17,39 +17,52 @@ These are the default resource and IP requirements for installing the tile
 		<th>Dynamic IP</th>
 	</tr>
 	<tr>
- 		<td>Redis</td>
-	 	<td>Redis Broker</td>
-	 	<td>1</td><td>2</td>
-	 	<td>1024</td><td>4096</td>
-	 	<td>1024</td>
+ 		<td>RabbitMQ</td>
+	 	<td>RabbitMQ Node</td>
+	 	<td>2</td>
+	 	<td>2</td>
+	 	<td>8192</td>
+	 	<td>4096</td>
+	 	<td>8192</td>
 	 	<td>1</td>
 	 	<td>0</td>
  	</tr>
  	<tr>
- 		<td>Redis</td>
- 		<td>Dedicated Node</td>
- 		<td>5</td>
- 		<td>2</td>
- 		<td>1024</td>
+ 		<td>RabbitMQ</td>
+ 		<td>HAProxy for RabbitmQ</td>
+ 		<td>1</td>
+ 		<td>1</td>
+ 		<td>2048</td>
  		<td>4096</td>
- 		<td>4096</td>
+ 		<td>0</td>
  		<td>1</td>
  		<td>0</td>
  	</tr>
  	<tr>
- 		<td>Redis</td>
- 		<td>Broker Registrar</td>
+ 		<td>RabbitMQ</td>
+ 		<td>RabbitMQ Service Broker</td>
  		<td>1</td>
  		<td>1</td>
- 		<td>1024</td>
  		<td>2048</td>
+ 		<td>4096</td>
  		<td>0</td>
  		<td>0</td>
  		<td>1</td>
  	</tr>
 	<tr>
-		<td>Redis</td>
-		<td>Broker De-Registrar</td>
+		<td>RabbitMQ</td>
+		<td>Compilation</td>
+		<td>2</td>
+		<td>2</td>
+		<td>2048</td>
+		<td>4096</td>
+		<td>0</td>
+		<td>0</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>RabbitMQ</td>
+		<td>Broker Registrar</td>
 		<td>1</td>
 		<td>1</td>
 		<td>1024</td>
@@ -59,12 +72,12 @@ These are the default resource and IP requirements for installing the tile
 		<td>1</td>
 	</tr>
 	<tr>
-		<td>Redis</td>
-		<td>Compliation</td>
-		<td>2</td>
-		<td>2</td>
+		<td>RabbitMQ</td>
+		<td>Broker De-Registrar</td>
+		<td>1</td>
+		<td>1</td>
 		<td>1024</td>
-		<td>4096</td>
+		<td>2048</td>
 		<td>0</td>
 		<td>0</td>
 		<td>1</td>
@@ -72,5 +85,4 @@ These are the default resource and IP requirements for installing the tile
 </table>
 
 #### Notes:
-* The `shared-vm` plan is on the `Redis Broker` resource
-* The `dedicated-vm` plan is on the `Dedicatd Node` resource
+* The number of `RabbitMQ Node` can be increased if required
