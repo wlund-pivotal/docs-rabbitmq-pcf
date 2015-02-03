@@ -10,6 +10,13 @@ Release notes for RabbitMQ for Pivotal CF
 Features included in this release:
 
 * Updated stemcell to 2824 to resolve [CVE-2015-0235 Ghost](http://www.pivotal.io/security/cve-2015-0235)
+* Upgraded RabbitMQ version to 3.4.3
+* Developers can add policies for their Vhost (instance)
+* Admin username and password changes through OpsManager are reflected correctly in RabbitMQ for the admin dashboard
+* Bug fix for package dependencies and installation errors
+* Bug fix for OAuth integration with UAA
+* Bug fix to ensure config changes in OpsManager are correctly reflected in RabbitMQ in a redeployment
+* Ability to disable TLS V1.0
 
 ## 1.3.3.2
 **Release Date: 14th November 2014**
