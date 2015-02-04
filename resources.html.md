@@ -3,7 +3,7 @@ title: RabbitMQ for Pivotal CF Documentation
 ---
 
 # Resource requirements
-These are the default resource and IP requirements for installing the tile
+The following table shows the default resource and IP requirements for installing the tile:
 <table border="1" class="nice">
 	<tr>
 		<th>Product</th>
@@ -85,4 +85,4 @@ These are the default resource and IP requirements for installing the tile
 </table>
 
 #### Notes:
-* The number of `RabbitMQ Node` can be increased if required
+* The number of `RabbitMQ Node` can be increased if required.
