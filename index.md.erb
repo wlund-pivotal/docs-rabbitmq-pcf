@@ -30,7 +30,7 @@ To install RabbitMQ for Pivotal CF, follow the procedure for installing Pivotal 
 1. Click the newly added tile to review any configurable options.
 1. Click **Apply Changes** to install the service.
 
-This product requires Ops Manager version 1.3 or greater.
+This product requires Ops Manager version 1.4 or greater.
 
 ### Using RabbitMQ in your application
 
@@ -40,6 +40,13 @@ Application developers can create an instance of the application with `cf create
 For this service an instance equals a **Vhost** on the RabbitMQ cluster.
 
 Creating a binding gives the user permissions to access this Vhost and associated management dashboard.
+
+### Current Limitations
+Limitations with the current RabbitmQ for Pivotal CF product include:
+
+* Availability Zone configuration **cannot** be changed once deployed. 
+
+We hope to address all of these limitations in future releases.
 
 ### Versions
 
