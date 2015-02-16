@@ -23,6 +23,8 @@ You must leave the management plugin enabled otherwise nothing will work.
 
 <%= image_tag("images/config_plugins.jpeg") %>
 
+[Click here for more information about RabbitMQ plugins](https://www.rabbitmq.com/plugins.html)
+
 ## HAProxy ports
 
 You can choose which ports HAProxy should load balance to the RabbitMQ nodes. 
@@ -69,6 +71,7 @@ No other plugins are automatically configured for use with SSL.
 
 Note SSL settings are applied equally across all machines in the cluster.
 
+[Click here for more information about SSL support](https://www.rabbitmq.com/ssl.html)
 
 ## Erlang Cookie
 
@@ -84,6 +87,8 @@ You can provide a full <code>rabbitmq.config</code> file, if you wish.
 <%= image_tag("images/config_rabbitmq.jpeg") %>
 
 This file is then provided to all the nodes in the cluster. 
+
+[Click here for more information about the RabbitMQ configuration file](https://www.rabbitmq.com/configure.html)
 
 ## TLS Support
 
