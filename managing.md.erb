@@ -5,11 +5,45 @@ title: Managing the RabbitMQ Service
 
 ## RabbitMQ management dashboard
 
+### Admin User
+
 To gain access to the management dashboard as the `admin` user, visit http://pivotal-rabbitmq.your.cf.installation.com
 
-The username and password is the username and password you provided in the RabbitMQ configuration, which is also shown in the Credentials tab.
+The username and password is the username and password you provided in the RabbitMQ configuration in OpsManager, which is also shown in the Credentials tab.
 
-Users of Cloud Foundry who create instances via the developer web console, or the <code>cf</code> CLI also get access to the Management UI. This is done using credentials that provide access only to their particular <strong>vhost</strong>. The appropriate URL is accessible via the Manage button within the developer web console, but is also injected into the <code>VCAP_SERVICES</code> environment variable provided to apps running on Cloud Foundry. This can also be found via the CLI using `cf env <your app name>`.
+<%= image_tag("images/dashboard.jpeg") %>
+
+### Application developer
+
+Users of Cloud Foundry who create instances via the developer web console, or the <code>cf</code> CLI also get access to the Management UI. This is done using credentials that provide access only to their particular <strong>vhost</strong>. 
+
+The appropriate URL is accessible via the Manage button within the developer web console. 
+
+<%= image_tag("images/console_manage.jpeg") %>
+
+Or it is also injected into the <code>VCAP_SERVICES</code> environment variable provided to apps running on Cloud Foundry. 
+This can also be found via the CLI using `cf env <your app name>`.
+
+<%= image_tag("images/cli_manage.jpeg") %>
 
 ## Logging
 
+A syslog endpoint can be configured in OpsManager, for logs from the RabbitMQ nodes to be directed to. 
+
+Logs from the HAProxy or Broker are not output yet. 
+
+## HAProxy statistics
+The HAProxy statistics page can be viewed at the IP address for the HAProxy node. 
+
+This page is only accessible via the internal IP address, so access will be required to your PCF network. 
+
+Identify the IP address of the HAProxy from the `Status` page in OpsManager for the RabbitMQ tile
+<%= image_tag("images/opsman_status.jpeg") %>
+Here, this is 10.0.0.55
+
+Identify the credentials for the HAProxy job, from the `Credentials` page in OpsManager
+<%= image_tag("images/opsman_credentials.jpeg") %>
+
+Visit http://10.0.0.55 and input the username & password to view the dashboard.
+
+If you have got multiple HAProxys then there will be seperate dashboards on each IP. 
