@@ -4,6 +4,16 @@ title: RabbitMQ for Pivotal CF
 
 Release notes for RabbitMQ for Pivotal CF
 
+## 1.4
+**Release Date: xx xx 2015**
+
+Features included in this release:
+
+* Support for multiple availability zones
+* Ability to remove HAProxy SPOF
+* Syslog output from RabbitMQ Nodes
+* Increased dependency to OpsManager 1.4 on vSphere
+
 ## 1.3.4
 **Release Date: 30th January 2015**
 
