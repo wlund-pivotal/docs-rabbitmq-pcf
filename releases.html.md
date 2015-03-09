@@ -4,6 +4,13 @@ title: RabbitMQ for Pivotal CF
 
 Release notes for RabbitMQ for Pivotal CF
 
+## 1.3.5
+**Release Date: 6th March 2015**
+
+Features included in this release:
+
+* Updated version of Jetty to 9.2.9
+
 ## 1.3.4
 **Release Date: 30th January 2015**
 
