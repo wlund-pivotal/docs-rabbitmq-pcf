@@ -11,8 +11,18 @@ Features included in this release:
 
 * Support for multiple availability zones
 * Ability to remove HAProxy SPOF
+* Ability to configure an external load balancer
 * Syslog output from RabbitMQ Nodes
-* Increased dependency to OpsManager 1.4 on vSphere
+* Queues mirrored to two nodes as default
+* Requires OpsManager 1.4.0 or greater
+* Support for vSphere and AWS
+
+## 1.3.5
+**Release Date: 6th March 2015**
+
+Features included in this release:
+
+* Updated version of Jetty to 9.2.9
 
 ## 1.3.4
 **Release Date: 30th January 2015**

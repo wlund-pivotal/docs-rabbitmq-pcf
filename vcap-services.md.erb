@@ -5,71 +5,105 @@ title: RabbitMQ Entries in the VCAP_SERVICES Environment Variable
 
 Applications running in Cloud Foundry gain access to service instances which are bound to them by credentials passed to them through the <code>VCAP_SERVICES</code> environment variable available to the application. Here is an example:
 
+## Connecting to RabbitMQ best practice
+
+The latest version of RabbitMQ tile 1.4 introduces a new property which is a plural of the existing connection properties.
+This is an array of strings and is introduced to handle the scaled out number of HAProxy jobs.
+
+For example with two HAProxy jobs deployed:
+<pre><code>
+"hostname": "10.0.0.41",
+"hostnames": [
+ "10.0.0.41",
+ "10.0.0.51"
+],
+</code></pre>
+
+`hostnames` should be used instead of `hostname`, both are maintained for backwards compatibility. The singular versions will eventually be deprecated. 
+
+Most client libraries can handle multiple hostnames being provided and will choose which one to use, in the event of a HAProxy failing.
+Alternatively this can be handled in the application. 
+
+## Full Example
+
 <pre><code>
 {
-  "p-rabbitmq":[
-    {
-      "name":"rabbit1",
-      "label":"p-rabbitmq",
-      "tags":[
-        "rabbitmq",
-        "messaging",
-        "message-queue",
-        "amqp",
-        "stomp",
-        "mqtt",
-        "pivotal"
-      ],
-      "plan":"standard",
-      "credentials":{
-        "ssl":true,
-        "dashboard_url":"http://10.244.9.50:15672/#/login/50cacd4b-3a84-4397-abee-e02a4a7d57d2/67q18nc7is0iohiqvq8ik19fs6",
-        "password":"67q18nc7is0iohiqvq8ik19fs6",
-        "protocols":{
-          "management":{
-            "uri":"http://50cacd4b-3a84-4397-abee-e02a4a7d57d2:67q18nc7is0iohiqvq8ik19fs6@10.244.9.50:15672/api",
-            "username":"50cacd4b-3a84-4397-abee-e02a4a7d57d2",
-            "password":"67q18nc7is0iohiqvq8ik19fs6",
-            "host":"10.244.9.50",
-            "port":15672,
-            "path":"/api",
-            "ssl":false
-          },
-          "amqp":{
-            "vhost":"33c286f9-0c67-4d84-99c8-db9c2747e1c8",
-            "username":"50cacd4b-3a84-4397-abee-e02a4a7d57d2",
-            "password":"67q18nc7is0iohiqvq8ik19fs6",
-            "port":5672,
-            "host":"10.244.9.50",
-            "ssl":false,
-            "uri":"amqp://50cacd4b-3a84-4397-abee-e02a4a7d57d2:67q18nc7is0iohiqvq8ik19fs6@10.244.9.50:5672/33c286f9-0c67-4d84-99c8-db9c2747e1c8"
-          },
-          "mqtt":{
-            "username":"33c286f9-0c67-4d84-99c8-db9c2747e1c8:50cacd4b-3a84-4397-abee-e02a4a7d57d2",
-            "password":"67q18nc7is0iohiqvq8ik19fs6",
-            "port":1883,
-            "host":"10.244.9.50",
-            "ssl":false,
-            "uri":"mqtt://33c286f9-0c67-4d84-99c8-db9c2747e1c8%3A50cacd4b-3a84-4397-abee-e02a4a7d57d2:67q18nc7is0iohiqvq8ik19fs6@10.244.9.50:1883"
-          },
-          "stomp":{
-            "vhost":"33c286f9-0c67-4d84-99c8-db9c2747e1c8",
-            "username":"50cacd4b-3a84-4397-abee-e02a4a7d57d2",
-            "password":"67q18nc7is0iohiqvq8ik19fs6",
-            "port":61613,
-            "host":"10.244.9.50",
-            "ssl":false,
-            "uri":"stomp://50cacd4b-3a84-4397-abee-e02a4a7d57d2:67q18nc7is0iohiqvq8ik19fs6@10.244.9.50:61613"
-          }
-        },
-        "username":"50cacd4b-3a84-4397-abee-e02a4a7d57d2",
-        "hostname":"10.244.9.50",
-        "vhost":"33c286f9-0c67-4d84-99c8-db9c2747e1c8",
-        "http_api_uri":"http://50cacd4b-3a84-4397-abee-e02a4a7d57d2:67q18nc7is0iohiqvq8ik19fs6@10.244.9.50:15672/api",
-        "uri":"amqp://50cacd4b-3a84-4397-abee-e02a4a7d57d2:67q18nc7is0iohiqvq8ik19fs6@10.244.9.50/33c286f9-0c67-4d84-99c8-db9c2747e1c8"
+ "VCAP_SERVICES": {
+  "p-rabbitmq": [
+   {
+    "credentials": {
+     "dashboard_url": "http://pivotal-rabbitmq.your.pcf.com/#/login/b5d0ad14-4352-48e8-8982-d5b1d257029f/tavk86pnnns1ddiqpsdtbchurn",
+     "hostname": "10.0.0.41",
+     "hostnames": [
+      "10.0.0.41",
+      "10.0.0.51"
+     ],
+     "http_api_uri": "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:15672/api",
+     "http_api_uris": [
+      "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:15672/api",
+      "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.51:15672/api"
+     ],
+     "password": "tavk86pnnns1ddiqpsdtbchurn",
+     "protocols": {
+      "amqp": {
+       "host": "10.0.0.41",
+       "hosts": [
+        "10.0.0.41",
+        "10.0.0.51"
+       ],
+       "password": "tavk86pnnns1ddiqpsdtbchurn",
+       "port": 5672,
+       "ssl": false,
+       "uri": "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+       "uris": [
+        "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+        "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.51:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7"
+       ],
+       "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f",
+       "vhost": "62e5ab21-7b38-44ac-b139-6aa97af01cd7"
+      },
+      "management": {
+       "host": "10.0.0.41",
+       "hosts": [
+        "10.0.0.41",
+        "10.0.0.51"
+       ],
+       "password": "tavk86pnnns1ddiqpsdtbchurn",
+       "path": "/api",
+       "port": 15672,
+       "ssl": false,
+       "uri": "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:15672/api",
+       "uris": [
+        "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:15672/api",
+        "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.51:15672/api"
+       ],
+       "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f"
       }
-    }
+     },
+     "ssl": false,
+     "uri": "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+     "uris": [
+      "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+      "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.51/62e5ab21-7b38-44ac-b139-6aa97af01cd7"
+     ],
+     "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f",
+     "vhost": "62e5ab21-7b38-44ac-b139-6aa97af01cd7"
+    },
+    "label": "p-rabbitmq",
+    "name": "rabbitmq",
+    "plan": "standard",
+    "tags": [
+     "rabbitmq",
+     "messaging",
+     "message-queue",
+     "amqp",
+     "stomp",
+     "mqtt",
+     "pivotal"
+    ]
+   }
   ]
+ }
 } 
 </code></pre>
 
@@ -82,78 +116,10 @@ Note that if SSL is enabled via the installer, then the keys for <code>amqp</cod
 <code>mqtt</code>, and <code>stomp</code> will be
 adjusted to <code>amqp+ssl</code>, <code>management+ssl</code>, <code>mqtt+ssl</code>, and <code>stomp+ssl</code> respectively:
 
-<pre><code>
-{
-  "p-rabbitmq":[
-    {
-      "name":"rabbit1",
-      "label":"p-rabbitmq",
-      "tags":[
-        "rabbitmq",
-        "messaging",
-        "message-queue",
-        "amqp",
-        "stomp",
-        "mqtt",
-        "pivotal"
-      ],
-      "plan":"standard",
-      "credentials":{
-        "ssl":true,
-        "dashboard_url":"https://10.244.9.50:15672/#/login/50cacd4b-3a84-4397-abee-e02a4a7d57d2/67q18nc7is0iohiqvq8ik19fs6",
-        "password":"67q18nc7is0iohiqvq8ik19fs6",
-        "protocols":{
-          "management+ssl":{
-            "uri":"https://50cacd4b-3a84-4397-abee-e02a4a7d57d2:67q18nc7is0iohiqvq8ik19fs6@10.244.9.50:15672/api",
-            "username":"50cacd4b-3a84-4397-abee-e02a4a7d57d2",
-            "password":"67q18nc7is0iohiqvq8ik19fs6",
-            "host":"10.244.9.50",
-            "port":15672,
-            "path":"/api",
-            "ssl":true
-          },
-          "amqp+ssl":{
-            "vhost":"33c286f9-0c67-4d84-99c8-db9c2747e1c8",
-            "username":"50cacd4b-3a84-4397-abee-e02a4a7d57d2",
-            "password":"67q18nc7is0iohiqvq8ik19fs6",
-            "port":5671,
-            "host":"10.244.9.50",
-            "ssl":true,
-            "uri":"amqps://50cacd4b-3a84-4397-abee-e02a4a7d57d2:67q18nc7is0iohiqvq8ik19fs6@10.244.9.50:5671/33c286f9-0c67-4d84-99c8-db9c2747e1c8"
-          },
-          "mqtt+ssl":{
-            "username":"33c286f9-0c67-4d84-99c8-db9c2747e1c8:50cacd4b-3a84-4397-abee-e02a4a7d57d2",
-            "password":"67q18nc7is0iohiqvq8ik19fs6",
-            "port":8883,
-            "host":"10.244.9.50",
-            "ssl":true,
-            "uri":"mqtt+ssl://33c286f9-0c67-4d84-99c8-db9c2747e1c8%3A50cacd4b-3a84-4397-abee-e02a4a7d57d2:67q18nc7is0iohiqvq8ik19fs6@10.244.9.50:8883"
-          },
-          "stomp+ssl":{
-            "vhost":"33c286f9-0c67-4d84-99c8-db9c2747e1c8",
-            "username":"50cacd4b-3a84-4397-abee-e02a4a7d57d2",
-            "password":"67q18nc7is0iohiqvq8ik19fs6",
-            "port":61614,
-            "host":"10.244.9.50",
-            "ssl":true,
-            "uri":"stomp+ssl://50cacd4b-3a84-4397-abee-e02a4a7d57d2:67q18nc7is0iohiqvq8ik19fs6@10.244.9.50:61614"
-          }
-        },
-        "username":"50cacd4b-3a84-4397-abee-e02a4a7d57d2",
-        "hostname":"10.244.9.50",
-        "vhost":"33c286f9-0c67-4d84-99c8-db9c2747e1c8",
-        "http_api_uri":"https://50cacd4b-3a84-4397-abee-e02a4a7d57d2:67q18nc7is0iohiqvq8ik19fs6@10.244.9.50:15672/api",
-        "uri":"amqps://50cacd4b-3a84-4397-abee-e02a4a7d57d2:67q18nc7is0iohiqvq8ik19fs6@10.244.9.50/33c286f9-0c67-4d84-99c8-db9c2747e1c8"
-      }
-    }
-  ]
-}
-</code></pre>
-
 The values associated with each of these keys gives access credentials specific to each protocol. In all cases,
 a full URI is provided, along with the individual components to facilitate ease of use with client libraries that do not
 support the full URIs.
 
-## <a id="vcap"></a>Updating the VCAP_SERVICES Environment Variable
+## Updating the VCAP_SERVICES Environment Variable
 
 If you adjust the plugins and protocols enabled for RabbitMQ via the installer, you will need to force the <code>VCAP_SERVICES</code> environment variables to be regenerated. In common with all services in Pivotal Cloud Foundry, the <code>VCAP_SERVICES</code> environment variable for an application is only modified when the application is bound to a service instance. To update it so that it reflects the current set of protocols and features enabled in RabbitMQ, you can restage your application using the CLI with `cf restage <application name>`. This will cause your application to be restaged and have the updated bindings injected.
