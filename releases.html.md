@@ -4,6 +4,13 @@ title: RabbitMQ for Pivotal CF
 
 Release notes for RabbitMQ for Pivotal CF
 
+### 1.3.6
+**Release Date: 23rd March 2015**
+
+Features included in this release:
+
+* Updated stemcell to 2889 to resolve [these OpenSSL CVE alerts](http://pivotal.io/security/usn-2537-1)
+
 ## 1.3.5
 **Release Date: 6th March 2015**
 
