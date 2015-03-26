@@ -1,5 +1,5 @@
 ---
-breadcrumb: RabbitMQ for Pivotal CF Documentation
+breadcrumb: RabbitMQ for PCF Documentation
 title: RabbitMQ Entries in the VCAP_SERVICES Environment Variable
 ---
 
@@ -70,7 +70,7 @@ Applications running in Cloud Foundry gain access to service instances which are
       }
     }
   ]
-} 
+}
 </code></pre>
 
 The properties of the <code>credentials</code> object serve two purposes. Firstly, for backwards compatibility with other cloud messaging providers, the <code>uri</code>, <code>vhost</code>, <code>username</code>, <code>password</code> and <code>hostname</code> properties are provided directly. However, these will only ever reflect access to RabbitMQ over AMQP 0-9-1. Using these properties is discouraged.

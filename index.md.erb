@@ -1,25 +1,25 @@
 ---
-breadcrumb: RabbitMQ for Pivotal CF Documentation
-title: RabbitMQ for Pivotal CF Documentation
+breadcrumb: RabbitMQ for PCF Documentation
+title: RabbitMQ for PCF Documentation
 ---
 
 RabbitMQ is a fast and dependable open-source message server that supports a wide range of use cases including reliable integration, content based routing and global data delivery, and high volume monitoring and data ingestion.
 
 Emerging as the defacto standard for cloud messaging, RabbitMQ is used for efficient communication between servers, applications and devices, and creates lasting value by enabling rapid development of modern decentralized application and data architectures that can scale with your business needs.
-The Pivotal CF installer enables cloud operators to deploy a RabbitMQ service in Pivotal CF. You can deploy the service as a single node or a cluster.
+The [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) (PCF) installer enables cloud operators to deploy a [RabbitMQ service](https://network.pivotal.io/products/pivotal-rabbitmq-service) in PCF. You can deploy the service as a single node or a cluster.
 
 ## <a id="features"></a>Features
 
-* The RabbitMQ service enables application developers to provision protocol plugins and management API access to the deployed RabbitMQ service for their Pivotal CF applications. Each service instance corresponds to a unique RabbitMQ vhost (virtual host), and each service binding corresponds to a unique user with access limited to the vhost of the bound service instance. The management  user interface is accessible to developers through the Pivotal CF console.
+* The RabbitMQ service enables application developers to provision protocol plugins and management API access to the deployed RabbitMQ service for their PCF applications. Each service instance corresponds to a unique RabbitMQ vhost (virtual host), and each service binding corresponds to a unique user with access limited to the vhost of the bound service instance. The management  user interface is accessible to developers through the PCF console.
 * The service can be configured to require SSL (Secure Sockets Layer) connections for AMQP 0-9-1, MQTT, STOMP, and the management API.
-* The deployment includes a load balancer in front of the clustered RabbitMQ nodes to provide resource balancing between the nodes. Applications can connect to the service without any awareness of the cluster topology. 
+* The deployment includes a load balancer in front of the clustered RabbitMQ nodes to provide resource balancing between the nodes. Applications can connect to the service without any awareness of the cluster topology.
 * The initial configuration, including the number of nodes and their specifications, a list of enabled plugins, and other parameters can be altered dynamically later. You can upgrade RabbitMQ and its dependencies later to suit your development needs.
-* The RabbitMQ management API, user and command-line interfaces are available to operators and application developers, the latter with non-administrator privileges. The administrative command-line interface is available to operators only. 
-* Pivotal CF deploys open-source RabbitMQ. Support for Pivotal RabbitMQ is expected at a later date.
+* The RabbitMQ management API, user and command-line interfaces are available to operators and application developers, the latter with non-administrator privileges. The administrative command-line interface is available to operators only.
+* PCF deploys open-source RabbitMQ. Support for Pivotal RabbitMQ is expected at a later date.
 
 ### Install via Pivotal Ops Manager
 
-To install RabbitMQ for Pivotal CF, follow the procedure for installing Pivotal Ops Manager tiles:
+To install RabbitMQ for PCF, follow the procedure for installing Pivotal Ops Manager tiles:
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/).
 1. Upload the product file to your Ops Manager installation.
@@ -30,20 +30,20 @@ To install RabbitMQ for Pivotal CF, follow the procedure for installing Pivotal 
 This product requires Ops Manager version 1.3 or greater.
 
 ### Current Limitations
-Limitations with the current RabbitmQ for Pivotal CF product include:
+Limitations with the current RabbitmQ for PCF product include:
 
-* Clusters **should not** be spread across multiple availability zones, they should be limited to a single AZ at this time. 
+* Clusters **should not** be spread across multiple availability zones, they should be limited to a single AZ at this time.
 
-We hope to address all of these limitations in future releases. 
+We hope to address all of these limitations in future releases.
 
 
 ### Versions
 
-The latest version of RabbitMQ for Pivotal CF is **1.3.3.2** which is comprised of:
+The latest version of RabbitMQ for PCF is **1.3.3.2** which is comprised of:
 
 * RabbitMQ version 3.3.5
 
 This product requires Ops Manager version 1.3 or greater.
 
 ### Feedback
-Please provide any bugs, feature requests, or questions to [the Pivotal CF Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
+Please provide any bugs, feature requests, or questions to [the Pivotal Cloud Foundry Feedback list](mailto:pivotal-cf-feedback@pivotal.io).

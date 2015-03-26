@@ -1,14 +1,14 @@
 ---
-breadcrumb: RabbitMQ for Pivotal CF Documentation
+breadcrumb: RabbitMQ for PCF Documentation
 title: Deploying and Managing the RabbitMQ Service
 ---
 
 ## Deployment
-Deploying RabbitMQ for Pivotal CF through Ops Manager will deploy a RabbitMQ cluster of **2 nodes** as default. The deployment includes a load balancer `haproxy` which spreads connections on all of the default ports, for all of the shipped plugins across all of the machines within the cluster.
+Deploying [RabbitMQ for Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-rabbitmq-service) through [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) Operations Manager will deploy a RabbitMQ cluster of **2 nodes** as default. The deployment includes a load balancer `haproxy` which spreads connections on all of the default ports, for all of the shipped plugins across all of the machines within the cluster.
 
 ### Configuration
 
-On the RabbitMQ for Pivotal CF tile in Ops Manager, you:
+On the RabbitMQ for PCF tile in Ops Manager, you:
 
 * must choose an admin username and password for RabbitMQ. This will grant you full admin access to RabbitMQ via the Management UI.
 * can choose which plugins you wish to enable. You must leave the Management plugin enabled otherwise nothing will work.
