@@ -4,7 +4,7 @@ title: Deploying the RabbitMQ Service
 ---
 
 ## Default Deployment
-Deploying RabbitMQ for Pivotal CF through Ops Manager will deploy a RabbitMQ cluster of **2 nodes** as default. 
+Deploying RabbitMQ for Pivotal CF through Ops Manager will deploy a RabbitMQ cluster of **2 nodes** by default.
 
 The deployment includes a single load balancer `haproxy` which spreads connections on all of the default ports, for all of the shipped plugins across all of the machines within the cluster.
 
@@ -89,4 +89,4 @@ This approach works as any existing bound applications have their `VCAP_SERVICES
 ### Downgrading from this deployment to the recommended deployment
 If you are currently using an external load balancer, then you can move back to using HAProxys instead.
 
-You can achieve this by following the above steps in reverse order and re-instating the HAProxy jobs. 
+You can achieve this by following the above steps in reverse order and re-instating the HAProxy jobs.

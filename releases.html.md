@@ -13,7 +13,7 @@ Features included in this release:
 * Ability to remove HAProxy SPOF
 * Ability to configure an external load balancer
 * Syslog output from RabbitMQ Nodes
-* Queues mirrored to two nodes as default
+* Queues mirrored to two nodes by default
 * Requires OpsManager 1.4.0 or greater
 * Support for vSphere and AWS
 

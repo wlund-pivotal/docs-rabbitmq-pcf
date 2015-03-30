@@ -31,7 +31,7 @@ You can choose which ports HAProxy should load balance to the RabbitMQ nodes.
 
 <%= image_tag("images/config_haproxy.jpeg") %>
 
-By default all the default ports of all the available plugins will be load-balanced. 
+By default all the default ports of all the available plugins will be load-balanced.
 
 However, if you install extra protocol plugins, or provide a custom configuration which changes the ports that RabbitMQ listens on then you must update the list of load-balanced ports. 
 
@@ -92,13 +92,13 @@ This file is then provided to all the nodes in the cluster.
 
 ## TLS Support
 
-TLS v1.0 is disabled by default, due to insecurities. 
+TLS v1.0 is disabled by default, due to insecurities.
 
 <%= image_tag("images/config_tls1.jpeg") %>
 
 You can enable it again by ticking the checkbox.
 
-TLS v1.1 and 1.2 are enabled as default and cannot be turned on or off. 
+TLS v1.1 and 1.2 are enabled by default and cannot be turned on or off.
 
 ## External load balancer
 <%= image_tag("images/config_elb.jpeg") %>
