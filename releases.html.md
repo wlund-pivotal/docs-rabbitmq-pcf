@@ -1,8 +1,22 @@
 ---
-title: RabbitMQ for Pivotal CF
+title: RabbitMQ for Pivotal Cloud Foundry
 ---
 
-Release notes for RabbitMQ for Pivotal CF
+Release notes for [RabbitMQ for Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-rabbitmq-service)
+
+### 1.3.6
+**Release Date: 23rd March 2015**
+
+Features included in this release:
+
+* Updated stemcell to 2889 to resolve [these OpenSSL CVE alerts](http://pivotal.io/security/usn-2537-1)
+
+## 1.3.5
+**Release Date: 6th March 2015**
+
+Features included in this release:
+
+* Updated version of Jetty to 9.2.9
 
 ## 1.4
 **Release Date: 10th April 2015**
@@ -82,13 +96,13 @@ Features included in this release:
 * Resolves issue with idle client connections being closed very quickly
 
 ### Upgrading from 1.2.0
-It is unfortunately **not** possible to upgrade from any prior versions to this tile version or greater. 
+It is unfortunately **not** possible to upgrade from any prior versions to this tile version or greater.
 E.g. from 1.2.0 to 1.3.2.1
 
 This is because tile versions 1.2.0 and earlier use v1 of the Services API, whilst all newer tiles use v2.
-The migration between the versions would have being risky and complicated due to the way RabbitMQ was using service names, therefore the decision was taken to not support tile upgrades. 
+The migration between the versions would have being risky and complicated due to the way RabbitMQ was using service names, therefore the decision was taken to not support tile upgrades.
 
-We always aim for tiles to be upgradeable from previous versions where possible. 
+We always aim for tiles to be upgradeable from previous versions where possible.
 
 ### Options
 We recommend the following:
