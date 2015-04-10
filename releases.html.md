@@ -18,6 +18,33 @@ Features included in this release:
 
 * Updated version of Jetty to 9.2.9
 
+## 1.4
+**Release Date: 10th April 2015**
+
+Features included in this release:
+
+* Support for multiple availability zones
+* Ability to remove HAProxy SPOF
+* Ability to configure an external load balancer
+* Syslog output from RabbitMQ Nodes
+* Queues mirrored to two nodes by default
+* Requires OpsManager 1.4.0 and Elastic Runtime 1.4.0 or greater
+* Support for vSphere and AWS
+
+### 1.3.6
+**Release Date: 23rd March 2015**
+
+Features included in this release:
+
+* Updated stemcell to 2889 to resolve [these OpenSSL CVE alerts](http://pivotal.io/security/usn-2537-1)
+
+## 1.3.5
+**Release Date: 6th March 2015**
+
+Features included in this release:
+
+* Updated version of Jetty to 9.2.9
+
 ## 1.3.4
 **Release Date: 30th January 2015**
 
