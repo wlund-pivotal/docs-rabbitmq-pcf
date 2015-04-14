@@ -17,7 +17,7 @@ Features included in this release:
 * Requires OpsManager 1.4.0 and Elastic Runtime 1.4.0 or greater
 * Support for vSphere and AWS
 
-**Important:** You may experience a **small window of downtime** during this particular deployment as the cluster nodes are re-named. We recommend you communicate with your application owners in advance. 
+**Important:** You may experience a **small window of downtime** during this particular deployment as the cluster nodes are renamed. We recommend that you communicate with your application owners in advance to minimize the impact of this downtime. 
 
 ### 1.3.6
 **Release Date: 23rd March 2015**
