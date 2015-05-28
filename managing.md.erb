@@ -3,7 +3,7 @@ breadcrumb: RabbitMQ for Pivotal CF Documentation
 title: Managing the RabbitMQ Service
 ---
 
-## RabbitMQ management dashboard
+## RabbitMQ Management Dashboard
 
 ### Admin User
 
@@ -13,15 +13,15 @@ The username and password is the username and password you provided in the Rabbi
 
 <%= image_tag("images/dashboard.jpeg") %>
 
-### Application developer
+### Application Developer
 
-Users of Cloud Foundry who create instances via the developer web console, or the <code>cf</code> CLI also get access to the Management UI. This is done using credentials that provide access only to their particular <strong>vhost</strong>. 
+Users of Cloud Foundry who create instances via the Apps Manager, or the <code>cf</code> CLI also get access to the Management UI. This is done using credentials that provide access only to their particular <strong>vhost</strong>.
 
-The appropriate URL is accessible via the Manage button within the developer web console. 
+The appropriate URL is accessible via the Manage button within the Apps Manager.
 
 <%= image_tag("images/console_manage.jpeg") %>
 
-Or it is also injected into the <code>VCAP_SERVICES</code> environment variable provided to apps running on Cloud Foundry. 
+Or it is also injected into the <code>VCAP_SERVICES</code> environment variable provided to apps running on Cloud Foundry.
 This can also be found via the CLI using `cf env <your app name>`.
 
 <%= image_tag("images/cli_manage.jpeg") %>
@@ -47,16 +47,16 @@ Cluster status of node rabbit@node0 ...
 ...done.
 </code></pre>
 
-Alternatively install RabbitMQ and Erlang on a machine of your choice (though be sure to match versions of both to the cluster: the Management UI shows both the version of RabbitMQ and Erlang). 
+Alternatively, install RabbitMQ and Erlang on a machine of your choice. Be sure to match versions of both to the cluster: the Management UI shows both the version of RabbitMQ and Erlang.
 
-Then set your <code>~/.erlang.cookie</code> to match the cookie used in the cluster (you may have supplied this as part of the installation; see above). 
+Then set your <code>~/.erlang.cookie</code> to match the cookie used in the cluster (you may have supplied this as part of the installation; see above).
 
-You'll need to set up your <code>/etc/hosts</code> file to match the RabbitMQ nodes. 
+You'll need to set up your <code>/etc/hosts</code> file to match the RabbitMQ nodes.
 
-## HAProxy statistics
-The HAProxy statistics page can be viewed at the IP address for the HAProxy node. 
+## HAProxy Statistics
+The HAProxy statistics page can be viewed at the IP address for the HAProxy node.
 
-This page is only accessible via the internal IP address, so access will be required to your PCF network. 
+This page is only accessible via the internal IP address, so access will be required to your PCF network.
 
 Identify the IP address of the HAProxy from the `Status` page in OpsManager for the RabbitMQ tile
 <%= image_tag("images/opsman_status.jpeg") %>
@@ -67,4 +67,4 @@ Identify the credentials for the HAProxy job, from the `Credentials` page in Ops
 
 Visit http://10.0.0.55 and input the username & password to view the dashboard.
 
-If you have got multiple HAProxys then there will be seperate dashboards on each IP. 
+If you have got multiple HAProxys then there will be separate dashboards on each IP.
