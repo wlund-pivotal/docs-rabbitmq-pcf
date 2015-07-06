@@ -30,6 +30,12 @@ Features included in this release:
 
 **Important:** You may experience a **small window of downtime** during this particular deployment as the cluster nodes are renamed. We recommend that you communicate with your application owners in advance to minimize the impact of this downtime. 
 
+Additional known issues: 
+
+* On AWS, this version supports deployments in the US-East region. Multi-region support is coming in a future release
+* The experimental HTTPS-only feature in Elastic Runtime 1.5 may cause issues with this version of the product. Full support for HTTPS-only trafic is coming in a future release
+* Note: BOSH Stemcell 2865.1 is required for installation on Ops Manager 1.5.x and above
+
 ### 1.3.6
 **Release Date: 23rd March 2015**
 
