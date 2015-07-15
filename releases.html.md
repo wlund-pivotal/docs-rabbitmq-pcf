@@ -4,6 +4,16 @@ title: RabbitMQ for Pivotal Cloud Foundry
 
 Release notes for [RabbitMQ for Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-rabbitmq-service)
 
+### 1.4.2
+**Release Date: 16th July 2015**
+
+Features included in this release:
+
+* Updated HAProxy to latest version in the 1.5.x branch to resolve CVE-2015-3281
+* Requires stemcell 3012
+
+**Note:** You may need to upload stemcell version 3012 to your OpsManager installation. [These are available here](https://network.pivotal.io/products/pivotal-cf#/releases/293/file_groups/278)
+
 ### 1.4.1
 **Release Date: 6th July 2015**
 
