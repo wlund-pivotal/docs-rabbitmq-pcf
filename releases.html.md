@@ -14,6 +14,10 @@ Features included in this release:
 
 **Note:** You may need to upload stemcell version 3012 to your OpsManager installation. [These are available here](https://network.pivotal.io/products/pivotal-cf#/releases/293/file_groups/278)
 
+## Known Issues:
+
+* The `manage` button for your RabbitMQ instance in Apps Manager will not automatically log you into the RabbitMQ Dashboard. You need to press `logout` and then login with your `username` and `password` which can be obtained from inspecting the environment variables for your instance.
+
 ### 1.4.1
 **Release Date: 6th July 2015**
 
@@ -24,6 +28,10 @@ Features included in this release:
 * Support for HTTPS only environments
 * Support for vSphere or AWS Deployments
 * Requires stemcell 2989
+
+## Known Issues:
+
+* The `manage` button for your RabbitMQ instance in Apps Manager will not automatically log you into the RabbitMQ Dashboard. You need to press `logout` and then login with your `username` and `password` which can be obtained from inspecting the environment variables for your instance.
 
 ## 1.4
 **Release Date: 10th April 2015**
