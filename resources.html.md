@@ -1,5 +1,5 @@
 ---
-title: RabbitMQ for Pivotal Cloud Foundry Documentation
+title: RabbitMQ for Pivotal Cloud Foundry&reg; Documentation
 ---
 
 # Resource requirements

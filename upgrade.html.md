@@ -1,5 +1,5 @@
 ---
-title: RabbitMQ for Pivotal Cloud Foundry
+title: RabbitMQ for Pivotal Cloud Foundry&reg;
 ---
 
 # Upgrades

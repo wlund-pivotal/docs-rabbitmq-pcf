@@ -1,10 +1,10 @@
 ---
-breadcrumb: RabbitMQ for Pivotal CF Documentation
+breadcrumb: RabbitMQ for Pivotal Cloud Foundry&reg; Documentation
 title: Deploying the RabbitMQ Service
 ---
 
 ## Default Deployment
-Deploying RabbitMQ for Pivotal CF through Ops Manager will deploy a RabbitMQ cluster of **2 nodes** by default.
+Deploying RabbitMQ for [Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/pivotal-cf) (PCF) through Ops Manager will deploy a RabbitMQ cluster of **2 nodes** by default.
 
 The deployment includes a single load balancer `haproxy` which spreads connections on all of the default ports, for all of the shipped plugins across all of the machines within the cluster.
 
@@ -20,14 +20,14 @@ The deployment will occur in a single availability zone (AZ).
 
 ## Recommended Deployment
 
-It is recommended that RabbitMQ is deployed across at least two availability zones. 
+We recommended that RabbitMQ is deployed across at least two availability zones. 
 
 The HAProxy job instance count should also be increased to match the number of AZs to ensure there is a HAProxy located in each AZ.
 This removes the HAProxy SPOF and provides further redundancy. 
 
 <%= image_tag("images/deployment_recommended.jpeg") %>
 
-In the above diagram you can see that you can now suffer the failure of a single HAProxy and single RabbitMQ node and still keep your cluster online and applications connected. 
+In the above diagram, you can see that you can now suffer the failure of a single HAProxy and single RabbitMQ node and still keep your cluster online and applications connected. 
 
 ### Upgrading to this deployment from a single AZ deployment
 
