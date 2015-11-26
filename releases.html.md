@@ -4,6 +4,13 @@ title: RabbitMQ for Pivotal Cloud Foundry&reg;
 
 Release notes for [RabbitMQ for Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/pivotal-rabbitmq-service)
 
+### 1.4.9
+**Release Date: 1st December 2015**
+
+Features included in this release:
+
+* Update stemcell to 3144. Resolves CVEs: USN-2815-1, USN-2812-1 and USN-2810-1.
+
 ### 1.4.8
 **Release Date: 11th November 2015**
 
