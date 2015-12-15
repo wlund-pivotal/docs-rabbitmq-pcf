@@ -4,26 +4,38 @@ title: RabbitMQ for Pivotal Cloud Foundry&reg;
 
 Release notes for [RabbitMQ for Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/pivotal-rabbitmq-service)
 
+### 1.5.0
+**Release Date: 3rd December 2015**
+
+Features included in this release:
+
+* RabbitMQ 3.5.6
+* Erlang 18.1
+* RabbitMQ HTTP logging enabled
+* Update stemcell to 3147
+
+**Important:** You will experience a **full cluster outage** during this particular deployment as the RabbitMQ & Erlang versions are updated. We recommend that you communicate with your application owners in advance to minimize the impact of this downtime.
+
 ### 1.4.10
 **Release Date: 3rd December 2015**
 
 Features included in this release:
 
-* Update stemcell to 3146. Resolves CVE USN-2821-1.
+* Update stemcell to 3146. Resolves CVE USN-2821-1
 
 ### 1.4.9
 **Release Date: 1st December 2015**
 
 Features included in this release:
 
-* Update stemcell to 3144. Resolves CVEs: USN-2815-1, USN-2812-1 and USN-2810-1.
+* Update stemcell to 3144. Resolves CVEs: USN-2815-1, USN-2812-1 and USN-2810-1
 
 ### 1.4.8
 **Release Date: 11th November 2015**
 
 Features included in this release:
 
-* Update stemcell to 3130. Resolves CVE USN-2806-1.
+* Update stemcell to 3130. Resolves CVE USN-2806-1
 
 ### 1.4.7
 **Release Date: 30th October 2015**
