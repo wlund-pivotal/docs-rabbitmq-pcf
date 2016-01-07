@@ -12,8 +12,8 @@ The [Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/pivotal-cf)
 
 <dl>
 <dt>Current RabbitMQ for PCF Details</dt>
-<dd><strong>Version</strong>: 1.5.1 </dd>
-<dd><strong>Release Date</strong>: 21st December 2015</dd>
+<dd><strong>Version</strong>: 1.5.2 </dd>
+<dd><strong>Release Date</strong>: 7th January 2015</dd>
 <dd><strong>Software component version</strong>: RabbitMQ OSS 3.5.7</dd>
 <dd><strong>Compatible Ops Manager Version(s)</strong>: 1.6.x, 1.5.x, 1.4.x</dd>
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.6.x, 1.5.x, 1.4.x</dd>
