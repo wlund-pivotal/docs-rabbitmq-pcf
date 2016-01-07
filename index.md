@@ -55,18 +55,19 @@ For more information, refer to the full [Product Version Matrix](../compatibilit
       <li>From 1.3.4 to 1.4.0, 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10</li>
       <li>From 1.3.5 to 1.4.0, 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10</li>
       <li>From 1.3.6 to 1.4.0, 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10</li>
-      <li>From 1.4.0 to 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1</li>
-      <li>From 1.4.1 to 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1</li>
-      <li>From 1.4.2 to 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1</li>
-      <li>From 1.4.3 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1</li>
-      <li>From 1.4.4 to 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1</li>
-      <li>From 1.4.5 to 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1</li>
-      <li>From 1.4.6 to 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1</li>
-      <li>From 1.4.7 to 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1</li>
-      <li>From 1.4.8 to 1.4.9, 1.4.10, 1.5.0, 1.5.1</li>
-      <li>From 1.4.9 to 1.4.10, 1.5.0, 1.5.1</li>
-      <li>From 1.4.10 to 1.5.0, 1.5.1</li>
-      <li>From 1.5.0 to 1.5.1</li>
+      <li>From 1.4.0 to 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
+      <li>From 1.4.1 to 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
+      <li>From 1.4.2 to 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
+      <li>From 1.4.3 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
+      <li>From 1.4.4 to 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
+      <li>From 1.4.5 to 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
+      <li>From 1.4.6 to 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
+      <li>From 1.4.7 to 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
+      <li>From 1.4.8 to 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
+      <li>From 1.4.9 to 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
+      <li>From 1.4.10 to 1.5.0, 1.5.1, 1.5.2</li>
+      <li>From 1.5.0 to 1.5.1, 1.5.2</li>
+      <li>From 1.5.1 to 1.5.2</li>
     </ul>
   </td>
 </tr>
@@ -110,7 +111,7 @@ For this service an instance equals a **Vhost** on the RabbitMQ cluster.
 Creating a binding gives the user permissions to access this Vhost and associated management dashboard.
 
 ### Current Limitations
-Limitations with the current RabbitmQ for PCF product include:
+Limitations with the current RabbitMQ for PCF product include:
 
 * Availability Zone configuration **cannot** be changed once deployed.
 
@@ -119,6 +120,8 @@ We hope to address all of these limitations in future releases.
 ### Known Issues
 
 * In versions `1.4.1` and `1.4.2`, the `manage` button for your RabbitMQ instance in Apps Manager will not automatically log you into the RabbitMQ Dashboard. You need to press `logout` and then login with your `username` and `password` which can be obtained from inspecting the environment variables for your instance.
+* In versions `1.5.0` and `1.5.1`, when performing a fresh installation or upgrade, if the Elastic Runtime system and application domains are different then the `Broker Registrar` errand will fail. To resolve this disable the errand and redeploy, then register the broker manually using the system domain route `pivotal-rabbitmq-broker.system.domain`. For more information on registering brokers see the [CloudFoundry documentation](http://docs.cloudfoundry.org/services/managing-service-brokers.html).
+* In the `1.5.x` release series, when performing a fresh installation or upgrade, if you have the rabbitmq_jsonrpc_channel or rabbitmq_jsonrpc_channel_examples plugins selected then the RabbitMQ nodes will fail to start. The plugins are no longer distributed with RabbitMQ and plugin validation was introduced in RabbitMQ `3.5.7`, causing the nodes to fail to start. To resolve this you must uncheck the rabbitmq_jsonrpc_channel and rabbitmq_jsonrpc_channel_examples plugins.
 
 ### Feedback
 Please provide any bugs, feature requests, or questions to [the Pivotal Cloud Foundry&reg; Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
