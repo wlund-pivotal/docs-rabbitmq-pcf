@@ -10,7 +10,7 @@ Release notes for [RabbitMQ for Pivotal Cloud Foundry&reg;](https://network.pivo
 Features included in this release:
 
 * Bug fix with broker registrar errand failing if ERT has different system & app domains
-* Update stemcell to 3146.2
+* Update stemcell to 3146.2, resolves CVE USN-2857-1
 
 ### 1.5.1
 **Release Date: 21st December 2015**
