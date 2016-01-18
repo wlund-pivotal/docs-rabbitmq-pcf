@@ -12,8 +12,8 @@ The [Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/pivotal-cf)
 
 <dl>
 <dt>Current RabbitMQ for PCF Details</dt>
-<dd><strong>Version</strong>: 1.5.2 </dd>
-<dd><strong>Release Date</strong>: 7th January 2015</dd>
+<dd><strong>Version</strong>: 1.5.3 </dd>
+<dd><strong>Release Date</strong>: 18th January 2015</dd>
 <dd><strong>Software component version</strong>: RabbitMQ OSS 3.5.7</dd>
 <dd><strong>Compatible Ops Manager Version(s)</strong>: 1.6.x, 1.5.x, 1.4.x</dd>
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.6.x, 1.5.x, 1.4.x</dd>
@@ -55,19 +55,20 @@ For more information, refer to the full [Product Version Matrix](../compatibilit
       <li>From 1.3.4 to 1.4.0, 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10</li>
       <li>From 1.3.5 to 1.4.0, 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10</li>
       <li>From 1.3.6 to 1.4.0, 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10</li>
-      <li>From 1.4.0 to 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
-      <li>From 1.4.1 to 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
-      <li>From 1.4.2 to 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
-      <li>From 1.4.3 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
-      <li>From 1.4.4 to 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
-      <li>From 1.4.5 to 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
-      <li>From 1.4.6 to 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
-      <li>From 1.4.7 to 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
-      <li>From 1.4.8 to 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
-      <li>From 1.4.9 to 1.4.10, 1.5.0, 1.5.1, 1.5.2</li>
-      <li>From 1.4.10 to 1.5.0, 1.5.1, 1.5.2</li>
-      <li>From 1.5.0 to 1.5.1, 1.5.2</li>
-      <li>From 1.5.1 to 1.5.2</li>
+      <li>From 1.4.0 to 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3</li>
+      <li>From 1.4.1 to 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3</li>
+      <li>From 1.4.2 to 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3</li>
+      <li>From 1.4.3 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3</li>
+      <li>From 1.4.4 to 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3</li>
+      <li>From 1.4.5 to 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3</li>
+      <li>From 1.4.6 to 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3</li>
+      <li>From 1.4.7 to 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3</li>
+      <li>From 1.4.8 to 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3</li>
+      <li>From 1.4.9 to 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3</li>
+      <li>From 1.4.10 to 1.5.0, 1.5.1, 1.5.2, 1.5.3</li>
+      <li>From 1.5.0 to 1.5.1, 1.5.2, 1.5.3</li>
+      <li>From 1.5.1 to 1.5.2, 1.5.3</li>
+      <li>From 1.5.2 to 1.5.3</li>
     </ul>
   </td>
 </tr>
@@ -121,7 +122,7 @@ We hope to address all of these limitations in future releases.
 
 * In versions `1.4.1` and `1.4.2`, the `manage` button for your RabbitMQ instance in Apps Manager will not automatically log you into the RabbitMQ Dashboard. You need to press `logout` and then login with your `username` and `password` which can be obtained from inspecting the environment variables for your instance.
 * In versions `1.5.0` and `1.5.1`, when performing a fresh installation or upgrade, if the Elastic Runtime system and application domains are different then the `Broker Registrar` errand will fail. To resolve this disable the errand and redeploy, then register the broker manually using the system domain route `pivotal-rabbitmq-broker.system.domain`. For more information on registering brokers see the [CloudFoundry documentation](http://docs.cloudfoundry.org/services/managing-service-brokers.html).
-* In the `1.5.x` release series, when performing a fresh installation or upgrade, if you have the rabbitmq_jsonrpc_channel or rabbitmq_jsonrpc_channel_examples plugins selected then the RabbitMQ nodes will fail to start. The plugins are no longer distributed with RabbitMQ and plugin validation was introduced in RabbitMQ `3.5.7`, causing the nodes to fail to start. To resolve for a fresh installation, you must uncheck the rabbitmq_jsonrpc_channel and rabbitmq_jsonrpc_channel_examples plugins, save, apply changes. For upgrades from 1.4.x, you need to first uncheck the plugins, save, apply changes, add the 1.5.x upgrade, apply changes. 
+* In the `1.5.0, 1.5.1, 1.5.2` releases, when performing a fresh installation or upgrade, if you have the rabbitmq_jsonrpc_channel or rabbitmq_jsonrpc_channel_examples plugins selected then the RabbitMQ nodes will fail to start. The plugins are no longer distributed with RabbitMQ and plugin validation was introduced in RabbitMQ `3.5.7`, causing the nodes to fail to start.  To resolve this issue you should install/upgrade to version `1.5.3` of the tile.  
 
 ### Feedback
 Please provide any bugs, feature requests, or questions to [the Pivotal Cloud Foundry&reg; Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
