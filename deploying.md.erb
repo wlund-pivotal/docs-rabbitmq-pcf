@@ -20,20 +20,20 @@ The deployment will occur in a single availability zone (AZ).
 
 ## Recommended Deployment
 
-We recommended that RabbitMQ is deployed across at least two availability zones. 
+We recommended that RabbitMQ is deployed across at least two availability zones.
 
 The HAProxy job instance count should also be increased to match the number of AZs to ensure there is a HAProxy located in each AZ.
-This removes the HAProxy SPOF and provides further redundancy. 
+This removes the HAProxy SPOF and provides further redundancy.
 
 <%= image_tag("images/deployment_recommended.jpeg") %>
 
-In the above diagram, you can see that you can now suffer the failure of a single HAProxy and single RabbitMQ node and still keep your cluster online and applications connected. 
+In the above diagram, you can see that you can now suffer the failure of a single HAProxy and single RabbitMQ node and still keep your cluster online and applications connected.
 
 ### Upgrading to this deployment from a single AZ deployment
 
-It is **not** possible to upgrade to this setup from the default deployment across a single AZ. 
+It is **not** possible to upgrade to this setup from the default deployment across a single AZ.
 
-This is because the AZ setup cannot be changed once the tile has being deployed for the first time, this is to protect against data loss when moving jobs between AZs. 
+This is because the AZ setup cannot be changed once the tile has being deployed for the first time, this is to protect against data loss when moving jobs between AZs.
 
 ### Upgrading to this deployment from a multi AZ deployment
 
@@ -41,7 +41,7 @@ If you have deployed the tile across two AZs, but with a single HAProxy instance
 
 1. Deploy an additional HAProxy instance through OpsManager
 2. New or re-bound applications to the RabbitMQ service will see the IPs of both HAProxys immediately
-3. Existing bound applications will continue to work, but only using the previously deployed HAProxy IP Address. They can be re-bound as required at your discretion. 
+3. Existing bound applications will continue to work, but only using the previously deployed HAProxy IP Address. They can be re-bound as required at your discretion.
 
 ### Considerations for this deployment
 
@@ -50,11 +50,11 @@ If you have deployed the tile across two AZs, but with a single HAProxy instance
 
 ## Advanced Deployment
 
-This deployment builds upon the above recommended deployment, so follows the same upgrade paths. 
+This deployment builds upon the above recommended deployment, so follows the same upgrade paths.
 
-This allows you to replace the use of HAProxy with your own external load balancer. 
+This allows you to replace the use of HAProxy with your own external load balancer.
 
-You may choose to do this to remove any knowledge of the topology of the RabbitMQ setup from application developers. 
+You may choose to do this to remove any knowledge of the topology of the RabbitMQ setup from application developers.
 
 <%= image_tag("images/deployment_advanced.jpeg") %>
 
@@ -64,13 +64,13 @@ Advantages
 
 Disadvantages
 
-* The load balancer needs to be configured with the IPs of the RabbitMQ Nodes. These will only be known once the deployment has finished. The IPs should remain the same during subsequent deployments but there is a risk they can change. 
+* The load balancer needs to be configured with the IPs of the RabbitMQ Nodes. These will only be known once the deployment has finished. The IPs should remain the same during subsequent deployments but there is a risk they can change.
 
 
 ### Upgrading to this deployment from the recommended deployment
 It is possible to first deploy with multiple HAProxy jobs, as per the recommended deployment and decided to later use your own external load balancer.
 
-This can be achieved without downtime to your applications. 
+This can be achieved without downtime to your applications.
 
 This can be achieved as follows:
 
@@ -84,7 +84,7 @@ This can be achieved as follows:
 8. Reduce the instance count of the `HAProxy` job in OpsManager to 0
 9. Deploy the changes
 
-This approach works as any existing bound applications have their `VCAP_SERVICES` information cached in the cloud controller and are only updated by a re-bind request. 
+This approach works as any existing bound applications have their `VCAP_SERVICES` information cached in the cloud controller and are only updated by a re-bind request.
 
 ### Downgrading from this deployment to the recommended deployment
 If you are currently using an external load balancer, then you can move back to using HAProxys instead.
