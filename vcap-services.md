@@ -89,6 +89,6 @@ If you adjust the plugins and protocols enabled for RabbitMQ, you may need to fo
 * rabbitmq_management,
 * rabbitmq_stomp,
 * rabbitmq_mqtt
-* rabbitmq_amqp1_0
+* rabbitmq\_amqp1\_0
 
 In common with all services in [Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/pivotal-cf) (PCF), the `VCAP_SERVICES` environment variable for an application is only modified when the application is bound to a service instance. Users will need to `cf unbind-service`, `cf bind-service` and `cf restage` their app in this scenario.
