@@ -16,11 +16,11 @@ The deployment will occur in a single availability zone (AZ).
 
 * Provides HA for RabbitMQ nodes to avoid data loss
 * HAProxy is a single point of failure (SPOF)
-* The entire deployment is in a single AZ, which does not protect against external failures such as hardware, networking etc
+* The entire deployment is in a single AZ, which does not protect against external failures from failures in hardware, networking, etc.
 
 ## Recommended Deployment
 
-We recommended that RabbitMQ is deployed across at least two availability zones.
+We recommend that RabbitMQ is deployed across at least two availability zones.
 
 The HAProxy job instance count should also be increased to match the number of AZs to ensure there is a HAProxy located in each AZ.
 This removes the HAProxy SPOF and provides further redundancy.
