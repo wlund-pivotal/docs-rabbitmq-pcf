@@ -1,6 +1,7 @@
 ---
 breadcrumb: RabbitMQ for Pivotal Cloud Foundry&reg; Documentation
 title: RabbitMQ Entries in the VCAP_SERVICES Environment Variable
+owner: London Services
 ---
 
 Applications running in Cloud Foundry gain access to the bound service instances via an environment variable credentials hash called `VCAP_SERVICES`. An example hash is show below:

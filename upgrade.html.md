@@ -1,5 +1,6 @@
 ---
 title: RabbitMQ for Pivotal Cloud Foundry&reg;
+owner: London Services
 ---
 
 # Upgrades
@@ -16,11 +17,11 @@ To upgrade the product:
 * Update any new mandatory configuration parameters (*if required*)
 * Press "Apply changes" and the rest of the process is automated
 
-During a typical upgrade deployment, nodes are upgraded one at a time in the cluster providing a zero downtime deployment. Applications may experience a disconnected session, if the application attempts to reconnect it will be directed to another working node automatically. 
+During a typical upgrade deployment, nodes are upgraded one at a time in the cluster providing a zero downtime deployment. Applications may experience a disconnected session, if the application attempts to reconnect it will be directed to another working node automatically.
 
-Only when upgrading between specific versions of Erlang or RabbitMQ is an outage required on the cluster. This will be clearly stated on the release notes for that version, should this be required. 
+Only when upgrading between specific versions of Erlang or RabbitMQ is an outage required on the cluster. This will be clearly stated on the release notes for that version, should this be required.
 
-The length of the downtime depends on whether there is a stemcell update to replace the operating system image or whether the existing VM can simply have the RabbitMQ software updated. Stemcell updates incur additional downtime while the IaaS creates the new VM while updates without a stemcell update are faster. 
+The length of the downtime depends on whether there is a stemcell update to replace the operating system image or whether the existing VM can simply have the RabbitMQ software updated. Stemcell updates incur additional downtime while the IaaS creates the new VM while updates without a stemcell update are faster.
 
 Ops Manager ensures the instances are updated with the new packages and any configuration changes are applied automatically.
 

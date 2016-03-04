@@ -1,5 +1,6 @@
 ---
 title: RabbitMQ for Pivotal Cloud Foundry&reg;
+owner: London Services
 ---
 
 Release notes for [RabbitMQ for Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/pivotal-rabbitmq-service)

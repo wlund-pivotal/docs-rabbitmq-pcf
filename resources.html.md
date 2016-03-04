@@ -1,5 +1,6 @@
 ---
 title: RabbitMQ for Pivotal Cloud Foundry&reg; Documentation
+owner: London Services
 ---
 
 # Resource requirements

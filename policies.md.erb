@@ -1,13 +1,14 @@
 ---
 breadcrumb: RabbitMQ for Pivotal Cloud Foundry&reg; Documentation
 title: Default policies for the RabbitMQ Service
+owner: London Services
 ---
 
 # Policy
 
 A default policy is configured in OpsManager, this sets a best practice to ensure that queues are mirrored to two nodes by default.
 
-This ensures you benefit from redundancy and no downtime in the case of a RabbitMQ node failing. 
+This ensures you benefit from redundancy and no downtime in the case of a RabbitMQ node failing.
 
 The following rules apply:
 
@@ -22,7 +23,7 @@ In OpsManager on the RabbitMQ tile, there is a left hand manu item called `Polic
 <%= image_tag("images/policy_opsman.jpeg") %>
 
 The policy must be valid JSON and it should use valid RabbitMQ policy criteria.
-This is not validated during the deployment, so any errors could either cause the deployment to fail or policies to not be applied correctly. 
+This is not validated during the deployment, so any errors could either cause the deployment to fail or policies to not be applied correctly.
 
 [For more information on RabbitMQ Policies](http://www.rabbitmq.com/parameters.html)
 
@@ -30,8 +31,8 @@ This is not validated during the deployment, so any errors could either cause th
 
 You can view the policy on the RabbitMQ Dashboard. The URL can be obtained from your `VCAP_SERVICES` for application developers.
 
-The policy is applied to all queues, with a rank of 50 so it can be overriden by defining your own policy with a higher rank. 
+The policy is applied to all queues, with a rank of 50 so it can be overriden by defining your own policy with a higher rank.
 <%= image_tag("images/policy_config.jpeg") %>
 
-You can see any new queues created have the policy automatically applied. 
+You can see any new queues created have the policy automatically applied.
 <%= image_tag("images/policy_queue.jpeg") %>
