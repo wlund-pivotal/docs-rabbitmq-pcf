@@ -5,6 +5,13 @@ owner: London Services
 
 Release notes for [RabbitMQ for Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/pivotal-rabbitmq-service)
 
+### 1.5.8
+**Release Date: 16th February 2016**
+
+Features included in this release:
+
+* Update stemcell to 3146.10 patches Ubuntu CVE 2016-3134
+
 ### 1.5.7
 **Release Date: 24th February 2016**
 
