@@ -6,19 +6,19 @@ owner: London Services
 
 # Policy
 
-A default policy is configured in OpsManager, this sets a best practice to ensure that queues are mirrored to two nodes by default.
+An example policy is configured in OpsManager but not enabled.
 
-This ensures you benefit from redundancy and no downtime in the case of a RabbitMQ node failing.
+You should configure the policy to suit your own deployment. The example in the "Policy for new instances" textarea is given as guidance of how to format the configuration.
 
 The following rules apply:
 
 * The policy is only applied to new instances
 * Any existing instances will not have the policy applied
-* The policy can be deleted for that instance
 * The policy can be updated in OpsManager and this will only be applied to any new instances created there after
+* The policy can only be deleted manually from the RabbitMQ nodes
 
 ## Viewing or changing the policy
-In OpsManager on the RabbitMQ tile, there is a left hand manu item called `Policy`
+In OpsManager on the RabbitMQ tile, there is a left hand menu item called `Policy`
 
 <%= image_tag("images/policy_opsman.jpeg") %>
 
