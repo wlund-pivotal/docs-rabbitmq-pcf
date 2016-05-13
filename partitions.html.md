@@ -1,0 +1,47 @@
+---
+title: RabbitMQ for Pivotal Cloud Foundry&reg;
+title: Clustering and Network Partitions
+owner: London Services
+---
+
+The RabbitMQ tile is configured to use the `pause_minority` option for handling cluster partitions. This ensures data integrity by pausing the part of the cluster in the minority and resuming them with the data from the majority partition. This does mean you should maintain more than two nodes, as if there is a partition when you have just 2 nodes both halves will immediately pause.
+
+## Detecting a network partition
+
+When a network partition has occurs a log message is written out to the RabbitMQ node log.
+
+```
+=ERROR REPORT==== 15-Oct-2012::18:02:30 ===
+Mnesia(rabbit@da3be74c053640fe92c6a39e2d7a5e46): ** ERROR ** mnesia_event got
+    {inconsistent_database, running_partitioned_network, rabbit@21b6557b73f343201277dbf290ae8b79}
+```
+
+The partition will also appear in the output of the `rabbitmqctl cluster_status` command on any of the RabbitMQ nodes:
+
+1. Run `sudo su -` to become root
+1. `cd /var/vcap/packages`
+1. `export ERL_DIR=$PWD/erlang/bin/`
+1. `cd rabbitmq-server/bin/`
+1. `./rabbitmqctl cluster_status`
+
+```
+[...
+ {partitions,
+     [{rabbit@da3be74c053640fe92c6a39e2d7a5e46,
+          [rabbit@21b6557b73f343201277dbf290ae8b79]}]}]
+```
+
+## Recovering
+
+As the RabbitMQ tile is configured to use the `pause_minority` option recovery should be automatic once the partition is resolved. When a node comes back online it will resume being able to access the queue and have all the data that the queue has on each of the other nodes. However, if your queues are configured to use `ha-mode: all` they will only synchronize fully once all messages create whilst that node was down have been consumed, similar to how messages are synchronized when you create a new queue.
+
+### Manually synchronising after a partition
+
+Normally a queue slaves will synchronize itself after a network partition once all the messages that were created whilst it was down have been consumed. If you need to synchronize it manually you will need to connect to each node and run the `sync_queue` command.
+
+1. Run `sudo su -` to become root
+1. `cd /var/vcap/packages`
+1. `export ERL_DIR=$PWD/erlang/bin/`
+1. `cd rabbitmq-server/bin/`
+1. `./rabbitmqctl list_queues`
+1. `./rabbitmqctl sync_queue name`
