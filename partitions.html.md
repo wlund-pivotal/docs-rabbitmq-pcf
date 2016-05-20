@@ -4,8 +4,8 @@ title: Clustering and Network Partitions
 owner: London Services
 ---
 
-The RabbitMQ tile uses the `pause_minority` option for handling cluster partitions. 
-This ensures data integrity by pausing the partition of the cluster in the minority and resuming it with the data from the majority partition. 
+The RabbitMQ tile uses the `pause_minority` option for handling cluster partitions by default. You can choose `autoheal` option in RabbitMQ Policy tab.
+This ensures data integrity by pausing the partition of the cluster in the minority and resuming it with the data from the majority partition.
 You must maintain more than two nodes because if there is a partition when you have just two nodes both nodes immediately pause.
 
 ##<a id="detect-partition"></a> Detecting a Network Partition
