@@ -13,9 +13,9 @@ The [Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/pivotal-cf)
 
 <dl>
 <dt>Current RabbitMQ for PCF Details</dt>
-<dd><strong>Version</strong>: 1.5.10 </dd>
+<dd><strong>Version</strong>: 1.6.0 </dd>
 <dd><strong>Release Date</strong>: 18th May 2016</dd>
-<dd><strong>Software component version</strong>: RabbitMQ OSS 3.5.7</dd>
+<dd><strong>Software component version</strong>: RabbitMQ OSS 3.6.2</dd>
 <dd><strong>Compatible Ops Manager Version(s)</strong>: 1.7.x, 1.6.x, 1.5.x, 1.4.x</dd>
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.7.x, 1.6.x, 1.5.x, 1.4.x</dd>
 <dd><strong>vSphere support?</strong> Yes</dd>
@@ -26,6 +26,8 @@ The [Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/pivotal-cf)
 ## Upgrading to the Latest Version
 
 Consider the following compatibility information before upgrading RabbitMQ for Pivotal Cloud Foundry&reg;.
+
+<p class="note"><strong>Note</strong>: Upgrading from any 1.5x tile to 1.6.x will involve taking the RabbitMQ cluster offline while the version of RabbitMQ is upgraded from 3.5.7 to 3.6.2  </p>
 
 <p class="note"><strong>Note</strong>: Before you upgrade to Ops Manager 1.4.x, you must first upgrade RabbitMQ for PCF to at least 1.3.4. This allows RabbitMQ for PCF upgrades after you install OpsManager 1.4.x. </p>
 
@@ -58,34 +60,36 @@ For more information, refer to the full [Product Version Matrix](http://docs.piv
       <li>From 1.3.4 to 1.4.0, 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10</li>
       <li>From 1.3.5 to 1.4.0, 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10</li>
       <li>From 1.3.6 to 1.4.0, 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10</li>
-      <li>From 1.4.0 to 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.4.1 to 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.4.2 to 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.4.3 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.4.4 to 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.4.5 to 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.4.6 to 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.4.7 to 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.4.8 to 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.4.9 to 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.4.10 to 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.5.0 to 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.5.1 to 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.5.2 to 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.5.3 to 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.5.4 to 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.5.5 to 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.5.6 to 1.5.7, 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.5.7 to 1.5.8, 1.5.9, 1.5.10</li>
-      <li>From 1.5.8 to 1.5.9, 1.5.10</li>
-      <li>From 1.5.9 to 1.5.10</li>
+      <li>From 1.4.0 to 1.4.1, 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.4.1 to 1.4.2, 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.4.2 to 1.4.3, 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.4.3 to 1.4.4, 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.4.4 to 1.4.5, 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.4.5 to 1.4.6, 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.4.6 to 1.4.7, 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.4.7 to 1.4.8, 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.4.8 to 1.4.9, 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.4.9 to 1.4.10, 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.4.10 to 1.5.0, 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.5.0 to 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.5.1 to 1.5.2, 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.5.2 to 1.5.3, 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.5.3 to 1.5.4, 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10,  1.6.0</li>
+      <li>From 1.5.4 to 1.5.5, 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10,  1.6.0</li>
+      <li>From 1.5.5 to 1.5.6, 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.5.6 to 1.5.7, 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.5.7 to 1.5.8, 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.5.8 to 1.5.9, 1.5.10, 1.6.0</li>
+      <li>From 1.5.9 to 1.5.10, 1.6.0</li>
+      <li>From 1.5.10 to 1.6.0</li>
     </ul>
   </td>
 </tr>
 <tr>
   <th>1.7.x</th>
   <td><ul>
-      <li>From 1.5.9 to 1.5.10</li>
+    <li>From 1.5.9 to 1.5.10, 1.6.0</li>
+    <li>From 1.5.10, 1.6.0</li>
     </ul>
   </td>
 </tr>
@@ -104,7 +108,9 @@ For more information, refer to the full [Product Version Matrix](http://docs.piv
 * Plugin configuration can be easily changed at any time and the cluster redeployed and updated
 * The cluster topology can be changed and easily scaled out
 * Default configurable policy applied to all new instances to mirror queues on two nodes
-* Automated upgrades of RabbitMQ for major, minor and patch releases.
+* Automated upgrades of RabbitMQ for major, minor and patch releases
+* Configire the end point for the RabbitMQ Syslog
+* RabbitMQ and HAproxy metrics are exposed on the firehose
 
 ### Install via Pivotal Ops Manager
 
@@ -140,7 +146,8 @@ We hope to address all of these limitations in future releases.
 * In versions `1.4.1` and `1.4.2`, the `manage` button for your RabbitMQ instance in Apps Manager will not automatically log you into the RabbitMQ Dashboard. You need to press `logout` and then login with your `username` and `password` which can be obtained from inspecting the environment variables for your instance.
 * In versions `1.5.0` and `1.5.1`, when performing a fresh installation or upgrade, if the Elastic Runtime system and application domains are different then the `Broker Registrar` errand will fail. To resolve this disable the errand and redeploy, then register the broker manually using the system domain route `pivotal-rabbitmq-broker.system.domain`. For more information on registering brokers see the [CloudFoundry documentation](http://docs.cloudfoundry.org/services/managing-service-brokers.html).
 * In the `1.5.0, 1.5.1, 1.5.2, 1.5.3` releases, when performing a fresh installation or upgrade, if you have the rabbitmq\_jsonrpc\_channel or rabbitmq\_jsonrpc\_channel_examples plugins selected then the RabbitMQ nodes will fail to start. The plugins are no longer distributed with RabbitMQ and plugin validation was introduced in RabbitMQ `3.5.7`, causing the nodes to fail to start. To resolve this issue you should install/upgrade to version `1.5.4` or above of the tile.
-* In the `1.4.x` and `1.5.x` releases, you cannot install the RabbitMQ tile in multi-AZ with multi-subnet networks. 
+* In the '1.4.x` and `1.5.x` tiles it is not possible to install the RabbitMQ tile in multiAZ with multi-subnet networks.
+
 
 ### Feedback
 Please provide any bugs, feature requests, or questions to [the Pivotal Cloud Foundry&reg; Feedback list](mailto:pivotal-cf-feedback@pivotal.io).

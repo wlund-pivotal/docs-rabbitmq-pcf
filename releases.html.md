@@ -4,6 +4,26 @@ owner: London Services
 ---
 
 Release notes for [RabbitMQ for Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/pivotal-rabbitmq-service)
+### 1.6.0
+**Release Date: 26th May 2016**
+
+Features included in this release:
+
+* Syslog endpoints for HAproxy and RabbitMQ can now be configured via Ops Manager
+* RabbitMQ and HAproxy Metrics are now exposed on the firehose
+* RabbitMQ and HAproxy heartbeats are now exposed as metrics
+* For SSl configuration you can now specify either 'verify' and 'fail_if_no_peer_cert' options
+* You can set the metrics polling interval when you deploy
+* Includes the latest version of RabbitMQ OSS 3.6.2
+* You may now select the partition response for RabbitMQ to be either 'pause_minority' or 'automatic'.  The default behavior has been changed from 'automatic' to 'pause_minority'
+
+### 1.5.11
+**Release Date: 26th May 2016**
+
+Features included in this release:
+
+* Updated to the latest version of broker_registrar
+
 ### 1.5.10
 **Release Date: 18th May 2016**
 
