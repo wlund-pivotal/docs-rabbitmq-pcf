@@ -12,10 +12,10 @@ Features included in this release:
 * Syslog endpoints for HAproxy and RabbitMQ can now be configured via Ops Manager
 * RabbitMQ and HAproxy Metrics are now exposed on the firehose
 * RabbitMQ and HAproxy heartbeats are now exposed as metrics
-* For SSl configuration you can now specify either 'verify' and 'fail_if_no_peer_cert' options
+* For SSl configuration you can now specify either <code>verify<code> and <code>fail/_if/_no/_peer/_cert</code> options
 * You can set the metrics polling interval when you deploy
 * Includes the latest version of RabbitMQ OSS 3.6.2
-* You may now select the partition response for RabbitMQ to be either 'pause_minority' or 'automatic'.  The default behavior has been changed from 'automatic' to 'pause_minority'
+* You may now select the partition response for RabbitMQ to be either <code>pause/_minority</code> or `automatic`.  The default behavior has been changed from `automatic` to `pause_minority`.
 
 ### 1.5.11
 **Release Date: 26th May 2016**
