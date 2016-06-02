@@ -58,6 +58,8 @@ If you change the topology of your RabbitMQ cluster, the HAProxy is automaticall
 
 15674 = Web STOMP
 
+4567 = Cloud Controller
+
 ## SSL
 
 You can provide SSL certificates and keys for use by the RabbitMQ cluster.
@@ -105,4 +107,3 @@ TLS v1.1 and 1.2 are enabled by default and cannot be turned on or off.
 <%= image_tag("images/config_elb.jpeg") %>
 
 You can configure a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) to application developers.
-
