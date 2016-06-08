@@ -17,9 +17,9 @@ In RabbitMQ for Pivotal Cloud Foundry&reg;(PCF) 1.6.0 and above, you can designa
 
 A correctly configured system emits metrics for all RabbitMQ and HAproxy nodes deployed in the service. You can identify logs from individual nodes by their index, which corresponds to the index of the RabbitMQ nodes displayed in Ops Manager:
 
-* The logs for RabbitMQ server nodes follow the format <code>[job=rabbitmq-server-partition-GUID index=X]</code>.
-* The logs for HAproxy nodes follow the format <code>[job=rabbitmq-haproxy-partition-GUID index=X]</code>.
-* The logs for the RabbitMQ service broker follow the format <code>[job=rabbitmq-broker-partition-GUID index=X]</code>.
+* The logs for RabbitMQ server nodes follow the format <code>[job=rabbitmq-server-partition-GUID index=X]</code>
+* The logs for HAproxy nodes follow the format <code>[job=rabbitmq-haproxy-partition-GUID index=X]</code>
+* The logs for the RabbitMQ service broker follow the format <code>[job=rabbitmq-broker-partition-GUID index=X]</code>
 
 RabbitMQ and HAproxy servers are configured to log at the <code>info</code> level, and capture errors, warnings and informational messages.
 
