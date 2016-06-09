@@ -4,7 +4,7 @@ title: Default policies for the RabbitMQ Service
 owner: London Services
 ---
 
-# Policy
+# RabbitMQ Policy
 
 An example policy is configured in OpsManager but not enabled.
 
@@ -18,7 +18,7 @@ The following rules apply:
 * The policy can only be deleted manually from the RabbitMQ nodes
 
 ## Viewing or changing the policy
-In OpsManager on the RabbitMQ tile, there is a left hand menu item called `Policy`
+In OpsManager on the RabbitMQ tile, there is a left hand menu item called `RabbitMQ Policy`
 
 <%= image_tag("images/policy_opsman.jpeg") %>
 
@@ -27,7 +27,7 @@ This is not validated during the deployment, so any errors could either cause th
 
 For more information, view [RabbitMQ Policies](http://www.rabbitmq.com/parameters.html#policies).
 
-## RabbitMQ Dashboard
+## RabbitMQ dashboard
 
 You can view the policy on the RabbitMQ Dashboard. The URL can be obtained from your `VCAP_SERVICES` for application developers.
 
@@ -36,3 +36,9 @@ The policy is applied to all queues, with a rank of 50 so it can be overriden by
 
 You can see any new queues created have the policy automatically applied.
 <%= image_tag("images/policy_queue.jpeg") %>
+
+## Network partition behavior
+
+It is possible to change how you would want RabbitMQ to act once it discovers there has been a network partition.  The two options are `pause_minority`* and `autoheal`, and more detail on these settings can be found here: https://www.rabbitmq.com/partitions.html
+
+You must set the choose the option you want before deploying, or the default `pause_minority` will be used. 
