@@ -60,13 +60,15 @@ If you change the topology of your RabbitMQ cluster, the HAProxy is automaticall
 
 4567 = RabbitMQ Service Broker
 
+3457 - 3459 = CF Loggregator
+
 ## Security Groups
 
 To enable access to the RabbitMQ tile service, you will need to ensure your security
 group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment. The IP addresses
 for these can be obtained from Ops Manager "Status" page for the RabbitMQ tile.
 You should ensure the following ports are enabled for those VMs:
-15672, 5672, 5671, 1883, 8883, 61613, 61614, 15674, 4567.
+15672, 5672, 5671, 1883, 8883, 61613, 61614, 15674, 4567, 3457 - 3459.
 
 Here is a template for configuring your Cloud Foundry security groups:
 ```
@@ -123,3 +125,19 @@ TLS v1.1 and 1.2 are enabled by default and cannot be turned on or off.
 <%= image_tag("images/config_elb.jpeg") %>
 
 You can configure a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) to application developers.
+
+## RabbitMQ Server settings which cannot be overwritten
+rabbit halt_on_upgrade_failure false
+rabbitmq_mqtt subscription_ttl 1800000
+rabbit disk_free_limit 50MB
+log_levels [{connection,info}]
+halt_on_upgrade_failure false
+{rabbit, [ {collect_statistics_interval, 60000}] }
+{rabbitmq_management, [ {rates_mode, none}] }
+
+When ssl is enabled:
+rabbit tcp_listeners []
+rabbit ssl_listeners [5671]
+rabbitmq_management listener [{port,15672},{ssl,false}]
+rabbitmq_mqtt ssl_listeners [8883]
+rabbitmq_stomp ssl_listeners [61614]
