@@ -78,6 +78,39 @@ Here is a template for configuring your Cloud Foundry security groups:
 ]
 ```
 
+# Application Security Groups
+
+To allow this service to have network access you will need to create
+[Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) (ASGs).
+
+<p class="note"><strong>Note</strong>: Without Application Security Groups the service will not be usable.</p>
+
+### <a id="application-container-network-connections"></a> Application Container Network Connections ###
+
+Application containers that use instances of the RabbirMQ service require the following outbound network connections:
+
+|Destination        |Ports       |Protocol   |Reason
+|---                |---         |---        |---
+|`HAproxy IPs`     |5672         |tcp        |Application containers using AMQP
+|`HAproxy IPs`     |5671       |tcp        |Application containers using AMQP over SSL
+|`HAproxy IPs`     |1883         |tcp        |Application containers using MQTT
+|`HAproxy IPs`     |8883        |tcp        |Application containers using MQTT over SSL
+|`HAproxy IPs`     |61613         |tcp        |Application containers using STOMP
+|`HAproxy IPs`     |61614        |tcp        |Application containers using STOMP over SSL
+|`HAproxy IPs`     |61613         |tcp        |Application containers using Web STOMP
+
+Create an ASG called `rabbitmq-app-containers` with the above configuration and bind it to the appropriate space or, to give all started apps access, the `default-running` ASG set. Please note if you are using an External Loadbalancer or have more than one IP address for HAproxy,egress rules for these must also be created. Example:
+
+```
+[
+  {
+      "ports": "5671-5672",
+      "protocol": "tcp",
+      "destination": "10.10.10.10/32"
+  }
+]
+```
+
 ## SSL
 
 You can provide SSL certificates and keys for use by the RabbitMQ cluster.
