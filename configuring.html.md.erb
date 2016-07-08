@@ -80,26 +80,26 @@ Here is a template for configuring your Cloud Foundry security groups:
 
 ## <a id="sec-groups"></a> Application Security Groups
 
-To allow this service to have network access you will need to create
+To allow this service to have network access you must create
 [Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) (ASGs).
 
 <p class="note"><strong>Note</strong>: Without Application Security Groups the service will not be usable.</p>
 
 ### <a id="application-container-network-connections"></a> Application Container Network Connections ###
 
-Application containers that use instances of the RabbirMQ service require the following outbound network connections:
+Application containers that use instances of the RabbitMQ service require the following outbound network connections:
 
 |Destination        |Ports       |Protocol   |Reason
 |---                |---         |---        |---
-|`HAproxy IPs`     |5672         |tcp        |Application containers using AMQP
-|`HAproxy IPs`     |5671       |tcp        |Application containers using AMQP over SSL
-|`HAproxy IPs`     |1883         |tcp        |Application containers using MQTT
-|`HAproxy IPs`     |8883        |tcp        |Application containers using MQTT over SSL
-|`HAproxy IPs`     |61613         |tcp        |Application containers using STOMP
-|`HAproxy IPs`     |61614        |tcp        |Application containers using STOMP over SSL
-|`HAproxy IPs`     |61613         |tcp        |Application containers using Web STOMP
+|`HAProxy IPs`     |5672         |tcp        |Application containers using AMQP
+|`HAProxy IPs`     |5671       |tcp        |Application containers using AMQP over SSL
+|`HAProxy IPs`     |1883         |tcp        |Application containers using MQTT
+|`HAProxy IPs`     |8883        |tcp        |Application containers using MQTT over SSL
+|`HAProxy IPs`     |61613         |tcp        |Application containers using STOMP
+|`HAProxy IPs`     |61614        |tcp        |Application containers using STOMP over SSL
+|`HAProxy IPs`     |61613         |tcp        |Application containers using Web STOMP
 
-Create an ASG called `rabbitmq-app-containers` with the above configuration and bind it to the appropriate space or, to give all started apps access, the `default-running` ASG set. Please note if you are using an External Loadbalancer or have more than one IP address for HAproxy,egress rules for these must also be created. Example:
+Create an ASG called `rabbitmq-app-containers` with the above configuration and bind it to the appropriate space, or to provide access to all started apps, bind to the `default-running` ASG set and restart your apps. Please note if you are using an external load balancer or have more than one IP address for HAProxy, you must also create egress rules for these. Example:
 
 ```
 [
