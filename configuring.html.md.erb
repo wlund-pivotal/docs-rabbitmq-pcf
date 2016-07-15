@@ -4,17 +4,19 @@ title: Configuring the RabbitMQ Service
 owner: London Services
 ---
 
-## Configuration
+To configure RabbitMQ for [Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/pivotal-cf) (PCF), navigate to the tile in the Ops Manager Installation Dashboard and click the **Settings** tab. 
 
-On the RabbitMQ for [Pivotal Cloud Foundry&reg;](https://network.pivotal.io/products/pivotal-cf) (PCF) tile in Ops Manager, you can configure the following items:
+You can configure the following items:
 
-## Management dashboard
+## <a id='dash'></a>Management Dashboard
 
 You must choose an admin username and password for RabbitMQ.
 
 This will grant you full admin access to RabbitMQ via the Management UI.
 
 <%= image_tag("images/config_credentials.jpeg") %>
+
+<p class="note"><strong>Note</strong>: To rotate your administrator credentials, enter a new username and password, save your options, and redeploy by returning to the Ops Manager Installation Dashboard and clicking <strong>Apply Changes</strong>.</p>
 
 ## Plugins
 
@@ -26,7 +28,7 @@ You must leave the management plugin enabled otherwise nothing will work.
 
 [Click here for more information about RabbitMQ plugins](https://www.rabbitmq.com/plugins.html)
 
-## HAProxy ports
+## <a id="haproxy"></a>HAProxy Ports
 
 You can choose which ports HAProxy should load balance to the RabbitMQ nodes.
 
@@ -41,26 +43,16 @@ Note that you must always leave the management plugin listening on port 15672 an
 If you change the topology of your RabbitMQ cluster, the HAProxy is automatically reconfigured during the deployment.
 
 ### Port to protocol mappings
-
-15672 = Management dashboard
-
-5672 = RabbitMQ
-
-5671 = RabbitMQ SSL
-
-1883 = MQTT
-
-8883 = MQTT SSL
-
-61613 = STOMP
-
-61614 = STOMP SSL
-
-15674 = Web STOMP
-
-4567 = RabbitMQ Service Broker
-
-3457 - 3459 = CF Loggregator
+* 15672 = Management dashboard
+* 5672 = RabbitMQ
+* 5671 = RabbitMQ SSL
+* 1883 = MQTT
+* 8883 = MQTT SSL
+* 61613 = STOMP
+* 61614 = STOMP SSL
+* 15674 = Web STOMP
+* 4567 = RabbitMQ Service Broker
+* 3457 - 3459 = CF Loggregator
 
 ## Security Groups
 
@@ -78,7 +70,7 @@ Here is a template for configuring your Cloud Foundry security groups:
 ]
 ```
 
-## Application Security Groups
+## <a id="asg"></a>Application Security Groups
 
 To allow this service to have network access you must create
 [Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) (ASGs).
@@ -127,14 +119,14 @@ Note SSL settings are applied equally across all machines in the cluster.
 
 [Click here for more information about SSL support](https://www.rabbitmq.com/ssl.html)
 
-## Erlang Cookie
+## <a id="erlang"></a>Erlang Cookie
 
 You can provide an Erlang cookie to be used by the cluster if you wish.
 This can be useful if you want to connect directly to the RabbitMQ cluster such as with `rabbitmqctl` or to connect other machines running Erlang.
 
 <%= image_tag("images/config_erlang.jpeg") %>
 
-## RabbitMQ Config
+## <a id="config"></a>RabbitMQ Config
 
 You can provide a full <code>rabbitmq.config</code> file, if you wish.
 
@@ -144,7 +136,7 @@ This file is then provided to all the nodes in the cluster.
 
 [Click here for more information about the RabbitMQ configuration file](https://www.rabbitmq.com/configure.html)
 
-## TLS Support
+## <a id="tls"></a>TLS Support
 
 TLS v1.0 is disabled by default, due to insecurities.
 
@@ -159,18 +151,19 @@ TLS v1.1 and 1.2 are enabled by default and cannot be turned on or off.
 
 You can configure a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) to application developers.
 
-## RabbitMQ Server settings which cannot be overwritten
-rabbit halt_on_upgrade_failure false
-rabbitmq_mqtt subscription_ttl 1800000
-rabbit disk_free_limit 50MB
-log_levels [{connection,info}]
-halt_on_upgrade_failure false
-{rabbit, [ {collect_statistics_interval, 60000}] }
-{rabbitmq_management, [ {rates_mode, none}] }
+## RabbitMQ Server settings that cannot be overwritten
+* `rabbit halt_on_upgrade_failure false`
+* `rabbitmq_mqtt subscription_ttl 1800000`
+* `rabbit disk_free_limit 50MB`
+* `log_levels [{connection,info}]`
+* `halt_on_upgrade_failure false`
+* `{rabbit, [ {collect_statistics_interval, 60000}] }`
+* `{rabbitmq_management, [ {rates_mode, none}] }`
 
-When ssl is enabled:
-rabbit tcp_listeners []
-rabbit ssl_listeners [5671]
-rabbitmq_management listener [{port,15672},{ssl,false}]
-rabbitmq_mqtt ssl_listeners [8883]
-rabbitmq_stomp ssl_listeners [61614]
+When SSL is enabled:
+
+* `rabbit tcp_listeners []`
+* `rabbit ssl_listeners [5671]`
+* `rabbitmq_management listener [{port,15672},{ssl,false}]`
+* `rabbitmq_mqtt ssl_listeners [8883]`
+* `rabbitmq_stomp ssl_listeners [61614]`
