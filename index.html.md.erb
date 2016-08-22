@@ -35,7 +35,7 @@ Consider the following compatibility information before upgrading RabbitMQ for P
 
 <p class="note"><strong>Note</strong>: You can not upgrade version 1.5.11 to 1.6.0, so you must use 1.6.1 or higher </p>
 
-<p class="note"><strong>Note</strong>: All customers upgrading from 1.6.x to 1.6.5 versions of the tile should read the 'Additional upgrade steps for customers going from 1.6.x to 1.6.5' document located with the release on https://network.pivotal.io/products/pivotal-rabbitmq-service</p>
+<p class="note"><strong>Note</strong>: All customers upgrading from 1.6.x to 1.6.5 versions of the tile should read the <strong>Additional upgrade steps for customers going from 1.6.x to 1.6.5</strong> document located with the <a href="https://network.pivotal.io/products/pivotal-rabbitmq-service">release</a>.</p>
 
 For more information, refer to the full [Product Version Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
@@ -111,7 +111,7 @@ For more information, refer to the full [Product Version Matrix](http://docs.piv
 
 ## Features
 
-* Provision an instance of the RabbitMQ service, which corresponds to a unique RabbitMQ vhost (virtual host)
+* Provision an instance of the RabbitMQ service, which corresponds to a unique RabbitMQ Vhost (virtual host)
 * Bind applications to an instance of the plan, providing unique credentials for each binding
 * Management dashboard access to PCF Operators and application developers
 * Deployment across multiple availability zones, with nodes striped across the AZs automatically
@@ -123,7 +123,7 @@ For more information, refer to the full [Product Version Matrix](http://docs.piv
 * A default configurable queue policy is supplied in Ops Manager, but needs to be enabled on the deployment to take effect.
 * Automated upgrades of RabbitMQ for major, minor and patch releases
 * Configure the end point for the RabbitMQ Syslog
-* RabbitMQ and HAproxy metrics are exposed on the firehose
+* RabbitMQ and HAProxy metrics are exposed on the firehose
 
 ### Install via Pivotal Ops Manager
 
@@ -158,9 +158,9 @@ We hope to address all of these limitations in future releases.
 
 * In versions `1.4.1` and `1.4.2`, the `manage` button for your RabbitMQ instance in Apps Manager will not automatically log you into the RabbitMQ Dashboard. You need to press `logout` and then login with your `username` and `password` which can be obtained from inspecting the environment variables for your instance.
 * In versions `1.5.0` and `1.5.1`, when performing a fresh installation or upgrade, if the Elastic Runtime system and application domains are different then the `Broker Registrar` errand will fail. To resolve this disable the errand and redeploy, then register the broker manually using the system domain route `pivotal-rabbitmq-broker.system.domain`. For more information on registering brokers see the [CloudFoundry documentation](http://docs.cloudfoundry.org/services/managing-service-brokers.html).
-* In the `1.5.0, 1.5.1, 1.5.2, 1.5.3` releases, when performing a fresh installation or upgrade, if you have the rabbitmq\_jsonrpc\_channel or rabbitmq\_jsonrpc\_channel_examples plugins selected then the RabbitMQ nodes will fail to start. The plugins are no longer distributed with RabbitMQ and plugin validation was introduced in RabbitMQ `3.5.7`, causing the nodes to fail to start. To resolve this issue you should install/upgrade to version `1.5.4` or above of the tile.
-* In the '1.5.x` and `1.6.x` tiles it is not possible to install the RabbitMQ tile in multiAZ with multi-subnet networks.
-* IPsec will not work with any version of the RabbitMQ tile, and customers wishing to use it are advised to deploy their servces to a different subnet.
+* In the `1.5.0, 1.5.1, 1.5.2, 1.5.3` releases, when performing a fresh installation or upgrade, if you have the rabbitmq\_jsonrpc\_channel or rabbitmq\_jsonrpc\_channel_examples plugins selected then the RabbitMQ nodes will fail to start. The plugins are no longer distributed with RabbitMQ and plugin validation was introduced in RabbitMQ `3.5.7`, causing the nodes to fail to start. To resolve this issue you should install or upgrade to version `1.5.4` or above of the tile.
+* In the `1.5.x` and `1.6.x` tiles it is not possible to install the RabbitMQ tile in multiAZ with multi-subnet networks.
+* IPsec will not work with any version of the RabbitMQ tile, and customers wishing to use it are advised to deploy their services to a different subnet.
 
 
 ### Feedback
