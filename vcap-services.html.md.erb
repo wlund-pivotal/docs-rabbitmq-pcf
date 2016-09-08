@@ -83,12 +83,12 @@ For example with two HAProxy jobs deployed the following properties will be pres
 
 ## Changing Enabled Plugins and Protocols
 
-> **Note**: Removing or adding plugins/protocols may cause apps bound with RabbitMQ to break.
+<p class="note"><strong>Note</strong>: Removing or adding plugins/protocols may cause apps bound with RabbitMQ to break.</p>
 
-If you adjust the plugins and protocols enabled for RabbitMQ, you may need to force all app's `VCAP_SERVICES` environment variable to be regenerated. Adding / removing the following plugins require bound applications to be restaged:
+If you adjust the plugins and protocols enabled for RabbitMQ, you may need to force all app's `VCAP_SERVICES` environment variable to be regenerated. Adding and removing the following plugins require bound applications to be restaged:
 
-* rabbitmq_management,
-* rabbitmq_stomp,
+* rabbitmq_management
+* rabbitmq_stomp
 * rabbitmq_mqtt
 * rabbitmq\_amqp1\_0
 
