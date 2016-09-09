@@ -5,12 +5,7 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to update the RabbitMQ&reg; tile to v1.6.6 from earlier 1.6.0–v1.6.4 versions. 
-Follow this procedure before upgrading Pivotal Cloud Foundry (PCF) v1.7 to v1.8. 
-For general information about upgrading PCF, see the [Upgrading Pivotal Cloud Foundry](http://docs.pivotal.io/pivotalcf/1-8/customizing/upgrading-pcf.html) topic. 
-
-<p class="note warning">
-<strong>WARNING</strong>: Do not upgrade to RabbitMQ v1.7.x until you have upgraded PCF to v1.8.</p>
+This topic describes how to update the RabbitMQ&reg; tile to v1.6.6 from earlier v1.6.0–v1.6.4 versions. 
 
 The update described on this page includes a workaround for an issue with earlier versions of the RabbitMQ tile: 
 the service-metrics process on each RabbitMQ server node must be stopped before the update.
@@ -147,8 +142,5 @@ This is the standard [upgrade procedure for service tiles](http://docs.pivotal.i
 4. As a part of the upgrade, the service-metrics processes are restarted on each RabbitMQ server node.
 
 5. After the update, check that the [tile status](#check-tile-status) and [cluster status](#check-cluster-status) are good.
-
-If you are performing this update as part of upgrading PCF to v1.8, return to 
-[Review Product Compatibility Prerequisites](http://docs-pcf-staging.cfapps.io/pivotalcf/1-8/customizing/upgrading-pcf.html#review-lockstep) in the upgrading topic. 
 
 
