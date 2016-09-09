@@ -7,7 +7,7 @@ owner: London Services
 
 This topic describes how to update the RabbitMQ&reg; tile to v1.6.6 from earlier v1.6.0–v1.6.4 versions. 
 Follow this procedure before upgrading Pivotal Cloud Foundry (PCF) v1.7 to v1.8. 
-For general information about upgrading PCF, see the [Upgrading Pivotal Cloud Foundry](http://docs.pivotal.io/pivotalcf/1-8/customizing/upgrading-pcf.html) topic. 
+For general information about upgrading PCF, see the [Upgrading Pivotal Cloud Foundry](http://docs.pivotal.io/pivotalcf/customizing/upgrading-pcf.html) topic. 
 
 <p class="note warning">
 <strong>WARNING</strong>: Do not upgrade to RabbitMQ v1.7.x until you have upgraded PCF to v1.8.</p>
@@ -102,7 +102,7 @@ There are two parts for updating the RabbitMQ tile:
 
 Stop the service-metrics on each RabbitMQ server node by SSHing into the node and using monit to stop the processes:
 
-1. Target your RabbitMQ deployment with BOSH, on the command line, run `bosh ssh` . For more information, see the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/1-7/customizing/trouble-advanced.html#bosh-ssh) topic. 
+1. Target your RabbitMQ deployment with BOSH, on the command line, run `bosh ssh` . For more information, see the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#bosh-ssh) topic. 
 
     <pre class='terminal'>
       RSA 1024 bit CA certificates are loaded due to old openssl compatibility 
@@ -136,7 +136,7 @@ If you check the [cluster status](#check-cluster-status) now, it should still be
 
 ### <a id="import-product"></a> Import the Product Update
 
-This is the standard [upgrade procedure for service tiles](http://docs.pivotal.io/pivotalcf/1-7/customizing/upgrading-products.html).
+This is the standard [upgrade procedure for service tiles](http://docs.pivotal.io/pivotalcf/customizing/upgrading-products.html).
 
 1. Click **Import a Product.**
 
@@ -149,6 +149,6 @@ This is the standard [upgrade procedure for service tiles](http://docs.pivotal.i
 5. After the update, check that the [tile status](#check-tile-status) and [cluster status](#check-cluster-status) are good.
 
 If you are performing this update as part of upgrading PCF to v1.8, return to 
-[Review Product Compatibility Prerequisites](http://docs-pcf-staging.cfapps.io/pivotalcf/1-8/customizing/upgrading-pcf.html#review-lockstep) in the upgrading topic. 
+[Review Product Compatibility Prerequisites](http://docs-pcf-staging.cfapps.io/pivotalcf/customizing/upgrading-pcf.html#review-lockstep) in the upgrading topic. 
 
 
