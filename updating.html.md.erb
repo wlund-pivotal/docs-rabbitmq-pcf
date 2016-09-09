@@ -1,36 +1,154 @@
 ---
-title: RabbitMQ&reg; for Pivotal Cloud Foundry
+title: Updating RabbitMQ for PCF from 1.6.x to 1.6.5
 owner: London Services
 ---
 
-# Upgrades
+<strong><%= modified_date %></strong>
 
-This product enables a seamless upgrade experience between versions of the product that is deployed through Ops Manager.
+This topic describes how to update the RabbitMQ&reg; tile to v1.6.5 from earlier 1.6.x versions. 
+Follow this procedure before upgrading Pivotal Cloud Foundry (PCF) v1.7 to v1.8. 
+For general information about upgrading PCF, see the [Upgrading Pivotal Cloud Foundry](http://docs-pcf-staging.cfapps.io/pivotalcf/1-8/customizing/upgrading-pcf.html) topic. 
 
-The upgrade paths are detailed [here](http://docs.pivotal.io/rabbitmq-cf/index.html) for each released version.
 
-To upgrade the product:
+<p class="note warning">
+<strong>WARNING</strong>: Do not upgrade to RabbitMQ v1.7.x until you have upgraded PCF to v1.8.</p>
 
-* The Operator should download the latest version of the product from [Pivotal Network](https://network.pivotal.io/products/pivotal-rabbitmq-service)
-* Upload the new .pivotal file to Ops Manager
-* Upload the stemcell associated with the update (*if required*)
-* Update any new mandatory configuration parameters (*if required*)
-* Press "Apply changes" and the rest of the process is automated
+The update described on this page includes a workaround for an issue with earlier versions of the RabbitMQ tile: 
+the service-metrics process on each RabbitMQ server node must be stopped before the update.
 
-It is necessary to increase the number of HAProxy instances from the default of one to two, before an upgrade is initiated to enable a zero downtime upgrade.  During a typical upgrade deployment, nodes are upgraded one at a time in the cluster providing a zero downtime deployment. Applications may experience a disconnected session, if the application attempts to reconnect it will be directed to another working node automatically.
+## <a id="prepare-to-update"></a>Prepare for the Update
 
-Only when upgrading between specific versions of Erlang or RabbitMQ is an outage required on the cluster. This will be clearly stated on the release notes for that version, should this be required.
+Before upgrading the RabbitMQ tile, do the following: 
 
-The length of the downtime depends on whether there is a stemcell update to replace the operating system image or whether the existing VM can simply have the RabbitMQ software updated. Stemcell updates incur additional downtime while the IaaS creates the new VM while updates without a stemcell update are faster.
+* [Update your stemcells to 3232.13](#update-stemcells)
 
-Ops Manager ensures the instances are updated with the new packages and any configuration changes are applied automatically.
+* [Check tile status](#check-tile-status)
 
-Upgrading to a newer version of the product does not cause any loss of data or configuration. This is explicitly tested for during our build and test process for a new release of the product.  (In future releases of the product the default number of HAProxy instances will be increased to two).
+* [Check cluster status](#check-cluster-status)
 
-Please note that it may take busy RabbitMQ nodes a long time to shutdown during the upgrade and this process should not be forcibly stopped.  Where possible it is advised to fully drain queues before an upgrade involving an update to the version of RabbitMQ running.
+### <a id="update-stemcells"></a>Update Your Stemcells
 
-# Release policy
+The RabbitMQ v1.6.5 tile requires stemcell 3232.13. 
+Later versions of the tile require higher stemcells, so make sure to look at the release notes for details.
 
-When a new version of RabbitMQ is released we aim to release a new version of the product containing this soon after.
+When you update a stemcell for one tile, all the tiles that use floating stemcells and that are using earlier stemcells will have their stemcells updated.
+For general information about floating stemcells, see the [Understanding Floating Stemcells](http://docs.pivotal.io/pivotalcf/1-8/customizing/understanding-stemcells.html) topic.
 
-Where there is a new version of RabbitMQ or another dependent software component such as the stemcell released due to a critical CVE, Pivotal's goal is to release a new version of the product within 48 hours.
+Before you update the RabbitMQ tile, Pivotal recommends that you update the stemcell on all products that use floating stemcells. 
+Do this by updating the stemcell for Pivotal Elastic Runtime as follows:
+
+1. Download the stemcell 3232.13 for your IaaS from the [Pivotal Network](https://network.pivotal.io/products/stemcells#/releases/2007).
+
+2. On the **Installation Dashboard**, click **Pivotal Elastic Runtime**.
+
+3. On the **Settings** tab, click **Stemcell**.
+
+4. Click **Import Stemcell**.
+
+5. Upload the 3232.13 stemcell file. 
+
+6. Return to the Installation Dashboard and click **Apply Changes**.
+
+### <a id="check-tile-status"></a> Check the Tile Status
+
+Ensure that all the VMs have sufficient persistent disk space, that is, they are less than 75% full, and are in a good state: 
+
+1. Navigate to the Status page on the RabbitMQ tile. 
+
+    <%= image_tag("good_status.png") %>
+
+2. Check that all of the entries in the "pers. disk" column are below 75%. 
+
+3. If the persistent disk ("pers. disk") is greater than 75%, then consume messages from the queues hosted on the node or 
+contact <%= vars.support_link %> for assistance.
+
+4. Confirm that all RabbitMQ nodes in the cluster are operational.
+If any nodes are in a "failing" state, they are outlined in red. 
+
+    <%= image_tag("bad_status.png") %>
+
+5. If Ops Manager indicates any nodes are in a failing state, contact <%= vars.support_link %>. 
+Do not update the RabbitMQ tile until all nodes in the cluster are operational.
+
+### <a id="check-cluster-status"></a> Check the Cluster Status
+
+Ensure that all RabbitMQ nodes are correctly clustered and can see each other:
+
+1. Navigate to the RabbitMQ management interface at `http://pivotal-rabbitmq.SYSTEM_DOMAIN`
+
+2. Log in with the full admin username and password created when you first deployed the RabbitMQ tile. 
+
+3. On the **Nodes** section, ensure that there are no red banners that say `Node not running`. 
+
+    <%= image_tag("bad_node_state.png") %>
+
+    In this example, the fifth node in the cluster cannot be reached from the other nodes.
+
+5. If you see a problem with the nodes, contact <%= vars.support_link %>. Do not update the RabbitMQ tile until all nodes are green.
+
+## <a id="update-tile"></a>Update the RabbitMQ Tile
+
+Updating the RabbitMQ tile to v1.6.5 is different from a normal update. 
+Because of an issue in earlier versions of RabbitMQ, you must stop the service-metrics process on each 
+RabbitMQ server node before performing the update. 
+These service-metrics processes are automatically restarted after the upgrade.
+
+There are two parts for updating the RabbitMQ tile:
+
+* [Stop the service-metrics process](#stop-metrics)
+
+* [Import the product update](#import-product)
+
+### <a id="stop-metrics"></a> Stop the Service-Metrics Processes
+
+Stop the service-metrics on each RabbitMQ server node by SSHing into the node and using monit to stop the processes:
+
+1. Target your RabbitMQ deployment with BOSH, on the command line, run `bosh ssh` . For more information, see the [Advanced Troubleshooting with the BOSH CLI](http://docs.pivotal.io/pivotalcf/1-7/customizing/trouble-advanced.html#bosh-ssh) topic. 
+<pre class="terminal">
+RSA 1024 bit CA certificates are loaded due to old openssl compatibility
+1. rabbitmq-haproxy/0 (eaf83d0a-a939-4e17-bac3-c9f0de428158)
+2. rabbitmq-broker/0 (fe07bfd1-d2b0-4639-b808-8d6341e67fb1)
+3. rabbitmq-server/0 (80910e31-1427-446e-93d7-29bb215d0aa4)
+4. rabbitmq-server/1 (f1819cda-c629-411b-b68c-e4a15535c0e0)
+Choose an instance:
+</pre>
+
+2. SSH into each `rabbitmq-server` node in turn and perform the following steps. Ignore the `rabbitmq-haproxy` and `rabbitmq-broker` nodes. 
+
+    1. Choose a rabbitmq-server instance.
+
+    2. Open a root shell by typing `sudo -i`
+
+    3. Stop service-metrics by typing `monit stop service-metrics` 
+
+    4. Ensure service-metrics has stopped by running monit summary and checking the status of service-metrics is `not monitored`. 
+It may take a few moments for service-metrics to shut down, so you might have to run monit summary several times.
+
+    5. Ensure metrics do not leave processes running. Type ps aux | grep rabbitmqctl and ensure that no running processes are returned. 
+
+When the service-metrics stop on a given rabbitmq-server node, Ops Manager detects that something is wrong with that node. 
+As a result, after you stop all your service-metrics processes, the status tab in your RabbitMQ tile shows problems like this:
+
+<%= image_tag("stopped_nodes.png") %>
+
+If you checked the tile status immediately before stopping the service-metrics, you can be confident that the errors are only related to the stoppage. 
+If you check the [cluster status](#check-cluster-status) now, it should still be in a good state. 
+
+### <a id="import-product"></a> Import the Product Update
+
+This is the standard [upgrade procedure for service tiles](http://docs.pivotal.io/pivotalcf/1-7/customizing/upgrading-products.html).
+
+1. Click **Import a Product.**
+
+2. Under **Available Products**, click **Upgrade** for the 1.6.5 version of the RabbitMQ tile.
+
+3. Click **Apply changes.**
+
+4. As a part of the upgrade, the service-metrics processes are restarted on each RabbitMQ server node.
+
+5. After the update, check that the [tile status](#check-tile-status) and [cluster status](#check-cluster-status) are good.
+
+If you are performing this update as part of upgrading PCF to v1.8, return to 
+[Review Product Compatibility Prerequisites] ([http://docs-pcf-staging.cfapps.io/pivotalcf/1-8/customizing/upgrading-pcf.html#review-lockstep](http://docs-pcf-staging.cfapps.io/pivotalcf/1-8/customizing/upgrading-pcf.html#review-lockstep)) in the upgrading topic. 
+
+
