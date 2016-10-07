@@ -11,8 +11,18 @@ Release notes for [RabbitMQ for Pivotal Cloud Foundry](https://network.pivotal.i
 Features included in this release:
 
 * Using stemcell 3232.21
+
+### 1.6.7
+**Release Date: th October 2016**
+
+Features included in this release:
+
+* Using stemcell 323.1
 * Customers upgrading from versions below 1.6.4 should expect the RabbitMQ cluster to be taken offline while the new RabbitMQ package is applied
-* Customers should read the accompanying 'Updating RabbitMQ for PCF from v1.6.x to v1.6.7 section
+* Customers should read the accompanying 'Updating RabbitMQ for PCF from v1.6.x to v1.6.8 section
+* Dependencies updated: HAproxy (1.6.9), Golang (1.6.3), JRE 1.8.102
+* OSS RabbitMQ 3.6.5 & Erlang 18.3
+* Fixed issue with SSL configuration options in Operations Manager swapping the 'Enable verify_peer SSL certificate verification' option and 'Require peer certificate validation' option.  Existing settings will be migrated with no input from operators.
 
 ### 1.6.6
 **Release Date: 25th August 2016**
