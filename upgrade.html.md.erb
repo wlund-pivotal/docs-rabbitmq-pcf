@@ -8,6 +8,7 @@ owner: London Services
 This product enables automated upgrades between versions of the product and is deployed through Ops Manager, and due to RabbitMQ product limitations may require the cluster to be taken offline.  When this is necessary it is clearly noted in the release notes for that version.
 
 Note there is a difference between the cluster remaining available during a tile upgrade/update, and an individual queue placed on nodes in a cluster.
+The upgrade paths are detailed [here](http://docs.pivotal.io/rabbitmq-cf/index.html) for each released version.
 
 A reference guide for deployments is shown the table below.  Please be aware that this is a guide only and that the release notes for the version you are updating to must be checked before upgrading.
 
@@ -61,20 +62,40 @@ To upgrade the product:
 * Update any new mandatory configuration parameters (*if required*)
 * Press "Apply changes" and the rest of the process is automated
 
-It is necessary to increase the number of HAProxy instances from the default of one to two, before an upgrade is initiated to enable a zero downtime upgrade.  During a typical upgrade deployment, nodes are upgraded one at a time in the cluster providing a zero downtime deployment. Applications may experience a disconnected session, if the application attempts to reconnect it will be directed to another working node automatically.
+Depending on the network partition handling that you have configured and the
+resource config, you should benefit from the product's stemcell rolling
+upgrades. The default HAProxy instance count has changed from 1 to 2 and the
+RabbitMQ node count from 2 to 3. This is required for rolling stemcell
+upgrades. This is the minimum deployment size that we recommend for the default
+`pause_minority` RabbitMQ network partition behaviour. See [Clustering and
+Network Partitions](../partitions.html) for more information.
 
-Only when upgrading between specific versions of Erlang or RabbitMQ is an outage required on the cluster. This will be clearly stated on the release notes for that version, should this be required.
+Only when upgrading between specific versions of Erlang or RabbitMQ will the
+cluster become unavailable. This will be clearly stated on the release notes for
+that version, should this be the case.
 
-The length of the downtime depends on whether there is a stemcell update to replace the operating system image or whether the existing VM can simply have the RabbitMQ software updated. Stemcell updates incur additional downtime while the IaaS creates the new VM while updates without a stemcell update are faster.
+The length of the downtime depends on whether there is a stemcell update to
+replace the operating system image or whether the existing VM can simply have
+the RabbitMQ software updated. Stemcell updates incur additional downtime while
+the IaaS creates the new VM.
 
-Ops Manager ensures the instances are updated with the new packages and any configuration changes are applied automatically.
+Ops Manager ensures the instances are updated with the new packages and any
+configuration changes are applied automatically.
 
-Upgrading to a newer version of the product does not cause any loss of data or configuration. This is explicitly tested for during our build and test process for a new release of the product.  (In future releases of the product the default number of HAProxy instances will be increased to two).
+Upgrading to a newer version of the product should not cause any loss of data or
+configuration.
 
-Please note that it may take busy RabbitMQ nodes a long time to shutdown during the upgrade and this process should not be forcibly stopped.  Where possible it is advised to fully drain queues before an upgrade involving an update to the version of RabbitMQ running.
+Please note that it may take busy RabbitMQ nodes a long time to shutdown during
+the upgrade and this process must not be interrupted.
 
-# Release policy
+For any issues upgrading RabbitMQ, please refer to the
+[Troubleshooting](../troubleshooting.html) section.
 
-When a new version of RabbitMQ is released we aim to release a new version of the product containing this soon after.
+## Release policy
 
-Where there is a new version of RabbitMQ or another dependent software component such as the stemcell released due to a critical CVE, Pivotal's goal is to release a new version of the product within 48 hours.
+When a new version of RabbitMQ is released we aim to release a new version of
+the product containing this soon after.
+
+Where there is a new version of RabbitMQ or another dependent software
+component such as the stemcell released due to a critical CVE, Pivotal's goal
+is to release a new version of the product within 48 hours.
