@@ -58,7 +58,8 @@ If you change the topology of your RabbitMQ cluster, the HAProxy is automaticall
 
 To enable access to the RabbitMQ tile service, you must ensure your security
 group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment. You can obtain the IP addresses for these from the Ops Manager **Status** page for the RabbitMQ tile.
-You should ensure the following ports are enabled for those VMs:
+Ensure the following ports are enabled for those VMs:
+
 * 15672
 * 5672
 * 5671
@@ -70,7 +71,7 @@ You should ensure the following ports are enabled for those VMs:
 * 4567
 * 3457 - 3459
 
-Here is a template for configuring your Cloud Foundry security groups:
+The following is a template for configuring your Cloud Foundry security groups:
 ```
 [
 {"protocol":"tcp","destination":"<haproxy-node-IP-addresses>","ports":"5671,5672,1883,8883,61613,61614,15672,15674"},
