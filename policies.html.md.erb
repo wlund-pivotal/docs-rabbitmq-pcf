@@ -6,33 +6,33 @@ owner: London Services
 
 # RabbitMQ Policy
 
-The configuration box shown below can be used by Operators to set a defult queue and/or exchange policy to be applied to their RabbitMQ cluster.  It is advised that after deployment all configuration is done via the RabbitMQ Management Interface.
+The configuration box shown below can be used by Operators to set a default queue and an exchange policy to be applied to their RabbitMQ cluster. We recommend that you use the RabbitMQ Management Interface to make configuration changes after deployment.
 
-An example policy is provided in the confguration box, but it is not enabled or applied and is intended only as a guide.  Operators should consider some of the performance implications of making queuss and exchanges highly available, and refer to the following documenation for more information: https://www.rabbitmq.com/ha.html
+An example policy is provided in the configuration box, but it is not enabled or applied and is intended only as a guide. Operators should consider some of the performance implications of making queuss and exchanges highly available, and refer to the following documentation for more information: https://www.rabbitmq.com/ha.html
 
-The following rules apply to polices set via this confguration box:
+The following rules apply to polices set through this configuration box:
 
 * The policy is only applied to new instances
 * Any existing instances will not have the policy applied
-* The policy can be updated in OpsManager and this will only be applied to any new instances created there after
+* The policy can be updated in Ops Manager, and will be applied only to any new instances
 * The policy can only be deleted manually from the RabbitMQ nodes
-* Polcies can be added dynamically using the RabbitMQ Managemnt Interface
+* Policies can be added dynamically using the RabbitMQ Management Interface
 
 ## Viewing or changing the policy
-In OpsManager on the RabbitMQ tile, there is a left hand menu item called `RabbitMQ Policy`  The checkbox is not enabled by default and so no policy will be applied.
+In Ops Manager on the RabbitMQ tile is a left-hand menu item named **RabbitMQ Policy**. The checkbox is not enabled by default, and so no policy will be applied.
 
 <%= image_tag("images/policy_opsman.jpeg") %>
 
-The policy must be valid JSON and it should use valid RabbitMQ policy criteria.
-This is not validated during the deployment, so any errors could either cause the deployment to fail or policies to not be applied correctly.
+The policy must be valid JSON and should meet valid RabbitMQ policy criteria.
+No validation occurs during the deployment, and errors can cause the deployment to fail or policies to be applied incorrectly.
 
 For more information, view [RabbitMQ Policies](http://www.rabbitmq.com/parameters.html#policies).
 
 ## RabbitMQ dashboard
 
-You can view the policy on the RabbitMQ Dashboard. The URL can be obtained from your `VCAP_SERVICES` for application developers.
+You can view the policy on the RabbitMQ Dashboard. You can obtain the URL can be obtained from the your `VCAP_SERVICES` for application developers.
 
-The example policy is applied to all queues, with a rank of 50 so it can be overriden by defining your own policy with a higher rank.
+The example policy is applied to all queues and given a rank of `50`. This allows you to override it by defining your own policy with a higher rank.
 <%= image_tag("images/policy_config.jpeg") %>
 
 You can see any new queues created have the policy automatically applied.
@@ -40,6 +40,6 @@ You can see any new queues created have the policy automatically applied.
 
 ## Network partition behavior
 
-It is possible to change how you would want RabbitMQ to act once it discovers there has been a network partition.  The two options are `pause_minority` and `autoheal`, and more detail on these settings can be found here: https://www.rabbitmq.com/partitions.html
+You can change how RabbitMQ acts once it discovers there has been a network partition. The two options are `pause_minority` and `autoheal`, and more detail on these settings can be found here: https://www.rabbitmq.com/partitions.html
 
-You must set the choose the option you want before deploying, or the default `pause_minority` will be used.  For production purposes we recomend that customers have at least 3 RabbitMQ server nodes and 2 HAproxy spread across low latency availability zones. 
+You must choose the option you want before deploying, or the default `pause_minority` will be used. For production purposes, we recommend that customers have at least three RabbitMQ server nodes and two HAProxies spread across low latency availability zones. 
