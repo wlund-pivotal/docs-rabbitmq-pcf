@@ -13,9 +13,9 @@ The [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) (PCF
 
 <dl>
 <dt>Current RabbitMQ for PCF Details</dt>
-<dd><strong>Version</strong>: 1.7.3 </dd>
-<dd><strong>Release Date</strong>:  11th October 2016</dd>
-<dd><strong>Software component version</strong>: RabbitMQ OSS 3.6.3</dd>
+<dd><strong>Version</strong>: 1.7.4 </dd>
+<dd><strong>Release Date</strong>:  13th October 2016</dd>
+<dd><strong>Software component version</strong>: RabbitMQ OSS 3.6.5</dd>
 <dd><strong>Compatible Ops Manager Version(s)</strong>: 1.8.x </dd>
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.8.x </dd>
 <dd><strong>vSphere support?</strong> Yes</dd>
@@ -27,13 +27,11 @@ The [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) (PCF
 
 Consider the following compatibility information before upgrading RabbitMQ for Pivotal Cloud Foundry.
 
+<p class="note"><strong>Note</strong>: Customers upgrading from v 1.7.0 - 1.7.3 will experince downtime during the deployment as the RabbitMQ package is upgraded.</p>
+
 <p class="note"><strong>Note</strong>: You can only upgrade this tile from v1.6.5 or later, which must be installed before starting an Ops Manager upgrade.</p>
 
-<p class="note"><strong>Note</strong>: Do not upgrade to this release from v1.6.8</p>
-
-<p class="note"><strong>Note</strong>: Only v1.5.9 and later are certified to work in new installations of Ops Manager v1.7.x.</p>
-
-<p class="note"><strong>Note</strong>: You can not upgrade v1.5.11 to v1.6.0, so you must use v1.6.1 or later.</p>
+<p class="note"><strong>Note</strong>: Customers with version 1.6.8 of the tile should only upgrade to verison 1.7.4 or higher</p>
 
 <p class="note"><strong>Note</strong>: All customers upgrading from v1.6.x to v1.6.5 or later versions of the tile should read the
 <em>Additional upgrade steps for customers going from v1.6.x to v1.6.5</em> document located with the release on https://network.pivotal.io/products/pivotal-rabbitmq-service</p>
@@ -48,38 +46,21 @@ For more information, refer to the full [Product Version Matrix](http://docs.piv
 <tr>
   <th>1.6.x and 1.5.x</th>
   <td><ul>
-  <li>From 1.5.0 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.1 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.2 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.3 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.4 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.5 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.6 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.7 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.8 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.9 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.10 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.11 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.12 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.13 through to 1.5.15, 1.6.0 through to 1.6.7</li>
+  <li>From 1.5.0 through to 1.5.17, 1.6.0 through to 1.6.9</li>
     </ul>
   </td>
 </tr>
 <tr>
   <th>1.7.x</th>
   <td><ul>
-  <li>From 1.5.9 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.10 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.11 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.12 through to 1.5.15, 1.6.0 through to 1.6.7</li>
-  <li>From 1.5.13 through to 1.5.15, 1.6.0 through to 1.6.7</li>
+  <li>From 1.5.9 through to 1.5.17, 1.6.0 through to 1.6.9</li>
     </ul>
   </td>
 </tr>
 <tr>
   <th>1.8.x</th>
   <td><ul>
-  <li>1.7.0 </li>
+  <li>From 1.7.0 through to 1.7.4</li>
     </ul>
   </td>
 </tr>
@@ -101,6 +82,7 @@ For more information, refer to the full [Product Version Matrix](http://docs.piv
 * Automated upgrades of RabbitMQ for major, minor and patch releases
 * Configure the end point for the RabbitMQ Syslog
 * RabbitMQ and HAProxy metrics are exposed on the firehose
+* IPSec does not work with this version of the tile and it should be installed into a non-IPSec subnet
 
 ### Install via Pivotal Ops Manager
 
