@@ -78,7 +78,7 @@ Features included in this release:
 * This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment
 
 ### 1.7.5
-**Release Date:  14th October 2016**
+**Release Date:  21st October 2016**
 
 * Requires stemcell 3263.7
 * The will be a rolling deployment
@@ -90,6 +90,11 @@ Features included in this release:
 * Erlang 18.1
 * HAproxy v1.6.4
 * Includes stability and bug fixes.
+* Using stemcell 3263.8 for USN-3106-2: Linux kernel (Xenial HWE) vulnerability
+* Upgrade of Erlang to 18.3.4.  Each node will be upgraded in turn and the entire cluser will not be taken offlne
+* Update to drain scripts during RabbitMQ node shutdown to cleanly shutdown the application and increase logging
+* Contains OSS RabbitMQ 3.6.5 and HAProxy v1.6.9
+* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment
 
 ### 1.7.4
 **Release Date:  13th October 2016**
@@ -155,6 +160,7 @@ Features included in this release:
 * If deploying this tile as part of an Ops Manager v1.8 upgrade from Ops Manager v1.7, ensure that you are upgrading from RabbitMQ for PCF v1.6.6 or later.
 * This release is using Service Metrics v1.4.3
 
+<<<<<<< HEAD
 ### 1.6.13
 **Release Date: 8th December 2016**
 
@@ -238,6 +244,46 @@ Features included in this release:
 * Fixed issue with SSL configuration options in Operations Manager swapping the 'Enable verify_peer SSL certificate verification' option and 'Require peer certificate validation' option.  Existing settings will be migrated with no input from operators.
 
 
+||||||| merged common ancestors
+=======
+### 1.6.10
+**Release Date: 21st October 2016**
+Features included in this release:
+
+* Using stemcell 3233.2
+* Upgrade of Erlang to 18.3.4.  Each node will be upgraded in turn and the entire cluser will not be taken offlne
+* Update to drain scripts during RabbitMQ node shutdown to cleanly shutdown the application and increase logging
+* Contains OSS RabbitMQ 3.6.5 and HAProxy v1.6.9
+* You can only upgrade this version of the tile to version 1.7.6
+
+
+### 1.6.9
+**Release Date: 13th October 2016**
+
+Features included in this release:
+
+* Installing this release will require the RabbitMQ cluster to be taken offline during the deployment
+* Using stemcell 3233.2
+* OSS RabbitMQ 3.6.5 and Erlang 18.1 is included
+* HAproxy v1.6.9
+* Golang 1.6.3
+* JRE 1.8.102
+* Fixed issue with SSL configuration options in Operations Manager swapping the 'Enable verify_peer SSL certificate verification' option and 'Require peer certificate validation' option.  Existing settings will be migrated with no input from operators.
+
+
+### 1.6.8
+**Release Date: 10th October 2016**
+
+Features included in this release:
+
+* Using stemcell 3233.1
+* OSS RabbitMQ 3.6.5 is included
+* HAproxy v1.6.9
+* Golang 1.6.3
+* JRE 1.8.102
+* Fixed issue with SSL configuration options in Operations Manager swapping the 'Enable verify_peer SSL certificate verification' option and 'Require peer certificate validation' option.  Existing settings will be migrated with no input from operators.
+
+
 ### 1.6.7
 **Release Date: 27th September 2016**
 
@@ -245,6 +291,7 @@ Features included in this release:
 
 * Using stemcell 3232.21
 * RabbitMQ is updated to 3.6.5. Each node will be upgraded in turn and the entire cluster will not be taken offline
+* Customers upgrading from any previous version other than 1.6.4 should expect the RabbitMQ cluster to be taken offline while the new RabbitMQ package is applied
 * Customers should read the accompanying 'Additional steps for customers going from 1.6.x to 1.6.5' document.
 
 ### 1.6.6
