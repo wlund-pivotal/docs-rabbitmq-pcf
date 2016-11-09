@@ -11,17 +11,25 @@ The deployment includes a single load balancer `haproxy` which spreads connectio
 
 The deployment will occur in a single availability zone (AZ).
 
+The default configuration is for testing purposes only and it is recommended that customers have a minium of **3 RabbitMQ nodes** and **2 HAproxy nodes**
+
 <%= image_tag("images/deployment_default.jpeg") %>
 
 ### Considerations for this deployment
 
-* Provides HA for RabbitMQ nodes to avoid data loss
+* Provides HA for the RabbitMQ cluster
+* Queues must be judiciously configured to be HA as they are placed on one node by default
+* Customers should decide on which partition behaviour is best suited to their use case.  For two nodes 'automatic' is preferred
 * HAProxy is a single point of failure (SPOF)
 * The entire deployment is in a single AZ, which does not protect against external failures from failures in hardware, networking, etc.
 
 ## Recommended Deployment
 
 We recommend that RabbitMQ is deployed across at least two availability zones.
+
+RabbitMQ server nodes should be scaled to an odd number and should be greater than 3.
+
+Replication of queues should only be used where requred as it can have a big impact on system performance.
 
 The HAProxy job instance count should also be increased to match the number of AZs to ensure there is a HAProxy located in each AZ.
 This removes the HAProxy SPOF and provides further redundancy.
@@ -30,7 +38,7 @@ This removes the HAProxy SPOF and provides further redundancy.
 
 In the above diagram, you can see that you can now suffer the failure of a single HAProxy and single RabbitMQ node and still keep your cluster online and applications connected.
 
-It is also recommend that customers chooses an odd number of RabbitMQ server nodes of three or more. 
+It is also recommend that customers chooses an odd number of RabbitMQ server nodes of three or more.
 
 ### Upgrading to this deployment from a single AZ deployment
 
@@ -50,6 +58,8 @@ If you have deployed the tile across two AZs, but with a single HAProxy instance
 
 * Requires IaaS configuration for availability zones ahead of deploying the RabbitMQ tile
 * Application developers will be handed the IPs of each deployed HAProxy in their environment variables
+* Queues must be judiciously configured to be HA as they are placed on one node by default
+* Customers should decide on which partition behaviour is best suited to their use case.  For 3 or more nodes 'pause_minority' is preferred
 
 ## Advanced Deployment
 
@@ -84,7 +94,7 @@ This can be achieved as follows:
 5. Any existing instances will continue to use the HAProxy IP addresses in their `VCAP_SERVICES`
 6. Phase the re-binding of existing applications to have their environment variables updated
 7. Once all applications are updated
-8. Reduce the instance count of the `HAProxy` job in OpsManager to 0
+8. Reduce the instance count of the `HAProxy` job in OpsManager to 1
 9. Deploy the changes
 
 This approach works as any existing bound applications have their `VCAP_SERVICES` information cached in the cloud controller and are only updated by a re-bind request.

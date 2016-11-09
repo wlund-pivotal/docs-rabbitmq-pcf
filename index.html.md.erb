@@ -21,6 +21,7 @@ The [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) (PCF
 <dd><strong>vSphere support?</strong> Yes</dd>
 <dd><strong>AWS support?</strong> Yes</dd>
 <dd><strong>OpenStack support?</strong> Yes</dd>
+<dd><strong>IPsec support?</strong> No</dd>
 </dl>
 
 ## Upgrading to the Latest Version
@@ -76,15 +77,13 @@ For more information, refer to the full [Product Version Matrix](http://docs.piv
 * Management dashboard access to PCF Operators and application developers
 * Deployment across multiple availability zones, with nodes striped across the AZs automatically
 * Enable SSL (Secure Sockets Layer) for the AMQP, MQTT, STOMP protocols
-* 2 node RabbitMQ cluster in a default deployment
 * HAProxy load balancer across all nodes to balance connections
 * Plugin configuration can be easily changed at any time and the cluster redeployed and updated
 * The cluster topology can be changed and easily scaled out
-* A default configurable queue policy is supplied in Ops Manager, but needs to be enabled on the deployment to take effect.
-* Automated upgrades of RabbitMQ for major, minor and patch releases
+* Automated upgrades of RabbitMQ for major, minor and patch releases (see release notes for downtime requirements)
 * Configure the end point for the RabbitMQ Syslog
 * RabbitMQ and HAProxy metrics are exposed on the firehose
-* IPSec does not work with this version of the tile and it should be installed into a non-IPSec subnet
+* IPSec does not work with this version of the tile and it must be installed into a non-IPSec subnet
 
 ### Install via Pivotal Ops Manager
 
@@ -96,7 +95,7 @@ To install RabbitMQ for PCF, follow the procedure for installing Pivotal Ops Man
 1. Click the newly added tile to review any configurable options.
 1. Click **Apply Changes** to install the service.
 
-This product requires Ops Manager v1.4.0 or greater.
+This product requires Ops Manager v1.5.0 or greater.
 
 ### Using RabbitMQ in your application
 
@@ -112,15 +111,16 @@ Creating a binding gives the user permissions to access this Vhost and associate
 Limitations with the current RabbitMQ for PCF product include:
 
 * Availability Zone configuration **cannot** be changed once deployed.
+* IPSec does not work with this version of the tile and it must be installed into a non-IPSec subnet
 
 We hope to address all of these limitations in future releases.
 
 ### Known Issues
 
-* In versions `1.4.1` and `1.4.2`, the `manage` button for your RabbitMQ instance in Apps Manager will not automatically log you into the RabbitMQ Dashboard. You need to press `logout` and then login with your `username` and `password` which can be obtained from inspecting the environment variables for your instance.
 * In versions `1.5.0` and `1.5.1`, when performing a fresh installation or upgrade, if the Elastic Runtime system and application domains are different then the `Broker Registrar` errand will fail. To resolve this disable the errand and redeploy, then register the broker manually using the system domain route `pivotal-rabbitmq-broker.system.domain`. For more information on registering brokers see the [CloudFoundry documentation](http://docs.cloudfoundry.org/services/managing-service-brokers.html).
 * In the `1.5.0, 1.5.1, 1.5.2, 1.5.3` releases, when performing a fresh installation or upgrade, if you have the rabbitmq\_jsonrpc\_channel or rabbitmq\_jsonrpc\_channel_examples plugins selected then the RabbitMQ nodes will fail to start. The plugins are no longer distributed with RabbitMQ and plugin validation was introduced in RabbitMQ `3.5.7`, causing the nodes to fail to start. To resolve this issue you should install or upgrade to version `1.5.4` or later of the tile.
 * In the `1.5.x` and `1.6.x` tiles it is not possible to install the RabbitMQ tile in multiAZ with multi-subnet networks.
+* It is not currently possible to set the HAproxy instance count to 0.
 * IPsec will not work with any version of the RabbitMQ tile, and customers wishing to use it are advised to deploy their services to a different subnet.
 
 
