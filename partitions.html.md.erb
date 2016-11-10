@@ -4,6 +4,19 @@ title: Clustering and Network Partitions
 owner: London Services
 ---
 
+## Clustering in RabbitMQ for PCF
+
+In RabbitMQ for PCF, the RabbitMQ&reg; broker is always deployed as a cluster of one or more virtual machines (nodes).  A RabbitMQ broker is a logical grouping of one or several Erlang nodes, each running the RabbitMQ application and sharing users, virtual hosts, queues, exchanges, bindings, and runtime parameters.
+
+**What is Replicated between nodes in a RabbitMQ cluster?**
+
+All data/state required for the operation of a RabbitMQ broker is replicated across all nodes. An exception to this are message queues, which by default reside on one node, though they are visible and reachable from all nodes.  This means that the RabbitMQ cluster may be available and serving requests, while an individual queue residing on a single node is offline.
+
+Replicating message queues across nodes is an expensive operation and should only be done to the extent needed by the application. To understand more about replicating queues across nodes in a cluster, see the [documentation](http://www.rabbitmq.com/ha.html) on high availability.
+
+
+## Automatic Network Partition Behaviours in RabbitMQ Clusters
+
 The RabbitMQ&reg; tile uses the `pause_minority` option for handling cluster partitions by default. This ensures data integrity by pausing the partition of the cluster in the minority, and resumes it with the data from the majority partition. You must maintain more than two nodes. If there is a partition when you only have two nodes, both nodes immediately pause.
 
 You can also choose the `autoheal` option in the **RabbitMQ Policy** tab. In this mode, if a partition occurs, RabbitMQ automatically decides on a winning partition, and restarts all nodes that are not in the winning partition. This option allows you to continue to receive connections to both parts of partitions.
