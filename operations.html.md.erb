@@ -5,7 +5,7 @@ owner: London Services
 
 # Operation Tips
 
-## What should I check before doing deploying a new version of the tile?
+## What should I check before deploying a new version of the tile?
 Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the firehose.  You cannot rely solely
 on the `bosh instances` output as that reflects the state of the Erlang VM used by RabbitMQ and not
 the RabbitMQ application.
@@ -23,10 +23,7 @@ stopped through BOSH.  You can also stop individual instances by running:
 
 `bosh stop JOB [index]`
 
-
-The ability to stop RabbitMQ via monit has been removed and running the command will just stop `monit` from monitoring this process.  `monit start` will still behave as expected.
-
-*Note* `monit stop rabbitmq-server` is now a no-op.
+*Note* Do not use `monit stop rabbitmq-server` as this does not call the drain scripts
 
 ## What happens when I run bosh stop rabbitmq-server?
 BOSH starts the shutdown sequence from the bootstrap instance.
@@ -60,7 +57,8 @@ program.
 First, `bosh ssh` into the failing rabbitmq-server instance and start the
 rabbimtq-server job by running `monit start rabbitmq-server`). You will not be
 able to start the job via `bosh start` as this always runs the drain script first
-and will fail since the drain script is failing. Once rabbitmq-server job is
-running (confirm this via `monit status`), run `DEBUG=1`
+and will fail since the drain script is failing.
+
+Once rabbitmq-server job is running (confirm this via `monit status`), run `DEBUG=1`
 `/var/vcap/jobs/rabbitmq-server/bin/drain`. This will tell you exactly why it’s
 failing.
