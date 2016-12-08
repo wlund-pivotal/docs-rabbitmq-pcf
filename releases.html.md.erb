@@ -21,6 +21,26 @@ Consider the following compatibility information before upgrading RabbitMQ for P
 
 <p class="note"><strong>Note</strong>: Customers with version 1.6.10 or higher of the tile should only upgrade to version 1.7.7 or higher</p>
 
+<p class="note"><strong>Note</strong>: Customers upgrading from version 1.5.x to 1.6.x should ensure that they are not upgrading from the latest 1.5.x patch version, and should only go to the latest 1.6.x patch</p>
+
+### 1.7.8
+**Release Date:  8th December 2016**
+
+**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v 1.7.6 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to 3.6.6. We recommend that you communicate with your application owners in advance to minimize the impact of this downtime.
+
+* Requires stemcell 3263.12
+* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment
+
+Packages:
+
+* OSS RabbitMQ 3.6.6
+* Erlang 18.3.4.4
+* HAProxy v1.6.4
+
+Features included in this release:
+
+* This is a security release addresed by a new stemcell
+
 ### 1.7.7
 **Release Date:  22nd November 2016**
 
@@ -135,6 +155,25 @@ Features included in this release:
 * If deploying this tile as part of an Ops Manager v1.8 upgrade from Ops Manager v1.7, ensure that you are upgrading from RabbitMQ for PCF v1.6.6 or later.
 * This release is using Service Metrics v1.4.3
 
+### 1.6.13
+**Release Date: 8th December 2016**
+
+**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.6.10 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to 3.6.6. We recommend that you communicate with your application owners in advance to minimize the impact of this downtime.
+
+* Requires stemcell 3233.6
+
+Packages:
+
+* OSS RabbitMQ 3.6.6
+* Erlang 18.3.4.4
+* HAProxy v1.6.4
+
+
+Features included in this release:
+
+* This is a security release addresed by a new stemcell
+
+
 ### 1.6.12
 **Release Date: 22nd November 2016**
 
@@ -151,7 +190,6 @@ Packages:
 
 Features included in this release:
 
-* The default number of RabbitMQ server nodes has been increased from 2 to 3. Customers with existing deployments will be unaffected.
 * This version of RabbitMQ addresses a security vulnerabiliy in the MQTT plugin.  Please see [here](https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_6) for more information
 * You can only upgrade this version of the tile to version 1.7.7 or above
 
@@ -282,6 +320,12 @@ Features included in this release:
 * You may now select the partition response for RabbitMQ to be either <code>pause\_minority</code> or `automatic`.  The default behavior has been changed from `automatic` to <code>pause\_minority</code>
 * RabbitMQ 3.6.0 changed the default TTL for MQTT subscriptions from 30 minutes to 24 hours.  This may have caused an issue for existing queues and subscribers when upgrading, so the `rabbitmq_mqtt.subscription_ttl` default is set to 30 minutes (1800000 ms)
 * The default swap space has been increased to match system memory
+
+### 1.5.21
+**Release Date: 8th December 2016**
+* Update to stemcell 3233.6
+* Update to stemcell for security fix.
+* You can only upgrade to v 1.6.12 or below from this release
 
 ### 1.5.20
 **Release Date: 22nd November 2016**
