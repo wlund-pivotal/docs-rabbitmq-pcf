@@ -13,9 +13,9 @@ The [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) (PCF
 
 <dl>
 <dt>Current RabbitMQ for PCF Details</dt>
-<dd><strong>Version</strong>: 1.7.6 </dd>
-<dd><strong>Release Date</strong>:  21st October 2016</dd>
-<dd><strong>Software component version</strong>: RabbitMQ OSS 3.6.5</dd>
+<dd><strong>Version</strong>: 1.7.8 </dd>
+<dd><strong>Release Date</strong>:  8th December 2016</dd>
+<dd><strong>Software component version</strong>: RabbitMQ OSS 3.6.6</dd>
 <dd><strong>Compatible Ops Manager Version(s)</strong>: 1.8.x </dd>
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: 1.8.x </dd>
 <dd><strong>vSphere support?</strong> Yes</dd>
@@ -26,15 +26,21 @@ The [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) (PCF
 
 ## Upgrading to the Latest Version
 
+Upgrades are normally a rolling deployment unless otherwise noted in the release notes.  
+
 Consider the following compatibility information before upgrading RabbitMQ for Pivotal Cloud Foundry.
 
-<p class="note"><strong>Note</strong>: Customers upgrading from v1.7.0 - 1.7.3 will experience downtime during the deployment as the RabbitMQ package is upgraded.</p>
+<p class="note"><strong>Note</strong>: Any tile upgrading to RabbitMQ 3.6.6 or higher will require downtime as the RabbitMQ cluster cannot run in mixed-mode with versions lower than 3.6.6 </p>
 
-<p class="note"><strong>Note</strong>: You can only upgrade this tile from v1.6.5 or later, which must be installed before starting an Ops Manager upgrade.</p>
+<p class="note"><strong>Note</strong>: It is recommended that customers always upgrade to the latest patch version of their minor line, and then only upgrade to the latest available new minor patch.  This is to ensure that RabbitMQ or Erlang versions are not downgraded during the process</p>
 
-<p class="note"><strong>Note</strong>: Customers with version 1.6.8 of the tile should only upgrade to version 1.7.4 or higher</p>
+<p class="note"><strong>Note</strong>: You can only upgrade this tile from v1.6.5 or later.  This must be completed before upgrading from Ops Manager v1.7x to v1.8.x</p>
 
-<p class="note"><strong>Note</strong>: Customers with version 1.6.9 of the tile should only upgrade to version 1.7.6 or higher</p>
+<p class="note"><strong>Note</strong>: Customers with version 1.6.6 of the tile can upgrade to version 1.7.0 or higher</p>
+
+<p class="note"><strong>Note</strong>: Customers with version 1.6.7-9 of the tile should only upgrade to version 1.7.4 or higher</p>
+
+<p class="note"><strong>Note</strong>: Customers with version 1.6.10 or higher of the tile should only upgrade to version 1.7.7 or higher</p>
 
 <p class="note"><strong>Note</strong>: All customers upgrading from v1.6.x to v1.6.5 or later versions of the tile should read the
 <em>Additional upgrade steps for customers going from v1.6.x to v1.6.5</em> document located with the release on https://network.pivotal.io/products/pivotal-rabbitmq-service</p>
@@ -49,21 +55,21 @@ For more information, refer to the full [Product Version Matrix](http://docs.piv
 <tr>
   <th>1.6.x and 1.5.x</th>
   <td><ul>
-  <li>From 1.5.0 through to 1.5.17, 1.6.0 through to 1.6.10</li>
+  <li>From 1.5.0 through to 1.5.21, 1.6.0 through to 1.6.13</li>
     </ul>
   </td>
 </tr>
 <tr>
   <th>1.7.x</th>
   <td><ul>
-  <li>From 1.5.9 through to 1.5.17, 1.6.0 through to 1.6.10</li>
+  <li>From 1.5.9 through to 1.5.21, 1.6.0 through to 1.6.13</li>
     </ul>
   </td>
 </tr>
 <tr>
   <th>1.8.x</th>
   <td><ul>
-  <li>From 1.7.0 through to 1.7.6</li>
+  <li>From 1.7.0 through to 1.7.8</li>
     </ul>
   </td>
 </tr>
