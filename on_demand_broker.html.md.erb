@@ -25,7 +25,13 @@ that a new cluster can be created and decicated to a single application
 
 ## How to upgrade dedicated instances
 ### Stemcell deployments
-### RabbitMQ updates
+### Upgrade RabbitMQ
+### Delete RabbitMQ
+On-Demand Broker provides a BOSH to delete all the On-Demand Broker deployed
+instances. After setting the deployment to the On-Demand Broker in BOSH, the
+command to delete all the instances is `bosh run errand delete-sub-deployments`.
+This command runs the `bosh delete <deployment>` serially on the deployments,
+it is very deructive and the operation cannot be undone.
 
 
 ## Entries in the VCAP_SERVICES Environment Variable
