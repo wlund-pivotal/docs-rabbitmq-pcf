@@ -178,8 +178,8 @@ When SSL is enabled:
 * `rabbitmq_stomp ssl_listeners [61614]`
 
 ## Restarting Statistics Database
-Is it possible to setup a schedule to restart the statistics following a cron schedule,  the schedule can be configured in the property _Restart RabbitMQ Statistics Database Schedule_ in the _RabbitMQ_cluster_configuration_ section.
-The format is the common cron expression (5 fields).
+It is possible to setup a schedule to restart the statistics database following a cron schedule.  The schedule can be configured in the property _Restart RabbitMQ Statistics Database Schedule_ in the _RabbitMQ_cluster_configuration_ section.
+The accepted format is the common cron expression (5 fields).
 
 <%= image_tag("images/config_cron.png") %>
 
@@ -189,5 +189,4 @@ Examples:
 * `42 */3 * * * ` will restart the database every 3 hours at the minute 42 (e.g. 12:42, 15:42, 18:42)
 * `0 0 * * MON-FRY` will restart the database at 00:00 on every day-of-week from Monday through Friday.
 
-If the property is left empty no restart will be scheduled, the defaul value of the property is null.
-
+If the property is left empty no restart will be scheduled. Since this is an unvalidated input, incorrect cron formats will result in undesired behaviour.
