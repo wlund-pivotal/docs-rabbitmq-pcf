@@ -30,4 +30,6 @@ After this point, **master** will then be the target for the next version of the
 
 ### Deploying Documentation
 
-So... you've got your documentation merged into a **live** branch, but the documentation is not reflected on the live website? You probably just need to wait for the next deployment to happen.
+So... you've got your documentation merged into a **live** branch, and the documentation is reflected on the staging site:
+http://docs-pcf-staging.cfapps.io/rabbitmq-cf/index.html
+but not on the live website http://docs.pivotal.io/rabbitmq-cf/index.html? You probably just need to wait for the next deployment to happen or ask for a push-to-production in the Pivotal slack channel, pcf-docs.
