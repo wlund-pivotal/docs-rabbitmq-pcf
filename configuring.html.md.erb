@@ -160,6 +160,20 @@ TLS v1.1 and 1.2 are enabled by default and cannot be turned on or off.
 
 You can configure a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) to application developers.
 
+## <a id="static_ips"></a> Static IPs
+
+### Switching from dynamic IPs to static IPs (Upgrading)
+
+It is not possible to switch from dynamic IPs to a different set of static IPs, but you can
+set up Ops Manager so the current set of dynamically assigned IPs will always continue to be used.
+
+1. Go to the Status page on the RabbitMQ product.
+2. Note the IPs for the RabbitMQ Server and HAProxy for RabbitMQ jobs, in the order nodes appear in the UI.
+3. Go to the Settings tab, and navigate to the Networking page.
+4. Fill the IP addresses you got from the Status page. IP addresses should be in a comma-separated list.
+
+<%= image_tag("images/config_static_ip.png") %>
+
 ## RabbitMQ Server settings that cannot be overwritten
 * `rabbit halt_on_upgrade_failure false`
 * `rabbitmq_mqtt subscription_ttl 1800000`
