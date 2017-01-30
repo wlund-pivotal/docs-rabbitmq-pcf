@@ -16,9 +16,12 @@ version.
 ## How do I stop RabbitMQ?
 `bosh stop rabbitmq-server`
 There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is
-stopped through BOSH. We want to ensure that RabbitMQ will not be stopped via
-monit,
-`monit stop rabbitmq-server` is now a no-op.
+stopped through BOSH. This will cleanly stop the RabbitMQ service and is the only supported method of stopping the service.
+
+**DO NOT STOP RABBITMQ VIA MONIT**
+
+Do not log into the virtual machine running the RabbitMQ service and stop the RabbitMQ service via monit. It is a potentially dangerous operation as it will kill the RabbitMQ service immediatly.
+
 
 ## What happens when I run bosh stop rabbitmq-server?
 BOSH starts the shutdown sequence from the bootstrap instance.
@@ -56,4 +59,3 @@ and will fail since the drain script is failing. Once rabbitmq-server job is
 running (confirm this via `monit status`), run `DEBUG=1`
 `/var/vcap/jobs/rabbitmq-server/bin/drain`. This will tell you exactly why it’s
 failing.
-
