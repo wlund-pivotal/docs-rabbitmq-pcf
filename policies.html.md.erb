@@ -8,7 +8,15 @@ owner: London Services
 
 The configuration box shown below can be used by Operators to set a default queue and an exchange policy to be applied to their RabbitMQ cluster. We recommend that you use the RabbitMQ Management Interface to make configuration changes after deployment.
 
-An example policy is provided in the configuration box, but it is not enabled or applied and is intended only as a guide. Operators should consider some of the performance implications of making queues and exchanges highly available, and refer to the following documentation for more information: https://www.rabbitmq.com/ha.html
+An example policy is provided below. Operators should consider some of the performance implications of making queues and exchanges highly available, and refer to the following documentation for more information: https://www.rabbitmq.com/ha.html
+
+```
+{
+  "ha-mode": "exactly",
+	"ha-params": 2,
+  "ha-sync-mode": "automatic"
+}
+```
 
 The following rules apply to polices set through this configuration box:
 
@@ -42,4 +50,4 @@ You can see any new queues created have the policy automatically applied.
 
 You can change how RabbitMQ acts once it discovers there has been a network partition. The two options are `pause_minority` and `autoheal`, and more detail on these settings can be found here: https://www.rabbitmq.com/partitions.html
 
-You must choose the option you want before deploying, or the default `pause_minority` will be used. For production purposes, we recommend that customers have at least three RabbitMQ server nodes and two HAProxies spread across low latency availability zones. 
+You must choose the option you want before deploying, or the default `pause_minority` will be used. For production purposes, we recommend that customers have at least three RabbitMQ server nodes and two HAProxies spread across low latency availability zones.
