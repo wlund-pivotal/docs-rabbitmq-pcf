@@ -8,12 +8,12 @@ owner: London Services
 
 The configuration box shown below can be used by Operators to set a default queue and an exchange policy to be applied to their RabbitMQ cluster. We recommend that you use the RabbitMQ Management Interface to make configuration changes after deployment.
 
-An example policy is provided below. Operators should consider some of the performance implications of making queues and exchanges highly available, and refer to the following documentation for more information: https://www.rabbitmq.com/ha.html
+An example policy is provided below. It ensures messages are mirrored on two nodes. Operators should consider some of the performance implications of making queues and exchanges highly available, and refer to the following documentation for more information: https://www.rabbitmq.com/ha.html
 
 ```
 {
   "ha-mode": "exactly",
-	"ha-params": 2,
+  "ha-params": 2,
   "ha-sync-mode": "automatic"
 }
 ```
