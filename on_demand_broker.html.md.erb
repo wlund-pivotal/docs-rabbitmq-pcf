@@ -4,7 +4,7 @@ title: Configuring and Managing RabbitMQ&reg;  Dedicated Instances - Experimenta
 owner: London Services
 ---
 
-## What are dedicated instances and when to use them with RabbitMQ (link to ODB Documentation)
+## What are dedicated instances and when to use them with RabbitMQ
 Right now (for PCF RabbitMQ versions before 1.8.0), the RabbitMQ Service
 instances correspond to a unique RabbitMQ Vhost on the multi-tenant RabbitMQ
 cluster. In PCF RabbitMQ 1.8.0, we are introducing [On-Demand Broker
@@ -16,10 +16,28 @@ that a new cluster can be created and decicated to a single application
 
 ## Tile configurations
 ### Configuration options
+The following options are available for the RabbitMQ on demand broker:
+
+- `Enable this plan`: check this to enable dedicated RabbitMQ instances on CF marketplace.
+- `Plan name`: the service name that will appear in the CF marketplace.
+- `Plan description`: the plan description that will appear in the CF marketplace.
+- `Plan features`: the features associated with this plan that will appear in the CF marketplace.
+- `Service instance quota`: The maximum number of services that can be created by the on demand broker.
+
+<%= image_tag("images/config_rabbitmq_odb.png") %>
+
 ### Enabling the on demand service broker
-### Explanation of resource types and requirements
+In order to enable the ODB you need to ckeck the `Enable this plan` checkbox in the *Settings > Dedicated Instance: Single Node Plan* section in the RabbitMQ tile.
+
+Note: if the ODB feature is not enabled, the ODB will be deployed alongside with RabbitMQ installation. Nevertheless, it is not going to be available in the marketplace.
 ### Enabling and monitoring servcie instance quotas
-### Detail of the solo plan (resources required)
+### Explanation of resource types and requirements
+It is possible to configure the VM type for RabbitMQ and HAproxy instances by using the fields `RabbitMQ VM Type` and `HAproxy VM Type` respectivelly. It is also possible to chose the size of the persistent disk that is going to be attached the RabbitMQ instances. It is also necessary to chose the Availability Zone (AZ) the service instance is going to live in.
+
+<%= image_tag("images/config_rabbitmq_odb_resources.png") %>
+
+### Detail of the solo plan
+In the `Solo` plan there will be only one single node in the cluster. There is still have an `HAproxy` associated with the cluster.
 ### Syslog configuration (shared with multi-tenant) and example of log output with deployment name as a tag
 ### Explanation of the smoke test errand
 
