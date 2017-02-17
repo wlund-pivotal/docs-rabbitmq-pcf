@@ -4,15 +4,18 @@ title: Configuring RabbitMQ in an IPSec environment
 owner: London Services
 ---
 
+<p class="note"><strong>Note</strong>: If deploying RabbitMQ for PCF in an IPSec environment,
+the following steps <strong>must</strong> be performed</p>
+
+This option will configure and deploy RabbitMQ for PCF in a way that the machines
+in the deployment will not be in an IPSec network. This is necessary for cluster
+formation of RabbitMQ. As a result, we recommend you [configure RabbitMQ for PCF to use TLS](/rabbitmq-cf/configuring.html#ssl). 
+
 # Limitations & Risks
 
 * You can only deploy RabbitMQ to a single AZ.
-* You can only update the IP addresses of the HAProxy nodes, not the RabbitMQ Server nodes.
-* All communication will *not* be encrypted by IPSec. As a result, we recommend you [configure
-RabbitMQ for PCF to use TLS](/rabbitmq-cf/configuring.html#ssl).
-* Each node with a static IP will now require 2 IP addresses, you should ensure you have the
-appropriate number of IP addresses available.
-* You cannot assign static IPs to nodes which have already been deployed using dynamic IPs.
+* Once IPs have been dynamically assigned (from a prior deployment) you cannot assign
+  different static IPs.
 
 # Installing the tile
 
@@ -21,7 +24,7 @@ appropriate number of IP addresses available.
 and RabbitMQ Server nodes you have configured on the resources page. These must be in a subnet on
 the AZ that you've configured the product to use.
 1. Do not click Apply Changes until completing the following step.
-1. Following the [IPSec Addon documentation](/addon-ipsec/installing.html#create-mfest)
+1. Following the [IPSec Addon documentation][ipsec-addon-docs]
 add the static IPs you have configured to the `no_ipsec_subnets` list and update your runtime-config as the
 guide recommends.
 1. Go back to the Installation Dashboard and click Apply Changes to deploy the changes. This will cause an update
@@ -33,3 +36,5 @@ of all products, as the runtime-config has to be applied to all products.
 	```
 	11:13:07.801761 IP cloud-controller-0.node.dc1.cf.internal > ip-10-0-48-12.eu-west-1.compute.internal: ESP(spi=0xcbb4206d,seq=0x2e4), length 232
 	```
+
+[ipsec-addon-docs]: /addon-ipsec/installing.html#create-mfest
