@@ -20,13 +20,16 @@ The default configuration is for testing purposes only and it is recommended tha
 
 * Provides HA for the RabbitMQ cluster
 * Queues must be judiciously configured to be HA as they are placed on one node by default
-* Customers should decide on which partition behaviour is best suited to their use case.  For two nodes 'automatic' is preferred
+* Customers should decide on which partition behaviour is best suited to their use case.  For two nodes 'autoheal' is preferred
 * HAProxy is a single point of failure (SPOF)
 * The entire deployment is in a single AZ, which does not protect against external failures from failures in hardware, networking, etc.
 
-## <a id="recommended"></a>Recommended Deployment
+## Mutli-AZ Deployment
 
-We recommend that RabbitMQ is deployed across at least two availability zones.
+RabbitMQ can be deployed in a multiple availability zone environment if the latency between the zones
+can be guaranteed to be less than 10ms. This is criticial for cluster performance and recovering
+from network partitions. High latency can look like network partitions from the RabbitMQ cluster
+perspective.
 
 RabbitMQ server nodes should be scaled to an odd number and should be greater than 3.
 
@@ -58,6 +61,7 @@ If you have deployed the tile across two AZs, but with a single HAProxy instance
 ### <a id="recommended-consider"></a>Considerations for this deployment
 
 * Requires IaaS configuration for availability zones ahead of deploying the RabbitMQ tile
+* It is required that cross-AZ latency be less than 10ms
 * Application developers will be handed the IPs of each deployed HAProxy in their environment variables
 * Queues must be judiciously configured to be HA as they are placed on one node by default
 * Customers should decide on which partition behaviour is best suited to their use case.  For 3 or more nodes 'pause_minority' is preferred
@@ -81,7 +85,7 @@ Disadvantages
 * The load balancer needs to be configured with the IPs of the RabbitMQ Nodes. These will only be known once the deployment has finished. The IPs should remain the same during subsequent deployments but there is a risk they can change.
 
 
-### <a id="upgrade-from-recommended"></a>Upgrading to this deployment from the recommended deployment
+### Upgrading to this deployment from the multi AZ deployment
 
 It is possible to first deploy with multiple HAProxy jobs, as per the recommended deployment and decided to later use your own external load balancer.
 
