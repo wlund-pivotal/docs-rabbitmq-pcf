@@ -12,6 +12,23 @@
 
 [docs-book-pcfservices]: https://github.com/pivotal-cf/docs-book-pcfservices/blob/master/config.yml
 
+### Staging Environment
+
+When a commit is made into any of the above branches, the documentation is deployed by [this concourse build][docs-staging-deploy]. All the supported
+versions will be accessible on the [staging website][docs-staging] One caveat is
+that the **master** docs are deployed to an [obfuscated url path][docs-staging-master].
+
+[docs-staging-deploy]: https://p-concourse.wings.cf-app.com/teams/system-team-docs-docs-1-88aa/pipelines/cf-current/jobs/pcfservices-staging
+[docs-staging-master]: http://docs-pcf-staging.cfapps.io/rabbitmq-cf-d34379b0-a290-47c7-bc6c-c45a9adfa8c7/
+[docs-staging]: http://docs-pcf-staging.cfapps.io/rabbitmq-cf-d34379b0-a290-47c7-bc6c-c45a9adfa8c7/
+
+### Making Your Documentation Changes Live
+
+So... you've got your documentation merged into a **live** branch, and the documentation is reflected on the staging site
+but not on the live website http://docs.pivotal.io/rabbitmq-cf/index.html? You probably just need to wait for the next 
+deployment to happen or ask for a push-to-production in [\#pcf-docs](https://pivotal.slack.com/messages/pcf-docs/). If there's
+no hurry, it'll get deployed the next time documentation is pushed to production.
+
 ### Tag Management
 
 We do not need to maintain older versions of the documentation so we're electing to not use tags to snapshot the state of the documentation for each previous patch version.
@@ -28,8 +45,3 @@ Since **master** is the latest and greatest documentation, the process would be 
 
 After this point, **master** will then be the target for the next version of the RabbitMQ product tile.
 
-### Deploying Documentation
-
-So... you've got your documentation merged into a **live** branch, and the documentation is reflected on the staging site:
-http://docs-pcf-staging.cfapps.io/rabbitmq-cf/index.html
-but not on the live website http://docs.pivotal.io/rabbitmq-cf/index.html? You probably just need to wait for the next deployment to happen or ask for a push-to-production in the Pivotal slack channel, pcf-docs.
