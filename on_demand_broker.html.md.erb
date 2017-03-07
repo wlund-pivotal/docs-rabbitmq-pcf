@@ -39,7 +39,20 @@ It is possible to configure the VM type for RabbitMQ and HAproxy instances by us
 ### Detail of the solo plan
 In the `Solo` plan there will be only one single node in the cluster. There is still have an `HAproxy` associated with the cluster.
 ### Syslog configuration (shared with multi-tenant) and example of log output with deployment name as a tag
+
 ### Explanation of the smoke test errand
+
+RabbitMQ for PCF runs a set of smoke tests during installation to confirm system health.
+
+#### Smoke Test Steps
+
+The smoke tests perform the following for each available service plan:
+
+1. Targets the org <code>system</code> and creates a space to run the tests.
+1. Deploys an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) to this space
+1. Creates a RabbitMQ service instance and binds it to the CF RabbitMQ Example App
+1. Checks that the CF RabbitMQ Example App can write to and read from the RabbitMQ service instance
+1. Cleans up all deployed application and all its service bindings. Finally, the cf space is deleted.
 
 ## How to upgrade dedicated instances
 ### Stemcell deployments

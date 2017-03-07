@@ -47,8 +47,6 @@ A reference guide for deployments is shown the table below.  Please be aware tha
 </tr>
 </table>
 
-
-
 The specific upgrade paths are detailed [here](http://docs.pivotal.io/rabbitmq-cf/index.html) for each released version.
 
 <p class="note"><strong>Note</strong>: For specific information about updating RabbitMQ for PCF from v1.6.0–v1.6.4,
@@ -95,6 +93,15 @@ the upgrade and this process must not be interrupted.
 
 For any issues upgrading RabbitMQ, please refer to the
 [Troubleshooting](./troubleshooting.html) section.
+
+### What do I need to do before upgrading to a newer version of RabbitMQ or Erlang?
+Ensure the cluster is healthy via the RabbitMQ Management UI. You cannot rely
+on the `bosh instances` output, that reflects the state of Erlang VM, not
+RabbitMQ.
+
+## Why do I want to stop RabbitMQ?
+We have to stop RabbitMQ when we are upgrading RabbitMQ package or Erlang VM
+version.
 
 ## Release policy
 
