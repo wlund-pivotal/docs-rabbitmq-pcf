@@ -1,53 +1,88 @@
 ---
-title: (Command / Property / Options / Flags) Reference
-owner: <your group name> # <---- For example "London Services"
+breadcrumb: RabbitMQ for Pivotal Cloud Foundry Documentation
+title: RabbitMQ&reg; Environment Variables
+owner: London Services
 ---
 
-_This page serves as a comprehensive language reference, listing all of the commands, properties, options, flags, or other user-settable variables that govern the operation of your service._
+This topic provides a reference for the environment variables that Cloud Foundry stores for RabbitMQ for PCF service instances. These variables include the credentials that apps use to access the service instances.
 
-_If the service supports more than eight or so commands etc., list them in a table or tables with short (1-2 sentence) descriptions and syntax (if applicable) for each. Use multiple tables to separate commands etc. by type or broad conceptual category, grouping things together where the seem to belong together. Within each table, alphabetize by command etc. as listed in the first column._
+## <a id='vcap-services'></a>VCAP_SERVICES
 
-_This isn't a list of the most-frequently used commands. It's a complete reference listing all of the commands that the service supports, even the obscure ones that aren't documented elsewhere, and it links to more detailed documentation where available._
+Applications running in Cloud Foundry gain access to the bound service instances via an environment variable credentials hash called `VCAP_SERVICES`. An example hash is show below:
 
-## <a id='commands'></a>API Methods
+<pre><code>
+{
+    "p-rabbitmq": [{
+        "label": "p-rabbitmq",
+        "name": "my-rabbit-service-instance",
+        "plan": "standard",
+        "tags": ["rabbitmq", "messaging", "message-queue", "amqp", "pivotal"],
+        "credentials": {
+            "dashboard_url": "http://pivotal-rabbitmq.your.pcf.example.com/#/login/b5d0ad14-4352-48e8-8982-d5b1d257029f/tavk86pnnns1ddiqpsdtbchurn",
+            "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f",
+            "vhost": "62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+            "password": "tavk86pnnns1ddiqpsdtbchurn",
+            "ssl": false,
+            "hostname": "10.0.0.41",
+            "hostnames": [
+                "10.0.0.41",
+                "10.0.0.51"],
+            "uri": "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+            "uris": [
+                "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+                "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.51/62e5ab21-7b38-44ac-b139-6aa97af01cd7"],
+            "http_api_uri": "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:15672/api",
+            "http_api_uris": [
+                "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:15672/api",
+                "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.51:15672/api"],
+            "protocols": {
+                "amqp": {
+                    "password": "tavk86pnnns1ddiqpsdtbchurn",
+                    "port": 5672,
+                    "ssl": false,
+                    "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f",
+                    "vhost": "62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+                    "host": "10.0.0.41",
+                    "hosts": [
+                        "10.0.0.41",
+                        "10.0.0.51"],
+                    "uri": "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+                    "uris": [
+                        "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+                        "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.51:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7"]},
+                "management": {
+                    "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f",
+                    "password": "tavk86pnnns1ddiqpsdtbchurn",
+                    "path": "/api",
+                    "port": 15672,
+                    "ssl": false,
+                    "host": "10.0.0.41",
+                    "hosts": [
+                        "10.0.0.41",
+                        "10.0.0.51"],
+                    "uri": "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:15672/api",
+                    "uris": [
+                        "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:15672/api",
+                        "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.51:15672/api"]}}}}]}
+</code></pre>
 
-<table border='1' class='nice'>
-    <tr>
-        <th>Method</th>
-        <th>Syntax</th>
-        <th>Function</th>
-    </tr><tr>
-        <td><code>let-dogs-out</code></td>
-        <td><code>svc let-dogs-out [-a all][-c cute][-t attack] DOG-PACK DOG-CITY</code></td>
-        <td>Lets dogs out from the specified pack in the specified city.</td>
-    </tr><tr>
-        <td><code>refill-coffee-cups</code></td>
-        <td><code>svc refill-coffee [-d decaf] GUEST-LIST</code></td>
-        <td>Refills coffee cups of designated guests.</td>
-    </tr><tr>
-        <td><code>...</code></td>
-        <td><code>...</code></td>
-        <td>...</td>
-	</tr>
-</table>    
+You can search for your service by its `name`, given when creating the service instance, or dynamically via the `tags` or `label` properties. The `credentials` property can be used as follows:
 
+* The top level properties `uri`, `uris`, `vhost`, `username`, `password`, `hostname` and `hostnames` provide access to the AMQP 0.9.1 protocol.
 
-## <a id='environment'></a>Environment Variables
+* A more flexible approach is provided by the `credentials.protocols` property, which has a key per enabled protocol. The possible keys are `amqp`, `management`, `mqtt`, and `stomp`. If SSL is enabled, then the keys will be `amqp+ssl`, `management+ssl`, `mqtt+ssl`, and `stomp+ssl` respectively.
 
-<table border='1' class='nice'>
-    <tr>
-        <th>Environment Variable</th>
-        <th>Effect</th>
-    </tr><tr>
-        <td><code>RIGHT_IS_WRONG</code></td>
-        <td>Make everything right wrong, and vice-versa.</td>
-    </tr><tr>
-        <td><code>UP_IS_DOWN</code></td>
-        <td>Turn everything upside-down.</td>
-    </tr><tr>
-        <td><code>...</code></td>
-        <td>...</td>
-    </tr>
-</table>    
+* The values associated with each of these keys gives access credentials specific to each protocol. In all cases, URIs are provided, along with the individual components.
 
+## <a id='plugins-protocols'></a>Changing Enabled Plugins and Protocols
 
+<p class="note"><strong>Note</strong>: Removing or adding plugins/protocols may cause apps bound with RabbitMQ to break.</p>
+
+If you adjust the plugins and protocols enabled for RabbitMQ, you may need to force all app's `VCAP_SERVICES` environment variable to be regenerated. Adding and removing the following plugins require bound applications to be restaged:
+
+* rabbitmq_management
+* rabbitmq_stomp
+* rabbitmq_mqtt
+* rabbitmq\_amqp1\_0
+
+In common with all services in [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) (PCF), the `VCAP_SERVICES` environment variable for an application is only modified when the application is bound to a service instance. Users will need to `cf unbind-service`, `cf bind-service` and `cf restage` their app in this scenario.

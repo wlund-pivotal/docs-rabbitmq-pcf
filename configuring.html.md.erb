@@ -54,7 +54,7 @@ If you change the topology of your RabbitMQ cluster, the HAProxy is automaticall
 * 4567 = RabbitMQ Service Broker
 * 3457 - 3459 = CF Loggregator
 
-## Security Groups
+## <a id='sec-groups'></a>Security Groups
 
 To enable access to the RabbitMQ tile service, you must ensure your security
 group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment. You can obtain the IP addresses for these from the Ops Manager **Status** page for the RabbitMQ tile.
@@ -162,7 +162,7 @@ You can configure a DNS name or IP address of an external load balancer to be re
 
 ## <a id="static_ips"></a> Static IPs
 
-### Switching from dynamic IPs to static IPs (Upgrading)
+### <a id='dynamic-to-static'></a>Switching from dynamic IPs to static IPs (Upgrading)
 
 It is not possible to switch from dynamic IPs to a different set of static IPs, but you can
 set up Ops Manager so the current set of dynamically assigned IPs will always continue to be used.
