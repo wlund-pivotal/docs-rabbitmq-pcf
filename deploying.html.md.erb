@@ -4,7 +4,8 @@ title: Deploying the RabbitMQ&reg; Service
 owner: London Services
 ---
 
-## Default Deployment
+## <a id="default"></a>Default Deployment
+
 Deploying RabbitMQ for [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) (PCF) through Ops Manager will deploy a RabbitMQ cluster of **2 nodes** by default.
 
 The deployment includes a single load balancer `haproxy` which spreads connections on all of the default ports, for all of the shipped plugins across all of the machines within the cluster.
@@ -15,7 +16,7 @@ The default configuration is for testing purposes only and it is recommended tha
 
 <%= image_tag("images/deployment_default.jpeg") %>
 
-### Considerations for this deployment
+### <a id="default-consider"></a>Considerations for this deployment
 
 * Provides HA for the RabbitMQ cluster
 * Queues must be judiciously configured to be HA as they are placed on one node by default
@@ -23,7 +24,7 @@ The default configuration is for testing purposes only and it is recommended tha
 * HAProxy is a single point of failure (SPOF)
 * The entire deployment is in a single AZ, which does not protect against external failures from failures in hardware, networking, etc.
 
-## Recommended Deployment
+## <a id="recommended"></a>Recommended Deployment
 
 We recommend that RabbitMQ is deployed across at least two availability zones.
 
@@ -40,13 +41,13 @@ In the above diagram, you can see that you can now suffer the failure of a singl
 
 It is also recommend that customers chooses an odd number of RabbitMQ server nodes of three or more.
 
-### Upgrading to this deployment from a single AZ deployment
+### <a id="upgrade-from-single-az"></a>Upgrading to this deployment from a single AZ deployment
 
 It is **not** possible to upgrade to this setup from the default deployment across a single AZ.
 
 This is because the AZ setup cannot be changed once the tile has being deployed for the first time, this is to protect against data loss when moving jobs between AZs.
 
-### Upgrading to this deployment from a multi AZ deployment
+### <a id="upgrade-from-multi-az"></a>Upgrading to this deployment from a multi AZ deployment
 
 If you have deployed the tile across two AZs, but with a single HAProxy instance you can migrate to this setup as follows:
 
@@ -54,14 +55,14 @@ If you have deployed the tile across two AZs, but with a single HAProxy instance
 2. New or re-bound applications to the RabbitMQ service will see the IPs of both HAProxys immediately
 3. Existing bound applications will continue to work, but only using the previously deployed HAProxy IP Address. They can be re-bound as required at your discretion.
 
-### Considerations for this deployment
+### <a id="recommended-consider"></a>Considerations for this deployment
 
 * Requires IaaS configuration for availability zones ahead of deploying the RabbitMQ tile
 * Application developers will be handed the IPs of each deployed HAProxy in their environment variables
 * Queues must be judiciously configured to be HA as they are placed on one node by default
 * Customers should decide on which partition behaviour is best suited to their use case.  For 3 or more nodes 'pause_minority' is preferred
 
-## Advanced Deployment
+## <a id="advanced"></a>Advanced Deployment
 
 This deployment builds upon the above recommended deployment, so follows the same upgrade paths.
 
@@ -80,7 +81,8 @@ Disadvantages
 * The load balancer needs to be configured with the IPs of the RabbitMQ Nodes. These will only be known once the deployment has finished. The IPs should remain the same during subsequent deployments but there is a risk they can change.
 
 
-### Upgrading to this deployment from the recommended deployment
+### <a id="upgrade-from-recommended"></a>Upgrading to this deployment from the recommended deployment
+
 It is possible to first deploy with multiple HAProxy jobs, as per the recommended deployment and decided to later use your own external load balancer.
 
 This can be achieved without downtime to your applications.
@@ -99,7 +101,95 @@ This can be achieved as follows:
 
 This approach works as any existing bound applications have their `VCAP_SERVICES` information cached in the cloud controller and are only updated by a re-bind request.
 
-### Downgrading from this deployment to the recommended deployment
+### <a id="downgrade-to-recommended"></a>Downgrading from this deployment to the recommended deployment
+
 If you are currently using an external load balancer, then you can move back to using HAProxys instead.
 
 You can achieve this by following the above steps in reverse order and re-instating the HAProxy jobs.
+
+## <a id="resource-requirements"></a>Resource requirements
+
+The following table shows the default resource and IP requirements for installing the tile:
+<table border="1" class="nice">
+	<tr>
+		<th>Product</th>
+		<th>Resource</th>
+		<th>Instances</th>
+		<th>CPU</th>
+		<th>Ram</th>
+		<th>Ephemeral</th>
+		<th>Persistent</th>
+		<th>Static IP</th>
+		<th>Dynamic IP</th>
+	</tr>
+	<tr>
+ 		<td>RabbitMQ</td>
+	 	<td>RabbitMQ Node</td>
+	 	<td>2</td>
+	 	<td>2</td>
+	 	<td>8192</td>
+	 	<td>4096</td>
+	 	<td>8192</td>
+	 	<td>1</td>
+	 	<td>0</td>
+ 	</tr>
+ 	<tr>
+ 		<td>RabbitMQ</td>
+ 		<td>HAProxy for RabbitMQ</td>
+ 		<td>1</td>
+ 		<td>1</td>
+ 		<td>2048</td>
+ 		<td>4096</td>
+ 		<td>0</td>
+ 		<td>1</td>
+ 		<td>0</td>
+ 	</tr>
+ 	<tr>
+ 		<td>RabbitMQ</td>
+ 		<td>RabbitMQ Service Broker</td>
+ 		<td>1</td>
+ 		<td>1</td>
+ 		<td>2048</td>
+ 		<td>4096</td>
+ 		<td>0</td>
+ 		<td>0</td>
+ 		<td>1</td>
+ 	</tr>
+	<tr>
+		<td>RabbitMQ</td>
+		<td>Compilation</td>
+		<td>2</td>
+		<td>2</td>
+		<td>2048</td>
+		<td>4096</td>
+		<td>0</td>
+		<td>0</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>RabbitMQ</td>
+		<td>Broker Registrar</td>
+		<td>1</td>
+		<td>1</td>
+		<td>1024</td>
+		<td>2048</td>
+		<td>0</td>
+		<td>0</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>RabbitMQ</td>
+		<td>Broker De-Registrar</td>
+		<td>1</td>
+		<td>1</td>
+		<td>1024</td>
+		<td>2048</td>
+		<td>0</td>
+		<td>0</td>
+		<td>1</td>
+	</tr>
+</table>
+
+#### Notes:
+* The number of `RabbitMQ Node` can be increased if required.
+
