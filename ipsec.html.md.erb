@@ -9,7 +9,7 @@ owner: London Services
 * You can only deploy RabbitMQ to a single AZ.
 * You can only update the IP addresses of the HAProxy nodes, not the RabbitMQ Server nodes.
 * All communication will *not* be encrypted by IPSec. As a result, we recommend you [configure
-RabbitMQ for PCF to use TLS](/rabbitmq-cf/configuring.html#ssl).
+RabbitMQ for PCF to use TLS](configuring.html#ssl).
 * Each node with a static IP will now require 2 IP addresses, you should ensure you have the
 appropriate number of IP addresses available.
 * You cannot assign static IPs to nodes which have already been deployed using dynamic IPs.
@@ -21,7 +21,7 @@ appropriate number of IP addresses available.
 and RabbitMQ Server nodes you have configured on the resources page. These must be in a subnet on
 the AZ that you've configured the product to use.
 1. Do not click Apply Changes until completing the following step.
-1. Following the [IPSec Addon documentation](/addon-ipsec/installing.html#create-mfest)
+1. Following the [IPSec Addon documentation](https://docs.pivotal.io/addon-ipsec/installing.html#create-mfest)
 add the static IPs you have configured to the `no_ipsec_subnets` list and update your runtime-config as the
 guide recommends.
 1. Go back to the Installation Dashboard and click Apply Changes to deploy the changes. This will cause an update
