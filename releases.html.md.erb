@@ -23,6 +23,24 @@ Consider the following compatibility information before upgrading RabbitMQ for P
 
 <p class="note"><strong>Note</strong>: Customers upgrading from v1.5.x to v1.6.x should ensure that they are not upgrading from the latest v1.5.x patch version, and should only go to the latest v1.6.x patch.</p>
 
+### v1.7.14
+**Release Date: 10th March 2017**
+
+**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.7.6 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+
+* Requires stemcell v3263.21.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+
+Packages:
+
+* OSS RabbitMQ v3.6.6
+* Erlang v18.3.4.4
+* HAProxy v1.6.4
+
+Features included in this release:
+
+* This is a security release addressed by a new stemcell.
+
 ### v1.7.13
 **Release Date: 3rd March 2017**
 
