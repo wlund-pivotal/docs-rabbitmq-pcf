@@ -6,20 +6,52 @@ owner: London Services
 This topic provides basic instructions for operators troubleshooting On-Demand RabbitMQ&reg; for PCF.
 
 
-## <a id="create-instance"></a> Errors
+## <a id="errors"></a> Errors
 
+### <a id="create-errors"></a> Instance Creation Errors
 
-### <a id="create-instance"></a> Instance Creation Errors
+This section describes errors that may occur when a developer runs `cf create-service` to create an instance of the on-demand RabbitMQ for PCF service.
 
-This section describes errors that may occur when a developer runs `cf create-service` to create an instance of the on-demand RabbitMQ for PCF service. To properly debug the error, you need the error message.
+To properly debug the error, you need the original error message.
+
+#### <a id="about-create-errors"></a> About Instance Creation
+
+The diagram below shows the sequence of component requests and actions that create the instance:
+
+<div class="mermaid">  
+sequenceDiagram
+  User->> Cloud Controller: cf create service
+  Cloud Controller->> On Demand Broker: provision instance
+  On Demand Broker->>Service Adapter: generate manifest
+  Service Adapter->>On Demand Broker: a deployment manifest
+  On Demand Broker->>BOSH: bosh deploy with manifest
+  BOSH->>On Demand Broker: deploying
+  On Demand Broker->>Cloud Controller: accepted
+  loop Until bosh task state is 'done'
+    Cloud Controller->>On Demand Broker:last operation
+    On Demand Broker->>BOSH:get task state
+    BOSH->>On Demand Broker:queued/processing
+    On Demand Broker->>Cloud Controller:in progress
+  end
+  Cloud Controller->>On Demand Broker:last operation
+  On Demand Broker->>BOSH:get task state
+  BOSH->>On Demand Broker:done
+  On Demand Broker->>Cloud Controller:completed
+</div>
+
+Error with on-demand instance creation can be either _sychronous_ or _asynchronous_:
+
+* **Synchronous** failures occur before BOSH creates the deployment manifest for the new instance VM. Synchronous errors happen fast and early in the instance-creation process, and the Cloud Controller deletes the unsuccessful instance from its accounting of service instances and bindings.
+* **Asynchronous** failures occur after BOSH tries to deploy the new service instance. In these cases, the Cloud Controller may retain references to the orphan instance.
+
+#### <a id="bosh-adapter"></a> BOSH or Service Adapter Errors
 
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
   <td><p><code>Instance provisioning failed: There was a problem completing your request. Please contact your operations team providing the following information: <br>
   service: RABBITMQ-SERVICE-NAME, service-instance-guid: SERVICE-INSTANCE-GUID, broker-request-id: REQUEST-GUID, task-id: TASK-ID, operation: create</code></p>
-
-  <p>The GUID identifiers are long alphanumeric strings. TASK-ID is a shorter number.</p>
+  <p>The GUID identifiers are long alphanumeric strings. TASK-ID is a number. If TASK-ID is blank, see <a href="#network">UAA, Network, or Connection Issue</a></p>
  </td>
 </tr>
 <tr>
@@ -35,93 +67,170 @@ This section describes errors that may occur when a developer runs `cf create-se
   <th>Solution</th>
   <td>
     <ol>
-      <li>Check the BOSH task information:</li>
-        <ol><li>Get BOSH login details</li>
-        <li><code>bosh task $task-id</code> from the error above</li>
-        <li>Follow BOSH debugging workflow</li></ol>
-      <li>If the BOSH error shows a problem with the deployment manifest:
-        <ol><li>Access the broker logs (if they have syslog then use the tool they forward to, otherwise <code>bosh logs broker 0</code>, if they have more than 1 instance of the broker, collect logs from each broker)</li>
-        <li>Use the broker-request-id from the error message above to search the log for more information.</li>
+      <li>Note the <code>SERVICE-INSTANCE-GUID</code>, <code>REQUEST-GUID</code>, and <code>TASK-ID</code> values from the error text.</li>
+      <li>Check the BOSH task information
+        <ol>
+           <li>Follow the directions to <a href="#log-into-bosh">Log into BOSH</a>.</li>
+        <li>Run <code>bosh task TASK-ID --debug</code> to see an error report.</li>
+        <li>Run <code>bosh download manifest SERVICE-INSTANCE-GUID</code> to download the instance deploy manifest, if it was created.</li>
+        <li>Run <code>bosh vms SERVICE-INSTANCE-GUID</code> to list the vms deployed by the service instance, if any.</li></ol>
+      <li>If the BOSH error indicates a problem with the deployment manifest:</li>
+        <ol><li>Access the broker logs
+          <ul><li>Use a syslog logging platform if you have one <a href="#set-up-logging">set up.</a></li>
+          <li>Otherwise run <code>bosh logs broker 0</code>.</li></ul></li>
+        <li>If you have more than one instance of the broker, collect logs from each broker.</li>
+        <li>Search the broker logs for <code>REQUEST-GUID</code> to obtain more information.</li>
         <li>Contact Pivotal support with this information.</li></ol>
-      </li>
+      <li>If the BOSH error does not indicate a problem with the manifest go to TK</li>
+    </li>
     </ol>
    </td>
 </tr>
 </table>
 
+#### <a id="network"></a> UAA, Network, or Connection Issue
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
-  <td><p><code>TK ERROR TEXT</code></p>
-
-  <p>TK ONE-LINE ERROR EXPLANATION</p>
+  <td><ul><li><code>Instance provisioning failed: There was a problem completing your request. Please contact your operations team providing the following information: <br>
+  service: RABBITMQ-SERVICE-NAME, service-instance-guid: SERVICE-INSTANCE-GUID, broker-request-id: REQUEST-GUID, task-id: , operation: create</code></li>
+  <li>Any error that is missing a <code>TASK-ID</code> number after <code>task-id: </code></li>
  </td>
 </tr>
 <tr>
   <th>Possible Causes</th>
   <td>
     <ul>
-    <li>TK CAUSE 1</li>
-    <li>TK CAUSE 2</li>
+    <li>Problem accessing BOSH UAA</li>
+    <li>Problem accessing BOSH Director</li>
+    <li>The network fails to deliver messages between the Cloud Controller, On-Demand Broker, Service Adapter, and BOSH.</li>
     </ul>
   </td>
 </tr>
 <tr>
   <th>Solution</th>
   <td>
-    <p>TK SOLUTION</p>
-
-    <ol><li>
-      TK STEP 1
-    </li><li>
-      TK STEP 2
-    </li></ol>
-
-    <p>TK OTHER STUFF</p>
+    <p>TK HOW TO CHECK ACCESS / CONNECTIVITY TO BOSH</p>
+    <p>If the BOSH deployment was never created, a synchronous error, run`cf delete service RABBITMQ-SERVICE-NAME` clean up the orphan instance in the Cloud Controller.</p>
   </td>
 </tr>
 </table>
 
-### <a id="network"></a> Network Failure
+#### <a id="plan-quota"></a> Service Plan Quota Exceeded 
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><p><code>Service broker error: The quota for this service plan has been exceeded. Please contact your Operator for help.</code></p>
+ </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>
+    The deployed instance count for the service is at its global maximum. This error does not indicate any functional failure; it just tells the developer that no more on-demand RabbitMQ for PCF instances are allowed.
+  </td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>
+    <p>To raise the global service plan quota, open the <b>RabbitMQ for PCF</b> tile <b>TK Pane</b> and increase the setting in the <b>TK RabbitMQ Instance Limit</b>field.</p>
+    <p>TK Workflow for finding who is using the plan.</p>
+    <p>TK Link or workflow for monitoring plan current usage vs quota.</p>
+  </td>
+</tr>
+</table>
 
-The network fails to deliver messages between the Cloud Controller, On-Demand Broker, Service Adapter, and BOSH.
+#### <a id="global-quota"></a> Global Quota Exceeded 
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><p><code>Service broker error: The quota for this service has been exceeded. Please contact your Operator for help.</code></p>
+ </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>
+    The deployed instance count for the service plan is at its maximum. This error does not indicate any functional failure; it just tells the developer that no more on-demand plan instances are allowed.
+    <p>TK Workflow for finding who is using the plan.</p>
+    <p>TK Link or workflow for monitoring plan current usage vs quota.</p>
+  </td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>
+    <p>To raise the global service plan quota, open the <b>RabbitMQ for PCF</b> tile <b>TK Pane</b> and increase the setting in the <b>TK RabbitMQ Instance Limit</b>field.</p>
+  </td>
+</tr>
+</table>
+
+### <a id="manage-errors"></a> Instance Management Errors
+
+#### <a id="update"></a> Instance Update Failure
+
+Update workflows
+
+Application developer reports that they could not update an instance
 
 
-### <a id="stop"></a> <i>bosh stop</i> Failure
+#### <a id="bind"></a> Instance Bind Failure
 
-If the `bosh stop` fails, you will likely get an error saying that the drain
-script failed with:
+Bind workflows
 
-```
-result: 1 of 1 drain scripts failed. Failed Jobs: rabbitmq-server.
-```
+Application developer reports that they could not bind a service to an instance
 
-#### What do I do when bosh stop rabbitmq-server fails?
+#### <a id="unbind"></a> Instance Unbind Failure
 
-The drain script logs to `/var/vcap/sys/log/rabbtimq-server/drain.log`. If you
-have a remote syslog configured, this will appear as the `rmq_server_drain`
-program.
+Unbind workflows
 
-First, `bosh ssh` into the failing rabbitmq-server instance and start the
-rabbimtq-server job by running `monit start rabbitmq-server`). You will not be
-able to start the job via `bosh start` as this always runs the drain script first
-and will fail since the drain script is failing. Once rabbitmq-server job is
-running (confirm this via `monit status`), run `DEBUG=1`
-`/var/vcap/jobs/rabbitmq-server/bin/drain`. This will tell you exactly why it’s
-failing.
+Application developer reports that they could not unbind a service to an instance
 
-### <a id="smoke"></a> Smoke Test Failure
+#### <a id="delete"></a> Instance Delete Failure
 
-If errors occur while the smoke tests run, they will be summarised at the end of the errand log output.
-Detailed logs can be found where the failure occurs.
+Delete workflows 
 
-When encountering an error when running smoke tests, it can be helpful to search the log for other instances
-of the error summary printed at the end of the tests, e.g. <code>Failed to target Cloud Foundry</code>.
-Lookout for <code>TIP: ...</code> in the logs next to any error output for further troubleshooting hints.
+Application developer reports that they could not delete a service instance
+
+### <a id="other-errors"></a> Other Errors
+
+#### <a id="stop"></a> <i>bosh stop</i> Failure
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><p><code>result: 1 of 1 drain scripts failed. Failed Jobs: rabbitmq-server.</code></p>
+ </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>
+    <p><code>bosh stop rabbitmq-server_JOB_INDEX</code> failure</p>
+  </td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>
+    <p>The drain script logs to <code>/var/vcap/sys/log/rabbtimq-server/drain.log</code>. If you have a remote syslog configured, this will appear as the <code>rmq_server_drain</code> program.</p>
+    <ol>
+      <li>First, <code>bosh ssh</code> into the failing rabbitmq-server instance and start the <code>rabbitmq-server</code> job by running <code>monit start rabbitmq-server</code>).<br>
+      You will not be able to start the job via <code>bosh start</code> as this always runs the drain script first and will fail since the drain script is failing.</li>
+      <li>Run <code>monit status</code> to confirm that the rabbitmq-server job is running</li>
+      <li>Once the rabbitmq-server job is running, run <code>DEBUG=1</code> <code>/var/vcap/jobs/rabbitmq-server/bin/drain</code>. This tells you exactly why it is failing.</li>
+    </ol>
+  </td>
+</tr>
+</table>
+
+#### <a id="smoke"></a> Smoke Test Failure
+
+If errors occur while the smoke tests run, they will be summarised at the end of the errand log output. Detailed logs can be found where the failure occurs.
+
+When encountering an error when running smoke tests, it can be helpful to search the log for other instances of the error summary printed at the end of the tests, e.g. <code>Failed to target Cloud Foundry</code>.
+
+Look out for <code>TIP: ...</code> in the logs next to any error output for further troubleshooting hints.
 
 ### <a id="ipsec-installation-issues"></a> IPsec Installation Issues
 
 #### Symptom
+
 Unresponsive applications or incomplete responses, particularly for large payloads
 
 #### Explanation: Packet Loss
@@ -139,6 +248,15 @@ Implement a 100 MTU difference between host VM and the contained application con
 
 ## <a id="techniques"></a> Techniques
 
+### <a id="log-into-bosh"></a> Log into BOSH 
+
+1. Follow the directions to [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) in the *Advanced Troubleshooting with the BOSH CLI* topic. Use the following values:
+    * **Certificate Location**: Use the file path on your local machine to the key pair used to install Ops Manager.
+    * **BOSH Director IP Address**: Retrieve from the Ops Manager Director tile **Status** tab.
+    * **BOSH Director Credentials**: Retrieve from the Ops Manager API or find it in the Ops Man Director tile **Credentials** tab > **Director Credentials**.
+
+1. Continue following the *Advanced Troubleshooting* directions to [Log into BOSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in). 
+
 ### <a id="determine-task-id"></a> Determine the Task ID of a <i>create-service</i> Task
 
 This procedure determines the Task ID for the BOSH task that creates (or attempts to create) an on-demand service instance, if you only know the the service name. This BOSH task is triggered by the `cf create-service` command.
@@ -149,13 +267,7 @@ This procedure determines the Task ID for the BOSH task that creates (or attempt
     API endpoint: https<span>://</span>api.example.com
     </pre>
 
-1. Follow the directions to [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) in the *Advanced Troubleshooting with the BOSH CLI* topic. Use the following values:
-
-    * **Certificate Location**: Use the file path on your local machine to the key pair used to install Ops Manager.
-    * **BOSH Director IP Address**: Retrieve from the Ops Manager Director tile **Status** tab.
-    * **BOSH Director Credentials**: Retrieve from the Ops Manager API or find it in the Ops Man Director tile **Credentials** tab > **Director Credentials**.
-
-1. Continue following the *Advanced Troubleshooting* directions to [Log into BOSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in). 
+1. Follow the directions to [Log into BOSH](#log-into-bosh).
 
 1. From the Ops Manager Director VM you can now use the BOSH CLI to retrieve information about service instances from the BOSH Director VM.
     <pre class="terminal">
@@ -216,7 +328,7 @@ Once you have the BOSH Task ID and instance GUID, proceed as follows:</p>
 
 1. Search for the service instance GUID in the logs generated by <code>cf create-service</code>.
 
-1. Refer to the <a href="https://docs.pivotal.io/svc-sdk/odb/concepts.html#create-service-instance">Create service instance process diagram</a> to see the order of component actions and messages that successfully create an on-demand service instance. The Cloud Controller component generates the service instance GUID before it sends the first <code>provision instance</code> call to the on-demand broker, and all subsequent messages related to the instance creation task include this GUID.
+1. Refer to the Create service instance process diagram above to see the order of component actions and messages that successfully create an on-demand service instance. The Cloud Controller component generates the service instance GUID before it sends the first <code>provision instance</code> call to the on-demand broker, and all subsequent messages related to the instance creation task include this GUID.
 
 1. Along with the process diagram, refer to these component identifiers in the logs to determine how far the <code>create-service</code> process went and where it failed:
       <ul><li><code>tk_cloud_controller_xyz</code> - Cloud Controller</li>
