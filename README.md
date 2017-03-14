@@ -24,10 +24,7 @@ that the **master** docs are deployed to an [obfuscated url path][docs-staging-m
 
 ### Making Your Documentation Changes Live
 
-So... you've got your documentation merged into a **live** branch, and the documentation is reflected on the staging site
-but not on the live website http://docs.pivotal.io/rabbitmq-cf/index.html? You probably just need to wait for the next 
-deployment to happen or ask for a push-to-production in [\#pcf-docs](https://pivotal.slack.com/messages/pcf-docs/). If there's
-no hurry, it'll get deployed the next time documentation is pushed to production.
+Click the deploy button in the pipeline! Living the dream :-D
 
 ### Tag Management
 
