@@ -9,6 +9,14 @@ This topic describes the architecture of RabbitMQ&reg; for Pivotal Cloud Foundry
 
 Like other on-demand PCF services, on-demand RabbitMQ for PCF relies on the BOSH 2.0 ability to dynamically deploy virtual machines (VMs) in a dedicated network. The On-Demand Broker uses this capability to create single-tenant service instances in a dedicated Service Network.
 
+### <a id="service-network"></a>BOSH 2.0 and Service Networks
+
+<%= partial 'test_partial' %>
+
+### <a id='on-demand'></a>On-Demand Service Architecture
+
+<%= partial '../rabbitmq-cf/odb/on_demand_architecture' %>
+
 ## <a id='on-demand'></a>Pre-Provisioned Service Architecture
 
 <%= image_tag("images/deployment_default.jpeg") %>
