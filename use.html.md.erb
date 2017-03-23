@@ -1,5 +1,5 @@
 ---
-title: Using the RabbitMQ for PCF Service On-Demand
+title: Using On-Demand RabbitMQ for PCF
 owner: London Services
 ---
 
@@ -7,16 +7,46 @@ This topic provides instructions for developers using the on-demand RabbitMQ ser
 
 ## <a id="prereqs"></a>Prerequisites
 
-LIST WHAT YOU NEED BEFORE YOU DO THESE
+* A PCF installation with [RabbitMQ for PCF](https://network.pivotal.io/products/pivotal-rabbitmq-service) installed and listed in the [Marketplace](http://docs.pivotal.io/devguide/services/#instances)
+* A [Space Developer](http://docs.pivotal.io/pivotalcf/concepts/roles.html#roles) or Admin account on the PCF installation
+* A local machine with a browser, shell, and the [Cloud Foundry Command-Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html) (cf CLI) and [Linux _watch_ command](http://www.linfo.org/watch.html) installed
 
-Your PCF operator has made the RabbitMQ Service (?) available in the Marketplace
+ODB create service - diff from regular service b/c it's asynchronous, and you can use watch command to see status of service create
 
-You have the 
+## <a id='overview'></a>Overview
 
-## <a id='create'></a>Create a service
+Every app and service in PCF is scoped to a [space](http://docs.pivotal.io/pivotalcf/concepts/roles.html#spaces). To use RabbitMQ in a PCF app:
 
-<code>
+1. Use the [cf CLI](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login) or [Apps Manager](http://docs.pivotal.io/pivotalcf/customizing/console-login.html) to log into the org and space that contains the app.
 
+1. Make sure an instance of the RabbitMQ for PCF service exists in the same space as the app.
+   - If the space does not already have a Rabbit for PCF instance, [create](#create) one.
+
+2. [Bind](#bind) the app to the RabbitMQ for PCF service instance, to enable the app to use RabbitMQ.
+
+## <a id='marketplace'></a>Confirm Service Availability
+
+To check that On-Demand RabbitMQ for PCF is available, find it in the Marketplace:
+
+1. Run `cf marketplace`
+<pre class="terminal">
+$ cf marketplace
+Getting services from marketplace in org rabbitcorp / space development as admin...
+OK
+service             plans      description
+[...]
+ondemand-rabbitmq   Solo       RabbitMQ Service
+[...]
+</pre>
+
+1. If the output lists `ondemand-rabbitmq` in the `service` column, on-demand RabbitMQ for PCF is available.
+
+You can also check the Marketplace in [Apps Manager](http://docs.pivotal.io/pivotalcf/console/dev-console.html) by clicking **Marketplace** in the left menu.
+
+## <a id='create'></a>Create a Service Instance
+
+To create an instance of the on-demand RabbitMQ for PCF
+<pre class="terminal">
    cf api
 
    cf marketplace
@@ -26,13 +56,19 @@ You have the
    cf create-service cf-rabbitmq-odb one-node test-rabbit
 
    watch cf services
+</pre>
 
-</code>
+
+You can also [Apps Manager](http://docs.pivotal.io/pivotalcf/1-10/console/manage-apps.html#TK) to TK TKs through a graphical interface. For more information, see [Managing Service Instances with the cf CLI](docs.pivotal.io/devguide/services/managing-services.html#TK).
+
+2 ways to discover / list instances of an on-demand service that have been deployed:
+1. log into BOSH director -- need to document this - old way
+
+
 
 ## <a id="bind"></a>Bind a Service Instance to Your App
 
-<code>
-
+<pre class="terminal">
    cf push
 
    cf bind-service lab-rat test-rabbit
@@ -41,23 +77,20 @@ You have the
 
    cf env lab-rat
 
-</code>
+</pre>
 
 ## <a id="unbind"></a>Unbind a Service Instance to Your App
 
-<code>
-
-   cf unbind-service lab-rat test-rabbit
+<pre class="terminal">
+    cf unbind-service lab-rat test-rabbit
 
    cf restage lab-rat
-
-</code>
+</pre>
 
 ## <a id="delete"></a>Delete a Service Instance
 
-<code>
-
-   cf delete-service test-rabbit
+<pre class="terminal">
+    cf delete-service test-rabbit
 
    cf service test-rabbit
 
@@ -65,10 +98,10 @@ You have the
 
    cf services
 
-</code>
+</pre>
 
 
-
+<pre class="terminal">
    cf api
    cf marketplace
    cd rabbit-labrat/
@@ -84,7 +117,7 @@ You have the
    cf service test-rabbit
    watch cf service test-rabbit
    cf services
-`
+</pre>
 
 and the bosh commands:
    bosh tasks
