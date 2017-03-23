@@ -5,122 +5,181 @@ owner: London Services
 
 This topic provides instructions for developers using the on-demand RabbitMQ service for their Pivotal Cloud Foundry (PCF) apps. RabbitMQ enables messaging between cloud-based servers, apps and devices.
 
+These procedures use the Cloud Foundry Command-Line Interface (cf CLI). You can also use [Apps Manager](http://docs.pivotal.io/pivotalcf/console/dev-console.html) to perform the same tasks using a graphical UI.
+
+For general information, see [Managing Service Instances with the cf CLI](http://docs.pivotal.io/devguide/services/managing-services.html). 
+
 ## <a id="prereqs"></a>Prerequisites
+
+To use on-demand RabbitMQ for PCF with your PCF apps, you need:
 
 * A PCF installation with [RabbitMQ for PCF](https://network.pivotal.io/products/pivotal-rabbitmq-service) installed and listed in the [Marketplace](http://docs.pivotal.io/devguide/services/#instances)
 * A [Space Developer](http://docs.pivotal.io/pivotalcf/concepts/roles.html#roles) or Admin account on the PCF installation
-* A local machine with a browser, shell, and the [Cloud Foundry Command-Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html) (cf CLI) and [Linux _watch_ command](http://www.linfo.org/watch.html) installed
+* A local machine with the following installed:
+   - a browser
+   - a shell
+   - the [Cloud Foundry Command-Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html) (cf CLI)
+   - the Linux [watch](http://www.linfo.org/watch.html) command
+* To [log into](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login) the org and space containing your app
 
-ODB create service - diff from regular service b/c it's asynchronous, and you can use watch command to see status of service create
+## <a id='process'></a>The Create-Bind Process
 
-## <a id='overview'></a>Overview
+Because every app and service in PCF is scoped to a [space](http://docs.pivotal.io/pivotalcf/concepts/roles.html#spaces), an app can only use a service if an instance of the service exists in the same space. 
 
-Every app and service in PCF is scoped to a [space](http://docs.pivotal.io/pivotalcf/concepts/roles.html#spaces). To use RabbitMQ in a PCF app:
+To use RabbitMQ in a PCF app:
 
 1. Use the [cf CLI](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login) or [Apps Manager](http://docs.pivotal.io/pivotalcf/customizing/console-login.html) to log into the org and space that contains the app.
 
 1. Make sure an instance of the RabbitMQ for PCF service exists in the same space as the app.
-   - If the space does not already have a Rabbit for PCF instance, [create](#create) one.
+   - If the space does not already have a RabbitMQ for PCF instance, [create](#create) one.
+   - If the space already has a Rabbit for PCF instance, you can [bind](#bind) your app to the existing instance or create a new instance to bind to your app.
 
 2. [Bind](#bind) the app to the RabbitMQ for PCF service instance, to enable the app to use RabbitMQ.
 
+## <a id='when-what'></a>When to Rebind or Restage
+
+<table id='when-what' border="1" class="nice" >
+  <tr>
+    <th>When the...<br> </th>
+    <th>is changed, then...</th>
+  </tr><tr>
+    <td>app</td>
+    <td><a href="#bind">bind</a> the app to the service instance.</td>
+  </tr><tr>
+    <td>service</td>
+    <td><a href="#restage">restage</a> the app.</td>
+  </tr>
+</table>
+
+
+
 ## <a id='marketplace'></a>Confirm Service Availability
 
-To check that On-Demand RabbitMQ for PCF is available, find it in the Marketplace:
+For an app to use a service, 1) the service must be available in the Marketplace for its space and 2) an instance of the service must exist in its space.
 
-1. Run `cf marketplace`
-<pre class="terminal">
-$ cf marketplace
-Getting services from marketplace in org rabbitcorp / space development as admin...
-OK
-service             plans      description
-[...]
-ondemand-rabbitmq   Solo       RabbitMQ Service
-[...]
-</pre>
+You can confirm both of these using the cf CLI as follows.
 
-1. If the output lists `ondemand-rabbitmq` in the `service` column, on-demand RabbitMQ for PCF is available.
+1. To find out if On-Demand RabbitMQ for PCF service is available in the Marketplace:
+   1. Enter `cf marketplace`
+   1. If the output lists `ondemand-rabbitmq` in the `service` column, on-demand RabbitMQ for PCF is available. If it is not available, ask your operator to install it.
 
-You can also check the Marketplace in [Apps Manager](http://docs.pivotal.io/pivotalcf/console/dev-console.html) by clicking **Marketplace** in the left menu.
+    <pre class="terminal">
+    $ cf marketplace
+    Getting services from marketplace in org my-org / space my-space as user<span>@</span>example.com...
+    OK
+    service             plans      description
+    [...]
+    ondemand-rabbitmq   Solo       RabbitMQ Service
+    [...]
+    </pre>
+
+1. To confirm that an On-Demand RabbitMQ for PCF instance is running in the space
+    1. Enter `cf services`
+    1. Any `ondemand-rabbitmq` listings in the `service` column are service instances of on-demand RabbitMQ in the space.
+
+    <pre class="terminal">
+    $ cf services
+    Getting services in org my-org / space my-space as user<span>@</span>example.com...
+    OK
+    name          service            plan    bound apps    last operation
+    my-instance   ondemand-rabbitmq  Solo                  create succeeded
+    </pre>
+    You can [bind](#bind) your app to an existing instance or [create](#create) a new instance to bind to your app.
 
 ## <a id='create'></a>Create a Service Instance
 
-To create an instance of the on-demand RabbitMQ for PCF
-<pre class="terminal">
-   cf api
+Unlike pre-provisioned services, on-demand services are created asynchronously, not immediately. The `watch` command shows you when your service instance is ready to bind and use.
 
-   cf marketplace
+To create an instance of the on-demand RabbitMQ for PCF service, run `cf create-service`:
 
-   cd rabbit-labrat/
+1. Enter `cf create-service ondemand-rabbitmq Solo SERVICE_INSTANCE`
 
-   cf create-service cf-rabbitmq-odb one-node test-rabbit
+    Where `SERVICE_INSTANCE` is a name you choose to identify the service instance. This name will appear under `service` \[sic\] in output from `cf services`.
 
-   watch cf services
+1. Enter `watch cf services` and wait for the `last operation` for your instance to show as `create succeeded`. 
+
+    <pre class="terminal">
+   $ cf create-service ondemand-rabbitmq Solo my-instance<br>
+    Creating service my-instance in org my-org / space my-space as user<span>@</span>example.com...
+    OK<br>
+   $ watch cf services<br>
+    Getting services in org my-org / space my-space as user<span>@</span>example.com...
+    OK
+    name          service            plan    bound apps    last operation
+    my-instance   ondemand-rabbitmq  Solo                  TK NEED pending
+    Getting services in org my-org / space my-space as user<span>@</span>example.com...
+    OK
+    name          service            plan    bound apps    last operation
+    my-instance   ondemand-rabbitmq  Solo                  TK NEED pending
+    Getting services in org my-org / space my-space as user<span>@</span>example.com...
+    OK
+    name          service            plan    bound apps    last operation
+    my-instance   ondemand-rabbitmq  Solo                  create succeeded
 </pre>
 
-
-You can also [Apps Manager](http://docs.pivotal.io/pivotalcf/1-10/console/manage-apps.html#TK) to TK TKs through a graphical interface. For more information, see [Managing Service Instances with the cf CLI](docs.pivotal.io/devguide/services/managing-services.html#TK).
-
-2 ways to discover / list instances of an on-demand service that have been deployed:
-1. log into BOSH director -- need to document this - old way
-
-
+    If you get an error, see [Troubleshooting Instances](./troubleshoot-instances.html).
 
 ## <a id="bind"></a>Bind a Service Instance to Your App
 
-<pre class="terminal">
-   cf push
+For an app to use a service, you must bind it to a service instance. Do this after you push or re-push the app using `cf push`.
 
-   cf bind-service lab-rat test-rabbit
+To bind an app to a RabbitMQ instance run `$ cf bind-service`.
 
-   cf restage lab-rat
+1. Enter `cf bind-service APP SERVICE_INSTANCE`
 
-   cf env lab-rat
+    Where `APP` is the app you want to use the RabbitMQ service instance and `SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service`.
 
+    <pre class="terminal">
+   $ cf bind-service my-app my-instance<br>
+    Binding service mydb to my-app in org my-org / space test as user<span>@</span>example.com...
+    OK
+    TIP: Use 'cf push' to ensure your env variable changes take effect
+</pre>
+
+## <a id="call"></a>Use the RabbitMQ Service in Your App
+
+For how to code your app to use RabbitMQ messaging, see **About Using Pivotal RabbitMQ** > **Client Documentation** in the [RabbitMQ documentation](https://rabbitmq.docs.pivotal.io).
+
+## <a id="unbind"></a>Restage an App with a New Service Instance
+
+If a service instance has been updated based on a new version of the service, you need to run `cf restage` to restage your app to use the new instance.
+
+1. Enter `cf restage-app APP`
+
+    Where `APP` is the app you want to use the updated service instance.
+
+    <pre class="terminal">
+   $ cf restage-app my-app
 </pre>
 
 ## <a id="unbind"></a>Unbind a Service Instance to Your App
 
-<pre class="terminal">
-    cf unbind-service lab-rat test-rabbit
+To stop an app from using a service, unbind it from the service instance using `cf unbind-service`.
 
-   cf restage lab-rat
+1. Enter `cf unbind-service APP SERVICE_INSTANCE`
+
+    Where `APP` is the app you want to stop using the RabbitMQ service instance and `SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service`.
+
+    <pre class="terminal">
+   $ cf unbind-service my-app my-instance<br>
+    Unbinding app my-app from service my-instance in org my-org / space my-space as user<span>@</span>example.com...
+    OK
 </pre>
 
 ## <a id="delete"></a>Delete a Service Instance
 
-<pre class="terminal">
-    cf delete-service test-rabbit
+To delete a service instance, run `cf delete-service`.
 
-   cf service test-rabbit
+1. Enter `cf delete-service SERVICE_INSTANCE`
 
-   watch cf service test-rabbit
+    Where `SERVICE_INSTANCE` is the name of the service to delete.
 
-   cf services
-
+    <pre class="terminal">
+   $ cf delete-service my-instance<br>
+    Are you sure you want to delete the service my-instance ? y
+    Deleting service my-service in org my-org / space my-space as user<span>@</span>example.com...
+    OK
 </pre>
 
+1. Enter `watch cf services` and wait for the instance show as `TK DELETE succeeded`. 
 
-<pre class="terminal">
-   cf api
-   cf marketplace
-   cd rabbit-labrat/
-   cf create-service cf-rabbitmq-odb one-node test-rabbit
-   watch cf services
-   cf push
-   cf bind-service lab-rat test-rabbit
-   cf restage lab-rat
-   cf env lab-rat
-   cf unbind-service lab-rat test-rabbit
-   cf restage lab-rat
-   cf delete-service test-rabbit
-   cf service test-rabbit
-   watch cf service test-rabbit
-   cf services
-</pre>
-
-and the bosh commands:
-   bosh tasks
-   bosh task 234
-   bosh run errand
-   bosh deployments
