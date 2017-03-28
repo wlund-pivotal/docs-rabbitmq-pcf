@@ -6,13 +6,17 @@ owner: London Services
 
 <p class="note"><strong>Note</strong>: Pre-released DRAFT documentation. </p>
 
-This guide describes setting up and using RabbitMQ&reg; for Pivotal Cloud Foundry (PCF). RabbitMQ enables messaging between cloud-based servers, apps and devices.
+This guide describes setting up and using RabbitMQ&reg; for Pivotal Cloud Foundry (PCF). 
+RabbitMQ enables messaging between cloud-based servers, apps, and devices.
 
 ## <a id='AboutTile'></a>About RabbitMQ for PCF
 
-RabbitMQ for PCF software services enable PCF app developers to use the RabbitMQ messaging service in their apps. Operators install the services using PCF Operations Manager (Ops Manager) and publish them to the Marketplace. App developers can then create instances of the services to call from their apps. 
+RabbitMQ for PCF software services enable PCF app developers to use the RabbitMQ messaging service in their apps. 
+Operators install the services using PCF Operations Manager (Ops Manager) and publish them to the Marketplace. 
+App developers can then create instances of the services to call from their apps. 
 
-RabbitMQ for PCF v1.8 supports two types of service, an *on-demand* service and a *pre-provisioned* service. This table summarizes the main differences between the two:
+RabbitMQ for PCF v1.8 supports two types of service, an *on-demand* service and a *pre-provisioned* service. 
+This table summarizes the main differences between the two:
 
 <table id='rabbit-odb-vs-pre' border="1" class="nice"><tr>
    <th></th>
@@ -35,7 +39,8 @@ RabbitMQ for PCF v1.8 supports two types of service, an *on-demand* service and 
    </tr>
 </table>
 
-This RabbitMQ for PCF v1.8 documentation describes both service types. Documentation for RabbitMQ for PCF v1.7 and earlier only describes a pre-provisioned service.
+This RabbitMQ for PCF v1.8 documentation describes both service types. 
+Documentation for RabbitMQ for PCF v1.7 and earlier only describes a pre-provisioned service.
 
 ## <a id='AboutRabbit'></a>About RabbitMQ
 
@@ -50,20 +55,35 @@ application and data architectures that can scale with your business needs.
 
 ## <a id='snapshot'></a> Product Snapshot
 
-<dl>
-<dt>Current RabbitMQ for PCF Details</dt>
-<dd><strong>Version</strong>: v1.8.0 </dd>
-<dd><strong>Release Date</strong>:  March 31, 2017</dd>
-<dd><strong>Software component version</strong>: RabbitMQ OSS v3.6.6</dd>
-<dd><strong>Compatible Ops Manager Version(s)</strong>: v1.8.x </dd>
-<dd><strong>Compatible Elastic Runtime Version(s)</strong>: v1.8.x </dd>
-<dd><strong>AWS support?</strong> Yes</dd>
-<dd><strong>Azure support?</strong> ???</dd>
-<dd><strong>GCP support?</strong> ???</dd>
-<dd><strong>OpenStack support?</strong> Yes</dd>
-<dd><strong>vSphere support?</strong> Yes</dd>
-<dd><strong>IPsec support?</strong> No</dd>
-</dl>
+Information about the current RabbitMQ for PCF
+<table class="nice">
+    <th>Element</th>
+    <th>Details</th>
+    <tr>
+        <td>Version</td>
+        <td>v1.8.0</td>
+    </tr>
+    <tr>
+        <td>Release date</td>
+        <td>April 15, 2017</td>
+    </tr>
+    <tr>
+        <td>Software component version</td>
+        <td>RabbitMQ OSS v3.6.6</td>
+    </tr>
+    <tr>
+        <td>Compatible Ops Manager version(s)</td>
+        <td>v1.8.x</td>
+    </tr>
+    <tr>
+        <td>Compatible Elastic Runtime version(s)</td>
+        <td>v1.8.x</td>
+    </tr>
+    <tr>
+        <td>IaaS support</td>
+        <td>AWS, Azure, GCP, OpenStack, and vSphere</td>
+    </tr>
+</table>
 
 ## <a id='features'></a>Features
 
