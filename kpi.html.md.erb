@@ -1,0 +1,329 @@
+---
+breadcrumb: RabbitMQ for Pivotal Cloud Foundry Documentation
+title: Key Performance Indicators
+owner: London Services
+---
+
+<p class="note"><strong>Note</strong>: Pre-released DRAFT documentation. </p>
+
+This topic describes Key Performance Indicators (KPIs) that operators may want to monitor with their RabbitMQ for Pivotal Cloud Foundry (PCF) installation to help ensure it is in a good operational state.
+
+The following KPIs are provided for operators to give general guidance on monitoring a RabbitMQ for PCF installation using the product component and system (BOSH) metrics. 
+Although many metrics are emitted from RabbitMQ for PCF, the following KPIs are 
+high-signal-value metrics that can indicate emerging issues. 
+
+This alerting and response guidance has been shown to apply to most installations. 
+Pivotal recommends that operators continue to fine-tune the alert measures to their installation 
+by observing historical trends. 
+Pivotal also recommends that operators expand beyond this guidance and create new, installation-specific monitoring
+metrics, thresholds, and alerts based on learning from their installations.
+
+## <a id="broker"></a> RabbitMQ Service Broker
+ 
+###<a id="broker-heartbeat"></a> Service Broker Heartbeat
+
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.service_broker.heartbeat<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>Rabbit service <code>is alive</code> poll.<br><br>
+   
+      <strong>Use</strong>: If the Service Broker does not emit hearbeats, this indicates that it is offline.
+      <br><br>
+      <strong>Origin</strong>: Doppler/Firehose<br>
+      <strong>Type</strong>: boolean<br>
+      <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 5 minutes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>: N/A<br>
+      <strong>Red critical</strong>: &lt; 1</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>
+         The rabbitmq heartbeat has failed for the rabbitmq deployment. - Check the relevant RabbitMQ jobs logs for errors.
+      </td>
+   </tr>
+</table>
+
+## <a id="haproxy"></a> RabbitMQ HAProxy
+ 
+###<a id="haproxy-heartbeat"></a> HAProxy Heartbeat
+
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.haproxy.heartbeat<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>Rabbit service <code>is alive</code> poll.<br><br>
+   
+      <strong>Use</strong>: If the HAProxy does not emit hearbeats, this indicates that it is offline.
+      <br><br>
+      <strong>Origin</strong>: Doppler/Firehose<br>
+      <strong>Type</strong>: boolean<br>
+      <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 5 minutes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>: N/A<br>
+      <strong>Red critical</strong>: &lt; 1</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>
+         The rabbitmq heartbeat has failed for the rabbitmq deployment. - Check the relevant RabbitMQ jobs logs for errors.
+      </td>
+   </tr>
+</table>
+
+## <a id="server"></a> RabbitMQ Server
+ 
+###<a id="server-heartbeat"></a> Server Heartbeat
+
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.rabbitmq.heartbeat<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>Rabbit service <code>is alive</code> poll.<br><br>
+   
+      <strong>Use</strong>: If the server does not emit hearbeats, this indicates that it is offline. 
+      <br><br>
+      <strong>Origin</strong>: Doppler/Firehose<br>
+      <strong>Type</strong>: boolean<br>
+      <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 5 minutes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>: N/A<br>
+      <strong>Red critical</strong>: &lt; 1</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>
+         The rabbitmq heartbeat has failed for the rabbitmq deployment. - Check the relevant RabbitMQ jobs logs for errors.
+      </td>
+   </tr>
+</table>
+
+###<a id="free-disk"></a> Free Disk
+
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br> derived=(p-rabbitmq.system.disk_free - p-rabbitmq.system.disk_free_limit)<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>Free disk capacity for message handling above the configured free disk limit.<br><br>
+   
+      <strong>Use</strong>: 
+      <br><br>
+      <strong>Origin</strong>: Doppler/Firehose<br>
+      <strong>Type</strong>: <br>
+      <strong>Frequency</strong>: 30s (default), 10s (configurable minimum)<br>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 10 minutes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>:>500<br>
+      <strong>Red critical</strong>: </td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>
+         Investigate what traffic is filling the message queues, if appropriate scale the persistent disk or number of nodes
+      </td>
+   </tr>
+</table>
+
+###<a id="file-descriptors"></a> File Descriptors
+
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.rabbitmq.system.file_descriptors<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>File descriptors consumed<br><br>
+   
+      <strong>Use</strong>: If the number of file descriptors consumed becomes too large, the VM may lose the abilility to perform disk IO, which can cause data loss. 
+      <p class="note"><strong>Note</strong>: This assumes non-persistent messages are handled by retries or some other logic by the producers.</p>
+      <strong>Origin</strong>: Doppler/Firehose<br>
+      <strong>Type</strong>: count<br>
+      <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 10 minutes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>: &gt; 50000 <br>
+      <strong>Red critical</strong>: &gt; 55000</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>ulimit is currently set to 60000 as of p-rabbitmq 1.6 and later. Consider scaling rabbit nodes if this metrics is high for extended periods of time.
+      </td>
+   </tr>
+</table>
+
+###<a id="erlang-processes"></a> Erlang Processes
+
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.rabbitmq.system.erlang_processes<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td><a href="https://www.erlang.org/docs">Erlang</a> processes consumed by RabbitMQ, which runs on an Erlang VM.<br><br>
+   
+      <strong>Use</strong>: This is the key indicator of the nodes ability to process things
+      <br><br>
+      <strong>Origin</strong>: Doppler/Firehose<br>
+      <strong>Type</strong>: count<br>
+      <strong>Frequency</strong>: 30s (default), 10s (configurable minimum)<br>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 10 minutes of p-rabbitmq.rabbitmq.system.erlang_processes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>: &gt; 900000 <br>
+      <strong>Red critical</strong>: &gt; 950000</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>Erlang process limit is currently set to 1,048,816 as of p-rabbitmq 1.6 and later. Consider scaling rabbit nodes if this metrics is high for extended periods of time.
+      </td>
+   </tr>
+</table>
+
+## <a id="bosh"></a> System (BOSH)
+
+###<a id="ram"></a> RAM
+
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br> system.mem.percent (for p-rabbitmq)<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>RAM being consumed<br><br>
+   
+      <strong>Use</strong>: RabbitMQ is considered to be in a good state when it has little or no messages. Alerting on this metric can indicate that there are too few consumers.
+      <br><br>
+      <strong>Origin</strong>: JMX Bridge or BOSH HM<br>
+      <strong>Type</strong>: percent<br>
+      <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 10 minutes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>: &gt; 40 <br>
+      <strong>Red critical</strong>: &gt; 50</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>Add more consumers to drain the queue as fast as possible. Healthmonitor reports if RabbitMQ has used more than 40% of its RAM for the past ten minutes. 
+      </td>
+   </tr>
+</table>
+
+###<a id="cpu"></a> CPU
+
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br> system.cpu.percent (for p-rabbitmq)<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>CPU being consumed<br><br>
+   
+      <strong>Use</strong>: A node that experiences context switching, or high CPU usage, will become unresponsive. This also affects the ability of the node to report metrics.
+      <br><br>
+      <strong>Origin</strong>: JMX Bridge or BOSH HM<br>
+      <strong>Type</strong>: percent<br>
+      <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 10 minutes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>: &gt; 60 <br>
+      <strong>Red critical</strong>: &gt; 75</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>Healthmonitor reports RabbitMQ has used more than 40% of its CPU for the past ten minutes. Remember that "an empty rabbit is a happy rabbit". In this situation, you will want to add more consumers to drain the queue as fast as possible.
+      </td>
+   </tr>
+</table>
+
+###<a id="ephemeral-disk"></a> Ephemeral Disk
+
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br> system.disk.percent (for p-rabbitmq)<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>Ephemeral Disk being consumed<br><br>
+      <strong>Use</strong>: disk filling up is a sign that there are too few consumers.
+      <br><br>
+      <strong>Origin</strong>: JMX Bridge or BOSH HM<br>
+      <strong>Type</strong>: percent<br>
+      <strong>Frequency</strong>: 30 s (default), 10 s (configurable minimum)<br>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 10 minutes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>: &gt; 60 <br>
+      <strong>Red critical</strong>: &gt; 75</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>Healthmonitor reports RabbitMQ has used more than 40% of its disk for the past ten minutes. Remember that "an empty rabbit is a happy rabbit". In this situation, you will want to add more consumers to drain the queue as fast as possible.
+      </td>
+   </tr>
+</table>
+
+###<a id="persistent-disk"></a> Persistent Disk
+
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br> persistent.disk.percent (for p-rabbitmq)<br><br></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>Persistent Disk being consumed<br><br>
+      <strong>Use</strong>: disk filling up is a sign that there are too few consumers.
+      <br><br>
+      <strong>Origin</strong>: JMX Bridge or BOSH HM<br>
+      <strong>Type</strong>: percent<br>
+      <strong>Frequency</strong>: 30s (default), 10s (configurable minimum)<br>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 10 minutes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Yellow warning</strong>: &gt; 60 <br>
+      <strong>Red critical</strong>: &gt; 75</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>Healthmonitor reports RabbitMQ has used more than 40% of its disk for the past ten minutes. Remember that "an empty rabbit is a happy rabbit". In this situation, you will want to add more consumers to drain the queue as fast as possible.
+      </td>
+   </tr>
+</table>
