@@ -1,13 +1,17 @@
 ---
-title: About RabbitMQ for PCF
+title: On-Demand Service Architecture
 owner: London Services
 ---
 
-This topic describes the architecture of RabbitMQ&reg; for Pivotal Cloud Foundry (PCF), both the on-demand service and the older, pre-provisioned service.
+This topic describes the architecture for on-demand RabbitMQ&reg; for Pivotal Cloud Foundry (PCF).
+
+For information about architecture of the older, pre-provisioned service, see [Deploying the RabbitMQ® Service](./deploying.html).
 
 ## <a id='on-demand'></a>On-Demand Service Architecture
 
-Like other on-demand PCF services, on-demand RabbitMQ for PCF relies on the BOSH 2.0 ability to dynamically deploy virtual machines (VMs) in a dedicated network. The On-Demand Broker uses this capability to create single-tenant service instances in a dedicated Service Network.
+Like other on-demand PCF services, on-demand RabbitMQ for PCF relies on the BOSH 2.0 ability to 
+dynamically deploy VMs in a dedicated network. 
+The on-demand service broker uses this capability to create single-tenant service instances in a dedicated service network.
 
 ### <a id="service-network"></a>BOSH 2.0 and Service Networks
 
@@ -19,10 +23,3 @@ Like other on-demand PCF services, on-demand RabbitMQ for PCF relies on the BOSH
 
 <!-- wanna call partial '../odb/on_demand_architecture' here -->
 
-## <a id='on-demand'></a>Pre-Provisioned Service Architecture
-
-<%= image_tag("images/deployment_default.jpeg") %>
-
-<%= image_tag("images/deployment_recommended.jpeg") %>
-
-<%= image_tag("images/deployment_advanced.jpeg") %>

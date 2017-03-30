@@ -3,10 +3,12 @@ title: Troubleshooting
 owner: London Services
 ---
 
-This topic provides basic instructions for operators troubleshooting On-Demand RabbitMQ&reg; for PCF.
+This topic provides operators with basic instructions for troubleshooting on-demand RabbitMQ&reg; for PCF.
 
 
 ## <a id="errors"></a> Errors
+
+This section lists errors that you might see associated with on-demand RabbitMQ for PCF.
 
 ### <a id="create-errors"></a> Instance Creation
 
@@ -41,8 +43,11 @@ sequenceDiagram
 
 Error with on-demand instance creation can be either _sychronous_ or _asynchronous_:
 
-* **Synchronous** failures occur before BOSH creates the deployment manifest for the new instance VM. Synchronous errors happen fast and early in the instance-creation process, and the Cloud Controller deletes the unsuccessful instance from its accounting of service instances and bindings.
-* **Asynchronous** failures occur after BOSH tries to deploy the new service instance. In these cases, the Cloud Controller may retain references to the orphan instance.
+* **Synchronous** failures occur before BOSH creates the deployment manifest for the new instance VM. 
+Synchronous errors happen fast and early in the instance-creation process, and the Cloud Controller 
+deletes the unsuccessful instance from its accounting of service instances and bindings.
+* **Asynchronous** failures occur after BOSH tries to deploy the new service instance. 
+In these cases, the Cloud Controller may retain references to the orphan instance.
 
 ### <a id="manage-errors"></a> Instance Management
 
@@ -75,8 +80,10 @@ Application developer reports that they could not delete a service instance
 <table border='1' class='nice'>
 <tr>
   <th width="22%">Error</th>
-  <td><p><code>Instance provisioning failed: There was a problem completing your request. Please contact your operations team providing the following information: <br>
-  service: RABBITMQ-SERVICE-NAME, service-instance-guid: SERVICE-INSTANCE-GUID, broker-request-id: REQUEST-GUID, task-id: TASK-ID, operation: create</code></p>
+  <td><p><code>Instance provisioning failed: There was a problem completing your request. 
+               Please contact your operations team providing the following information: <br>
+               service: RABBITMQ-SERVICE-NAME, service-instance-guid: SERVICE-INSTANCE-GUID, broker-request-id: 
+               REQUEST-GUID, task-id: TASK-ID, operation: create</code></p>
   <p>The GUID identifiers are long alphanumeric strings. TASK-ID is a number. If TASK-ID is blank, see <a href="#network">UAA, Network, or Connection Issue</a></p>
  </td>
 </tr>
@@ -362,6 +369,8 @@ Verify that the broker network has access to the loggregator system, on all requ
 
 ## <a id="techniques"></a> Techniques
 
+This section gives you techniques that you can use to troubleshoot on-demand RabbitMQ for PCF.
+
 ### <a id="parse-error"></a> Parse a CF Error Message
 
 If you see an error, record the contents of the **Message** field, which is useful for debugging. Please provide this information to Pivotal Support when filing a [ticket](#ticket).
@@ -452,7 +461,7 @@ the guid of your service instance with the CF CLI command `$ cf service {YOUR_SE
 1. Select the deployment using `bosh deployment myservice.yml`
 1. View VMs in the deployment using `bosh instances`
 1. Download broker logs by using the `bosh logs <instance-id>` command
-1. To ssh onto the VM use `bosh ssh <instance-id>`
+1. To SSH onto the VM use `bosh ssh <instance-id>`
 
 ### <a id="determine-task-id"></a> Determine the Task ID of a <i>create-service</i> Task
 
