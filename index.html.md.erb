@@ -13,9 +13,9 @@ The [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) (PCF
 
 <dl>
 <dt>Current RabbitMQ for PCF Details</dt>
-<dd><strong>Version</strong>: v1.7.14 </dd>
-<dd><strong>Release Date</strong>: 10th March 2017</dd>
-<dd><strong>Software component version</strong>: RabbitMQ OSS v3.6.6</dd>
+<dd><strong>Version</strong>: v1.7.15 </dd>
+<dd><strong>Release Date</strong>: 31st March 2017</dd>
+<dd><strong>Software component version</strong>: RabbitMQ OSS v3.6.9</dd>
 <dd><strong>Compatible Ops Manager Version(s)</strong>: v1.8.x, v1.9.x, v1.10.x </dd>
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: v1.8.x, v1.9.x, v1.10.x </dd>
 <dd><strong>vSphere support?</strong> Yes</dd>
@@ -32,6 +32,7 @@ Upgrades are normally a rolling deployment unless otherwise noted in the release
 
 Consider the following compatibility information before upgrading RabbitMQ for Pivotal Cloud Foundry.
 
+<p class="note"><strong>Note</strong>: Any tile upgrading to RabbitMQ v3.6.9 or later will require downtime as the RabbitMQ cluster cannot run in mixed-mode with versions lower than v3.6.9. </p>
 <p class="note"><strong>Note</strong>: Any tile upgrading to RabbitMQ v3.6.6 or later will require downtime as the RabbitMQ cluster cannot run in mixed-mode with versions lower than v3.6.6. </p>
 
 <p class="note"><strong>Note</strong>: Pivotal recommends that customers always upgrade to the latest patch version of their minor line, and then only upgrade to the latest available new minor patch.  This is to ensure that RabbitMQ or Erlang versions are not downgraded during the process.</p>
