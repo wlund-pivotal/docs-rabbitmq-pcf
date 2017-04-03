@@ -36,23 +36,6 @@ To use RabbitMQ in a PCF app:
 
 2. [Bind](#bind) the app to the RabbitMQ for PCF service instance, to enable the app to use RabbitMQ.
 
-## <a id='when-what'></a>When to Rebind or Restage
-
-<table id='when-what' border="1" class="nice" >
-  <tr>
-    <th>When the...<br> </th>
-    <th>is changed, then...</th>
-  </tr><tr>
-    <td>app</td>
-    <td><a href="#bind">bind</a> the app to the service instance.</td>
-  </tr><tr>
-    <td>service</td>
-    <td><a href="#restage">restage</a> the app.</td>
-  </tr>
-</table>
-
-
-
 ## <a id='marketplace'></a>Confirm Service Availability
 
 For an app to use a service, 1) the service must be available in the Marketplace for its space and 2) an instance of the service must exist in its space.
@@ -151,6 +134,10 @@ If a service instance has been updated based on a new version of the service, yo
     <pre class="terminal">
    $ cf restage-app my-app
 </pre>
+
+When a new version of a service obsoletes an older version, the platform operator may ask you to update your instances of the service and restage any apps bound to the service instances.
+
+Pushing new version of an app automatically restages the app on any service instances it is bound to.
 
 ## <a id="unbind"></a>Unbind a Service Instance to Your App
 
