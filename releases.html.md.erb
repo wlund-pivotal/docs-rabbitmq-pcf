@@ -3,64 +3,224 @@ title: RabbitMQ&reg; for Pivotal Cloud Foundry
 owner: London Services
 ---
 
-Pivotal recommends that you upgrade to the latest version of your current minor line, and then upgrade to the latest available version of the new minor line. For example, if you're on an older v1.7.x version, upgrade to the latest v1.7.x version before upgrading to the latest v1.8.x version.
+Release notes for [RabbitMQ for Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-rabbitmq-service)
 
-See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf) for product versions and upgrade paths.
+### 1.7.6
+**Release Date:  21st October 2016**
 
-## v1.7.x
+Features included in this release:
 
-For v1.7.x versions of RabbitMQ for PCF, see the [release notes](../1-7/releases.html) in the v1.7 version of this documentation.
+* Using stemcell 3263.8 for USN-3106-2: Linux kernel (Xenial HWE) vulnerability
+* Upgrade of Erlang to 18.3.4.  Each node will be upgraded in turn and the entire cluser will not be taken offlne
+* Update to drain scripts during RabbitMQ node shutdown to cleanly shutdown the application and increase logging
+* Contains OSS RabbitMQ 3.6.5 and HAProxy v1.6.9
+* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment
 
-## v1.6.x
+### 1.7.4
+**Release Date:  13th October 2016**
 
-For v1.6.x versions of RabbitMQ for PCF, see the [release notes](../1-6/releases.html) in the v1.6 version of this documentation.
+Features included in this release:
 
-## v1.5.x
+* Using stemcell 3263.3
+* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment
+* You can upgrade to this version from v1.6.8 or higher
+* Upgrade to OSS RabbitMQ 3.6.5 will require the cluster to be taken offline
+* HAProxy v1.6.9
+* GoLang 1.6.3
+* JRE 1.8.102
+* Includes stability and bug fixes.
+* Fixed an issue with SSL configuration options being applied incorrectly via Ops Manager.  Existing customers properties will be migrated and displayed properly
 
-Pivotal released v1.5.0 in December 2015, and the latest patch version is v1.5.27.
+### 1.7.3
+**Release Date:  10th October 2016**
 
-### 1.5.27
-**Release Date: April 3, 2017**
+Features included in this release:
 
-* Update to stemcell 3312.22
+* Using stemcell 3263.2
+* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment
+* Do not upgrade to this version from v1.6.8
+* Fixed an issue with SSL configuration options being applied incorrectly via Ops Manager.  Existing customers properties will be migrated and displayed properly
 
-### 1.5.26
-**Release Date: March 10, 2017**
+### 1.7.2
+**Release Date:  27th September 2016**
 
-* Update to stemcell 3233.15
+Features included in this release:
 
-### 1.5.25
-**Release Date: March 3, 2017**
+* Using stemcell 3263.2
+* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment
+* RabbitMQ 3.6.3 release is included and the option to enable the event_exchange plugin is available in Ops Manager
+* Compatibility with all Ops Manager v1.8 features, such as multiple subnets in multiple Availability Zones (AWS, vSphere)
+* If deploying this tile as part of an Ops Manager v1.8 upgrade from Ops Manager v1.7, ensure that you are upgrading from RabbitMQ for PCF v1.6.6 or later.
+* This release is using Service Metrics v1.4.3
 
-* Update to stemcell 3233.14
+### 1.7.0
+**Release Date:  2nd September 2016**
 
-### 1.5.18
-**Release Date: October 21, 2016**
+Features included in this release:
 
-* Update to stemcell 3233.3
+* Using stemcell 3262.9
+* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment
+* RabbitMQ 3.6.3 release is included and the option to enable the event_exchange plugin is available in Ops Manager
+* Compatibility with all Ops Manager v1.8 features, such as multiple subnets in multiple Availability Zones (AWS, vSphere)
+* If deploying this tile as part of an Ops Manager v1.8 upgrade from Ops Manager v1.7, ensure that you are upgrading from RabbitMQ for PCF v1.6.6 or later.
+* This release is using Service Metrics v1.4.3
 
-### 1.5.17
-**Release Date: October 13, 2016**
+### 1.6.10
+**Release Date: 21st October 2016**
+Features included in this release:
 
-* Updated stemcell to 3233.2
+* Using stemcell 3233.2
+* Upgrade of Erlang to 18.3.4.  Each node will be upgraded in turn and the entire cluser will not be taken offlne
+* Update to drain scripts during RabbitMQ node shutdown to cleanly shutdown the application and increase logging
+* Contains OSS RabbitMQ 3.6.5 and HAProxy v1.6.9
+* You can only upgrade this version of the tile to version 1.7.6
 
-### 1.5.15
-**Release Date: August 24, 2016**
 
-* Updated stemcell to 3232.21
+### 1.6.9
+**Release Date: 13th October 2016**
 
-### 1.5.14
-**Release Date: August 24, 2016**
+Features included in this release:
 
-* Updated stemcell to 3232.17
+* Installing this release will require the RabbitMQ cluster to be taken offline during the deployment
+* Using stemcell 3233.2
+* OSS RabbitMQ 3.6.5 and Erlang 18.1 is included
+* HAproxy v1.6.9
+* Golang 1.6.3
+* JRE 1.8.102
+* Fixed issue with SSL configuration options in Operations Manager swapping the 'Enable verify_peer SSL certificate verification' option and 'Require peer certificate validation' option.  Existing settings will be migrated with no input from operators.
 
-### 1.5.13
-**Release Date: June 30, 2016**
+
+### 1.6.8
+**Release Date: 10th October 2016**
+
+Features included in this release:
+
+* Using stemcell 3233.1
+* OSS RabbitMQ 3.6.5 is included
+* HAproxy v1.6.9
+* Golang 1.6.3
+* JRE 1.8.102
+* Fixed issue with SSL configuration options in Operations Manager swapping the 'Enable verify_peer SSL certificate verification' option and 'Require peer certificate validation' option.  Existing settings will be migrated with no input from operators.
+
+
+### 1.6.7
+**Release Date: 27th September 2016**
+
+Features included in this release:
+
+* Using stemcell 3232.21
+* RabbitMQ is updated to 3.6.5. Each node will be upgraded in turn and the entire cluser will not be taken offlne
+* Customers should read the accompanying 'Additional steps for customers going from 1.6.x to 1.6.5' document.
+
+### 1.6.6
+**Release Date: 25th August 2016**
+
+Features included in this release:
+
+* Using stemcell 3232.17 for USN-3064-1
+* Customers upgrading from any previous version other than 1.6.4 should expect the RabbitMQ cluster to be taken offline while the new RabbitMQ package is applied
+* Customers should read the accompanying 'Additional steps for customers going from 1.6.x to 1.6.5' document.
+
+### 1.6.5
+**Release Date: 18th August 2016**
+
+Features included in this release:
+
+* Using stemcell 3232.13
+* Update to the metrics release to ensure processes shutdown efficiently and reliably in all situations
+* Update to optimize RabbitMQ startup scripts and BOSH monitoring (monit)
+* RabbitMQ 3.6.3 release is included and the option to enable the event_exchange plugin is available in Ops Manager.
+* Customers upgrading from any previous version other than 1.6.4 should expect the RabbitMQ cluster to be taken offline while the new RabbitMQ package is applied
+
+
+### 1.6.4
+**Release Date: 15th July 2016**
+
+Features included in this release:
+
+* Updated stemcell to 3232.13
+* Removal of util-linux from packages
+* Updated to latest version of service-metrics release
+* Updated job deployment behaviour to limit to one job at a time
+* Updated the version of RabbitMQ to version 3.6.3 (https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_3)
+
+
+### 1.6.3
+**Release Date: 30th June 2016**
+
+Features included in this release:
 
 * Updated stemcell to 3232.12 for USN-3020-1
 
+### 1.6.2
+**Release Date: 15th June 2016**
+
+Features included in this release:
+
+* This release incorporates stemcell 3232.8
+
+### 1.6.1
+**Release Date: 8th June 2016**
+
+Features included in this release:
+
+* This release incorporates stemcell 3232.6 which has fixes for the following:
+ - USN-2985-2
+ - USN-2981-1
+ - USN-2970-1
+ - USN-2966-1
+
+### 1.6.0
+**Release Date: 26th May 2016**
+
+Features included in this release:
+
+* Syslog endpoints for HAProxy and RabbitMQ can now be configured via Ops Manager
+* The RabbitMQ service broker will emit logs via the configured syslog endpoint
+* RabbitMQ and HAProxy Metrics are now exposed on the firehose
+* RabbitMQ and HAProxy heartbeats are now exposed as metrics
+* For SSL configuration you can now specify either <code>verify</code> and <code>fail\_if\_no\_peer\_cert</code> options
+* SSL Certificates are validated during entry
+* You can set the metrics polling interval when you deploy
+* Includes the latest version of RabbitMQ OSS 3.6.2
+* You may now select the partition response for RabbitMQ to be either <code>pause\_minority</code> or `automatic`.  The default behavior has been changed from `automatic` to <code>pause\_minority</code>
+* RabbitMQ 3.6.0 changed the default TTL for MQTT subscriptions from 30 minutes to 24 hours.  This may have caused an issue for existing queues and subscribers when upgrading, so the `rabbitmq_mqtt.subscription_ttl` default is set to 30 minutes (1800000 ms)
+* The default swap space has been increased to match system memory
+
+### 1.5.27
+**Release Date: 3rd April 2017**
+* Update to stemcell 3312.22
+
+### 1.5.26
+**Release Date: 10th March 2017**
+* Update to stemcell 3233.15
+
+### 1.5.25
+**Release Date: 3rd March 2017**
+* Update to stemcell 3233.14
+
+### 1.5.18
+**Release Date: 21st October 2016**
+* Update to stemcell 3233.3
+
+### 1.5.17
+**Release Date: 13th October 2016**
+* Updated stemcell to 3233.2
+
+### 1.5.15
+**Release Date: 24th August 2016**
+* Updated stemcell to 3232.21
+
+### 1.5.14
+**Release Date: 24th August 2016**
+* Updated stemcell to 3232.17
+
+### 1.5.13
+**Release Date: 30th June 2016**
+* Updated stemcell to 3232.12 for USN-3020-1
+
 ### 1.5.12
-**Release Date: June 8, 2016**
+**Release Date: 8th June 2016**
 
 Features included in this release:
 
@@ -71,7 +231,7 @@ Features included in this release:
  - USN-2966-1
 
 ### 1.5.11
-**Release Date: May 26, 2016**
+**Release Date: 26th May 2016**
 
 Features included in this release:
 
@@ -80,56 +240,56 @@ Features included in this release:
 * Note you can only upgrade to version 1.6.1 and above
 
 ### 1.5.10
-**Release Date: May 18, 2016**
+**Release Date: 18th May 2016**
 
 Features included in this release:
 
 * Updated stemcell to 3232.4 for USN-2977-1
 
 ### 1.5.9
-**Release Date: May 5, 2016**
+**Release Date: 5th May 2016**
 
 Features included in this release:
 
 * Updated stemcell to 3146.11, including stemcell CVE updates
 
 ### 1.5.8
-**Release Date: February 16, 2016**
+**Release Date: 16th February 2016**
 
 Features included in this release:
 
 * Update stemcell to 3146.10 patches Ubuntu CVE 2016-3134
 
 ### 1.5.7
-**Release Date: February 24, 2016**
+**Release Date: 24th February 2016**
 
 Features included in this release:
 
 * Update stemcell to 3146.9 patches Ubuntu CVE USN-2910-1
 
 ### 1.5.6
-**Release Date: February 18, 2016**
+**Release Date: 18th February 2016**
 
 Features included in this release:
 
 * Update stemcell to 3146.8 patches Ubuntu CVE-2015-7547
 
 ### 1.5.5
-**Release Date: February 2, 2016**
+**Release Date: 2nd February 2016**
 
 Features included in this release:
 
 * Update stemcell to 3146.6 patches Ubuntu CVEs
 
 ### 1.5.4
-**Release Date: January 21, 2016**
+**Release Date: 21st January 2016**
 
 Features included in this release:
 
 * Update stemcell to 3146.5 resolves CVE-2016-0728
 
 ### 1.5.3
-**Release Date: January 18, 2016**
+**Release Date: 18th January 2016**
 
 Features included in this release:
 
@@ -137,7 +297,7 @@ Features included in this release:
 * Update stemcell to 3146.3, resolves CVE-2016-0777 and CVE-2016-0778
 
 ### 1.5.2
-**Release Date: January 7, 2016**
+**Release Date: 7th January 2016**
 
 Features included in this release:
 
@@ -145,7 +305,7 @@ Features included in this release:
 * Update stemcell to 3146.2, resolves CVE USN-2857-1
 
 ### 1.5.1
-**Release Date: December 21, 2015**
+**Release Date: 21st December 2015**
 
 Features included in this release:
 
@@ -153,7 +313,7 @@ Features included in this release:
 * Update stemcell to 3153
 
 ### 1.5.0
-**Release Date: December 18, 2015**
+**Release Date: 18th December 2015**
 
 Features included in this release:
 
@@ -164,45 +324,43 @@ Features included in this release:
 
 **Important:** You will experience a **full cluster outage** during this particular deployment as the RabbitMQ & Erlang versions are updated. We recommend that you communicate with your application owners in advance to minimize the impact of this downtime.
 
-## v1.4.x
-
 ### 1.4.10
-**Release Date: December 3, 2015**
+**Release Date: 3rd December 2015**
 
 Features included in this release:
 
 * Update stemcell to 3146. Resolves CVE USN-2821-1
 
 ### 1.4.9
-**Release Date: December 1, 2015**
+**Release Date: 1st December 2015**
 
 Features included in this release:
 
 * Update stemcell to 3144. Resolves CVEs: USN-2815-1, USN-2812-1 and USN-2810-1
 
 ### 1.4.8
-**Release Date: November 11, 2015**
+**Release Date: 11th November 2015**
 
 Features included in this release:
 
 * Update stemcell to 3130. Resolves CVE USN-2806-1
 
 ### 1.4.7
-**Release Date: October 30, 2015**
+**Release Date: 30th October 2015**
 
 Features included in this release:
 
 * Update stemcell to 3112
 
 ### 1.4.6
-**Release Date: October 14, 2015**
+**Release Date: 14th October 2015**
 
 Features included in this release:
 
 * Update stemcell to 3100 for PCF Suite 1.6 release
 
 ### 1.4.5
-**Release Date: October 7, 2015**
+**Release Date: 7th October 2015**
 
 Features included in this release:
 
@@ -216,21 +374,21 @@ Known issues:
   * vSphere, AWS and vCloud users are not affected.
 
 ### 1.4.4
-**Release Date: September 2, 2015**
+**Release Date: 2nd September 2015**
 
 Features included in this release:
 
 * Updated stemcell to 3062
 
 ### 1.4.3
-**Release Date: July 29, 2015**
+**Release Date: 29th July 2015**
 
 Features included in this release:
 
 * Updated stemcell to 3026 to resolve CVE-2015-3290
 
 ### 1.4.2
-**Release Date: July 16, 2015**
+**Release Date: 16th July 2015**
 
 Features included in this release:
 
@@ -244,7 +402,7 @@ Features included in this release:
 * The `manage` button for your RabbitMQ instance in Apps Manager will not automatically log you into the RabbitMQ Dashboard. You need to press `logout` and then login with your `username` and `password` which can be obtained from inspecting the environment variables for your instance.
 
 ### 1.4.1
-**Release Date: July 6, 2015**
+**Release Date: 6th July 2015**
 
 Features included in this release:
 
@@ -259,7 +417,7 @@ Features included in this release:
 * The `manage` button for your RabbitMQ instance in Apps Manager will not automatically log you into the RabbitMQ Dashboard. You need to press `logout` and then login with your `username` and `password` which can be obtained from inspecting the environment variables for your instance.
 
 ## 1.4
-**Release Date: April 10, 2015**
+**Release Date: 10th April 2015**
 
 Features included in this release:
 
@@ -280,24 +438,22 @@ Additional known issues:
 
 <p class="note"><strong>Note</strong>: BOSH Stemcell 2865.1 is required for installation on Ops Manager 1.5.x and above.</p>
 
-## v1.3.x
-
 ### 1.3.6
-**Release Date: March 23, 2015**
+**Release Date: 23rd March 2015**
 
 Features included in this release:
 
 * Updated stemcell to 2889 to resolve [these OpenSSL CVE alerts](http://pivotal.io/security/usn-2537-1)
 
 ## 1.3.5
-**Release Date: March 6, 2015**
+**Release Date: 6th March 2015**
 
 Features included in this release:
 
 * Updated version of Jetty to 9.2.9
 
 ## 1.3.4
-**Release Date: January 30, 2015**
+**Release Date: 30th January 2015**
 
 Features included in this release:
 
@@ -311,7 +467,7 @@ Features included in this release:
 * Ability to disable TLS V1.0
 
 ## 1.3.3.2
-**Release Date: November 14, 2014**
+**Release Date: 14th November 2014**
 
 Features included in this release:
 
@@ -319,28 +475,28 @@ Features included in this release:
 
 
 ## 1.3.3.1
-**Release Date: November 4, 2014**
+**Release Date: 4th November 2014**
 
 Features included in this release:
 
 * Fix for increased RAM usage on the service broker
 
 ## 1.3.3.0
-**Release Date: October 31, 2014**
+**Release Date: 31st October 2014**
 
 Features included in this release:
 
 * Disables SSLv3 to address the POODLE vulnerability
 
 ## 1.3.2.2
-**Release Date: October 27, 2014**
+**Release Date: 27th October 2014**
 
 Features included in this release:
 
 * Corrects installation errors on some Ops Manager versions
 
 ## 1.3.2.1
-**Release Date: October 24, 2014**
+**Release Date: 24th October 2014**
 
 Features included in this release:
 
@@ -366,21 +522,21 @@ We recommend the following:
 * Restage any applications to refresh the binding information, as the IPs may have changed
 
 ## 1.2.0
-**Release Date: May 16, 2014**
+**Release Date: 16th May 2014**
 
 Features included in this release:
 
 * RabbitMQ 3.2.4
 
 ## 1.1.0
-**Release Date: March 11, 2014**
+**Release Date: 11th March 2014**
 
 Features included in this release:
 
 * RabbitMQ 3.2.2
 
 ## 1.0.0
-**Release Date: November 22, 2013**
+**Release Date: 22nd November 2013**
 
 Features included in this release:
 
