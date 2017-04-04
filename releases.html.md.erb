@@ -1,0 +1,258 @@
+---
+title: RabbitMQ&reg; for PCF Release Notes
+owner: London Services
+---
+
+Pivotal recommends that you upgrade to the latest version of your current minor line, and then upgrade to the latest available version of the new minor line. For example, if you're on an older v1.7.x version, upgrade to the latest v1.7.x version before upgrading to the latest v1.8.x version.
+
+See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf) for product versions and upgrade paths.
+
+## v1.7.x
+
+For v1.7.x versions of RabbitMQ for PCF, see the [release notes](../1-7/releases.html) in the v1.7 version of this documentation.
+
+## v1.6.x
+
+Pivotal released v1.6.0 in May 2016, and the latest patch version is v1.6.18.
+
+### v1.6.18
+**Release Date: March 31, 2017**
+
+**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.6.10 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+
+* Requires stemcell v3312.22
+
+Packages:
+
+* OSS RabbitMQ v3.6.9
+* Erlang v19.3
+* HAProxy v1.6.4
+
+Features included in this release:
+
+* This is a security release addressed by a new stemcell, and RabbitMQ
+
+### v1.6.16
+**Release Date: March 3, 2017**
+
+**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.6.10 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+
+* Requires stemcell v3233.14
+
+Packages:
+
+* OSS RabbitMQ v3.6.6
+* Erlang v18.3.4.4
+* HAProxy v1.6.4
+
+Features included in this release:
+
+* This is a security release addressed by a new stemcell.
+
+### v1.6.15
+**Release Date: January 27, 2017**
+
+**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.6.10 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+
+* Requires stemcell v3233.12
+
+Packages:
+
+* OSS RabbitMQ v3.6.6
+* Erlang v18.3.4.4
+* HAProxy v1.6.4
+
+
+Features included in this release:
+
+* This is a security release addressed by a new stemcell.
+
+### v1.6.14
+**Release Date: December 15, 2016**
+
+**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.6.10 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+
+* Requires stemcell v3233.8
+
+Packages:
+
+* OSS RabbitMQ v3.6.6
+* Erlang v18.3.4.4
+* HAProxy v1.6.4
+
+
+Features included in this release:
+
+* This is a security release addressed by a new stemcell.
+
+### v1.6.13
+**Release Date: December 8, 2016**
+
+**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.6.10 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+
+* Requires stemcell v3233.6
+
+Packages:
+
+* OSS RabbitMQ v3.6.6
+* Erlang v18.3.4.4
+* HAProxy v1.6.4
+
+
+Features included in this release:
+
+* This is a security release addressed by a new stemcell.
+
+
+### v1.6.12
+**Release Date: November 22, 2016**
+
+**Important:** You will experience a **small window of downtime** during this particular deployment as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+
+* Requires stemcell v3233.4
+
+Packages:
+
+* OSS RabbitMQ v3.6.6 (new)
+* Erlang v18.3.4.4
+* HAProxy
+
+
+Features included in this release:
+
+* This version of RabbitMQ addresses a security vulnerabiliy in the MQTT plugin.  For more information, see [here](https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_6).
+* You can only upgrade this version of the tile to v1.7.7 or above.
+
+
+### v1.6.10
+**Release Date: October 21, 2016**
+
+* Requires stemcell v3233.2.
+* This will be a rolling deployment.
+
+Packages:
+
+* OSS RabbitMQ v3.6.5
+* Erlang v18.3.4.4 (new)
+* HAProxy v1.6.4
+
+Features included in this release:
+
+* Update to drain scripts during RabbitMQ node shutdown to cleanly shutdown the application and increase logging.
+* You can only upgrade this version of the tile to v1.7.6.
+
+
+### v1.6.9
+**Release Date: October 13, 2016**
+
+Features included in this release:
+
+* Using stemcell v3233.2
+* OSS RabbitMQ v3.6.5
+* Erlang v18.1
+* HAproxy v1.6.4
+
+* Fixed issue with SSL configuration options in Operations Manager swapping the 'Enable verify_peer SSL certificate verification' option and 'Require peer certificate validation' option.  Existing settings will be migrated with no input from operators.
+
+
+### v1.6.8
+**Release Date: October 10, 2016**
+
+Features included in this release:
+
+* Using stemcell v3233.1
+* OSS RabbitMQ v3.6.5
+* Erlang v18.1
+* HAproxy v1.6.4
+
+* Fixed issue with SSL configuration options in Operations Manager swapping the 'Enable verify_peer SSL certificate verification' option and 'Require peer certificate validation' option.  Existing settings will be migrated with no input from operators.
+
+
+### v1.6.7
+**Release Date: September 27, 2016**
+
+Features included in this release:
+
+* Using stemcell v3232.21
+* RabbitMQ is updated to v3.6.5. Each node will be upgraded in turn and the entire cluster will not be taken offline
+* Customers should read the accompanying "Additional steps for customers going from v1.6.x to v1.6.5" document.
+
+### v1.6.6
+**Release Date: August 25, 2016**
+
+Features included in this release:
+
+* Using stemcell v3232.17 for USN-3064-1
+* Customers upgrading from any previous version other than v1.6.4 should expect the RabbitMQ cluster to be taken offline while the new RabbitMQ package is applied
+* Customers should read the accompanying "Additional steps for customers going from v1.6.x to v1.6.5" document.
+
+### v1.6.5
+**Release Date: August 18, 2016**
+
+Features included in this release:
+
+* Using stemcell v3232.13
+* Update to the metrics release to ensure processes shutdown efficiently and reliably in all situations
+* Update to optimize RabbitMQ startup scripts and BOSH monitoring (monit)
+* RabbitMQ v3.6.3 release is included and the option to enable the event_exchange plugin is available in Ops Manager
+
+
+### v1.6.4
+**Release Date: July 15, 2016**
+
+Features included in this release:
+
+* Updated stemcell to v3232.13
+* Removal of util-linux from packages
+* Updated to latest version of service-metrics release
+* Updated job deployment behaviour to limit to one job at a time
+* Updated the version of RabbitMQ to version [v3.6.3](https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_3)
+
+
+### v1.6.3
+**Release Date: June 30, 2016**
+
+Features included in this release:
+
+* Updated stemcell to v3232.12 for USN-3020-1
+
+### v1.6.2
+**Release Date: June 15, 2016**
+
+Features included in this release:
+
+* This release incorporates stemcell v3232.8
+
+### v1.6.1
+**Release Date: June 8, 2016**
+
+Features included in this release:
+
+* This release incorporates stemcell v3232.6 which has fixes for the following:
+ - USN-2985-2
+ - USN-2981-1
+ - USN-2970-1
+ - USN-2966-1
+
+### v1.6.0
+**Release Date: May 26, 2016**
+
+Features included in this release:
+
+* Syslog endpoints for HAProxy and RabbitMQ can now be configured via Ops Manager
+* The RabbitMQ service broker will emit logs via the configured syslog endpoint
+* RabbitMQ and HAProxy Metrics are now exposed on the firehose
+* RabbitMQ and HAProxy heartbeats are now exposed as metrics
+* For SSL configuration you can now specify either <code>verify</code> and <code>fail\_if\_no\_peer\_cert</code> options
+* SSL Certificates are validated during entry
+* You can set the metrics polling interval when you deploy
+* Includes the latest version of RabbitMQ OSS v3.6.2
+* You may now select the partition response for RabbitMQ to be either <code>pause\_minority</code> or `automatic`.  The default behavior has been changed from `automatic` to <code>pause\_minority</code>
+* RabbitMQ v3.6.0 changed the default TTL for MQTT subscriptions from 30 minutes to 24 hours.  This may have caused an issue for existing queues and subscribers when upgrading, so the `rabbitmq_mqtt.subscription_ttl` default is set to 30 minutes (1800000 ms)
+* The default swap space has been increased to match system memory
+
+## v1.5.x
+
+For v1.5.x versions of RabbitMQ for PCF, see the [release notes](../1-5/releases.html) in the v1.5 version of this documentation.
+
+
