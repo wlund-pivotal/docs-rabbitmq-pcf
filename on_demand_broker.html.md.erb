@@ -15,14 +15,25 @@ that a new cluster can be created and decicated to a single application
 ## Resource considerations
 
 ## Tile configurations
-### Configuration options
+
+### Global Settngs
+
+- `Marketplace name`: the service name that will appear in the CF marketplace.
+- `Service instance quota`  min: 0, max: 50  set the total number of dedicated service instances which can be deployed.
+- `VM options`:
+  - Allow outbound internet access (IaaS-dependent, refer to Ops Manager documentation for more details, log forwarding and backups may require internet access).
+
+### Configuration options for plans
 The following options are available for the RabbitMQ on demand broker:
 
 - `Enable this plan`: check this to enable dedicated RabbitMQ instances on CF marketplace.
+- `Service instance quota`: The maximum number of services that can be created by the on demand broker.
 - `Plan name`: the service name that will appear in the CF marketplace.
 - `Plan description`: the plan description that will appear in the CF marketplace.
 - `Plan features`: the features associated with this plan that will appear in the CF marketplace.
-- `Service instance quota`: The maximum number of services that can be created by the on demand broker.
+- `RabbitMQ VM Type`: the type of VM that the RabbitMQ node will be created on.
+- `Persistent disk type`: The type of persistent disk that the RabbitMQ node will be created on.
+- `AZ placement`: the AZ(s) that the service instance will be deployed into.
 
 <%= image_tag("images/config_rabbitmq_odb.png") %>
 
