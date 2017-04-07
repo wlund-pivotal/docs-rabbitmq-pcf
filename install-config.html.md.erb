@@ -21,6 +21,11 @@ as a pre-provisioned service, see
 
 ## <a id="config-on-demand"></a>  Configure the Tile for On-Demand Service
 
+Follow the steps below to configure the RabbitMQ for PCF tile for on-demand service instances. 
+This procedure only addresses how to configure RabbitMQ for PCF as an on-demand service. 
+Currently there is only one type of plan available for the on-demand service. 
+Its default name is Solo.
+
 1. Click **Assign AZs and Networks**.
     <p class="note"><strong>IMPORTANT</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the <a href="#apply-changes">final step</a> below.</p>
 
@@ -61,6 +66,8 @@ as a pre-provisioned service, see
 
 7. Click **Dedicated Instance: Single Node Plan**. 
 
+     ![service-plan-tab-v1.8.0](service-plan-configuration.png)
+
 8. Configure the fields on the **Dedicated Instance: Single Node Plan** as follows:
   <table>
     <tr><th>Field</th><th>Instructions</th></tr>
@@ -69,13 +76,11 @@ as a pre-provisioned service, see
     <tr><td><strong>Service instance quota</strong></td>
         <td>Enter the maximum number of dedicated service instances that can be available at one time.</td></tr>
     <tr><td><strong>Plan name</strong></td>
-        <td>Accept the default or enter a name.</td></tr>
+        <td>Accept the default or enter a name. This is the name that appears in the Marketplace.</td></tr>
     <tr><td><strong>Plan description</strong></td>
         <td>Accept the default or enter a description.</td></tr>
     <tr><td><strong>Plan features</strong></td>
         <td>Accept the default or enter information about the plan to help your app developers.</td></tr>
-    <tr><td><strong>Marketplace name <= **Not found in v1.8.0**</strong></td>
-        <td>Accept the default or enter a name.</td></tr>
     <tr><td><strong>RabbitMQ VM Type</strong></td>
         <td>Select a large VM type.<br>The plan will create a service instance of this size.</td></tr>
     <tr><td><strong>Persistent disk type</strong></td>
