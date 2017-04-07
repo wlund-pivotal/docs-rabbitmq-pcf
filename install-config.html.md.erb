@@ -33,14 +33,14 @@ as a pre-provisioned service, see
         <td>Select additional region. This selection does not affect the on-demand RabbitMQ for PCF service.</td></tr>
     <tr><td><strong>Network</strong></td>
         <td>Select a subnet for the RabbitMQ broker.<br>
-            This network is represented by the Default Network in this <a href="https://docs.pivotal.io/on-demand-service-broker/0-14/about.html">picture</a>.
+            This network is represented by the Default Network in this <a href="./about.html#on-demand">picture</a>.
             Typically, you select the subnet used for the Pivotal Elastic Runtime components.
             <strong>Q:</strong> Who sets up this subnet? Should I use the same subnet as for my ERT components? Do we need to specify that it cannot be an IPsec subnet?
             <a href="https://docs.pivotal.io/rabbitmq-cf/1-7/">https://docs.pivotal.io/rabbitmq-cf/1-7/</a>.</td></tr>
     <tr><td><strong>Service Network</strong></td>
         <td> This is the subnet that the on-demand service instances are on. 
              A typical practice is to put all on-demand services on a single subnet. (?) 
-             This network is represented by the Services Network in this <a herf="https://docs.pivotal.io/on-demand-service-broker/0-14/about.html">picture</a>. 
+             This network is represented by the Services Network in this <a href="./about.html#on-demand">picture</a>. 
              If you are not using on-demand services but only pre-provisioned services, you need to specify a subnet but which subnet you specify does not matter.</td></tr>
   </table>
 
@@ -66,16 +66,16 @@ as a pre-provisioned service, see
     <tr><th>Field</th><th>Instructions</th></tr>
     <tr><td><strong>Enable this plan</strong></strong></td>
         <td>Select the checkbox.</td></tr>
-    <tr><td><strong>Marketplace name</strong></td>
-        <td>Accept the default or enter a name.</td></tr>
+    <tr><td><strong>Service instance quota</strong></td>
+        <td>Enter the maximum number of dedicated service instances that can be available at one time.</td></tr>
     <tr><td><strong>Plan name</strong></td>
         <td>Accept the default or enter a name.</td></tr>
     <tr><td><strong>Plan description</strong></td>
         <td>Accept the default or enter a description.</td></tr>
     <tr><td><strong>Plan features</strong></td>
         <td>Accept the default or enter information about the plan to help your app developers.</td></tr>
-    <tr><td><strong>Service instance quota</strong></td>
-        <td>Enter the maximum number of dedicated service instances that can be available at one time.</td></tr>
+    <tr><td><strong>Marketplace name <= **Not found in v1.8.0**</strong></td>
+        <td>Accept the default or enter a name.</td></tr>
     <tr><td><strong>RabbitMQ VM Type</strong></td>
         <td>Select a large VM type.<br>The plan will create a service instance of this size.</td></tr>
     <tr><td><strong>Persistent disk type</strong></td>
@@ -94,3 +94,5 @@ as a pre-provisioned service, see
     [Azure](https://docs.pivotal.io/pivotalcf/customizing/azure-er-config.html#stemcell), 
     [GCP](https://docs.pivotal.io/pivotalcf/customizing/gcp-er-config.html#stemcell), or
     [vSphere](https://docs.pivotal.io/pivotalcf/customizing/config-er-vmware.html#stemcell).
+
+12. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
