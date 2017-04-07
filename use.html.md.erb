@@ -89,14 +89,6 @@ To create an instance of the on-demand RabbitMQ for PCF service, run `cf create-
     Getting services in org my-org / space my-space as user<span>@</span>example.com...
     OK
     name          service            plan    bound apps    last operation
-    my-instance   ondemand-rabbitmq  Solo                  TK NEED pending
-    Getting services in org my-org / space my-space as user<span>@</span>example.com...
-    OK
-    name          service            plan    bound apps    last operation
-    my-instance   ondemand-rabbitmq  Solo                  TK NEED pending
-    Getting services in org my-org / space my-space as user<span>@</span>example.com...
-    OK
-    name          service            plan    bound apps    last operation
     my-instance   ondemand-rabbitmq  Solo                  create succeeded
 </pre>
 
@@ -121,9 +113,17 @@ To bind an app to a RabbitMQ instance run `$ cf bind-service`.
 
 ## <a id="call"></a>Use the RabbitMQ Service in Your App
 
+To access the RabbitMQ service from your app:
+
+1. Run `cf env APP_NAME` with the name of the app bound to the RabbitMQ for PCF instance.
+
+1. In the output, note the connection strings listed in the `VCAP_SERVICES` > `credentials` object for the app.
+
+1. In your app code, call the RabbitMQ service using the connection strings.
+
 For how to code your app to use RabbitMQ messaging, see **About Using Pivotal RabbitMQ** > **Client Documentation** in the [RabbitMQ documentation](https://rabbitmq.docs.pivotal.io).
 
-## <a id="unbind"></a>Restage an App with a New Service Instance
+## <a id="restage"></a>Restage an App with a New Service Instance
 
 If a service instance has been updated based on a new version of the service, you need to run `cf restage` to restage your app to use the new instance.
 
@@ -141,7 +141,7 @@ Pushing new version of an app automatically restages the app on any service inst
 
 ## <a id="unbind"></a>Unbind a Service Instance to Your App
 
-To stop an app from using a service, unbind it from the service instance using `cf unbind-service`.
+To stop an app from using a service it no longer needs, unbind it from the service instance using `cf unbind-service`.
 
 1. Enter `cf unbind-service APP SERVICE_INSTANCE`
 
@@ -168,5 +168,7 @@ To delete a service instance, run `cf delete-service`.
     OK
 </pre>
 
-1. Enter `watch cf services` and wait for the instance show as `TK DELETE succeeded`. 
+1. Enter `watch cf service SERVICE_INSTANCE` and wait for a `Service instance not found` error indicating that the instance no longer exists.
+
+You cannot delete a service instance that an app is bound to.
 
