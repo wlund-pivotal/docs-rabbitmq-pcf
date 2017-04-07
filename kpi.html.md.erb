@@ -28,7 +28,7 @@ metrics, thresholds, and alerts based on learning from their installations.
       <th width="25%">Description</th>
       <td>RabbitMQ Service Broker <code>is alive</code> poll, which indicates if the component is available and able to respond to requests.<br><br>
    
-      <strong>Use</strong>: If the Service Broker does not emit hearbeats, this indicates that it is offline. The Service Broker is required to create, update, and delete service instances, which are critical for dependent tiles such as Spring Cloud Services and Spring Cloud Data Flow. 
+      <strong>Use</strong>: If the Service Broker does not emit heartbeats, this indicates that it is offline. The Service Broker is required to create, update, and delete service instances, which are critical for dependent tiles such as Spring Cloud Services and Spring Cloud Data Flow. 
       <br><br>
       <strong>Origin</strong>: Doppler/Firehose<br>
       <strong>Type</strong>: boolean<br>
@@ -59,9 +59,10 @@ metrics, thresholds, and alerts based on learning from their installations.
    <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.haproxy.heartbeat<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>RabbitMQ HAProxy <code>is alive</code> poll, which indicates if the component is available and able to respond to requests<br><br>
+      <td>RabbitMQ HAProxy <code>is alive</code> poll, which indicates if the component is available and 
+          able to respond to requests.<br><br>
    
-      <strong>Use</strong>: If the HAProxy does not emit hearbeats, this indicates that it is offline. To be functional, service instances require HAProxy.
+      <strong>Use</strong>: If the HAProxy does not emit heartbeats, this indicates that it is offline. To be functional, service instances require HAProxy.
       <br><br>
       <strong>Origin</strong>: Doppler/Firehose<br>
       <strong>Type</strong>: boolean<br>
@@ -92,9 +93,10 @@ metrics, thresholds, and alerts based on learning from their installations.
    <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.rabbitmq.heartbeat<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>RabbitMQ Server <code>is alive</code> poll, which indicates if the component is available and able to respond to requests.<br><br>
+      <td>RabbitMQ Server <code>is alive</code> poll, which indicates if the component is available and 
+          able to respond to requests.<br><br>
    
-      <strong>Use</strong>: If the server does not emit hearbeats, this indicates that it is offline. To be functional, service instances require RabbitMQ Server. 
+      <strong>Use</strong>: If the server does not emit heartbeats, this indicates that it is offline. To be functional, service instances require RabbitMQ Server. 
       <br><br>
       <strong>Origin</strong>: Doppler/Firehose<br>
       <strong>Type</strong>: boolean<br>
@@ -158,7 +160,7 @@ metrics, thresholds, and alerts based on learning from their installations.
    <tr><th colspan="2" style="text-align: center;"><br> p-rabbitmq.rabbitmq.system.file_descriptors<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>File descriptors consumed<br><br>
+      <td>File descriptors consumed.<br><br>
    
       <strong>Use</strong>: If the number of file descriptors consumed becomes too large, the VM may lose the abilility to perform disk IO, which can cause data loss. 
       <p class="note"><strong>Note</strong>: This assumes non-persistent messages are handled by retries or some other logic by the producers.</p>
@@ -192,7 +194,7 @@ metrics, thresholds, and alerts based on learning from their installations.
       <th width="25%">Description</th>
       <td><a href="https://www.erlang.org/docs">Erlang</a> processes consumed by RabbitMQ, which runs on an Erlang VM.<br><br>
    
-      <strong>Use</strong>: This is the key indicator of the processing ca[ability of a node.
+      <strong>Use</strong>: This is the key indicator of the processing capability of a node.
       <br><br>
       <strong>Origin</strong>: Doppler/Firehose<br>
       <strong>Type</strong>: count<br>
@@ -209,7 +211,7 @@ metrics, thresholds, and alerts based on learning from their installations.
    </tr>
    <tr>
       <th>Recommended response</th>
-      <td>The default Erlang process limit in RabbitMQ for PCF v1.6 and later is 1,048,816. If this metric meets or exceeds the recommended thresholds for extended periods of time, consider scaling the rabbit nodes in the tile <b>Resource Config</b> pane.
+      <td>The default Erlang process limit in RabbitMQ for PCF v1.6 and later is 1,048,816. If this metric meets or exceeds the recommended thresholds for extended periods of time, consider scaling the RabbitMQ nodes in the tile <b>Resource Config</b> pane.
       </td>
    </tr>
 </table>
@@ -224,7 +226,9 @@ metrics, thresholds, and alerts based on learning from their installations.
       <th width="25%">Description</th>
       <td>RAM being consumed by the <code>p-rabbitmq</code> VM.<br><br>
    
-      <strong>Use</strong>: RabbitMQ is considered to be in a good state when it has little or no messages. In other words, "an empty rabbit is a happy rabbit." Alerting on this metric can indicate that there are too few consumers, or apps that read messages from the queue.
+      <strong>Use</strong>: RabbitMQ is considered to be in a good state when it has little or no messages. 
+              In other words, "an empty rabbit is a happy rabbit." 
+              Alerting on this metric can indicate that there are too few consumers or apps that read messages from the queue.
       <br><br>
       Healthmonitor reports when  RabbitMQ uses more than 40% of its RAM for the past ten minutes. 
       <br><br>
@@ -256,7 +260,8 @@ metrics, thresholds, and alerts based on learning from their installations.
       <th width="25%">Description</th>
       <td>CPU being consumed by the <code>p-rabbitmq</code> VM.<br><br>
    
-      <strong>Use</strong>: A node that experiences context switching, or high CPU usage, will become unresponsive. This also affects the ability of the node to report metrics.
+      <strong>Use</strong>: A node that experiences context switching or high CPU usage will become unresponsive. 
+      This also affects the ability of the node to report metrics.
       <br><br>
       Healthmonitor reports when RabbitMQ uses more than 40% of its CPU for the past ten minutes.
       <br><br>
@@ -317,7 +322,7 @@ metrics, thresholds, and alerts based on learning from their installations.
    <tr><th colspan="2" style="text-align: center;"><br> persistent.disk.percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Persistent Disk being consumed by the <code>p-rabbitmq</code> VM<br><br>
+      <td>Persistent Disk being consumed by the <code>p-rabbitmq</code> VM.<br><br>
       <strong>Use</strong>: If system disk fills up, there are too few consumers.
       <br><br>
       Healthmonitor reports when RabbitMQ uses more than 40% of its CPU for the past ten minutes.
