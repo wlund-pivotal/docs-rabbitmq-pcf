@@ -114,7 +114,7 @@ metrics, thresholds, and alerts based on learning from their installations.
    <tr>
       <th>Recommended response</th>
       <td>
-         Check the RabbitMQ Server logs for errors. You can find the VM by targeting your RabbitMQ deployment with BOSH and running bosh vms, which lists <code>rabbitmq</code>.
+         Check the RabbitMQ Server logs for errors. You can find the VM by targeting your RabbitMQ deployment with BOSH and running <code>bosh vms</code>, which lists <code>rabbitmq</code>.
 
       </td>
    </tr>
@@ -162,7 +162,7 @@ metrics, thresholds, and alerts based on learning from their installations.
       <th width="25%">Description</th>
       <td>File descriptors consumed.<br><br>
    
-      <strong>Use</strong>: If the number of file descriptors consumed becomes too large, the VM may lose the abilility to perform disk IO, which can cause data loss. 
+      <strong>Use</strong>: If the number of file descriptors consumed becomes too large, the VM may lose the ability to perform disk IO, which can cause data loss. 
       <p class="note"><strong>Note</strong>: This assumes non-persistent messages are handled by retries or some other logic by the producers.</p>
       <strong>Origin</strong>: Doppler/Firehose<br>
       <strong>Type</strong>: count<br>

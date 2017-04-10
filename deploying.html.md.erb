@@ -12,7 +12,7 @@ The deployment includes a single load balancer `haproxy` which spreads connectio
 
 The deployment will occur in a single availability zone (AZ).
 
-The default configuration is for testing purposes only and it is recommended that customers have a minium of **3 RabbitMQ nodes** and **2 HAproxy nodes**
+The default configuration is for testing purposes only and it is recommended that customers have a minium of **3 RabbitMQ nodes** and **2 HAProxy nodes**
 
 <%= image_tag("images/deployment_default.jpeg") %>
 
@@ -30,7 +30,7 @@ We recommend that RabbitMQ is deployed across at least two availability zones.
 
 RabbitMQ server nodes should be scaled to an odd number and should be greater than 3.
 
-Replication of queues should only be used where requred as it can have a big impact on system performance.
+Replication of queues should only be used where required as it can have a big impact on system performance.
 
 The HAProxy job instance count should also be increased to match the number of AZs to ensure there is a HAProxy located in each AZ.
 This removes the HAProxy SPOF and provides further redundancy.

@@ -41,7 +41,7 @@ sequenceDiagram
   On Demand Broker->>Cloud Controller:completed
 </div>
 
-Error with on-demand instance creation can be either _sychronous_ or _asynchronous_:
+Error with on-demand instance creation can be either _synchronous_ or _asynchronous_:
 
 * **Synchronous** failures occur before BOSH creates the deployment manifest for the new instance VM. 
 Synchronous errors happen fast and early in the instance-creation process, and the Cloud Controller 
@@ -281,7 +281,7 @@ Finding who is using the quota - TODO CF workflow
 <tr>
   <th>Solution</th>
   <td>
-    <p>The drain script logs to <code>/var/vcap/sys/log/rabbtimq-server/drain.log</code>. If you have a remote syslog configured, this will appear as the <code>rmq_server_drain</code> program.</p>
+    <p>The drain script logs to <code>/var/vcap/sys/log/rabbitmq-server/drain.log</code>. If you have a remote syslog configured, this will appear as the <code>rmq_server_drain</code> program.</p>
     <ol>
       <li>First, <code>bosh ssh</code> into the failing rabbitmq-server instance and start the <code>rabbitmq-server</code> job by running <code>monit start rabbitmq-server</code>).<br>
       You will not be able to start the job via <code>bosh start</code> as this always runs the drain script first and will fail since the drain script is failing.</li>
@@ -363,7 +363,7 @@ To verify if metrics are being emitted to the firehose:
 
 If no metrics appear within 5 minutes:
 
-Verify that the broker network has access to the loggregator system, on all required ports. [Contact Pivotal support](#filing-a-support-ticket) if you are unable to resolve the issue. 
+Verify that the broker network has access to the Loggregator system, on all required ports. [Contact Pivotal support](#filing-a-support-ticket) if you are unable to resolve the issue. 
 
 ### <a id="other-errors"></a> Other Errors
 
@@ -440,7 +440,7 @@ Once you have the BOSH Task ID and instance GUID, proceed as follows:</p>
 
 ### <a id="log-into-bosh-kal"></a> Use BOSH and CF to Access Logs
 
-1. Follow the steps described here to [target your BOSH CLI](https://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare) and [log-in to your CF CLI](https://docs.cloudfoundry.org/cf-cli/getting-started.html)
+1. Follow the steps described here to [target your BOSH CLI](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) and [log-in to your CF CLI](https://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html)
 
 #### <a id="access-broker"></a> Access Broker Logs and VM(s)
 

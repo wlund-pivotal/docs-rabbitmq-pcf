@@ -15,7 +15,7 @@ All data/state required for the operation of a RabbitMQ broker is replicated acr
 Replicating message queues across nodes is an expensive operation and should only be done to the extent needed by the application. To understand more about replicating queues across nodes in a cluster, see the [documentation](http://www.rabbitmq.com/ha.html) on high availability.
 
 
-## Automatic Network Partition Behaviours in RabbitMQ Clusters
+## Automatic Network Partition Behaviors in RabbitMQ Clusters
 
 The RabbitMQ&reg; tile uses the `pause_minority` option for handling cluster partitions by default. This ensures data integrity by pausing the partition of the cluster in the minority, and resumes it with the data from the majority partition. You must maintain more than two nodes. If there is a partition when you only have two nodes, both nodes immediately pause.
 
