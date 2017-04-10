@@ -100,7 +100,7 @@ Application containers that use instances of the RabbitMQ service require the fo
 |`HAProxy IPs`     |61614        |tcp        |Application containers using STOMP over SSL
 |`HAProxy IPs`     |61613         |tcp        |Application containers using Web STOMP
 
-Create an ASG name `rabbitmq-app-containers` with the above configuration and bind it to the appropriate space, or, to provide access to all started apps, bind it to the `default-running` ASG set and restart your apps. If you are using an external load balancer or have more than one IP address for HAProxy, you must also create egress rules for these. Example:
+Create an ASG named `rabbitmq-app-containers` with the above configuration and bind it to the appropriate space, or, to provide access to all started apps, bind it to the `default-running` ASG set and restart your apps. If you are using an external load balancer or have more than one IP address for HAProxy, you must also create egress rules for these. Example:
 
 ```
 [
