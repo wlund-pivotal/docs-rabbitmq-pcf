@@ -86,7 +86,11 @@ The following table provides version and version-support information about Rabbi
 
 ## <a id='features'></a>Features
 
-REVISE THIS FEATURE LIST FOR ON-DEMAND
+### On-Demand
+
+* Provision on-demand single node dedicated instances of RabbitMQ
+
+### Pre-Provisioned
 
 * Provision an instance of the RabbitMQ service, which corresponds to a unique RabbitMQ Vhost (virtual host)
 * Bind applications to an instance of the plan, providing unique credentials for each binding
@@ -102,7 +106,10 @@ REVISE THIS FEATURE LIST FOR ON-DEMAND
 
 ## <a id='known-issues'></a>Known Issues
 
-* Allows changing of the `Marketplace name` for **Dedicated Instance**, which will be removed.
+* Allows changing of the `Marketplace name` for **Dedicated Instance**, which will be removed
+* `disk_free_limit` changed from `50MB` to `40%` of disk capacity. This may result
+  in <a href="https://www.rabbitmq.com/disk-alarms.html">disk alarms</a> being triggered
+
 
 ## <a id=''></a>Feedback
 
