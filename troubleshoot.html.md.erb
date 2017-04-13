@@ -1,548 +1,604 @@
 ---
-title: Troubleshooting On-Demand RabbitMQ for PCF
-owner: London Services Enablement
+title: Troubleshooting
+owner: London Services
 ---
-
-<style>
-    .note.warning {
-        background-color: #fdd;
-        border-color: #fbb
-    }
-
-    .note.warning:before {
-        color: #f99;
-    }
-</style>
 
 This topic provides operators with basic instructions for troubleshooting on-demand RabbitMQ&reg; for PCF.
 
-## <a id="errors"></a>Troubleshooting Errors
 
-Start here if you're responding to a specific errors or error messages.
+## <a id="errors"></a> Errors
 
-### <a id="install-fail"></a>Failed Install
+This section lists errors that you might see associated with on-demand RabbitMQ for PCF.
 
-1. [Certificate issues]() - (link TK) ODB requires valid certificates. Ensure that your certificates are valid and generate new ones if necessary via Ops Manager 
-1. Deploy fails - Deploys can fail for a variety of reasons. View the logs via Ops Manager to determine why the deploy is failing.
-1. [Networking problems](./#networking) - These can occur when:
-  - CF cannot reach the service broker
-  - CF cannot reach the service instances
-  - The service network cannot access the BOSH director 
-1. [Register broker errand](#register-broker) fails
-1. The [Smoke test errand](#smoke-test) failed
-1. Resource sizing issues - These occur when the resource sizes selected for a given plan are less than the service requires to function. Check your resource configuration in Ops Manager and ensure that the configuration matches that recommended by the service.
-1. Service specific issues
+### <a id="create-errors"></a> Instance Creation
 
-### <a id="cannot-create-delete"></a>Devs Cannot Create or Delete Service Instances
+This section describes errors that may occur when a developer runs `cf create-service` to create an instance of the on-demand RabbitMQ for PCF service.
 
- 
-```
-Instance provisioning failed: There was a problem completing your request. Please contact your operations team providing the following information: service: redis-acceptance, service-instance-guid: ae9e232c-0bd5-4684-af27-1b08b0c70089, broker-request-id: 63da3a35-24aa-4183-aec6-db8294506bac, task-id: 442, operation: create
-``` 
-Check the BOSH task information:
-Follow the advanced BOSH troubleshooting guide to log in to BOSH and target the service instance using the instructions on parsing an error message.
+To properly debug the error, you need the original error message.
 
-`bosh task $task-id` from the error above
+#### <a id="about-create-errors"></a> About Instance Creation
 
-1. Configuration errors: If the BOSH error shows a problem with the deployment manifest
+The diagram below shows the sequence of component requests and actions that create the instance:
 
-Get the service-instance-manifest:
-`bosh download manifest service-instance_$guid myservice.yml`
+<div class="mermaid">  
+sequenceDiagram
+  User->> Cloud Controller: cf create service
+  Cloud Controller->> On Demand Broker: provision instance
+  On Demand Broker->>Service Adapter: generate manifest
+  Service Adapter->>On Demand Broker: a deployment manifest
+  On Demand Broker->>BOSH: bosh deploy with manifest
+  BOSH->>On Demand Broker: deploying
+  On Demand Broker->>Cloud Controller: accepted
+  loop Until bosh task state is 'done'
+    Cloud Controller->>On Demand Broker:last operation
+    On Demand Broker->>BOSH:get task state
+    BOSH->>On Demand Broker:queued/processing
+    On Demand Broker->>Cloud Controller:in progress
+  end
+  Cloud Controller->>On Demand Broker:last operation
+  On Demand Broker->>BOSH:get task state
+  BOSH->>On Demand Broker:done
+  On Demand Broker->>Cloud Controller:completed
+</div>
 
-[Access the broker logs]()  and use the `broker-request-id` from the error message above to search the log for more information.
+Error with on-demand instance creation can be either _synchronous_ or _asynchronous_:
 
-2. [Authentication errors]()
+* **Synchronous** failures occur before BOSH creates the deployment manifest for the new instance VM. 
+Synchronous errors happen fast and early in the instance-creation process, and the Cloud Controller 
+deletes the unsuccessful instance from its accounting of service instances and bindings.
+* **Asynchronous** failures occur after BOSH tries to deploy the new service instance. 
+In these cases, the Cloud Controller may retain references to the orphan instance.
 
-3. [Network errors]()
+### <a id="manage-errors"></a> Instance Management
 
-4. [Quota errors]() 
+#### <a id="update"></a> Instance Update Failure
 
-### <a id="cannot-bind"></a>Devs Cannot Bind to or Unbind from Service Instances
+Update workflows
 
-#### <a id="instance-not-exist"></a>Instance does not exist
+Application developer reports that they could not update an instance
 
-If the error message says “Server error, status code: 502, error code: 10001, message: Service broker error: instance does not exist”
+#### <a id="bind"></a> Instance Bind Failure
 
-1. Check that the service instance exists in BOSH and CF
-```
-cf service myservice --guid
-```
-2. Record the guid response and run the bosh vms command
-<pre class="terminal">
-bosh vms service-instance_$guid
-</pre>
-If the bosh deployment is not found then it has been deleted from BOSH. Contact Pivotal support for further assistance on recovery steps.
+Bind workflows
 
-#### <a id="other-errors"></a>Other errors
+Application developer reports that they could not bind a service to an instance
 
-```
-Server error, status code: 502, error code: 10001, message: Service broker error: There was a problem completing your request. Please contact your operations team providing the following information: service: example-service, service-instance-guid: 8d69de6c-88c6-4283-b8bc-1c46103714e2, broker-request-id: 15f4f87e-200a-4b1a-b76c-1c4b6597c2e1, operation: bind
-```
+#### <a id="unbind"></a> Instance Unbind Failure
 
-To find out the exact issue with creating the binding [access the service broker logs]()
+Unbind workflows
 
-Use the broker-request-id from the error message above to search the log for more information. 
+Application developer reports that they could not unbind a service to an instance
 
-Contact Pivotal support for further assistance if you are unable to resolve the problem.
+#### <a id="delete"></a> Instance Delete Failure
 
-2. [Authentication errors]()
+Delete workflows 
 
-3. [Network errors]()
+Application developer reports that they could not delete a service instance
 
-### <a id="cannot-connect"></a>Devs Cannot Connect to a Created Service
+### <a id="bosh-adapter"></a> BOSH or Service Adapter
 
-Ask the user to send application logs that show the connection error. If the error is originating from the service, then follow service-specific instructions. If the issue appears to be network-related, then:
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><p><code>Instance provisioning failed: There was a problem completing your request. 
+               Please contact your operations team providing the following information: <br>
+               service: RABBITMQ-SERVICE-NAME, service-instance-guid: SERVICE-INSTANCE-GUID, broker-request-id: 
+               REQUEST-GUID, task-id: TASK-ID, operation: create</code></p>
+  <p>The GUID identifiers are long alphanumeric strings. TASK-ID is a number. If TASK-ID is blank, see <a href="#network">UAA, Network, or Connection Issue</a></p>
+ </td>
+</tr>
+<tr>
+  <th>Possible Causes</th>
+  <td>
+    <ul>
+    <li>BOSH failure</li>
+    <li>Service Adapter failure</li>
+    </ul>
+  </td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>
+    <ol>
+      <li>Note the <code>SERVICE-INSTANCE-GUID</code>, <code>REQUEST-GUID</code>, and <code>TASK-ID</code> values from the error text.</li>
+      <li>Check the BOSH task information
+        <ol>
+           <li>Follow the directions to <a href="#log-into-bosh">Log into BOSH</a>.</li>
+        <li>Run <code>bosh task TASK-ID --debug</code> to see an error report.</li>
+        <li>Run <code>bosh download manifest SERVICE-INSTANCE-GUID</code> to download the instance deploy manifest, if it was created.</li>
+        <li>Run <code>bosh vms SERVICE-INSTANCE-GUID</code> to list the vms deployed by the service instance, if any.</li></ol>
+      <li>If the BOSH error indicates a problem with the deployment manifest:</li>
+        <ol><li>Access the broker logs
+          <ul><li>Use a syslog logging platform if you have one <a href="#set-up-logging">set up.</a></li>
+          <li>Otherwise run <code>bosh logs broker 0</code>.</li></ul></li>
+        <li>If you have more than one instance of the broker, collect logs from each broker.</li>
+        <li>Search the broker logs for <code>REQUEST-GUID</code> to obtain more information.</li>
+        <li>Contact Pivotal support with this information.</li></ol>
+      <li>If the BOSH error does not indicate a problem with the manifest go to TK</li>
+    </li>
+    </ol>
+   </td>
+</tr>
+</table>
 
-1. Check that [application security groups](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html) are configured correctly.
-Access should be configured for the service network that the tile is deployed to.
+### <a id="network"></a> Network or Connection
 
-1. Ensure that the network the PCF Elastic Runtime tile is deployed to has network access to the service network.
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><ul><li><code>Instance provisioning failed: There was a problem completing your request. Please contact your operations team providing the following information: <br>
+  service: RABBITMQ-SERVICE-NAME, service-instance-guid: SERVICE-INSTANCE-GUID, broker-request-id: REQUEST-GUID, task-id: , operation: create</code></li>
+  <li>Any error that is missing a <code>TASK-ID</code> number after <code>task-id: </code></li>
+ </td>
+</tr>
+<tr>
+  <th>Possible Causes</th>
+  <td>
+    <ul>
+    <li>Problem accessing BOSH UAA</li>
+    <li>Problem accessing BOSH Director</li>
+    <li>The network fails to deliver messages between the Cloud Controller, On-Demand Broker, Service Adapter, and BOSH.</li>
+    </ul>
+  </td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>
+    <p>TK HOW TO CHECK ACCESS / CONNECTIVITY TO BOSH</p>
+    <p>If the BOSH deployment was never created, a synchronous error, run`cf delete service RABBITMQ-SERVICE-NAME` clean up the orphan instance in the Cloud Controller.</p>
+  </td>
+</tr>
+</table>
 
-1. In Ops Manager go into the service tile and see the service network that is configured in the networks tab.
-
-1. In Ops Manager go into the ERT tile and see the network it is assigned to.
-Make sure that these networks can access each other.
-
-## <a id="components"></a>Troubleshooting Components
-
-Guidance on checking for and fixing issues in the ODB components.
-
-### <a id="bosh"></a>BOSH problems
-
-#### <a id="no-bosh-uuid"></a>Missing BOSH Director UUID
-
-If using the BOSH v1 CLI you need to re-add the director\_uuid to the manifest
-```
-bosh status --uuid
-```
-Edit the manifest and add the `director_uuid: ` from the previous command at the top of the manifest. For more, see https://bosh.io/docs/manifest-v2.html#deployment 
-
-#### <a id="large-queue"></a>Large BOSH Queue
-
-OpsManager currently deploys two BOSH workers. On-demand service brokers will add tasks to the BOSH queue. Until the workers reach the queued items the application developer will see `create in progess` in the CF CLI. 
-
-The number of BOSH workers will become configurable in future version of OpsManager.
-
-### <a id="bosh-config"></a>Configuration
-
-#### <a id="bosh-instance-fail"></a>Service instances in failing state
-
-You may have configured a VM / Disk type in tile plan page in OpsManager that is too low for the service instance to start. Please see tile specific guideance on resource requirements.
-
-### <a id="auth"></a>Authentication
-
-#### <a id="uaa-change"></a>UAA Changes
-
-If you have rotated any UAA users credentials then you may see authenticiatin issues in the service broker logs. 
-
-To resolve this you should redeloy the service tile in OpsManager, which will provide the broker with the latest configuration.
-
-<p class="note"><strong>Note</strong>: You must ensure that any changes to UAA credentials are reflected in the OpsManager `credentials` tab of the Elastic Runtime Tile.</p>
-
-### <a id="network"></a>Networking
+### <a id="network-kal"></a> Networking
 
 Common issues include:
 
 1. Network latency issues when connecting to the service instance to create or delete a binding. Solution is to try again or improve network performance
+
 1. Network firewall rules are blocking connections from the service broker to the service instance. In OpsManager go into the tile and see the two networks that are configured in the networks tab. Ensure that these networks allow access to each other.
-1. Network firewall rules are blocking connections from the service network to the BOSH director network. Service instances must have access to the director so that the BOSH agents can report in.
-1. Cloud Foundry application security groups may not be configured to allow access to the service network. This is required to allow applications on the runtime to connect to services.
-1. There could also be a problem accessing BOSH’s UAA or the BOSH director. Follow network troubleshooting and check BOSH director is online
 
-#### <a id="broker-to-instances"></a>Validate Service Broker Connectivity to Service Instances
+To validate you can `bosh ssh` onto the service broker by first downloading the broker manifest and targeting the deployment, and try to reach the service instance. If no BOSH task-id is in the error message (same error as above, but blank after task-id: ) then look in the broker log using the broker-request-id from the task.
 
-To validate you can `bosh ssh` onto the service broker by first downloading the broker manifest and targeting the deployment, and try to reach the service instance. If no BOSH task-id is in the error message, then look in the broker log using the broker-request-id from the task.
+There could be a problem accessing BOSH’s UAA or the BOSH director
+Follow network troubleshooting and check BOSH director is online
 
-#### <a id="app-to-instances"></a>Validate App Access to Service Instance
+Network broker is being deployed to is cannot reach the BOSH director
 
-You can use `cf ssh` to gain access to the application container and then attempt to connect to the service instance using the binding detailed in the `VCAP_SERVICES` environment variable.
+Network broker is being deployed to can’t reach CF
 
-### <a id="quotas"></a>Quotas
+Register broker fails
 
-#### <a id="plan-quotas"></a>Plan Quota issues
+Tile is being reinstalled and was not correctly uninstalled [existing issue for all tiles]
 
-If you see the following error:
+Smoke test failed
 
-```
-Message: Service broker error: The quota for this service plan has been exceeded. 
-Please contact your Operator for help.
-```
+CF cannot reach the service broker
 
-1. Check your current plan quota - TODO - write operator facing docs for ODB metrics 
-1. Increase the plan quota
-1. Log into ops manager
-1. Reconfigure the quota on the plan page
-1. Deploy the tile
-1. Find who is using the plan quota and take the appropriate action - TODO CF workflow
+CF cannot reach the service instances
 
-#### <a id="global-quotas"></a>Global Quota Issues
+service network cannot access the BOSH director
 
-If you see this error:
+### <a id="uaa"></a> Authentication
 
-```
-Message: Service broker error: The quota for this service has been exceeded. 
-Please contact your Operator for help.
-```
+Certificate issues - ODB requires valid certificates 
 
-1. Check your current global quota - TODO OpsManager workflow
-1. Increase the global quota 
-1. Log into ops manager
-1. Reconfigure the quota on the on-demand settings page
-1. Deploy the tile
-1. Find out who is using the quota and take the appropriate action - TODO CF workflow
+### <a id="quota"></a> Quota
 
-#### <a id="failing-jobs"></a>Failing jobs and unhealthy instances
+#### <a id="plan-quota"></a> Service Plan Quota Exceeded
 
-To determine whether there is an issue with the service deployment
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><p><code>Service broker error: The quota for this service plan has been exceeded. Please contact your Operator for help.</code></p>
+ </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>
+    The deployed instance count for the service is at its global maximum. This error does not indicate any functional failure; it just tells the developer that no more on-demand RabbitMQ for PCF instances are allowed.
+  </td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>
+    <p>To raise the global service plan quota, open the <b>RabbitMQ for PCF</b> tile <b>TK Pane</b> and increase the setting in the <b>TK RabbitMQ Instance Limit</b>field.</p>
+    <p>TK Workflow for finding who is using the plan.</p>
+    <p>TK Link or workflow for monitoring plan current usage vs quota.</p>
+  </td>
+</tr>
+</table>
 
-<pre class="terminal">
-$ bosh vms --vitals service-instance_$guid
-</pre>
+#### <a id="plan-quota-kal"></a> Plan Quota issues
 
-For additional information
+If the error is “Service broker error: The quota for this service plan has been exceeded. Please contact your Operator for help.” then
 
-<pre class="terminal">
-$ bosh instances --ps --vitals
-</pre>
+Checking your current plan quota - TODO - write operator facing docs for ODB metrics 
 
-If the VM is failing you will need to follow the service specific information, as any unadvised corrective actions (such as running bosh restart on a VM) may cause issues in the service instance.
+Increase the plan quota
 
-### <a id="missing-logs"></a>Missing logs and metrics
+Log into ops manager
+
+Reconfigure the quota on the plan page
+
+Deploy the tile
+
+Finding who is using the plan quota - TODO CF workflow
+
+#### <a id="global-quota"></a> Global Quota Exceeded
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><p><code>Service broker error: The quota for this service has been exceeded. Please contact your Operator for help.</code></p>
+ </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>
+    The deployed instance count for the service plan is at its maximum. This error does not indicate any functional failure; it just tells the developer that no more on-demand plan instances are allowed.
+    <p>TK Workflow for finding who is using the plan.</p>
+    <p>TK Link or workflow for monitoring plan current usage vs quota.</p>
+  </td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>
+    <p>To raise the global service plan quota, open the <b>RabbitMQ for PCF</b> tile <b>TK Pane</b> and increase the setting in the <b>TK RabbitMQ Instance Limit</b>field.</p>
+  </td>
+</tr>
+</table>
+
+#### <a id="global-quota-kal"></a> Global Quota issues
+
+If the error is “Service broker error: The quota for this service has been exceeded. Please contact your Operator for help.” then
+Checking your current global quota - TODO OpsManager workflow
+
+Increase the global quota 
+
+Log into ops manager
+
+Reconfigure the quota on the on-demand settings page
+
+Deploy the tile
+
+Finding who is using the quota - TODO CF workflow
+
+#### <a id="stop"></a> <i>bosh stop</i> Failure
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><p><code>result: 1 of 1 drain scripts failed. Failed Jobs: rabbitmq-server.</code></p>
+ </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>
+    <p><code>bosh stop rabbitmq-server_JOB_INDEX</code> failure</p>
+  </td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>
+    <p>The drain script logs to <code>/var/vcap/sys/log/rabbitmq-server/drain.log</code>. If you have a remote syslog configured, this will appear as the <code>rmq_server_drain</code> program.</p>
+    <ol>
+      <li>First, <code>bosh ssh</code> into the failing rabbitmq-server instance and start the <code>rabbitmq-server</code> job by running <code>monit start rabbitmq-server</code>).<br>
+      You will not be able to start the job via <code>bosh start</code> as this always runs the drain script first and will fail since the drain script is failing.</li>
+      <li>Run <code>monit status</code> to confirm that the rabbitmq-server job is running</li>
+      <li>Once the rabbitmq-server job is running, run <code>DEBUG=1</code> <code>/var/vcap/jobs/rabbitmq-server/bin/drain</code>. This tells you exactly why it is failing.</li>
+    </ol>
+  </td>
+</tr>
+</table>
+
+### <a id="smoke"></a> Smoke Test
+
+If errors occur while the smoke tests run, they will be summarised at the end of the errand log output. Detailed logs can be found where the failure occurs.
+
+When encountering an error when running smoke tests, it can be helpful to search the log for other instances of the error summary printed at the end of the tests, e.g. <code>Failed to target Cloud Foundry</code>.
+
+Look out for <code>TIP: ...</code> in the logs next to any error output for further troubleshooting hints.
+
+### <a id="ipsec-installation-issues"></a> IPsec Installation
+
+<table border='1' class='nice'>
+<tr>
+  <th width="22%">Error</th>
+  <td><p>Unresponsive applications or incomplete responses, particularly for large payloads</p>
+ </td>
+</tr>
+<tr>
+  <th>Cause</th>
+  <td>
+    <p><strong>Packet Loss</strong></p>
+    <p>IPsec packet encryption increases the size of packet payloads on host VMs. If the size of the larger packets exceeds the maximum transmission unit (MTU) size of the host VM, packet loss may occur when the VM forwards those packets.</p>
+    <p>If your VMs were created with an Amazon PV stemcell, the default MTU value is 1500 for both host VMs and the application containers. If your VMs were created with Amazon HVM stemcells, the default MTU value is 9001. Garden containers default to 1500 MTU.</p>
+  </td>
+</tr>
+<tr>
+  <th>Solution</th>
+  <td>
+    <p>Implement a 100 MTU difference between host VM and the contained application container, using one of the following approaches:</p>
+    <ol>
+      <li>Decrease the MTU of the application containers to a value lower than the MTU of the VM for that container. In the ERT tile configuration, click <strong>Networking</strong> and modify <strong>Applications Network Maximum Transmission Unit (MTU) (in bytes)</strong> before you deploy. Decrease it from the default value of 1454 to 1354.</li>
+      <li>Increase the MTU of the application container VMs to a value greater than 1500. Pivotal recommends a headroom of 100. Run <code>ifconfig NETWORK-INTERFACE mtu MTU-VALUE</code> to make this change. Replace NETWORK-INTERFACE with the network interface used to communicate with other VMs For example: 
+      <code>$ ifconfig NETWORK-INTERFACE mtu 1600</code></li>
+    </ol>
+  </td>
+</tr>
+</table>
+
+### <a id="install-upgrade"></a> Installation and Upgrade
+
+Deploy fails
+
+### <a id="resources"></a> Resource Sizing
+
+The resource sizes selected for a given plan are less than the service requires to function.
+
+### <a id="config"></a> Configuration
+
+### <a id="service"></a> Service-Specific Issues
+
+### <a id="fail-jobs-instances"></a>Failing Jobs and Unhealthy Instances
+
+An issue with the service deployment
+
+Run `bosh vms --vitals service-instance_$guid`
+
+For additional information run `bosh instances --ps --vitals`
+
+If the VM is failing you will need to follow the service specific information, as any uninstructed remediatory actions (such as running bosh restart on a VM) may cause issues in the service instance.
+
+### <a id="missing-logs-metrics"></a>Missing Logs and Metrics
 
 If no logs are being emitted by the on-demand broker, check that your syslog forwarding address is correct in Ops Manager.
 
 To verify if metrics are being emitted to the firehose:
 
 1. Install the [`cf nozzle` plugin](https://github.com/cloudfoundry/firehose-plugin)
-1. `grep` the output of `cf nozzle` for the name of your service: 
-<pre class="terminal">
-$ cf nozzle -f ValueMetric | grep --line-buffered “on-demand-broker/my-service” 
-</pre>
+
+2. Run `cf nozzle -f ValueMetric | grep --line-buffered “on-demand-broker/<service offering name>” `
 
 If no metrics appear within 5 minutes:
-Verify that the broker network has access to the loggregator system, on all required ports. [Contact Pivotal support](#filing-a-support-ticket) if you are unable to resolve the issue. 
 
-### <a id="orphan"></a>Orphaned Instances
+Verify that the broker network has access to the Loggregator system, on all required ports. [Contact Pivotal support](#filing-a-support-ticket) if you are unable to resolve the issue. 
 
-If you have orphaned instances (instances that are recognized by CF but not by BOSH or vice versa), you can remove the deployment from BOSH and CF directly:
+### <a id="other-errors"></a> Other Errors
 
-1. To find orphaned instances, run the `orphan-deployments` bosh errand
-<pre class="terminal">
-$ bosh run errand orphan-deployments
+## <a id="techniques"></a> Techniques
+
+This section gives you techniques that you can use to troubleshoot on-demand RabbitMQ for PCF.
+
+### <a id="parse-error"></a> Parse a CF Error Message
+
+If you see an error, record the contents of the **Message** field, which is useful for debugging. Please provide this information to Pivotal Support when filing a [ticket](#ticket).
+
+To retrieve the error's **Message** field after the error occurs, enter `cf service MY-SERVICE` where MY-SERVICE is the service instance name.
+
+If you do not have the service instance name, [retrieve](#instance) it with `cf services`.
+    <pre class="terminal">
+    $ cf service myservice
+    Service instance: myservice
+    Service: super-db
+    Bound apps:
+    Tags:
+    Plan: dedicated-vm
+    Description: Dedicated Instance
+    Documentation url:
+    Dashboard: 
+    Last Operation
+    Status: create failed
+    Message: Instance provisioning failed: There was a problem completing your request. 
+        Please contact your operations team providing the following information: 
+        service: redis-acceptance, 
+        service-instance-guid: ae9e232c-0bd5-4684-af27-1b08b0c70089,
+        broker-request-id: 63da3a35-24aa-4183-aec6-db8294506bac, 
+        task-id: 442, 
+        operation: create
+    Started: 2017-03-13T10:16:55Z
+    Updated: 2017-03-13T10:17:58Z
 </pre>
 
-1. Run 
-<pre class="terminal">
-$ cf service --guid
-</pre>
+The **Message** field contains the following sub-fields:
 
-1. Record this guid
+  * **service-instance-guid**: identifies the service instance.
 
-1. Run
-<pre class="terminal">
-$ bosh delete deployment service-instance_$guid
-</pre>
+  * **task-id**: if present, indicates the BOSH Task ID of the instance creation task. You can retrieve more information about the task by running `bosh task TASK-ID` using the [BOSH CLI](https://bosh.io/docs/bosh-cli.html).
 
-1. If this fails, you can ignore any errors while deleting by running 
-<pre class="terminal">
-$ bosh delete deployment service-instance_$guid --force
-</pre>
-<p class="note warning">
-<strong>WARNING: </strong> This may leave IaaS resources in an unusable state.
-</p>
+  * **broker-request-guid**: identifies the portion of the On-Demand Broker log that contains the failed step. To debug further, access the broker log via your syslog aggregator, or access BOSH logs for the broker by running `bosh logs broker 0`.  
+  If you have more than one broker instance, repeat this process, incrementing the index for each instance from `0` to `1` and so on.
 
-1. Next purge the service instance in CF
-```
-$ cf purge-service-instance myservices
-```
+### <a id="log-into-bosh"></a> Log into BOSH 
 
-## <a id="techniques"></a>Techniques for Troubleshooting
+1. Follow the directions to [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#ssh) in the *Advanced Troubleshooting with the BOSH CLI* topic. Use the following values:
+    * **Certificate Location**: Use the file path on your local machine to the key pair used to install Ops Manager.
+    * **BOSH Director IP Address**: Retrieve from the Ops Manager Director tile **Status** tab.
+    * **BOSH Director Credentials**: Retrieve from the Ops Manager API or find it in the Ops Man Director tile **Credentials** tab > **Director Credentials**.
 
-Instructions on interacting with the on-demand service broker and on-demand service instance BOSH deployments, and on performing general maintenance and housekeeping tasks
+1. Continue following the *Advanced Troubleshooting* directions to [Log into BOSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in). 
 
-### <a id="bosh-cf-access"></a>Use BOSH and CF to access logs and SSH
+### <a id="check-logs"></a> Check Logs
 
-1. Follow the steps described here to [target your BOSH CLI](https://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare) and [log-in to your CF CLI](https://docs.cloudfoundry.org/cf-cli/getting-started.html)
+Once you have the BOSH Task ID and instance GUID, proceed as follows:</p>
 
-#### <a id="access-broker"></a>Access Broker Logs and VM(s)
+1. Run <code>bosh task TASK-ID</code> to show instance creation task errors from BOSH. Possible errors include failure at the IaaS level and hitting your rate limit for the day.
 
-1. Identify the ODB deployment using 
-```
-$ bosh deployments
-```
-1. Download the ODB manifest using 
-```
-$ bosh download manifest ODB-DEPLOYMENT-NAME odb.yml
-```
-1. Select the ODB deployment using 
-```
-$ bosh deployment odb.yml
-```
-1. View VMs in the deployment using 
-```
-$ bosh instances
-```
-1. Download broker logs by using the 
-```
-$ bosh logs INSTANCE-ID
-```
-1. To ssh onto the VM use 
-```
-$ bosh ssh INSTANCE-ID
-```
+1. If the BOSH task completed successfully, the problem was elsewhere. You can use a logging platform to locate where. If you haven't already, follow the instructions to <a href="#set-up-logging">set up logging</a> to track the progress of your <code>create-service</code>task. Note that RabbitMQ for PCF logs and platform component logs are configured separately.
 
-#### <a id="access-instance"></a>Access Service Instance Logs and VMs
+1. Search for the service instance GUID in the logs generated by <code>cf create-service</code>.
+
+1. Refer to the Create service instance process diagram above to see the order of component actions and messages that successfully create an on-demand service instance. The Cloud Controller component generates the service instance GUID before it sends the first <code>provision instance</code> call to the on-demand broker, and all subsequent messages related to the instance creation task include this GUID.
+
+1. Along with the process diagram, refer to these component identifiers in the logs to determine how far the <code>create-service</code> process went and where it failed:
+      <ul><li><code>tk_cloud_controller_xyz</code> - Cloud Controller</li>
+      <li><code>tk_odb_xyz</code> - On-Demand Broker</li>
+      <li><code>tk_jobs_rabbitmq_server</code> - RabbitMQ for PCF Service Adapter</li>
+      <li><code>tk_bosh_xyz</code> - BOSH</li></ul>
+    </li></ol>
+
+### <a id="log-into-bosh-kal"></a> Use BOSH and CF to Access Logs
+
+1. Follow the steps described here to [target your BOSH CLI](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) and [log-in to your CF CLI](https://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html)
+
+#### <a id="access-broker"></a> Access Broker Logs and VM(s)
+
+1. Identify the ODB deployment usin g `bosh deployments`
+1. Download the ODB manifest using `bosh download manifest <odb-deployment-name> odb.yml`
+1. Select the ODB deployment using `bosh deployment odb.yml`
+1. View VMs in the deployment using `bosh instances`
+1. Download broker logs by using the `bosh logs <instance-id>` command
+
+#### <a id="access-instance"></a> Access Service Instance Logs and VM(s)
 
 1. To target an individual service instance deployment, retrieve the 
-the guid of your service instance with the CF CLI command 
-```
-$ cf service MY-SERVICE --guid
-```
+the guid of your service instance with the CF CLI command `$ cf service {YOUR_SERVICE} --guid`
 
-1. Pre-pend the text `service_instance-` to the guid you just obtained to create the ID that BOSH uses for your service instance (e.g. if your guid is `1Hy6H`, this becomes `service_instance-1Hy6H`).
+1. Pre-pend the text "service_instance-" to the guid you just obtained to create the ID that BOSH uses for your service instance (e.g. if your guid is `1Hy6H`), this becomes `service_instance-1Hy6H`).
 
-1. Download your bosh manifest for the service using 
-```
-$ bosh download manifest SERVICE-INSTANCE-GUID MY-SERVICE.yml
-```
-1. Select the deployment using 
-```
-$ bosh deployment MY-SERVICE.yml
-```
-1. View VMs in the deployment using 
-```
-$ bosh instances
-```
-1. Download instance logs by using the 
-```
-$ bosh logs INSTANCE-ID
-```
-1. To ssh onto the VM use 
-```
-$ bosh ssh INSTANCE-ID
-```
+1. Download your bosh manifest for the service using `$ bosh download manifest service_instance-guid myservice.yml`
+1. Select the deployment using `bosh deployment myservice.yml`
+1. View VMs in the deployment using `bosh instances`
+1. Download broker logs by using the `bosh logs <instance-id>` command
+1. To SSH onto the VM use `bosh ssh <instance-id>`
 
-### <a id="parse-error"></a>Parse a CF error message
+### <a id="determine-task-id"></a> Determine the Task ID of a <i>create-service</i> Task
 
-Failed operations (create, update, bind, unbind, delete) will result in an error message that can be retrieved using the CF cli
+This procedure determines the Task ID for the BOSH task that creates (or attempts to create) an on-demand service instance, if you only know the the service name. This BOSH task is triggered by the `cf create-service` command.
 
-<pre class="terminal">
-$ cf service myservice
+1. Use the cf CLI to target and to log in to your deployment. See [Login](https://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login) the *Getting Started with the cf CLI* topic.
+    <pre class="terminal">
+    $ cf login -a https<span>://</span>api.example.com -u username<span>@</span>example.com
+    API endpoint: https<span>://</span>api.example.com
+    </pre>
 
-Service instance: myservice
-Service: super-db
-Bound apps:
-Tags:
-Plan: dedicated-vm
-Description: Dedicated Instance
-Documentation url:
-Dashboard: 
+1. Follow the directions to [Log into BOSH](#log-into-bosh).
+    <pre class="terminal">
+    $ bosh --ca-cert CERTIFICATE-LOCATON target BOSH-DIRECTOR-IP
+    </pre>
 
-Last Operation
-Status: create failed
-Message: Instance provisioning failed: There was a problem completing your request. 
-     Please contact your operations team providing the following information: 
-     service: redis-acceptance, 
-     service-instance-guid: ae9e232c-0bd5-4684-af27-1b08b0c70089,
-     broker-request-id: 63da3a35-24aa-4183-aec6-db8294506bac, 
-     task-id: 442, 
-     operation: create
-Started: 2017-03-13T10:16:55Z
-Updated: 2017-03-13T10:17:58Z
-</pre>
+1. From the BOSH Director VM, use the BOSH CLI to retrieve the Task ID of the service instance create task.
+  - Run `bosh tasks recent` to show all recent tasks
+  - Run `bosh tasks recent | grep GUID` with the GUID of your instance.
 
-The information under the "Message" field can be used to debug further. Please provide this information to Pivotal Support when filing a ticket.
+1. Retrieve the Task ID from the first column of the output.
 
-The `task-id` field maps to the BOSH task id. For further information on a failed BOSH task, use the `bosh task <task-id>` command in the BOSH CLI.
+1. Use the Task ID to show the full BOSH error message.
+  - Run `bosh task TASK-ID` to show the full error message
+  - Run `bosh task TASK-ID --raw` to show raw JSON for the error
 
-The `broker-request-guid` maps to the portion of the On-Demand Broker log containing the failed step. Access the broker log via your syslog aggregator, or access bosh logs for the broker by typing `bosh logs broker 0`. If you have more than one broker instance, you will need to repeat this process for each instance.
+### <a id="determine-guid"></a> Determine the GUID of an Instance
 
-### <a id="reinstall"></a>Reinstall a Tile
+This procedure determines the GUID of a service instance if you only know the service name. It works whether or not the service instance was created successfully. The GUID is useful for debugging.
 
-To reinstall a tile in the same environment where it was previously uninstalled:
+1. Log into the space containing the instance or failed instance. 
+    <pre class="terminal">
+    $ cf login
+    </pre>
 
-1. Ensure that the previous tile was correctly uninstalled
-1. `cf login` as an admin user
-1. `cf m` does not list the service
-1. `bosh login` as an admin user
-1. `bosh deployments` does not show a deployment for the service. For example no `p-concourse-$guid` deployment exists
-1. Before reinstalling a tile all previous service instances and service brokers must be deleted from the BOSH director
-1. If the service broker still exists then run the [Delete All Service Instances errand](#delete-all) and then [degregister-broker errand]()
-1. Next delete the service broker BOSH deployment
-1. Finally install the tile again
+1. If you do not know the name of the service instance:
+  1. Run `cf services` to see all instances in the space.
+  1. Find the service instance name listed in the `name` column.
+    <pre class="terminal">
+    $ cf services
+    Getting services in org my-org / space my-space as user<span>@</span>example.com...
+    OK
+    name          service            plan    bound apps    last operation
+    my-instance   ondemand-rabbitmq  Solo                  create succeeded
+    </pre>
 
-### <a id="broker-errands"></a>Service Broker Errands
+1. Run `cf service SERVICE-INSTANCE-NAME --guid` to retrieve the GUID of the instance.
 
-#### <a id="register-broker"></a>Register Broker
+### <a id="set-up-logging"></a> Set Up Logging
 
-This errand registers the broker with Cloud Foundry and enables access to plans in the service catalog. The errand should be run whenever the broker is re-deployed with new catalog metadata to update the Cloud Foundry catalog.
+This procedure sets up logging for RabbitMQ for PCF, to send log messages from RabbitMQ for PCF service components to a logging platform.
 
-Plans with disabled service access will not be visible to non-admin Cloud Foundry users (including Org Managers and Space Managers). Admin Cloud Foundry users can see all plans including those with disabled service access.
+1. If you haven't already, set up an account with a <a href="https://docs.pivotal.io/pivotalcf/devguide/services/log-management-thirdparty-svc.html">logging service</a>.
 
-The errand will do the following operaitons:
+1. In Ops Manager, click into the **RabbitMQ for PCF** tile.
 
-- Register the service broker with Cloud Controller
-- Enable service access for any plans that have the radio button set to `enabled` in the tile plan page.
-- Disable service access for any plans that have the radio button set to `disabled` in the tile plan page.
-- Do nothing for any for any plans that have the radio button set to `manual`
+1. In the **Settings** tab > **Syslog** pane enter the following:
+  * For **Syslog address**, enter the address of your logging service endpoint
+  * For **Syslog port**, enter the port number of your logging service endpoint
 
-To run this errand use the following BOSH command against the on-demand service broker deployment:
+1. Click **Save**.
 
-```
-bosh run errand register-broker
-```
+1. In the **Installation Dashboard**, click **Apply Changes**.
 
-#### <a id="deregister-broker"></a>Deregister Broker
+This setup only forwards logs from RabbitMQ for PCF components, not from platform components like the Cloud Controller. To forward platform component logs, open the Elastic Runtime tile **Syslog** pane and configure your logging endpoint address and port number as the **Syslog address** and **Syslog port** fields.
 
-This errand deregisters a broker from Cloud Foundry. It requires that there are no existing service instances. You can use the [Delete All Service Instances errand](#delete-all) to delete any existing service instances that are problematic.
+### <a id="stop"></a> Stop RabbitMQ
 
-The errand will do the following operations:
+This procedure safely stops RabbitMQ. You may need to do this when debugging, on your own or working with GSS.
 
-- Delete the service broker from Cloud Controller
-- Fail if there are any service instances, with or without bindings
+`bosh stop rabbitmq-server`
 
-To run this errand use the following BOSH command against the on-demand service broker deployment:
+There are BOSH job lifecycle hooks which are only fired when rabbitmq-server is
+stopped through BOSH. This will cleanly stop the RabbitMQ service and is the only supported method of stopping the service.
 
-```
-bosh run errand deregister-broker
-```
+**DO NOT STOP RABBITMQ VIA MONIT**
 
-#### <a id="upgrade-all"></a>Upgrade All Service Instances
+Do not log into the virtual machine running the RabbitMQ service and stop the RabbitMQ service via monit. It is a potentially dangerous operation as it will kill the RabbitMQ service immediately.
 
-If you have made changes to the plan defintion or uploaded a new tile into OpsManager you may want to upgrade all the services to the latest software / plan definition. 
+#### What happens when I run bosh stop rabbitmq-server?
 
-To do this you can either select the errand through the OpsManager UI and have this happen along with the `apply-changes` action or run the errand directly.
+BOSH starts the shutdown sequence from the bootstrap instance.
 
-The errand will do the following operaitons:
+We start by telling the RabbitMQ application to shutdown and then shutdown the
+Erlang VM within which it is running. If this succeeds, we run the following
+checks to ensure that the RabbitMQ application and Erlang VM have stopped:
 
-- Collect all of the service instances the on-demand broker has registered
-- For each instance the errand will serially:
-  - Issue an upgrade command to the on-demand broker 
-  - The on-demand broker will re-generate the service instance manifest based on its latest configuration from the tile.
-  - The on-demand broker will deploy the new mainfest for the service instance.
-  - The errand will wait for this operation to complete, then proceed to the next instance.
-- Any instances that have ongoing BOSH tasks at the time of upgrade will be added to a retry list.
-- Any instances in the retry list will be retried at the end of the errand until all are upgraded.
-- If any instance fails to upgrade the errand will fail immediately.
-  - This prevents any systemic problem from spreading to the rest of your service instances. 
+1. If `/var/vcap/sys/run/rabbitmq-server/pid` exists, check that the PID inside
+this file does not point to a running Erlang VM process. Notice that we are
+tracking the Erlang PID and not the RabbitMQ PID.
+1. Check that `rabbitmqctl` does not return an Erlang VM PID
 
-#### <a id="detect-orphans"></a>Detect Orphaned Service Instances 
+Once this completes on the bootstrap instance, BOSH will continue the same
+sequence on the next instance. All remaining rabbitmq-server instances will be
+stopped one by one.
 
-A service instance is defined as ‘Orphaned’ when the BOSH deployment for the instance is still running, but the service is no longer registered in Cloud Foundry.
+### <a id="orphan-instances"></a>Remove an Orphaned Instance
 
-The orphan-deployments errand will collate a list of service deployments that have no matching service instances in Cloud Foundry and return the list to the operator. It is then up to the operator to remove the orphaned bosh deployments.
+you can remove the deployment from BOSH and CF directly
 
-To run this errand use the following BOSH command against the on-demand service broker deployment:
+`cf service --guid` 
 
-```
-bosh run errand orphan-deployments
-```
+Record this guid
 
-If orphan deployments are present, the errand will output a list of deployment names:
+`bosh delete deployment service-instance_$guid`
 
-```
-[stdout]
-[{"deployment_name":"service-instance_aoeu39fgn-8125-05h2-9023-9vbxf7676f3"}]
+If this fails:
 
-[stderr]
-None
+`bosh delete deployment service-instance_$guid --force`
 
-Errand 'orphan-deployments' completed successfully (exit code 0)
-```
+This will ignore any errors while deleting
 
-To cleanup orphaned instances you can perform the following actions:
+WARNING - this may leave IaaS resources
 
-<p class="note warning">
-<strong>WARNING: </strong> Deleting the bosh deployment will destroy the vm, any data present will be lost.
-</p>
+Next purge the service instance in CF
 
-To delete the orphan deployment run the following BOSH command:
-```
-bosh delete deployment service-instance_$GUID
-```
+`cf purge-service-instance myservice`
 
-#### <a id="delete-all"></a>Delete All Service Instances
+### <a id="errands"></a> Smoke Tests, Checks, and Errands
 
-This errand deletes all service instances of your broker’s service offering in every org and space of Cloud Foundry. It uses the Cloud Controller API to do this, and therefore only deletes instances the Cloud Controller knows about. It will not delete orphan BOSH deployments: those that don’t correspond to a known service instance. Orphan BOSH deployments should never happen, but in practice they might. Use the orphan-deployments errand to identify them.
-
-The errand will do the following operations:
-
-- Unbind all applications from the service instances
-- Delete all service instances sequentially
-- Check if any instances have been created while the errand was running
-- If instances are detected the errand will fail 
-
-<p class="note warning">
-<strong>WARNING: </strong> This errand should only be used with extreme caution when you want to totally destroy all of the on-demand service instances in an environment.
-</p>
-
-To run this errand use the following BOSH command against the on-demand service broker deployment:
-
-```
-bosh run errand delete-all-service-instances
-```
-
-### <a id="view-resources"></a>View Resource Saturation and Scaling
+### <a id="saturation-scaling-1"></a> View Resource Saturation and Scaling Resources
 
 Once a deployment has been selected, you can use the `bosh vms --vitals` or the `bosh instances --vitals` commands to view current resource utilization. You can also view process level information by using `bosh instances --ps`.
 
-### <a id="id-instance-owner"></a>Identify Service Instance Owner
-If you have spotted a failing deployment, you can identify which org/space owns this service instance, as well as retrieve a list of apps bound to it by following the steps below: 
+### <a id="saturation-scaling-2"></a> Monitor Quota Saturation and Number of Service Instances
 
-1. `bosh vms $deployment` shows a vm in failing state
-1. Take the deployment name and strip the `service-instance_` leaving you with a `guid`
-1. Login to CF using a CF Admin user
-1. Run 
-```
-$ cf curl /v2/service_instances/:guid | grep "space_url"
-"space_url": "/v2/spaces/$space_guid"
-```
-2. Take the space url and run 
-```
-$ cf curl /v2/spaces/$space_guid | grep -E "name|organization_url"
-"name": "myspace",
-"organization_url": "/v2/organizations/$org_guid"
-```
+## <a id="kb"></a> Knowledge Base
 
-3. Take the organization_url and run 
-```
-cf curl /v2/organizations/$org_guid | grep “name”
-"name": "myorg"
-```
+For help from the PCF community, consult the [Pivotal Knowledge Base](http://discuss.pivotal.io).
 
-4. Combine the output of the names to give you the org and space of the service instance. 
-From here run:
-```
-cf target -o $org -s $space
-``` 
-5. `cf services` shows you all the services and bound apps
-6. To find who is the space manger run:
-```
-cf curl /v2/spaces/$space_guid/managers
-```
-7. Use this information to contact the manager if needed 
+## <a id="ticket"></a> File a Support Ticket
 
-### <a id="monitor-quota"></a>Monitor Quota Saturation and Service Instance Count
+For help from Pivotal Support, file a [support ticket](https://support.pivotal.io/).
 
-Quota saturation and total number of service instances are available via ODB metrics emitted to loggregator. The metric names are shown below:
+Please provide the following if possible, to help expedite troubleshooting:
 
-| **Metric Name**                                                           | **Description**                                           |
-|---------------------------------------------------------------------------|-----------------------------------------------------------|
-| `on-demand-broker/{service-name-marketplace}/quota_remaining`             | global quota remaining for all instances across all plans |
-| `on-demand-broker/{service-name-marketplace}/{plan_name}/quota_remaining` | quota remaining for a particular plan                     |
-| `on-demand-broker/{service-name-marketplace}/total_instances`             | total instances created across all plans                  |
-| `on-demand-broker/{service-name-marketplace}/{plan_name}/total_instances` | total instances created for a given plan                  |
+* The [error message](#parsing-a-cf-error-message) from `cf service SERVICE-INSTANCE-NAME`
+* Your [service broker logs](#access-broker)
+* Your [service instance logs](#access-instance)
 
-<p class="note"><strong>Note</strong>: Quota metrics are not emitted if no quota has been set.</p>
-
-## <a id="support"></a>File a Support Ticket
-
-You can file a support ticket [here](https://support.pivotal.io/). Please be sure to provide the [error message](#parse-error) from 
-```
-$ cf service <your-service>
-``` 
-Please also provide your [service broker logs](#access-broker), your [service instance logs](#access-instance) and [BOSH task output](#parse-error), if a `task-id` is provided as part of the `cf service <your-service>` output, to help expedite troubleshooting.
-
-## <a id="kb"></a>Knowledge Base (Community)
-
-Imagine a world where we autopopulate the first 10 hits from http://discuss.pivotal.io . For now, you'll just have to click on the link.
