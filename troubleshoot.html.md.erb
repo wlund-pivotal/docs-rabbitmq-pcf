@@ -42,7 +42,7 @@ If developers report errors such as the following:
 Instance provisioning failed: There was a problem completing your request. Please contact your operations team providing the following information: service: redis-acceptance, service-instance-guid: ae9e232c-0bd5-4684-af27-1b08b0c70089, broker-request-id: 63da3a35-24aa-4183-aec6-db8294506bac, task-id: 442, operation: create
 </pre>
 
-[Log in to BOSH](https://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare) and target the service instance using the instructions on [parsing a CF error message](techniques/#parse-error).
+[Log in to BOSH](https://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare) and target the service instance using the instructions on [parsing a CF error message](#parse-error).
 
 Retrieve the bosh task ID and run
 `bosh task TASK-ID`
@@ -67,7 +67,7 @@ If developers report errors such as the following:
 Server error, status code: 504, error code: 10001, message: The request to the service broker timed out: https://$broker_url/v2/service_instances/e34046d3-2379-40d0-a318-d54fc7a5b13f/service_bindings/aa635a3b-ef6d-41c3-a23f-55752f3f651b
 </pre>
 
-1. Validate that CF has [network connectivity to the service broker](components/#networking). 
+1. Validate that CF has [network connectivity to the service broker](#network). 
 1. Check the BOSH queue size:
     -Login to BOSH as the admin user
     -Run `bosh tasks`
@@ -135,7 +135,7 @@ If the errand that upgrades all service instances fails, look at the errand outp
 
 If an instance fails to upgrade, you should debug and fix it before proceeding with running the errand again. This is to stop any failure issues from spreading to other on-demand instances.
 
-Once the deployment is not `failing` you can [re-run the errand](techniques/#upgrade-all) to upgrade the rest of the instances. 
+Once the deployment is not `failing` you can [re-run the errand](#upgrade-all) to upgrade the rest of the instances. 
 
 ### <a id="upgrade-all-too-long"></a>Upgrade All Instances Takes a Long Time
 
@@ -147,7 +147,7 @@ Once the deployment is not `failing` you can [re-run the errand](techniques/#upg
    - `tail -f $log` and see if the errand is still attempting to upgrade instances. If it is then allow the errand to continue. If it appears to be stuck:
     - `bosh tasks` and identify the errand task
     - `bosh cancel task $task_id`
-1. Then retry [running the errand](techniques/#upgrade-all)
+1. Then retry [running the errand](#upgrade-all)
 
 ### <a id="missing-logs"></a>Missing Logs and Metrics
 
@@ -221,7 +221,7 @@ The number of BOSH workers will become configurable in future version of OpsMana
 
 #### <a id="bosh-instance-fail"></a>Service instances in failing state
 
-You may have configured a VM / Disk type in tile plan page in OpsManager that is too low for the service instance to start. Please see tile specific guideance on resource requirements.
+You may have configured a VM / Disk type in tile plan page in OpsManager that is too low for the service instance to start. Please see tile specific guidance on resource requirements.
 
 ### <a id="auth"></a>Authentication
 
@@ -556,9 +556,9 @@ $ bosh deployment myservice.yml
 
 ### <a id="instance-creds"></a>Get Admin Credentials for a Service Instance
 
-1. [Identify the service deployment by GUID](techniques/mapping-a-cf-service-to-a-bosh-deployment).
+1. [Identify the service deployment by GUID](#instance-deployment).
 2. [Login to BOSH](https://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare)
-3. [Download the manifest for the service instance](accessing-service-instance-manifests-logs-and-vms) and [add the guid](components/missing-bosh-director-uuid) if using the v1 BOSH CLI
+3. [Download the manifest for the service instance](#access-instance) and add the GUID if using the v1 BOSH CLI
 4. Look in the manifest for the credentials as described in the service documentation.
 
 ### <a id="reinstall"></a>Reinstall a Tile
