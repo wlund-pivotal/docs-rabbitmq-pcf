@@ -119,7 +119,7 @@ Edit the manifest and add the `director_uuid: ` from the previous command at the
 
 #### <a id="large-queue"></a>Large BOSH Queue
 
-OpsManager currently deploys two BOSH workers. On-demand service brokers will add tasks to the BOSH queue. Until the workers reach the queued items the application developer will see `create in progess` in the CF CLI. 
+OpsManager currently deploys two BOSH workers. On-demand service brokers will add tasks to the BOSH queue. Until the workers reach the queued items the application developer will see `create in progess` in the cf CLI. 
 
 The number of BOSH workers will become configurable in future version of OpsManager.
 
@@ -137,7 +137,7 @@ If you have rotated any UAA users credentials then you may see authenticiatin is
 
 To resolve this you should redeloy the service tile in OpsManager, which will provide the broker with the latest configuration.
 
-<p class="note"><strong>Note</strong>: You must ensure that any changes to UAA credentials are reflected in the OpsManager `credentials` tab of the Elastic Runtime Tile.</p>
+<p class="note"><strong>Note</strong>: You must ensure that any changes to UAA credentials are reflected in the OpsManager <code>credentials</code> tab of the Elastic Runtime Tile.</p>
 
 ### <a id="network"></a>Networking
 
@@ -262,7 +262,7 @@ Instructions on interacting with the on-demand service broker and on-demand serv
 
 ### <a id="bosh-cf-access"></a>Use BOSH and CF to access logs and SSH
 
-1. Follow the steps described here to [target your BOSH CLI](https://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare) and [log-in to your CF CLI](https://docs.cloudfoundry.org/cf-cli/getting-started.html)
+1. Follow the steps described here to [target your BOSH CLI](https://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare) and [log-in to your cf CLI](https://docs.cloudfoundry.org/cf-cli/getting-started.html)
 
 #### <a id="access-broker"></a>Access Broker Logs and VM(s)
 
@@ -294,12 +294,12 @@ $ bosh ssh INSTANCE-ID
 #### <a id="access-instance"></a>Access Service Instance Logs and VMs
 
 1. To target an individual service instance deployment, retrieve the 
-the guid of your service instance with the CF CLI command 
+the guid of your service instance with the cf CLI command 
 ```
 $ cf service MY-SERVICE --guid
 ```
 
-1. Pre-pend the text `service_instance-` to the guid you just obtained to create the ID that BOSH uses for your service instance (e.g. if your guid is `1Hy6H`, this becomes `service_instance-1Hy6H`).
+1. Pre-pend the text `service_instance-` to the GUID you just obtained to create the ID that BOSH uses for your service instance (e.g. if your GUID is `1Hy6H`, this becomes `service_instance-1Hy6H`).
 
 1. Download your bosh manifest for the service using 
 ```
@@ -504,7 +504,7 @@ $ cf curl /v2/spaces/$space_guid | grep -E "name|organization_url"
 "organization_url": "/v2/organizations/$org_guid"
 ```
 
-3. Take the organization_url and run 
+3. Take the organization url and run 
 ```
 cf curl /v2/organizations/$org_guid | grep “name”
 "name": "myorg"
