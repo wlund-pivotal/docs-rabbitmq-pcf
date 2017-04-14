@@ -25,10 +25,9 @@ Start here if you're responding to a specific errors or error messages.
 1. Certificate issues - ODB requires valid certificates. Ensure that your certificates are valid and [generate new ones](http://docs.pivotal.io/p-mysql/1-9/credential-rotation.html) if necessary. 
 1. Deploy fails - Deploys can fail for a variety of reasons. View the logs via Ops Manager to determine why the deploy is failing.
 1. [Networking problems](#network) - These can occur when:
-
-  - CF cannot reach the service broker
-  - CF cannot reach the service instances
-  - The service network cannot access the BOSH director 
+    - CF cannot reach the service broker
+    - CF cannot reach the service instances
+    - The service network cannot access the BOSH director 
 1. [Register broker errand](#register-broker) fails
 1. The Smoke test errand failed
 1. Resource sizing issues - These occur when the resource sizes selected for a given plan are less than the service requires to function. Check your resource configuration in Ops Manager and ensure that the configuration matches that recommended by the service.
@@ -47,21 +46,24 @@ Instance provisioning failed: There was a problem completing your request. Pleas
 Retrieve the bosh task ID and run
 `bosh task TASK-ID`
 
-1. Configuration errors: If the BOSH error shows a problem with the deployment manifest
+If the BOSH error shows a problem with the deployment manifest:
 
-Download your BOSH manifest for the service by running `bosh download manifest SERVICE-INSTANCE-GUID MY-SERVICE.yml`
+  1. Download the manifest for the service instance by running `bosh download manifest SERVICE-INSTANCE-GUID MY-SERVICE.yml`.
+  1. Check the manifest for configuration errors.
 
 [Access the broker logs](#access-broker)  and use the `broker-request-id` from the error message above to search the log for more information.
 
-2. [Authentication errors](#auth)
+Check for:
 
-3. [Network errors](#network)
+  - [Authentication errors](#auth)
 
-4. [Quota errors](#quotas) 
+  - [Network errors](#network)
+
+  - [Quota errors](#quotas) 
 
 ### <a id="timeouts"></a> Broker Request Timeouts
 
-If developers report errors such as the following:
+If developers report errors such as:
 
 <pre class="terminal">
 Server error, status code: 504, error code: 10001, message: The request to the service broker timed out: https://$broker_url/v2/service_instances/e34046d3-2379-40d0-a318-d54fc7a5b13f/service_bindings/aa635a3b-ef6d-41c3-a23f-55752f3f651b
@@ -79,39 +81,41 @@ In the future PCF OpsManager will support configuring the number of BOSH workers
 
 #### <a id="instance-not-exist"></a>Instance Does Not Exist
 
-If developers report errors such as the following:
+If developers report errors such as:
 
 <pre class="terminal">
 Server error, status code: 502, error code: 10001, message: Service broker error: instance does not exist`
 </pre>
 
-1. Check that the service instance exists in BOSH and CF
-```
-cf service myservice --guid
-```
-2. Record the guid response and run the `bosh vms` command
-<pre class="terminal">
-bosh vms service-instance_$guid
-</pre>
+1. Run `cf service MY-INSTANCE --guid` to check that the service instance exists in BOSH and CF.
+
+1. Pre-pend the text `service_instance-` to the GUID you just obtained to create the ID that BOSH uses for your service instance (e.g. if your GUID is `1Hy6H`, this becomes `service_instance-1Hy6H`).
+
+1. Run `bosh vms INSTANCE-GUID` with the service instance ID from the last step.
+
 If the bosh deployment is not found then it has been deleted from BOSH. Contact Pivotal support for further assistance on recovery steps.
 
 #### <a id="other-errors"></a>Other errors
 
-If developers report errors such as the following:
+If developers report errors such as:
 
 <pre class="terminal">
 Server error, status code: 502, error code: 10001, message: Service broker error: There was a problem completing your request. Please contact your operations team providing the following information: service: example-service, service-instance-guid: 8d69de6c-88c6-4283-b8bc-1c46103714e2, broker-request-id: 15f4f87e-200a-4b1a-b76c-1c4b6597c2e1, operation: bind
 </pre>
 
-To find out the exact issue with creating the binding [access the service broker logs](#access-broker)
+To find out the exact issue with the binding process:
 
-Use the broker-request-id from the error message above to search the log for more information. 
+1. [Access the service broker logs](#access-broker).
 
-Contact Pivotal support for further assistance if you are unable to resolve the problem.
+1. Search the logs for the `broker-request-id` string listed in the error message above. 
 
-2. [Authentication errors](#auth)
+1. Contact Pivotal support for further assistance if you are unable to resolve the problem.
 
-3. [Network errors](#network)
+1. Check for:
+
+    - [Authentication errors](#auth)
+
+    - [Network errors](#network)
 
 ### <a id="cannot-connect"></a>Cannot Connect to a Service Instance
 
@@ -142,7 +146,7 @@ Once the deployment is not `failing` you can [re-run the errand](#upgrade-all) t
 1. Depending on the number of service instances the upgrade errands will take ~15-20 minutes per instance if changing any IaaS resources and ~5-10 minutes per instance for changing BOSH releases / configuration. This is IaaS dependant.
 1. To calculate how long the errand should take, multiply the number of instances by 20 minutes. 
 1. If the errand goes on for much longer than this you may want do the following:
-   - `ssh` onto the errand vm
+   - `ssh` onto the errand VM
    - `cd /var/vcap/sys/log` and look for the errand output log
    - `tail -f $log` and see if the errand is still attempting to upgrade instances. If it is then allow the errand to continue. If it appears to be stuck:
     - `bosh tasks` and identify the errand task
@@ -154,7 +158,7 @@ Once the deployment is not `failing` you can [re-run the errand](#upgrade-all) t
 If no logs are being emitted by the on-demand broker, check that your syslog forwarding address is correct in Ops Manager.
 
 1. Ensure you have configured syslog for the tile
-1. Ensure that you have network connectivity between the networks the tile is using and the syslog destination. If the destination is external then you will need to use the [public ip](https://docs.pivotal.io/svc-sdk/odb/0-14/tile.html#public-ip) vm extension feature available in your Ops Manager tile configuration settings.
+1. Ensure that you have network connectivity between the networks the tile is using and the syslog destination. If the destination is external then you will need to use the [public ip](https://docs.pivotal.io/svc-sdk/odb/0-14/tile.html#public-ip) VM extension feature available in your Ops Manager tile configuration settings.
 
 To verify if metrics are being emitted to the Firehose:
 
@@ -205,15 +209,17 @@ Guidance on checking for and fixing issues in the ODB components.
 
 #### <a id="no-bosh-uuid"></a>Missing BOSH Director UUID
 
-If using the BOSH v1 CLI you need to re-add the director\_uuid to the manifest
-```
-bosh status --uuid
-```
-Edit the manifest and add the `director_uuid: ` from the previous command at the top of the manifest. For more, see https://bosh.io/docs/manifest-v2.html#deployment 
+If using the BOSH v1 CLI you need to re-add the director\_uuid to the manifest:
+
+1. Run `bosh status --uuid` and record the `director_uuid` value from the output.
+
+1. Edit the manifest and add the `director_uuid: DIRECTOR-UUID` from the last step at the top of the manifest.
+
+For more, [Deployment Identification](https://bosh.io/docs/manifest-v2.html#deployment) in the BOSH docs.
 
 #### <a id="large-queue"></a>Large BOSH Queue
 
-OpsManager currently deploys two BOSH workers. On-demand service brokers will add tasks to the BOSH queue. Until the workers reach the queued items the application developer will see `create in progess` in the cf CLI. 
+OpsManager currently deploys two BOSH workers. On-demand service brokers will add tasks to the BOSH queue. Until the workers reach the queued items the application developer will see `create in progress` in the cf CLI. 
 
 The number of BOSH workers will become configurable in future version of OpsManager.
 
@@ -227,9 +233,9 @@ You may have configured a VM / Disk type in tile plan page in OpsManager that is
 
 #### <a id="uaa-change"></a>UAA Changes
 
-If you have rotated any UAA users credentials then you may see authenticiatin issues in the service broker logs. 
+If you have rotated any UAA users credentials then you may see authentication issues in the service broker logs. 
 
-To resolve this you should redeloy the service tile in OpsManager, which will provide the broker with the latest configuration.
+To resolve this you should redeploy the service tile in OpsManager, which will provide the broker with the latest configuration.
 
 <p class="note"><strong>Note</strong>: You must ensure that any changes to UAA credentials are reflected in the OpsManager <code>credentials</code> tab of the Elastic Runtime Tile.</p>
 
@@ -241,7 +247,7 @@ Common issues include:
 1. Network firewall rules are blocking connections from the service broker to the service instance. In OpsManager go into the tile and see the two networks that are configured in the networks tab. Ensure that these networks allow access to each other.
 1. Network firewall rules are blocking connections from the service network to the BOSH director network. Service instances must have access to the director so that the BOSH agents can report in.
 1. Cloud Foundry application security groups may not be configured to allow access to the service network. This is required to allow applications on the runtime to connect to services.
-1. There could also be a problem accessing BOSH’s UAA or the BOSH director. Follow network troubleshooting and check BOSH director is online
+1. There could also be a problem accessing BOSH’s UAA or the BOSH director. Follow network troubleshooting and check BOSH director is online.
 
 #### <a id="broker-to-instances"></a>Validate Service Broker Connectivity to Service Instances
 
@@ -255,12 +261,12 @@ You can use `cf ssh` to gain access to the application container and then attemp
 
 #### <a id="plan-quotas"></a>Plan Quota issues
 
-If you see the following error:
+If developers report errors such as:
 
-```
+<pre class="terminal">
 Message: Service broker error: The quota for this service plan has been exceeded. 
 Please contact your Operator for help.
-```
+</pre>
 
 1. Check your current plan quota 
 1. Increase the plan quota
@@ -271,12 +277,12 @@ Please contact your Operator for help.
 
 #### <a id="global-quotas"></a>Global Quota Issues
 
-If you see this error:
+If developers report errors such as:
 
-```
+<pre class="terminal">
 Message: Service broker error: The quota for this service has been exceeded. 
 Please contact your Operator for help.
-```
+</pre>
 
 1. Check your current global quota
 1. Increase the global quota 
@@ -299,7 +305,7 @@ For additional information
 $ bosh instances --ps --vitals
 </pre>
 
-If the VM is failing you will need to follow the service specific information, as any unadvised corrective actions (such as running bosh restart on a VM) may cause issues in the service instance.
+If the VM is failing you will need to follow the service specific information, as any unadvised corrective actions (such as running `bosh restart` on a VM) may cause issues in the service instance.
 
 ## <a id="techniques"></a>Techniques for Troubleshooting
 
@@ -307,7 +313,7 @@ Instructions on interacting with the on-demand service broker and on-demand serv
 
 ### <a id="parse-error"></a>Parse a CF Error Message
 
-Failed operations (create, update, bind, unbind, delete) will result in an error message that can be retrieved using the CF cli
+Failed operations (create, update, bind, unbind, delete) will result in an error message that can be retrieved using the cf CLI.
 
 <pre class="terminal">
 $ cf service myservice
@@ -334,7 +340,7 @@ Started: 2017-03-13T10:16:55Z
 Updated: 2017-03-13T10:17:58Z
 </pre>
 
-The information under the "Message" field can be used to debug further. Please provide this information to Pivotal Support when filing a ticket.
+You can use the information in the `Message` field to debug further. Please provide this information to Pivotal Support when filing a ticket.
 
 The `task-id` field maps to the BOSH task id. For further information on a failed BOSH task, use the `bosh task <task-id>` command in the BOSH CLI.
 
@@ -385,7 +391,7 @@ The archive generated by BOSH or Ops Manager will comprise the following logs:
 #### <a id="access-instance"></a>Access Service Instance Logs and VMs
 
 1. To target an individual service instance deployment, retrieve the 
-the guid of your service instance with the cf CLI command 
+the GUID of your service instance with the cf CLI command 
 ```
 $ cf service MY-SERVICE --guid
 ```
@@ -415,7 +421,7 @@ $ bosh ssh INSTANCE-ID
 
 ### <a id="broker-errands"></a>Run Service Broker Errands to Manage Brokers and Instances
 
-From the BOSH Director VM, you can run errands that manage service brokers and perform mass operations on multiple service instances. These service broker errands include:
+From the BOSH CLI, you can run service broker errands that manage the service brokers and perform mass operations on the service instances that the brokers created. These service broker errands include:
 
 * [`register-broker`](#register-broker) registers a broker with the Cloud Controller and lists it in the Marketplace
 * [`deregister-broker`](#deregister-broker) deregisters a broker with the Cloud Controller and removes it from the Marketplace
@@ -423,18 +429,25 @@ From the BOSH Director VM, you can run errands that manage service brokers and p
 * [`delete-all-service-instances`](#delete-all) deletes all instances of service
 * [`orphan-deployments`](#detect-orphans) detects "orphan" instances that are running on BOSH but not registered with the Cloud Controller
 
+Before running any of these errands, set the service broker manifest in the BOSH CLI by doing the following:
+    1. Run `bosh deployments`.
+    1. In the **Name** column of the output, look or `grep` for a string of the form `p-rabbit-GUID`. This is the unique identifier for the broker in BOSH.
+    1. Run `bosh download manifest RABBIT-BROKER-GUID BROKER-MANIFEST.yml` with the unique string from the previous step and any filename you want to give the broker deployment manifest.
+    1. Run `bosh deployment BROKER-MANIFEST.yml` to set the manifest for running broker errands.
+
+Download the BOSH manifest for the broker by runningDetermine the path to the manifest the service broker
 #### <a id="register-broker"></a>Register Broker
 
 This errand registers the broker with Cloud Foundry and enables access to plans in the service catalog. The errand should be run whenever the broker is re-deployed with new catalog metadata to update the Cloud Foundry catalog.
 
 Plans with disabled service access will not be visible to non-admin Cloud Foundry users (including Org Managers and Space Managers). Admin Cloud Foundry users can see all plans including those with disabled service access.
 
-The errand will do the following operations:
+The errand does the following:
 
-- Register the service broker with Cloud Controller
-- Enable service access for any plans that have the radio button set to `enabled` in the tile plan page.
-- Disable service access for any plans that have the radio button set to `disabled` in the tile plan page.
-- Do nothing for any for any plans that have the radio button set to `manual`
+- Registers the service broker with Cloud Controller
+- Enables service access for any plans that have the radio button set to `enabled` in the tile plan page.
+- Disables service access for any plans that have the radio button set to `disabled` in the tile plan page.
+- Does nothing for any for any plans that have the radio button set to `manual`
 
 To run this errand use the following BOSH command against the on-demand service broker deployment:
 
@@ -446,10 +459,10 @@ bosh run errand register-broker
 
 This errand deregisters a broker from Cloud Foundry. It requires that there are no existing service instances. You can use the [Delete All Service Instances errand](#delete-all) to delete any existing service instances that are problematic.
 
-The errand will do the following operations:
+The errand does the following:
 
-- Delete the service broker from Cloud Controller
-- Fail if there are any service instances, with or without bindings
+- Deletes the service broker from Cloud Controller
+- Fails if there are any service instances, with or without bindings
 
 To run this errand use the following BOSH command against the on-demand service broker deployment:
 
@@ -473,7 +486,7 @@ The errand will do the following operations:
 - For each instance the errand will serially:
   - Issue an upgrade command to the on-demand broker 
   - The on-demand broker will re-generate the service instance manifest based on its latest configuration from the tile.
-  - The on-demand broker will deploy the new mainfest for the service instance.
+  - The on-demand broker will deploy the new manifest for the service instance.
   - The errand will wait for this operation to complete, then proceed to the next instance.
 - Any instances that have ongoing BOSH tasks at the time of upgrade will be added to a retry list.
 - Any instances in the retry list will be retried at the end of the errand until all are upgraded.
@@ -538,11 +551,11 @@ bosh delete deployment service-instance_$GUID
 
 ### <a id="instance-deployment"></a>Get the BOSH Deployment for a Service Instance
 
-1. Retrieve the the guid of your service instance with the CF CLI command
+1. Retrieve the the GUID of your service instance with the CF CLI command
 ```
 $ cf service {YOUR_SERVICE} --guid
 ```
-2. Pre-pend the text `service_instance-` to the guid you just obtained to create the ID that BOSH uses for your service instance (e.g. if your guid is `1Hy6H`, this becomes `service_instance-1Hy6H`).
+2. Pre-pend the text `service_instance-` to the GUID you just obtained to create the ID that BOSH uses for your service instance (e.g. if your GUID is `1Hy6H`, this becomes `service_instance-1Hy6H`).
 
 3. Download your bosh manifest for the service using
 ```
@@ -617,7 +630,7 @@ cf curl /v2/spaces/$space_guid/managers
 
 ### <a id="monitor-quota"></a>Monitor Quota Saturation and Service Instance Count
 
-Quota saturation and total number of service instances are available via ODB metrics emitted to loggregator. The metric names are shown below:
+Quota saturation and total number of service instances are available via ODB metrics emitted to Loggregator. The metric names are shown below:
 
 | **Metric Name**                                                           | **Description**                                           |
 |---------------------------------------------------------------------------|-----------------------------------------------------------|
