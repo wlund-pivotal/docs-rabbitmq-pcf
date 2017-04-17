@@ -22,15 +22,15 @@ Start here if you're responding to a specific errors or error messages.
 
 ### <a id="install-fail"></a>Failed Install
 
-1. Certificate issues - the on-demand broker (ODB) requires valid certificates. Ensure that your certificates are valid and [generate new ones](http://docs.pivotal.io/p-mysql/credential-rotation.html) if necessary. 
-1. Deploy fails - Deploys can fail for a variety of reasons. View the logs via Ops Manager to determine why the deploy is failing.
-1. [Networking problems](#network) - These can occur when:
+1. Certificate issues: The on-demand broker (ODB) requires valid certificates. Ensure that your certificates are valid and [generate new ones](http://docs.pivotal.io/p-mysql/credential-rotation.html) if necessary. 
+1. Deploy fails: Deploys can fail for a variety of reasons. View the logs using Ops Manager to determine why the deploy is failing.
+1. [Networking problems](#network): 
     - Cloud Foundry cannot reach the service broker
     - Cloud Foundry cannot reach the service instances
     - The service network cannot access the BOSH director 
 1. [Register broker errand](#register-broker) fails.
-1. The smoke test errand failed.
-1. Resource sizing issues - These occur when the resource sizes selected for a given plan are less than the service requires to function. Check your resource configuration in Ops Manager and ensure that the configuration matches that recommended by the service.
+1. The smoke test errand fails.
+1. Resource sizing issues: These occur when the resource sizes selected for a given plan are less than the service requires to function. Check your resource configuration in Ops Manager and ensure that the configuration matches that recommended by the service.
 1. Other service-specific issues.
 
 ### <a id="cannot-create-delete"></a>Cannot Create or Delete Service Instances
@@ -141,7 +141,7 @@ Once the Ops Manager log no longer lists the deployment as `failing`, [re-run th
 
 ### <a id="upgrade-all-too-long"></a>Upgrade All Instances Takes a Long Time
 
-1. Depending on your IaaS and the number of service instances, the [`upgrade-all-service-instances`](#upgrade-all) task takes ~15-20 minutes per instance if you changed IaaS resources and ~5-10 minutes per instance if you reconfigured BOSH releases.
+1. Depending on your IaaS and the number of service instances, the [`upgrade-all-service-instances`](#upgrade-all) task takes 15-20 minutes per instance if you changed IaaS resources and 5-10 minutes per instance if you reconfigured BOSH releases.
 1. To calculate how long the errand should take, multiply the number of instances by 20 minutes. 
 1. If the errand goes on for much longer than this, you may want to:
    - `ssh` onto the errand VM
@@ -185,7 +185,7 @@ For more, see [Deployment Identification](https://bosh.io/docs/manifest-v2.html#
 
 #### <a id="large-queue"></a>Large BOSH Queue
 
-On-demand service brokers add tasks to the BOSH request queue, which can back up and cause delay under heavy loads. An app developer who requests a new service instance sees `create in progress` in the Cloud Foundry Command-Line Interface (cf CLI) until BOSH processes the queued request.
+On-demand service brokers add tasks to the BOSH request queue, which can back up and cause delay under heavy loads. An app developer who requests a new service instance sees `create in progress` in the Cloud Foundry Command Line Interface (cf CLI) until BOSH processes the queued request.
 
 Ops Manager currently deploys two BOSH workers to process its queue. Future versions of Ops Manager will let users configure the number of BOSH workers.
 
@@ -193,7 +193,7 @@ Ops Manager currently deploys two BOSH workers to process its queue. Future vers
 
 #### <a id="bosh-instance-fail"></a>Service instances in failing state
 
-You may have configured a VM / Disk type in tile plan page in Ops Manager that is too low for the service instance to start. Please see tile-specific guidance on resource requirements.
+You may have configured a VM / Disk type in tile plan page in Ops Manager that is insufficiently large for the service instance to start. See tile-specific guidance on resource requirements.
 
 ### <a id="auth"></a>Authentication
 
@@ -313,11 +313,11 @@ Started: 2017-03-13T10:16:55Z
 Updated: 2017-03-13T10:17:58Z
 </pre>
 
-Use the information in the `Message` field to debug further. Please provide this information to Pivotal Support when filing a ticket.
+Use the information in the `Message` field to debug further. Provide this information to Pivotal Support when filing a ticket.
 
 The `task-id` field maps to the BOSH task id. For further information on a failed BOSH task, use the `bosh task TASK-ID` command in the BOSH CLI.
 
-The `broker-request-guid` maps to the portion of the On-Demand Broker log containing the failed step. Access the broker log via your syslog aggregator, or access BOSH logs for the broker by typing `bosh logs broker 0`. If you have more than one broker instance, repeat this process for each instance.
+The `broker-request-guid` maps to the portion of the On-Demand Broker log containing the failed step. Access the broker log through your syslog aggregator, or access BOSH logs for the broker by typing `bosh logs broker 0`. If you have more than one broker instance, repeat this process for each instance.
 
 ### <a id="bosh-cf-access"></a>Access Broker and Instance Logs and VMs
 
@@ -332,7 +332,7 @@ Before following the procedures below, log into the [cf CLI](https://docs.pivota
 1. Run `bosh ssh INSTANCE-ID` to SSH onto the VM.
 1. Run `bosh logs INSTANCE-ID` to download broker logs.
 
-You can also [access logs via Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/troubleshooting.html#component_logs) by clicking on the **Logs** tab in the tile and downloading the broker logs.
+You can also [access logs using Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/troubleshooting.html#component_logs) by clicking on the **Logs** tab in the tile and downloading the broker logs.
 
 The archive generated by BOSH or Ops Manager includes the following logs:
 
@@ -517,7 +517,7 @@ If you have spotted a failing service instance deployment, you can identify whic
 
 ### <a id="monitor-quota"></a>Monitor Quota Saturation and Service Instance Count
 
-Quota saturation and total number of service instances are available via ODB metrics emitted to Loggregator. The metric names are shown below:
+Quota saturation and total number of service instances are available through ODB metrics emitted to Loggregator. The metric names are shown below:
 
 | **Metric Name**                                                           | **Description**                                           |
 |---------------------------------------------------------------------------|-----------------------------------------------------------|
@@ -530,9 +530,9 @@ Quota saturation and total number of service instances are available via ODB met
 
 ## <a id="support"></a>File a Support Ticket
 
-You can file a support ticket [here](https://support.pivotal.io/). Please be sure to provide the [error message](#parse-error) from `cf service YOUR-SERVICE-INSTANCE`.
+You can file a support ticket [here](https://support.pivotal.io/). Be sure to provide the [error message](#parse-error) from `cf service YOUR-SERVICE-INSTANCE`.
 
-To help expedite troubleshooting, please also provide your [service broker logs](#access-broker), your [service instance logs](#access-instance) and [BOSH task output](#parse-error), if your `cf service YOUR-SERVICE-INSTANCE` output includes a `task-id`.
+To help expedite troubleshooting, also provide your [service broker logs](#access-broker), your [service instance logs](#access-instance) and [BOSH task output](#parse-error), if your `cf service YOUR-SERVICE-INSTANCE` output includes a `task-id`.
 
 ## <a id="kb"></a>Knowledge Base (Community)
 
