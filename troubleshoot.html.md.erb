@@ -430,10 +430,11 @@ From the BOSH CLI, you can run service broker errands that manage the service br
 * [`orphan-deployments`](#detect-orphans) detects "orphan" instances that are running on BOSH but not registered with the Cloud Controller
 
 Before running any of these errands, set the service broker manifest in the BOSH CLI by doing the following:
-    1. Run `bosh deployments`.
-    1. In the **Name** column of the output, look or `grep` for a string of the form `p-rabbit-GUID`. This is the unique identifier for the broker in BOSH.
-    1. Run `bosh download manifest RABBIT-BROKER-GUID BROKER-MANIFEST.yml` with the unique string from the previous step and any filename you want to give the broker deployment manifest.
-    1. Run `bosh deployment BROKER-MANIFEST.yml` to set the manifest for running broker errands.
+
+  1. Run `bosh deployments`.
+  1. In the **Name** column of the output, look or `grep` for a string of the form `p-rabbit-GUID`. This is the unique identifier for the broker in BOSH.
+  1. Run `bosh download manifest RABBIT-BROKER-GUID BROKER-MANIFEST.yml` with the unique string from the previous step and any filename you want to give the broker deployment manifest.
+  1. Run `bosh deployment BROKER-MANIFEST.yml` to set the manifest for running broker errands.
 
 Download the BOSH manifest for the broker by runningDetermine the path to the manifest the service broker
 #### <a id="register-broker"></a>Register Broker
