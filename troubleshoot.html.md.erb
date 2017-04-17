@@ -28,10 +28,10 @@ Start here if you're responding to a specific errors or error messages.
     - CF cannot reach the service broker
     - CF cannot reach the service instances
     - The service network cannot access the BOSH director 
-1. [Register broker errand](#register-broker) fails
-1. The Smoke test errand failed
+1. [Register broker errand](#register-broker) fails.
+1. The smoke test errand failed.
 1. Resource sizing issues - These occur when the resource sizes selected for a given plan are less than the service requires to function. Check your resource configuration in Ops Manager and ensure that the configuration matches that recommended by the service.
-1. Other service-specific issues
+1. Other service-specific issues.
 
 ### <a id="cannot-create-delete"></a>Cannot Create or Delete Service Instances
 
@@ -43,8 +43,8 @@ Instance provisioning failed: There was a problem completing your request. Pleas
 
 [Log in to BOSH](https://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare) and target the service instance using the instructions on [parsing a CF error message](#parse-error).
 
-Retrieve the bosh task ID and run
-`bosh task TASK-ID`
+Retrieve the BOSH task ID from the error message and run
+`bosh task TASK-ID`.
 
 If the BOSH error shows a problem with the deployment manifest:
 
@@ -71,11 +71,11 @@ Server error, status code: 504, error code: 10001, message: The request to the s
 
 1. Validate that CF has [network connectivity to the service broker](#network). 
 1. Check the BOSH queue size:
-    -Login to BOSH as the admin user
-    -Run `bosh tasks`
+    - Log into BOSH as the admin user
+    - Run `bosh tasks`
 1. If there are a large number of queued tasks then the system may be under load. BOSH is configured with two workers and one status worker. Advise app developers to try again later once the system is under less load.
 
-In the future PCF OpsManager will support configuring the number of BOSH workers available to the system.
+In the future, Ops Manager will support configuring the number of BOSH workers available to the system.
 
 ### <a id="cannot-bind"></a>Cannot Bind to or Unbind from Service Instances
 
@@ -93,7 +93,7 @@ Server error, status code: 502, error code: 10001, message: Service broker error
 
 1. Run `bosh vms INSTANCE-GUID` with the service instance ID from the last step.
 
-If the bosh deployment is not found then it has been deleted from BOSH. Contact Pivotal support for further assistance on recovery steps.
+If the bosh deployment is not found then it has been deleted from BOSH. Contact Pivotal support for further assistance on recovery.
 
 #### <a id="other-errors"></a>Other errors
 
@@ -113,9 +113,8 @@ To find out the exact issue with the binding process:
 
 1. Check for:
 
-    - [Authentication errors](#auth)
-
-    - [Network errors](#network)
+  - [Authentication errors](#auth)
+  - [Network errors](#network)
 
 ### <a id="cannot-connect"></a>Cannot Connect to a Service Instance
 
@@ -135,30 +134,30 @@ Make sure that these networks can access each other.
 
 ### <a id="upgrade-all-fails"></a>Upgrade All Instances Fails
 
-If the errand that upgrades all service instances fails, look at the errand output in the Ops Manager log.
+If the [`upgrade-all-service-instances`](#upgrade-all) errand fails, look at the errand output in the Ops Manager log.
 
-If an instance fails to upgrade, you should debug and fix it before proceeding with running the errand again. This is to stop any failure issues from spreading to other on-demand instances.
+If an instance fails to upgrade, debug and fix it before running the errand again to prevent any failure issues from spreading to other on-demand instances.
 
-Once the deployment is not `failing` you can [re-run the errand](#upgrade-all) to upgrade the rest of the instances. 
+Once the Ops Manager log no longer lists the deployment as `failing`, [re-run the errand](#upgrade-all) to upgrade the rest of the instances. 
 
 ### <a id="upgrade-all-too-long"></a>Upgrade All Instances Takes a Long Time
 
-1. Depending on the number of service instances the upgrade errands will take ~15-20 minutes per instance if changing any IaaS resources and ~5-10 minutes per instance for changing BOSH releases / configuration. This is IaaS dependant.
+1. Depending on your IaaS and the number of service instances, the [`upgrade-all-service-instances`](#upgrade-all) task takes ~15-20 minutes per instance if you changed IaaS resources and ~5-10 minutes per instance if you reconfigured BOSH releases.
 1. To calculate how long the errand should take, multiply the number of instances by 20 minutes. 
-1. If the errand goes on for much longer than this you may want do the following:
+1. If the errand goes on for much longer than this, you may want to:
    - `ssh` onto the errand VM
    - `cd /var/vcap/sys/log` and look for the errand output log
-   - `tail -f $log` and see if the errand is still attempting to upgrade instances. If it is then allow the errand to continue. If it appears to be stuck:
+   - `tail -f $log` and see if the errand is still attempting to upgrade instances. If it is, then allow the errand to continue. If it appears to be stuck:
     - `bosh tasks` and identify the errand task
     - `bosh cancel task $task_id`
-1. Then retry [running the errand](#upgrade-all)
+1. Then retry [running the errand](#upgrade-all).
 
 ### <a id="missing-logs"></a>Missing Logs and Metrics
 
 If no logs are being emitted by the on-demand broker, check that your syslog forwarding address is correct in Ops Manager.
 
-1. Ensure you have configured syslog for the tile
-1. Ensure that you have network connectivity between the networks the tile is using and the syslog destination. If the destination is external then you will need to use the [public ip](https://docs.pivotal.io/svc-sdk/odb/0-14/tile.html#public-ip) VM extension feature available in your Ops Manager tile configuration settings.
+1. Ensure you have configured syslog for the tile.
+1. Ensure that you have network connectivity between the networks that the tile is using and the syslog destination. If the destination is external, you need to use the [public ip](https://docs.pivotal.io/svc-sdk/odb/0-14/tile.html#public-ip) VM extension feature available in your Ops Manager tile configuration settings.
 
 To verify if metrics are being emitted to the Firehose:
 
@@ -168,38 +167,9 @@ To verify if metrics are being emitted to the Firehose:
 $ cf nozzle -f ValueMetric | grep --line-buffered “on-demand-broker/my-service” 
 </pre>
 
-If no metrics appear within 5 minutes:
-Verify that the broker network has access to the loggregator system, on all required ports. [Contact Pivotal support](#filing-a-support-ticket) if you are unable to resolve the issue. 
+If no metrics appear within five minutes, verify that the broker network has access to the Loggregator system on all required ports.
 
-### <a id="orphan"></a>Orphaned Instances
-
-The deployment for a service instance is defined as _orphaned_ when the BOSH deployment is still running, but the service is no longer registered in Cloud Foundry.
-
-The `orphan-deployments` errand will collate a list of service deployments that have no matching service instances in Cloud Foundry and return the list to the operator. It is then up to the operator to remove the orphaned bosh deployments.
-
-To run this errand use the following BOSH command against the on-demand service broker deployment:
-<pre class="terminal">
-$ bosh run errand orphan-deployments
-</pre>
-
-If orphan deployments are present, the errand will output a list of deployment names:
-<pre class="terminal">
-[stdout]
-[{"deployment_name":"service-instance_aoeu39fgn-8125-05h2-9023-9vbxf7676f3"}]
-
-[stderr]
-None
-
-Errand 'orphan-deployments' completed successfully (exit code 0)
-</pre>
-
-To clean up orphaned instances you can perform the following action on each:
-<pre class="terminal">
-$ bosh delete deployment service-instance_$GUID
-</pre>
-<p class="note warning">
-<strong>WARNING: </strong> This may leave IaaS resources in an unusable state.
-</p>
+[Contact Pivotal support](#support) if you are unable to resolve the issue. 
 
 ## <a id="components"></a>Troubleshooting Components
 
@@ -313,7 +283,7 @@ Instructions on interacting with the on-demand service broker and on-demand serv
 
 ### <a id="parse-error"></a>Parse a CF Error Message
 
-Failed operations (create, update, bind, unbind, delete) will result in an error message that can be retrieved using the cf CLI.
+Failed operations (create, update, bind, unbind, delete) result in an error message. You can retrieve the error message later by running the cf CLI command `cf service INSTANCE-NAME`.
 
 <pre class="terminal">
 $ cf service myservice
@@ -515,21 +485,19 @@ To run this errand use the following BOSH command against the on-demand service 
 bosh run errand delete-all-service-instances
 ```
 
-#### <a id="detect-orphans"></a>Detect Orphaned Service Instances 
+### <a id="detect-orphans"></a>Detect Orphaned Instances Service Instances
 
 A service instance is defined as ‘orphaned’ when the BOSH deployment for the instance is still running, but the service is no longer registered in Cloud Foundry.
 
-The orphan-deployments errand will collate a list of service deployments that have no matching service instances in Cloud Foundry and return the list to the operator. It is then up to the operator to remove the orphaned bosh deployments.
+The `orphan-deployments` errand collates a list of service deployments that have no matching service instances in Cloud Foundry and return the list to the operator. It is then up to the operator to remove the orphaned bosh deployments.
 
 To run this errand use the following BOSH command against the on-demand service broker deployment:
-
-```
-bosh run errand orphan-deployments
-```
+<pre class="terminal">
+$ bosh run errand orphan-deployments
+</pre>
 
 If orphan deployments are present, the errand will output a list of deployment names:
-
-```
+<pre class="terminal">
 [stdout]
 [{"deployment_name":"service-instance_aoeu39fgn-8125-05h2-9023-9vbxf7676f3"}]
 
@@ -537,18 +505,15 @@ If orphan deployments are present, the errand will output a list of deployment n
 None
 
 Errand 'orphan-deployments' completed successfully (exit code 0)
-```
+</pre>
 
-To cleanup orphaned instances you can perform the following actions:
-
+To clean up orphaned instances you can perform the following action on each:
+<pre class="terminal">
+$ bosh delete deployment service-instance_$GUID
+</pre>
 <p class="note warning">
-<strong>WARNING: </strong> Deleting the bosh deployment will destroy the vm, any data present will be lost.
+<strong>WARNING: </strong> This may leave IaaS resources in an unusable state.
 </p>
-
-To delete the orphan deployment run the following BOSH command:
-```
-bosh delete deployment service-instance_$GUID
-```
 
 ### <a id="instance-deployment"></a>Get the BOSH Deployment for a Service Instance
 
@@ -644,12 +609,10 @@ Quota saturation and total number of service instances are available via ODB met
 
 ## <a id="support"></a>File a Support Ticket
 
-You can file a support ticket [here](https://support.pivotal.io/). Please be sure to provide the [error message](#parse-error) from 
-```
-$ cf service <your-service>
-``` 
-Please also provide your [service broker logs](#access-broker), your [service instance logs](#access-instance) and [BOSH task output](#parse-error), if a `task-id` is provided as part of the `cf service YOUR-SERVICE` output, to help expedite troubleshooting.
+You can file a support ticket [here](https://support.pivotal.io/). Please be sure to provide the [error message](#parse-error) from `cf service YOUR-SERVICE-INSTANCE`.
+
+To help expedite troubleshooting, please also provide your [service broker logs](#access-broker), your [service instance logs](#access-instance) and [BOSH task output](#parse-error), if your `cf service YOUR-SERVICE-INSTANCE` output includes a `task-id`.
 
 ## <a id="kb"></a>Knowledge Base (Community)
 
-Imagine a world where we autopopulate the first 10 hits from http://discuss.pivotal.io . For now, you'll just have to click on the link.
+Find the answer to your question and browse product discussions and solutions by searching the [Pivotal Knowledge Base](http://discuss.pivotal.io).
