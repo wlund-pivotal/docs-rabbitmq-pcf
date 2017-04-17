@@ -14,7 +14,7 @@ owner: London Services Enablement
     }
 </style>
 
-This topic provides operators with basic instructions for troubleshooting on-demand RabbitMQ&reg; for PCF.
+This topic provides operators with basic instructions for troubleshooting on-demand RabbitMQ&reg; for Pivotal Cloud Foundry (PCF).
 
 ## <a id="errors"></a>Troubleshooting Errors
 
@@ -22,11 +22,11 @@ Start here if you're responding to a specific errors or error messages.
 
 ### <a id="install-fail"></a>Failed Install
 
-1. Certificate issues - ODB requires valid certificates. Ensure that your certificates are valid and [generate new ones](http://docs.pivotal.io/p-mysql/1-9/credential-rotation.html) if necessary. 
+1. Certificate issues - the on-demand broker (ODB) requires valid certificates. Ensure that your certificates are valid and [generate new ones](http://docs.pivotal.io/p-mysql/credential-rotation.html) if necessary. 
 1. Deploy fails - Deploys can fail for a variety of reasons. View the logs via Ops Manager to determine why the deploy is failing.
 1. [Networking problems](#network) - These can occur when:
-    - CF cannot reach the service broker
-    - CF cannot reach the service instances
+    - Cloud Foundry cannot reach the service broker
+    - Cloud Foundry cannot reach the service instances
     - The service network cannot access the BOSH director 
 1. [Register broker errand](#register-broker) fails.
 1. The smoke test errand failed.
@@ -41,7 +41,7 @@ If developers report errors such as the following:
 Instance provisioning failed: There was a problem completing your request. Please contact your operations team providing the following information: service: redis-acceptance, service-instance-guid: ae9e232c-0bd5-4684-af27-1b08b0c70089, broker-request-id: 63da3a35-24aa-4183-aec6-db8294506bac, task-id: 442, operation: create
 </pre>
 
-[Log in to BOSH](https://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare) and target the service instance using the instructions on [parsing a CF error message](#parse-error).
+[Log in to BOSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare) and target the service instance using the instructions on [parsing a Cloud Foundry error message](#parse-error).
 
 Retrieve the BOSH task ID from the error message and run
 `bosh task TASK-ID`.
@@ -66,10 +66,10 @@ Check for:
 If developers report errors such as:
 
 <pre class="terminal">
-Server error, status code: 504, error code: 10001, message: The request to the service broker timed out: https://$broker_url/v2/service_instances/e34046d3-2379-40d0-a318-d54fc7a5b13f/service_bindings/aa635a3b-ef6d-41c3-a23f-55752f3f651b
+Server error, status code: 504, error code: 10001, message: The request to the service broker timed out: https://BROKER-URL/v2/service_instances/e34046d3-2379-40d0-a318-d54fc7a5b13f/service_bindings/aa635a3b-ef6d-41c3-a23f-55752f3f651b
 </pre>
 
-1. Validate that CF has [network connectivity to the service broker](#network). 
+1. Validate that Cloud Foundry (CF) has [network connectivity to the service broker](#network). 
 1. Check the BOSH queue size:
     - Log into BOSH as the admin user
     - Run `bosh tasks`
@@ -112,7 +112,6 @@ To find out the exact issue with the binding process:
 1. Contact Pivotal support for further assistance if you are unable to resolve the problem.
 
 1. Check for:
-
   - [Authentication errors](#auth)
   - [Network errors](#network)
 
@@ -122,7 +121,7 @@ If developers report that their app cannot use service instances that they have 
 
 Ask the user to send application logs that show the connection error. If the error is originating from the service, then follow service-specific instructions. If the issue appears to be network-related, then:
 
-1. Check that [application security groups](https://docs.cloudfoundry.org/adminguide/app-sec-groups.html) are configured correctly.
+1. Check that [application security groups](https://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) are configured correctly.
 Access should be configured for the service network that the tile is deployed to.
 
 1. Ensure that the network the PCF Elastic Runtime tile is deployed to has network access to the service network. You can find the network definition for this service network in the Ops Manager Director tile.
@@ -147,10 +146,10 @@ Once the Ops Manager log no longer lists the deployment as `failing`, [re-run th
 1. If the errand goes on for much longer than this, you may want to:
    - `ssh` onto the errand VM
    - `cd /var/vcap/sys/log` and look for the errand output log
-   - `tail -f $log` and see if the errand is still attempting to upgrade instances. If it is, then allow the errand to continue. If it appears to be stuck:
+   - `tail -f LOG` and see if the errand is still attempting to upgrade instances. If it is, then allow the errand to continue. If it appears to be stuck:
     - `bosh tasks` and identify the errand task
-    - `bosh cancel task $task_id`
-1. Then retry [running the errand](#upgrade-all).
+    - `bosh cancel task TASK-ID`
+1. Retry [running the errand](#upgrade-all).
 
 ### <a id="missing-logs"></a>Missing Logs and Metrics
 
@@ -158,13 +157,10 @@ If no logs are being emitted by the on-demand broker, check that your syslog for
 
 1. Ensure you have configured syslog for the tile.
 1. Ensure that you have network connectivity between the networks that the tile is using and the syslog destination. If the destination is external, you need to use the [public ip](https://docs.pivotal.io/svc-sdk/odb/0-14/tile.html#public-ip) VM extension feature available in your Ops Manager tile configuration settings.
-
-To verify if metrics are being emitted to the Firehose:
-
-1. Install the [`cf nozzle` plugin](https://github.com/cloudfoundry/firehose-plugin)
-1. `grep` the output of `cf nozzle` for the name of your service: 
-<pre class="terminal">
-$ cf nozzle -f ValueMetric | grep --line-buffered “on-demand-broker/my-service” 
+1. Verify that the Firehose is emitting metrics:
+    1. Install the [`cf nozzle` plugin](https://github.com/cloudfoundry/firehose-plugin)
+    1. Run `cf nozzle -f ValueMetric | 
+    grep --line-buffered "on-demand-broker/MY-SERVICE"` to find logs from your service in the `cf nozzle` output. 
 </pre>
 
 If no metrics appear within five minutes, verify that the broker network has access to the Loggregator system on all required ports.
@@ -173,7 +169,7 @@ If no metrics appear within five minutes, verify that the broker network has acc
 
 ## <a id="components"></a>Troubleshooting Components
 
-Guidance on checking for and fixing issues in the ODB components.
+Guidance on checking for and fixing issues in on-demand service components.
 
 ### <a id="bosh"></a>BOSH problems
 
@@ -189,7 +185,7 @@ For more, see [Deployment Identification](https://bosh.io/docs/manifest-v2.html#
 
 #### <a id="large-queue"></a>Large BOSH Queue
 
-On-demand service brokers add tasks to the BOSH request queue, which can back up and cause delay under heavy loads. An app developer who requests a new service instance sees `create in progress` in the cf CLI until BOSH processes the queued request.
+On-demand service brokers add tasks to the BOSH request queue, which can back up and cause delay under heavy loads. An app developer who requests a new service instance sees `create in progress` in the Cloud Foundry Command-Line Interface (cf CLI) until BOSH processes the queued request.
 
 Ops Manager currently deploys two BOSH workers to process its queue. Future versions of Ops Manager will let users configure the number of BOSH workers.
 
@@ -288,7 +284,7 @@ If the VM is failing. follow the service-specific information. Any unadvised cor
 
 Instructions on interacting with the on-demand service broker and on-demand service instance BOSH deployments, and on performing general maintenance and housekeeping tasks
 
-### <a id="parse-error"></a>Parse a CF Error Message
+### <a id="parse-error"></a>Parse a Cloud Foundry (CF) Error Message
 
 Failed operations (create, update, bind, unbind, delete) result in an error message. You can retrieve the error message later by running the cf CLI command `cf service INSTANCE-NAME`.
 
@@ -325,18 +321,18 @@ The `broker-request-guid` maps to the portion of the On-Demand Broker log contai
 
 ### <a id="bosh-cf-access"></a>Access Broker and Instance Logs and VMs
 
-Before following the procedures below, log into the [cf CLI](https://docs.cloudfoundry.org/cf-cli/getting-started.html) and the [BOSH CLI](https://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare).
+Before following the procedures below, log into the [cf CLI](https://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html) and the [BOSH CLI](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
 
 #### <a id="access-broker"></a>Access Broker Logs and VM(s)
 
-1. Run `bosh deployments` to identify the ODB deployment.
+1. Run `bosh deployments` to identify the on-demand broker (ODB) deployment.
 1. Run `bosh download manifest ODB-DEPLOYMENT-NAME odb.yml` to download the ODB manifest. 
 1. Select the ODB deployment using `bosh deployment odb.yml`.
 1. View VMs in the deployment using `bosh instances`.
 1. Run `bosh ssh INSTANCE-ID` to SSH onto the VM.
 1. Run `bosh logs INSTANCE-ID` to download broker logs.
 
-You can also [access logs via Ops Manager](https://docs.pivotal.io/pivotalcf/1-9/customizing/troubleshooting.html#component_logs) by clicking on the **Logs** tab in the tile and downloading the broker logs.
+You can also [access logs via Ops Manager](https://docs.pivotal.io/pivotalcf/customizing/troubleshooting.html#component_logs) by clicking on the **Logs** tab in the tile and downloading the broker logs.
 
 The archive generated by BOSH or Ops Manager includes the following logs:
 
@@ -385,7 +381,7 @@ Before running any of these errands, set the service broker manifest in the BOSH
 
 This errand registers the broker with Cloud Foundry and enables access to plans in the service catalog. The errand should be run whenever the broker is re-deployed with new catalog metadata to update the Cloud Foundry catalog.
 
-Plans with disabled service access will not be visible to non-admin Cloud Foundry users (including Org Managers and Space Managers). Admin Cloud Foundry users can see all plans including those with disabled service access.
+Plans with disabled service access are not visible to non-admin Cloud Foundry users (including Org Managers and Space Managers). Admin Cloud Foundry users can see all plans including those with disabled service access.
 
 The errand does the following:
 
@@ -413,29 +409,29 @@ If you have made changes to the plan definition or uploaded a new tile into OpsM
 
 To do this you can either select the errand through the OpsManager UI and have this happen along with the `apply-changes` action or run the errand directly with the command `bosh run errand upgrade-all-service-instances` after you have selected the broker deployment with `bosh deployment`.
 
-The errand will do the following operations:
+The errand does the following:
 
-- Collect all of the service instances the on-demand broker has registered
-- For each instance the errand will serially:
-  - Issue an upgrade command to the on-demand broker 
-  - The on-demand broker will re-generate the service instance manifest based on its latest configuration from the tile.
-  - The on-demand broker will deploy the new manifest for the service instance.
-  - The errand will wait for this operation to complete, then proceed to the next instance.
-- Any instances that have ongoing BOSH tasks at the time of upgrade will be added to a retry list.
-- Any instances in the retry list will be retried at the end of the errand until all are upgraded.
-- If any instance fails to upgrade the errand will fail immediately.
-  - This prevents any systemic problem from spreading to the rest of your service instances. 
+- Collects all of the service instances the on-demand broker has registered.
+- For each instance the errand serially:
+  - Issues an upgrade command to the on-demand broker.
+  - Re-generates the service instance manifest based on its latest configuration from the tile.
+  - Deploys the new manifest for the service instance.
+  - Waits for this operation to complete, then proceeds to the next instance.
+- Adds to a retry list any instances that have ongoing BOSH tasks at the time of upgrade.
+- Retries any instances in the retry list until all are upgraded.
+
+If any instance fails to upgrade, the errand fails immediately. This prevents  systemic problems from spreading to the rest of your service instances. 
 
 #### <a id="delete-all"></a>Delete All Service Instances
 
 This errand deletes all service instances of your broker’s service offering in every org and space of Cloud Foundry. It uses the Cloud Controller API to do this, and therefore only deletes instances the Cloud Controller knows about. It will not delete orphan BOSH deployments: those that don’t correspond to a known service instance. Orphan BOSH deployments should never happen, but in practice they might. Use the orphan-deployments errand to identify them.
 
-The errand will do the following operations:
+The errand does the following:
 
-- Unbind all applications from the service instances
-- Delete all service instances sequentially
-- Check if any instances have been created while the errand was running
-- If instances are detected the errand will fail 
+- Unbinds all applications from the service instances.
+- Deletes all service instances sequentially.
+- Checks if any instances have been created while the errand was running.
+    - If newly-created instances are detected, the errand fails.
 
 <p class="note warning">
 <strong>WARNING: </strong> This errand should only be used with extreme caution when you want to totally destroy all of the on-demand service instances in an environment.
@@ -453,18 +449,13 @@ Run this errand with the command `bosh run errand orphan-deployments` after you 
 
 If orphan deployments exist, the errand outputs a list of deployment names:
 <pre class="terminal">
-[stdout]
-[{"deployment_name":"service-instance_aoeu39fgn-8125-05h2-9023-9vbxf7676f3"}]
-
-[stderr]
-None
-
+[{"deployment\_name":"service-instance\_aoeu39fgn-8125-05h2-9023-9vbxf7676f3"}]
 Errand 'orphan-deployments' completed successfully (exit code 0)
 </pre>
 
 To clean up orphaned instances, perform the following action on each:
 <pre class="terminal">
-$ bosh delete deployment service-instance_$GUID
+$ bosh delete deployment SERVICE-INSTANCE-GUID
 </pre>
 <p class="note warning">
 <strong>WARNING: </strong> This may leave IaaS resources in an unusable state.
@@ -483,7 +474,7 @@ $ bosh delete deployment service-instance_$GUID
 ### <a id="instance-creds"></a>Get Admin Credentials for a Service Instance
 
 1. [Identify the service deployment by GUID](#instance-deployment).
-2. [Log into BOSH](https://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare).
+2. [Log into BOSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#prepare).
 3. [Download the manifest for the service instance](#access-instance) and add the GUID if using the v1 BOSH CLI.
 4. Look in the manifest for the credentials, as described in the service documentation.
 
@@ -495,7 +486,7 @@ To reinstall a tile in the same environment where it was previously uninstalled:
     1. `cf login` as an admin user.
     1. Run `cf m` and confirm that the Marketplace does not list the service.
     1. `bosh login` as an admin user.
-    1. Run `bosh deployments` and confirm that its output does not show a deployment for the service. For example no `p-concourse-$guid` deployment exists.
+    1. Run `bosh deployments` and confirm that its output does not show a deployment for the service. For example no `p-concourse-GUID` deployment exists.
 1. Run the [`delete-all-service-instances`](#delete-all) errand to delete all instances of the service.
 1. Run the [`deregister-broker`](#deregister-broker) errand to delete the service broker.
 1. Run `bosh delete deployment YOUR-BROKER-DEPLOYMENT` to delete the service broker BOSH deployment.
