@@ -2,7 +2,9 @@
 
 ### Branch Management
 
-**master** - all documentation for the next unreleased version of **RabbitMQ** should land in master. Any changes on this branch will not be displayed publicly until a **minor** branch is cut, and an update to [docs-book-pcfservices][docs-book-pcfservices] is done (To be documented).
+**master** - all documentation for the next unreleased version of **RabbitMQ** should land in master. Any changes on this branch will not be displayed publicly until a **minor** branch is cut, and an update to [docs-book-rabbitmq][docs-book-rabbitmq] is done (To be documented).
+
+**1.8-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-7](http://docs.pivotal.io/rabbitmq-cf/1-8/).
 
 **1.7-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-7](http://docs.pivotal.io/rabbitmq-cf/1-7/).
 
@@ -10,7 +12,7 @@
 
 **1.5-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-5](http://docs.pivotal.io/rabbitmq-cf/1-5/).
 
-[docs-book-pcfservices]: https://github.com/pivotal-cf/docs-book-pcfservices/blob/master/config.yml
+[docs-book-rabbitmq]: https://github.com/pivotal-cf/docs-book-rabbitmq/blob/master/config.yml
 
 ### Staging Environment
 
@@ -20,7 +22,7 @@ that the **master** docs are deployed to an [obfuscated url path][docs-staging-m
 
 [docs-staging-deploy]: https://p-concourse.wings.cf-app.com/teams/system-team-docs-docs-1-88aa/pipelines/cf-services?groups=rabbitmq
 [docs-staging-master]: http://docs-pcf-staging.cfapps.io/rabbitmq-cf-d34379b0-a290-47c7-bc6c-c45a9adfa8c7/
-[docs-staging]: http://docs-pcf-staging.cfapps.io/rabbitmq-cf-d34379b0-a290-47c7-bc6c-c45a9adfa8c7/
+[docs-staging]:        http://docs-pcf-staging.cfapps.io/rabbitmq-cf/
 
 ### Making Your Documentation Changes Live
 
