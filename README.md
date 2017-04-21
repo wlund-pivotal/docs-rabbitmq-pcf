@@ -20,7 +20,7 @@ When a commit is made into any of the above branches, the documentation is deplo
 versions will be accessible on the [staging website][docs-staging] One caveat is
 that the **master** docs are deployed to an [obfuscated url path][docs-staging-master].
 
-[docs-staging-deploy]: https://p-concourse.wings.cf-app.com/teams/system-team-docs-docs-1-88aa/pipelines/cf-services?groups=rabbitmq
+[docs-staging-deploy]: https://wings.concourse.ci/teams/cf-docs/pipelines/cf-services?groups=rabbitmq
 [docs-staging-master]: http://docs-pcf-staging.cfapps.io/rabbitmq-cf-d34379b0-a290-47c7-bc6c-c45a9adfa8c7/
 [docs-staging]:        http://docs-pcf-staging.cfapps.io/rabbitmq-cf/
 
