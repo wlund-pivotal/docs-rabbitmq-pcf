@@ -32,13 +32,11 @@ Start here if you're responding to a specific errors or error messages.
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-timeouts' %>
 
-### <a id="cannot-bind"></a>Cannot Bind to or Unbind from Service Instances
-
-#### <a id="instance-not-exist"></a>Instance Does Not Exist
+### <a id="cannot-bind"></a>Cannot Bind - Instance Does Not Exist
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-instance-not-exist' %>
 
-#### <a id="other-errors"></a>Other Errors
+### <a id="other-errors"></a>Cannot Bind - Other Errors
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-other-errors' %>
 
@@ -58,25 +56,21 @@ Start here if you're responding to a specific errors or error messages.
 
 Guidance on checking for and fixing issues in on-demand service components.
 
-### <a id="bosh"></a>BOSH problems
-
-#### <a id="no-bosh-uuid"></a>Missing BOSH Director UUID
+### <a id="no-bosh-uuid"></a>Missing BOSH Director UUID
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-no-bosh-uuid' %>
 
-#### <a id="large-queue"></a>Large BOSH Queue
+### <a id="large-queue"></a>Large BOSH Queue
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-large-queue' %>
 
 ### <a id="bosh-config"></a>Configuration
 
-#### <a id="bosh-instance-fail"></a>Service instances in failing state
+### <a id="bosh-instance-fail"></a>BOSH Service Instances Failing
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-bosh-instance-fail' %>
 
-### <a id="auth"></a>Authentication
-
-#### <a id="uaa-change"></a>UAA Changes
+### <a id="uaa-change"></a>UAA Changes
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-uaa-change' %>
 
@@ -84,25 +78,23 @@ Guidance on checking for and fixing issues in on-demand service components.
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-network' %>
 
-#### <a id="broker-to-instances"></a>Validate Service Broker Connectivity to Service Instances
+### <a id="broker-to-instances"></a>Validate Service Broker Connectivity to Service Instances
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-broker-to-instances' %>
 
-#### <a id="app-to-instances"></a>Validate App Access to Service Instance
+### <a id="app-to-instances"></a>Validate App Access to Service Instance
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-app-to-instances' %>
 
-### <a id="quotas"></a>Quotas
-
-#### <a id="plan-quotas"></a>Plan Quota issues
+### <a id="plan-quotas"></a>Plan Quota issues
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-plan-quotas' %>
 
-#### <a id="global-quotas"></a>Global Quota Issues
+### <a id="global-quotas"></a>Global Quota Issues
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-global-quotas' %>
 
-#### <a id="failing-jobs"></a>Failing jobs and unhealthy instances
+### <a id="failing-jobs"></a>Failing Jobs and Unhealthy Instances
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-comp-failing-jobs' %>
 
@@ -146,7 +138,7 @@ Instructions on interacting with the on-demand service broker and on-demand serv
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-delete-all' %>
 
-## <a id="detect-orphans"></a>Detect Orphaned Instances Service Instances
+## <a id="detect-orphans"></a>Detect Orphaned Service Instances
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-tech-detect-orphans' %>
 
