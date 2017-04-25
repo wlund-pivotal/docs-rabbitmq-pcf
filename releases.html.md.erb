@@ -9,6 +9,33 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 ## <a id="18x"></a>v1.8.x
 
+### v1.8.1
+
+**Release Date:  April 26, 2017**
+
+* Requires stemcell 3363.15
+* This version of the tile can only be installed in an Ops Manager v1.9 and v1.10 environments
+
+Packages:
+
+* OSS RabbitMQ v3.6.9
+* Erlang v19.3
+* HAProxy v1.6.11
+
+Features included in this release:
+
+* Metrics emitted from Dedicated Instances
+
+<a id='known-issues'></a>Known Issues
+
+* `disk_free_limit` changed from `50MB` to `40%` of disk capacity. This may result
+  in <a href="https://www.rabbitmq.com/disk-alarms.html">disk alarms</a> being triggered
+* Deleting your RabbitMQ for PCF tile can timeout (1 hour) if many dedicated instances have been
+  deployed. Retrying will continue the cleanup process
+* Disabling the Dedicated Instances service plan will leave the plan enabled
+* Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
+* Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
+
 ### v1.8.0
 
 **Release Date:  April 15, 2017**
@@ -26,6 +53,15 @@ Features included in this release:
 
 * RabbitMQ for PCF as an on-demand service.
 * The free disk alarm is now triggered when 40% of the configured RAM limit is used.
+
+<a id='known-issues'></a>Known Issues
+
+* Allows changing of the **Marketplace name** for **Dedicated Instance**, which will be removed
+* disk_free_limit changed from 50MB to 40% of disk capacity. This may result in disk alarms being triggered
+* Deleting your RabbitMQ for PCF tile can timeout (1 hour) if many dedicated instances have been
+  deployed. Retrying will continue the cleanup process
+* Disabling the Dedicated Instances service plan will leave the plan enabled
+* Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
 
 ## <a id="17x"></a>v1.7.x
 

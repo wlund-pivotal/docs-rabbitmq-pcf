@@ -55,11 +55,11 @@ The following table provides version and version-support information about Rabbi
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v1.8.0</td>
+        <td>v1.8.1</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>April 13, 2017</td>
+        <td>April 26, 2017</td>
     </tr>
     <tr>
         <td>Software component version</td>
@@ -84,6 +84,7 @@ The following table provides version and version-support information about Rabbi
 ### On-Demand
 
 * Provision on-demand single node dedicated instances of RabbitMQ
+* Emit metrics for Dedicated Instances
 
 ### Pre-Provisioned
 
@@ -101,15 +102,13 @@ The following table provides version and version-support information about Rabbi
 
 ## <a id='known-issues'></a>Known Issues
 
-* Allows changing of the `Marketplace name` for **Dedicated Instance**, which will be removed
 * `disk_free_limit` changed from `50MB` to `40%` of disk capacity. This may result
   in <a href="https://www.rabbitmq.com/disk-alarms.html">disk alarms</a> being triggered
 * Deleting your RabbitMQ for PCF tile can timeout (1 hour) if many dedicated instances have been
   deployed. Retrying will continue the cleanup process
-* `port` and `vhost` are incorrect in the `credentials` section in `VCAP_SERVICES` environment
-  variable. The workaround is to only use the `uri` property
 * Disabling the Dedicated Instances service plan will leave the plan enabled
 * Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
+* Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
 
 ## <a id=''></a>Feedback
 
