@@ -27,7 +27,7 @@ RabbitMQ and HAProxy servers are configured to log at the <code>info</code> leve
 
 In RabbitMQ for PCF 1.6 and above, the key system components periodically emit heartbeats for RabbitMQ server nodes, HAProxy nodes, and the Service Broker. The heartbeats are Boolean metrics: <code>1</code> means the system is available, and <code>0</code> or the absence of a heartbeat metric means the service is not responding and should be investigated.
 
-The heartbeats are visible on the firehose and look as follows:
+The heartbeats are visible on the Firehose and look as follows:
 
 - HAProxy heartbeat: <code> "/p-rabbitmq/haproxy/heartbeat" value:1 unit:"boolean" </code>
 - RabbitMQ heartbeat: <code> "/p-rabbitmq/rabbitmq/heartbeat" value:1 unit:"boolean" </code>
@@ -35,23 +35,24 @@ The heartbeats are visible on the firehose and look as follows:
 
 ## <a id="metrics"></a>Metrics
 
-The PCF firehose exposes the RabbitMQ and HAProxy metrics, and can direct these metrics to an external endpoint of your choice.
+The PCF Firehose exposes the RabbitMQ and HAProxy metrics, and can direct these metrics to an external endpoint of your choice.
 
 ### Configuring Secure Communication
-RabbitMQ for PCF v1.7.13 adds the ability for the operator to turn on/off TLS communications for metrics, via a `Use non-secure communication for metrics` checkbox on the metrics configuration
-page in Ops Manager. You should configure this checkbox for different versions of PCF as follow:
 
-* **PCF v1.8**: This checkbox must be checked for metrics to be emitted to the
-Firehose.
+RabbitMQ for PCF v1.7.13 lets the operator turn on/off TLS communications for metrics, via a `Use non-secure communication for metrics` checkbox on the metrics configuration
+page in Ops Manager. Configure this checkbox for different versions of PCF as follows:
 
-* **PCF v1.9**: Metrics communications are secure by default but will work in a non-secure mode.
+* **PCF v1.8**: Select this checkbox to send metrics to the
+Firehose. 
 
-* **PCF v1.10 and later**: Metrics communications are secure by
-default so this checkbox must be unchecked for metrics to be emitted to the Firehose.
+* **PCF v1.9**: Clear this checkbox to send metrics to the Firehose securely, or select it to send metrics insecurely. 
+
+* **PCF v1.10 and later**: Clear this checkbox to send metrics to the Firehose and avoid errors. 
 
 ![Configuring Secure Metrics](Enable-TLS.png)
 
-If this checkbox is incorrectly set, this error `Cannot generate manifest for product RabbitMQ: Error in (( .properties.metrics_tls_disabled.value ? ..cf.etcd_server.ips : .properties.etcd_machines.parsed_strings )): unknown job "etcd_server" (Product "RabbitMQ" / Job: nil)` will be displayed:
+Setting this checkbox incorrectly can cause a `Cannot generate manifest... unknown property "cf_etcd_client_cert"` error:
+
 ![Configuring Secure Metrics error](TLS-error.png)
 
 ### Polling Interval
