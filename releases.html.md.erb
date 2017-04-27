@@ -15,6 +15,23 @@ For v1.7.x versions of RabbitMQ for PCF, see the [release notes](../1-7/releases
 
 Pivotal released v1.6.0 in May 2016, and the latest patch version is v1.6.18.
 
+### v1.6.19
+**Release Date: April 27, 2017**
+
+**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.6.10 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+
+* Requires stemcell v3312.24
+
+Packages:
+
+* OSS RabbitMQ v3.6.9
+* Erlang v19.3
+* HAProxy v1.6.4
+
+Features included in this release:
+
+* This is a security release addressed by a new stemcell
+
 ### v1.6.18
 **Release Date: March 31, 2017**
 
