@@ -22,13 +22,13 @@ This table summarizes the main differences between the two:
    <td>New for v1.8</td>
    <td>Dedicated VM that serves a single service instance</td>
    <td>PCF creates each VM on-demand when app developer creates service instance</td>
-   <td><code>p.rabbit</code> (with a dot)</td>
+   <td><code>p.rabbitmq</code> (with a dot) in future versions. As of v1.8.2, emitted as<code>p-rabbitmq</code>, a <a href="./releases.html#18x">known issue</a>.</td>
    </tr><tr>
    <th>Pre-Provisioned Service</th>
    <td>v1.2</td>
    <td>Multi-tenant VMs shared by apps across PCF deployment</td>
    <td>PCF creates all VMs when operator deploys or updates service</td>
-   <td><code>p-rabbit</code> (with a dash)</td>
+   <td><code>p-rabbitmq</code> (with a dash)</td>
    </tr>
 </table>
 
