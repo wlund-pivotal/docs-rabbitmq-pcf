@@ -112,3 +112,40 @@ The `credentials` property can be used as follows:
 
 ## How to provision a dedicated instance as an App Developer
 
+## Disk size concerns
+
+RabbitMQ raises alarms when disk space drops below the configured limit. Incorrect disk sizes could cause the deployed instance not to start (RabbitMQ decline to start if there is not enough space available according to the threshold).
+
+Dedicated instances are configured with a threshold set to the 40% of the memory (RAM) of the virtual machine. Operators can take the following table as an example when selecting the size of the persistent disk.
+
+The following table show an example of possible RAM values, absolute minimal value below which RabbitMQ will decline to start and the disk size suggested for an average use case.
+
+<table border="1" class="nice">
+  <tr>
+    <td>RAM</td>
+    <td>Free disk alarm threshold (0.4xRAM)</td>
+    <td>Suggested disk size (2xRAM)</td>
+  <tr>
+  <tr>
+    <td>10 GB</td>
+    <td>4 GB</td>
+    <td>20 GB</td>
+  <tr>
+  <tr>
+    <td>16 GB</td>
+    <td>6.4 GB</td>
+    <td>32 GB</td>
+  <tr>
+  <tr>
+    <td>32 GB</td>
+    <td>12.8 GB</td>
+    <td>64 GB</td>
+  <tr>
+</table>
+
+<%= image_tag("images/vm-ram-disk-example.png") %>
+
+### RabbitMQ documentation
+
+- [Alarms overview](http://www.rabbitmq.com/alarms.html)
+- [Disk Alarms](http://www.rabbitmq.com/disk-alarms.html)
