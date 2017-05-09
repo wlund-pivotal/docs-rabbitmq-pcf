@@ -13,7 +13,7 @@ On-demand RabbitMQ for PCF components generate many of the [same metrics](./moni
 
 <p class="note"><strong>Note</strong>: As of v1.8.2, on-demand RabbitMQ for PCF emits metrics prefixed with <code>p-rabbitmq</code>. In future releases they will be be prefixed with <code>p.rabbitmq</code> (with a dot), to distinguish them from pre-provisioned service metrics. This is a <a href="./releases.html#18x">known issue</a>.</p>
 
-See [Logging and Metrics](http://docs.pivotal.io/pivotalcf/loggregator/index.html) for general information about logging and metrics in PCF.
+For general information about logging and metrics in PCF, see [Logging and Metrics](http://docs.pivotal.io/pivotalcf/loggregator/index.html).
 
 ## <a id="config"></a>Direct the Logs
 
@@ -62,7 +62,7 @@ For a list of all RabbitMQ for PCF raw component metrics, see [Component Metrics
 
 ### <a id="heartbeats"></a>Component Heartbeats
 
-Key RabbitMQ for PCF components periodically emit heartbeat metrics: the RabbitMQ server nodes, HAProxy nodes, and the Service Broker. The heartbeats are Boolean metrics, where <code>1</code> means the system is available, and <code>0</code> or the absence of a heartbeat metric means the service is not responding and should be investigated.
+Key RabbitMQ for PCF components periodically emit heartbeat metrics: the RabbitMQ server nodes, HAProxy nodes, and the Service Broker. The heartbeats are Boolean metrics, where <code>1</code> means the system is available and <code>0</code> or the absence of a heartbeat metric means the service is not responding and should be investigated.
 
 #### <a id="broker-heartbeat"></a> Service Broker Heartbeat
 
@@ -140,7 +140,7 @@ The following KPIs from the RabbitMQ server component:
       <th width="25%">Description</th>
       <td>File descriptors consumed.<br><br>
    
-      <strong>Use</strong>: If the number of file descriptors consumed becomes too large, the VM may lose the ability to perform disk IO, which can cause data loss. 
+      <strong>Use</strong>: If the number of file descriptors consumed becomes too large, the VM may lose the ability to perform disk I/O, which can cause data loss. 
       <p class="note"><strong>Note</strong>: This assumes non-persistent messages are handled by retries or some other logic by the producers.</p>
       <strong>Origin</strong>: Doppler/Firehose<br>
       <strong>Type</strong>: count<br>
@@ -158,7 +158,7 @@ The following KPIs from the RabbitMQ server component:
    <tr>
       <th>Recommended response</th>
       <td>The default <code>ulimit</code> for RabbitMQ for PCF v1.6 and later is 60000. If this metric is met or exceeded for an extended period of time, consider one of the following actions:
-      <ul><li>Scaling the rabbit nodes in the tile <b>Resource Config</b> pane.</li>
+      <ul><li>Scaling the RabbitMQ nodes in the tile <b>Resource Config</b> pane.</li>
       <li>Increasing the <code>ulimit</code></li>
       </td>
    </tr>
@@ -210,7 +210,7 @@ All BOSH-deployed components generate the following system metrics. Coming from 
               In other words, "an empty rabbit is a happy rabbit." 
               Alerting on this metric can indicate that there are too few consumers or apps that read messages from the queue.
       <br><br>
-      Healthmonitor reports when  RabbitMQ uses more than 40% of its RAM for the past ten minutes. 
+      Healthmonitor reports when  RabbitMQ uses more than 40% of its RAM for the past 10 minutes. 
       <br><br>
       <strong>Origin</strong>: JMX Bridge or BOSH HM<br>
       <strong>Type</strong>: percent<br>
@@ -243,7 +243,7 @@ All BOSH-deployed components generate the following system metrics. Coming from 
       <strong>Use</strong>: A node that experiences context switching or high CPU usage will become unresponsive. 
       This also affects the ability of the node to report metrics.
       <br><br>
-      Healthmonitor reports when RabbitMQ uses more than 40% of its CPU for the past ten minutes.
+      Healthmonitor reports when RabbitMQ uses more than 40% of its CPU for the past 10 minutes.
       <br><br>
       <strong>Origin</strong>: JMX Bridge or BOSH HM<br>
       <strong>Type</strong>: percent<br>
@@ -271,10 +271,10 @@ All BOSH-deployed components generate the following system metrics. Coming from 
    <tr><th colspan="2" style="text-align: center;"><br> system.disk.percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Ephemeral Disk being consumed by the <code>p-rabbitmq</code> VM.<br><br>
+      <td>Ephemeral disk being consumed by the <code>p-rabbitmq</code> VM.<br><br>
       <strong>Use</strong>: If system disk fills up, there are too few consumers.
       <br><br>
-      Healthmonitor reports when RabbitMQ uses more than 40% of its CPU for the past ten minutes.
+      Healthmonitor reports when RabbitMQ uses more than 40% of its disk for the past 10 minutes.
       <br><br>
       <strong>Origin</strong>: JMX Bridge or BOSH HM<br>
       <strong>Type</strong>: percent<br>
@@ -302,10 +302,10 @@ All BOSH-deployed components generate the following system metrics. Coming from 
    <tr><th colspan="2" style="text-align: center;"><br> persistent.disk.percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Persistent Disk being consumed by the <code>p-rabbitmq</code> VM.<br><br>
+      <td>Persistent disk being consumed by the <code>p-rabbitmq</code> VM.<br><br>
       <strong>Use</strong>: If system disk fills up, there are too few consumers.
       <br><br>
-      Healthmonitor reports when RabbitMQ uses more than 40% of its CPU for the past ten minutes.
+      Healthmonitor reports when RabbitMQ uses more than 40% of its disk for the past 10 minutes.
       <br><br>
       <strong>Origin</strong>: JMX Bridge or BOSH HM<br>
       <strong>Type</strong>: percent<br>
