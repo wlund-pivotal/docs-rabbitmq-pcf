@@ -203,7 +203,6 @@ set up Ops Manager so the current set of dynamically assigned IPs will always co
 ## RabbitMQ Server settings that cannot be overwritten
 * `rabbit halt_on_upgrade_failure false`
 * `rabbitmq_mqtt subscription_ttl 1800000`
-* `rabbit disk_free_limit 50MB`
 * `log_levels [{connection,info}]`
 * `halt_on_upgrade_failure false`
 * `{rabbit, [ {collect_statistics_interval, 60000}] }`
@@ -218,6 +217,16 @@ When SSL is enabled:
 * `rabbitmq_stomp ssl_listeners [61614]`
 
 <%= image_tag("images/metrics_polling.png") %>
+
+#### Disk free alarm limit
+
+<%= image_tag("images/config_static_ip.png") %>
+
+Selecting *50MB* is not recommended and could cause data loss because it warns
+too late in case of not enough disk to let RabbitMQ page memory to the
+persistent disk. That option enables customers to transition from environments
+where this was the default.
+
 
 ## <a id="apply-changes"></a>Apply Configuration and Complete the Installation
 
