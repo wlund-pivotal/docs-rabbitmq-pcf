@@ -125,7 +125,7 @@ Its default name is Solo.
     <tr><td><strong>RabbitMQ VM Type</strong></td>
         <td>Select a large VM type.<br>The plan will create a service instance of this size.</td></tr>
     <tr><td><strong>Persistent disk type</strong></td>
-        <td>Select a disk 5&nbsp;GB or 10&nbsp;GB in size.<br>This disk will store the RabbitMQ messages.</td></tr>
+    <td>This is where RabbitMQ will page messages to disk. See <a href="#disk-size-concers">Disk Size Concerns</a> for more details.</td></tr>
     <tr><td><strong>AZ placement</strong></td>
         <td>Select one AZ for the single node.<br>The plan will create all the on-demand service instance VMs in this AZ.</td></tr>
   </table>
@@ -143,7 +143,7 @@ Its default name is Solo.
 
 12. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
 
-## Disk size concerns
+## <a id="disk-size-concerns"></a> Disk size concerns
 
 RabbitMQ raises alarms when disk space drops below the configured limit. Incorrect disk sizes could cause the deployed instance not to start (RabbitMQ decline to start if there is not enough space available according to the threshold).
 
