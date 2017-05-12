@@ -50,3 +50,13 @@ You may see an error when using the Cloud Foundry Command-Line Interface (cf CLI
 ## <a id="support"></a>File a Support Ticket
 
 <%= partial '../../rabbitmq-cf/odb/tshoot-support-dev' %>
+
+## <a id="delete_rabbitmq_instance"></a>Delete RabbitMQ Instance
+
+On-Demand Broker provides a BOSH to delete all the On-Demand Broker deployed
+instances. After setting the deployment to the On-Demand Broker in BOSH, the
+command to delete all the instances is `bosh run errand delete-sub-deployments`.
+This command runs the `bosh delete <deployment>` serially on the deployments,
+it is very destructive and the operation cannot be undone.
+
+
