@@ -56,6 +56,56 @@ Note that you must always leave the management plugin listening on port `15672` 
 
 If you change the topology of your RabbitMQ cluster, the HAProxy is automatically reconfigured during the deployment.
 
+### Disk free alarm limit <a id="disk_free_alarm_selector"></a>
+
+You can choose how much disk space rabbit should attempt to keep free at any
+given time. For more information about how this works 'under the hood', see
+[here](https://www.rabbitmq.com/disk-alarms.html). In summary, rabbit will
+periodically check if there is sufficient free space on disk. If there is not,
+rabbit will temporarily stop accepting new messages. This gives your apps time
+to consume existing messages, and thus free up some disk space. In the RabbitMQ
+Tile, we provide four options for this value:
+
+<%= image_tag("images/disk_alarm_threshold.png") %>
+
+* `50MB` is a bare minimum value. 
+* `100% Memory` ensures that at the time when rabbit checks the available disk,
+  there must be enough space for rabbit to page all memory-based messages out
+  to disk.
+* `150% Memory` is recommended. This is because it is possible that in between disk-space-checks, rabbit may:
+  - write persistent messages to disk (using up some disk space)
+  - accept more memory-based messages into various queues
+  - page all memory-based messages to disk.
+  In these circumstances, rabbit may require more free disk than it has memory.
+* `200% Memory` is a conservative value, for when the operator wants higher
+  confidence that rabbit will never run out of disk.
+
+  Selecting *50MB* is not recommended and could cause data loss. See below.
+  
+#### What are the dangers of setting this value too low?
+
+If the disk of a given rabbit node completely fills while rabbit is running,
+that node will crash. This can lead to data loss, and loss of availability.
+
+Rabbit reserves the right to page any and all messages in memory (even
+transient messages) to disk at any time. You should set your `disk free alarm
+limit` high enough to ensure that rabbit always has at least enough space to do
+this.
+
+#### What are the disadvantages of setting this value too high?
+
+If you set your `disk free alarm limit` to a value larger than the size of your
+persistent disk, then rabbit will never be able to free up enough disk space to
+accept new messages. You should ensure that you have a large enough disk to
+persist all the messages you intend to persist while *also* leaving enough
+space free to satisfy the `disk free alarm limit` that you have chosen.
+
+#### When should I use the `50MB` value?
+
+This is not recommended in production. However, if you are experimenting with a
+development environment you might wish to use a small disk to keep down costs,
+at the expense of increasing the chances that rabbit might crash and lose data.
+
 ### <a id='ha-cluster'></a>Connecting to a Highly Available RabbitMQ Cluster
 
 The latest version of RabbitMQ tile 1.5.*, allows for a highly available cluster through multiple HAProxy nodes. The `hostnames`, `uris` and `hosts` properties have been added and should be used in preference over the equivalent singular properties. The singular properties are maintained for backwards compatibility and will always contain the first value from the equivalent plural property. The singular properties will eventually be deprecated.
@@ -217,15 +267,6 @@ When SSL is enabled:
 * `rabbitmq_stomp ssl_listeners [61614]`
 
 <%= image_tag("images/metrics_polling.png") %>
-
-#### Disk free alarm limit
-
-<%= image_tag("images/disk_alarm_threshold.png") %>
-
-Selecting *50MB* is not recommended and could cause data loss because it warns
-too late in case of not enough disk to let RabbitMQ page memory to the
-persistent disk. That option enables customers to transition from environments
-where this was the default.
 
 
 ## <a id="apply-changes"></a>Apply Configuration and Complete the Installation
