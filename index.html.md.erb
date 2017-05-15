@@ -63,11 +63,11 @@ The following table provides version and version-support information about Rabbi
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v1.8.2</td>
+        <td>v1.8.4</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>April 26, 2017</td>
+        <td>May 15, 2017</td>
     </tr>
     <tr>
         <td>Software component version</td>
@@ -107,11 +107,10 @@ The following table provides version and version-support information about Rabbi
 * Automated upgrades of RabbitMQ for major, minor and patch releases (see release notes for downtime requirements)
 * Configure the end point for the RabbitMQ Syslog
 * RabbitMQ and HAProxy metrics are exposed on the firehose
+* Enable operators to select `disk_free_limit` setting
 
 ## <a id='known-issues'></a>Known Issues
 
-* `disk_free_limit` changed from `50MB` to `40%` of disk capacity. This may result
-  in <a href="https://www.rabbitmq.com/disk-alarms.html">disk alarms</a> being triggered
 * Deleting your RabbitMQ for PCF tile can timeout (1 hour) if many dedicated instances have been
   deployed. Retrying will continue the cleanup process
 * Disabling the Dedicated Instances service plan will leave the plan enabled

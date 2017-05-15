@@ -9,6 +9,30 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 ## <a id="18x"></a>v1.8.x
 
+### v1.8.4
+
+**Release Date:  May 15, 2017**
+
+#### Features
+
+* You can now select what `disk_free_limit` you want for your multi-tenant
+  deployment. See
+  [here](/rabbitmq-cf/1-8/install-config-pp.html#disk_free_alarm_selector)
+  for details.
+
+#### Fixes
+
+* The `disk_free_limit` no longer defaults to a potentially dangerous value.
+
+#### Known Issues
+
+* Deleting your RabbitMQ for PCF tile can timeout (1 hour) if many dedicated instances have been
+  deployed. Retrying will continue the cleanup process
+* Disabling the Dedicated Instances service plan will leave the plan enabled
+* Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
+* Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
+* `spring-boot` client libraries cannot bind to dedicated instance services
+
 ### v1.8.2
 
 **Release Date:  April 26, 2017**
