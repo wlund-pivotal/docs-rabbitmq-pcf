@@ -27,7 +27,7 @@ To use on-demand RabbitMQ for PCF with your PCF apps, you need:
 ### Entries in the VCAP_SERVICES Environment Variable
 Applications running in Cloud Foundry gain access to the bound service instances via an environment variable credentials hash called `VCAP_SERVICES`. An example hash is show below:
 
-<pre><code>
+```yaml
 {
     "p-rabbitmq": [{
         "credentials": {
@@ -47,7 +47,7 @@ Applications running in Cloud Foundry gain access to the bound service instances
         }
     }]
 }
-</code></pre>
+```
 
 The `credentials` property can be used as follows:
 
