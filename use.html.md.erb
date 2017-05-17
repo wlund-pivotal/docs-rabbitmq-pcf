@@ -1,4 +1,5 @@
 ---
+breadcrumb: RabbitMQ for Pivotal Cloud Foundry Documentation
 title: Using On-Demand RabbitMQ for PCF
 owner: London Services
 ---
@@ -25,6 +26,7 @@ To use on-demand RabbitMQ for PCF with your PCF apps, you need:
 ## <a id='developer_guide'></a>Developer Guide
 
 ### Entries in the VCAP_SERVICES Environment Variable
+
 Applications running in Cloud Foundry gain access to the bound service instances via an environment variable credentials hash called `VCAP_SERVICES`. An example hash is show below:
 
 ```yaml
@@ -49,13 +51,7 @@ Applications running in Cloud Foundry gain access to the bound service instances
 }
 ```
 
-The `credentials` property can be used as follows:
-
-* The top level properties `username`, `password` provide access to the AMQP 0.9.1 protocol.
-
-* A more flexible approach is provided by the `credentials.protocols` property, which has a key per enabled protocol. The possible key is `amqp`.
-
-* The values associated with each of these keys gives access credentials specific to each protocol. In all cases, URIs are provided, along with the individual components.
+You can read more details about the environment variable `VCAP_SERVICES` <a href="./reference.html">here</a>.
 
 ## <a id='process'></a>The Create-Bind Process
 
