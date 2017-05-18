@@ -193,21 +193,43 @@ Create an ASG name `rabbitmq-app-containers` with the above configuration and bi
 ]
 ```
 
-## <a id="ssl"></a> SSL
+## <a id="ssl"></a> TLS
 
-You can provide SSL certificates and keys for use by the RabbitMQ cluster.
+RabbitMQ can be configured to use TLS in all internal communications within the
+rabbit cluster, and also between the rabbit cluster and rabbit clients (these
+will usually be apps deployed to CF).
 
-<%= image_tag("images/config_ssl.jpeg") %>
+TLS support can include both:
+- Ensuring that communications between any two actors are encrypted
+- Ensuring that the identities of any two actors are known to each other
 
-SSL is simultaneously provided on the AMQPS port (5671) and the management port (15672).
+### Configuring RabbitMQ TLS for Production
 
-If you provide SSL keys and certificates, you disable non-SSL support.
+In a production environment it is recommended that you use TLS certificates
+which have been signed by a root Certificate Authority. In order to
+encrypt the communication channel, rabbit will need a public and private
+key. In addition the Certificate Authority used to generate the keys should be
+provided.
 
-No other plugins are automatically configured for use with SSL.
+### Configuring RabbitMQ TLS for Development or Testing
+Opsman allow to create a pair of public and private key signed by its own Certificate Authority
 
-SSL settings are applied equally across all machines in the cluster.
+### Known TLS Vulnerabilities, and What To Do About Them
+By default only TLSv1.1 and TLSv1.2 are enabled, TLSv1.0 is disabled by defaul because is vulnerable to attach such [POODLE](https://www.openssl.org/~bodo/ssl-poodle.pdf) and [BEAST](http://en.wikipedia.org/wiki/Transport_Layer_Security#BEAST_attack).
+Is possible to enable TLSv1.0 to allow legacy application to connect (e.g. application based on JDK 6.0)
 
-For more information about SSL support, see [https://www.rabbitmq.com/ssl.html](https://www.rabbitmq.com/ssl.html).
+
+<%= image_tag("images/config_tls.png") %>
+
+TLS is simultaneously provided on the AMQPS port (5671) and the management port (15672).
+
+If you provide TLS keys and certificates, you disable non-TLS support.
+
+No other plugins are automatically configured for use with TLS.
+
+TLS settings are applied equally across all machines in the cluster.
+
+For more information about TLS support, see [https://www.rabbitmq.com/ssl.html](https://www.rabbitmq.com/ssl.html).
 
 ### <a id="erlang"></a>Erlang Cookie
 
