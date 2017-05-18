@@ -4,7 +4,7 @@
 
 **master** - all documentation for the next unreleased version of **RabbitMQ** should land in master. Any changes on this branch will not be displayed publicly until a **minor** branch is cut, and an update to [docs-book-rabbitmq][docs-book-rabbitmq] is done (To be documented).
 
-**1.8-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-7](http://docs.pivotal.io/rabbitmq-cf/1-8/).
+**1.8-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-8](http://docs.pivotal.io/rabbitmq-cf/1-8/).
 
 **1.7-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-7](http://docs.pivotal.io/rabbitmq-cf/1-7/).
 
