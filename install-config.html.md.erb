@@ -3,9 +3,9 @@ title: Installing and Configuring RabbitMQ for PCF as an On-Demand Service
 owner: London Services
 ---
 
-This topic provides instructions to PCF operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide on-demand service. 
+This topic provides instructions to PCF operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide on-demand service.
 
-<p class="note"><strong>Note</strong>: For instructions on how to install, configure, and deploy the RabbitMQ for PCF tile 
+<p class="note"><strong>Note</strong>: For instructions on how to install, configure, and deploy the RabbitMQ for PCF tile
 as a pre-provisioned service, see
 <a href="./install-config-pp.html">the documentation for pre-provisioned RabbitMQ for PCF</a>.</p>
 
@@ -13,7 +13,7 @@ as a pre-provisioned service, see
 
 1. Download the product file from Pivotal Network.
 
-2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
+2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
 3. Under the **Import a Product** button, click **+** next to the version number of RabbitMQ for PCF. This adds the tile to your staging area.
 
@@ -46,7 +46,7 @@ The following options are available for the RabbitMQ on demand broker:
 In order to enable the ODB you need to check the `Enable this plan` checkbox in the *Settings > Dedicated Instance: Single Node Plan* section in the RabbitMQ tile.
 
 Note: if the ODB feature is not enabled, the ODB will be deployed alongside with RabbitMQ installation. Nevertheless, it is not going to be available in the marketplace.
-### Enabling and monitoring service instance quotas
+
 ### Explanation of resource types and requirements
 It is possible to configure the VM type for RabbitMQ and HAProxy instances by using the fields `RabbitMQ VM Type` and `HAProxy VM Type` respectively. It is also possible to chose the size of the persistent disk that is going to be attached the RabbitMQ instances. It is also necessary to chose the Availability Zone (AZ) the service instance is going to live in.
 
@@ -54,17 +54,12 @@ It is possible to configure the VM type for RabbitMQ and HAProxy instances by us
 
 ### Detail of the solo plan
 In the `Solo` plan there will be only one single node in the cluster. There is still have an `HAProxy` associated with the cluster.
-### Syslog configuration (shared with multi-tenant) and example of log output with deployment name as a tag
-
-### Explanation of the smoke test errand
-
-RabbitMQ for PCF runs a set of smoke tests during installation to confirm system health.
 
 ## <a id="config-on-demand"></a>  Configure the Tile for On-Demand Service
 
-Follow the steps below to configure the RabbitMQ for PCF tile for on-demand service instances. 
-This procedure only addresses how to configure RabbitMQ for PCF as an on-demand service. 
-Currently there is only one type of plan available for the on-demand service. 
+Follow the steps below to configure the RabbitMQ for PCF tile for on-demand service instances.
+This procedure only addresses how to configure RabbitMQ for PCF as an on-demand service.
+Currently there is only one type of plan available for the on-demand service.
 Its default name is Solo.
 
 1. Click **Assign AZs and Networks**.
@@ -84,9 +79,9 @@ Its default name is Solo.
             <strong>Q:</strong> Who sets up this subnet? Should I use the same subnet as for my ERT components? Do we need to specify that it cannot be an IPsec subnet?
             <a href="https://docs.pivotal.io/rabbitmq-cf/1-7/">https://docs.pivotal.io/rabbitmq-cf/1-7/</a>.</td></tr>
     <tr><td><strong>Service Network</strong></td>
-        <td> This is the subnet that the on-demand service instances are on. 
-             A typical practice is to put all on-demand services on a single subnet. (?) 
-             This network is represented by the Services Network in this <a href="./about.html#on-demand">picture</a>. 
+        <td> This is the subnet that the on-demand service instances are on.
+             A typical practice is to put all on-demand services on a single subnet. (?)
+             This network is represented by the Services Network in this <a href="./about.html#on-demand">picture</a>.
              If you are not using on-demand services but only pre-provisioned services, you need to specify a subnet but which subnet you specify does not matter.</td></tr>
   </table>
 
@@ -98,14 +93,14 @@ Its default name is Solo.
    These credentials are not used by the on-demand RabbitMQ for PCF service but the fields cannot be blank.
    You do not need to make any other edits to this page.
 
-6. (Optional) Enter a value for the **Metrics polling interval**. The default is 30&nbsp;seconds. 
+6. (Optional) Enter a value for the **Metrics polling interval**. The default is 30&nbsp;seconds.
 
 6. Click **Save**.
 
 7. If you want to set up monitoring, click **Syslog**, complete the fields, and save.<br>
    For more information, see [Monitoring RabbitMQ for PCF](./monitor.html).
 
-7. Click **Dedicated Instance: Single Node Plan**. 
+7. Click **Dedicated Instance: Single Node Plan**.
 
      ![service-plan-tab-v1.8.0](service-plan-configuration.png)
 
@@ -129,15 +124,15 @@ Its default name is Solo.
     <tr><td><strong>AZ placement</strong></td>
         <td>Select one AZ for the single node.<br>The plan will create all the on-demand service instance VMs in this AZ.</td></tr>
   </table>
-    
+
 9. Click **Save**.
 
 10. Click **Stemcell**.
 
-11. Verify and, if necessary, import a new stemcell version.  
+11. Verify and, if necessary, import a new stemcell version.
     For more information, see the information about importing the stemcell for your IaaS:
     [AWS](https://docs.pivotal.io/pivotalcf/customizing/cloudform-er-config.html#stemcell),
-    [Azure](https://docs.pivotal.io/pivotalcf/customizing/azure-er-config.html#stemcell), 
+    [Azure](https://docs.pivotal.io/pivotalcf/customizing/azure-er-config.html#stemcell),
     [GCP](https://docs.pivotal.io/pivotalcf/customizing/gcp-er-config.html#stemcell), or
     [vSphere](https://docs.pivotal.io/pivotalcf/customizing/config-er-vmware.html#stemcell).
 
