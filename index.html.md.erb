@@ -63,11 +63,11 @@ The following table provides version and version-support information about Rabbi
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v1.8.4</td>
+        <td>v1.8.6</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>May 15, 2017</td>
+        <td>May 25, 2017</td>
     </tr>
     <tr>
         <td>Software component version</td>
@@ -113,7 +113,6 @@ The following table provides version and version-support information about Rabbi
 
 * Deleting your RabbitMQ for PCF tile can timeout (1 hour) if many dedicated instances have been
   deployed. Retrying will continue the cleanup process
-* Disabling the Dedicated Instances service plan will leave the plan enabled
 * Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
 * `spring-boot` client libraries cannot bind to dedicated instance services
