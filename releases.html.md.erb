@@ -3,7 +3,10 @@ title: RabbitMQ&reg; for PCF Release Notes
 owner: London Services
 ---
 
-Pivotal recommends that you upgrade to the latest version of your current minor line, and then upgrade to the latest available version of the new minor line. For example, if you're on an older v1.7.x version, upgrade to the latest v1.7.x version before upgrading to the latest v1.8.x version.
+Pivotal recommends that you upgrade to the latest version of your current minor
+line, and then upgrade to the latest available version of the new minor line.
+For example, if you're on an older v1.7.x version, upgrade to the latest v1.7.x
+version before upgrading to the latest v1.8.x version.
 
 See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf) for product versions and upgrade paths.
 
@@ -11,13 +14,41 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 Pivotal released v1.7.0 in September 2016, and the latest patch version is v1.7.17.
 
+### v1.7.18
+**Release Date: May 31, 2017**
+
+**Important:** You will experience a **small window of downtime** during this
+particular deployment if you are upgrading from v1.7.14 or below as the
+RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.9. Pivotal
+recommends that you communicate with your application owners in advance to
+minimize the impact of this downtime.
+
+* Requires stemcell v3363.25.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
+
+Packages:
+
+* OSS RabbitMQ v3.6.9
+* Erlang v19.3
+* HAProxy v1.6.4
+
+Features included in this release:
+
+* This is a security release addressed by a new stemcell
+
 ### v1.7.17
 **Release Date: May 25, 2017**
 
-**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.7.14 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.9. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+**Important:** You will experience a **small window of downtime** during this
+particular deployment if you are upgrading from v1.7.14 or below as the
+RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.9. Pivotal
+recommends that you communicate with your application owners in advance to
+minimize the impact of this downtime.
 
 * Requires stemcell v3363.24.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 Packages:
 
@@ -32,10 +63,15 @@ Features included in this release:
 ### v1.7.16
 **Release Date: April 27, 2017**
 
-**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.7.14 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.9. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+**Important:** You will experience a **small window of downtime** during this
+particular deployment if you are upgrading from v1.7.14 or below as the
+RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.9. Pivotal
+recommends that you communicate with your application owners in advance to
+minimize the impact of this downtime.
 
 * Requires stemcell v3363.20.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 Packages:
 
@@ -50,10 +86,15 @@ Features included in this release:
 ### v1.7.15
 **Release Date: March 31, 2017**
 
-**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.7.14 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.9. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+**Important:** You will experience a **small window of downtime** during this
+particular deployment if you are upgrading from v1.7.14 or below as the
+RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.9. Pivotal
+recommends that you communicate with your application owners in advance to
+minimize the impact of this downtime.
 
 * Requires stemcell v3363.14.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 Packages:
 
@@ -68,10 +109,15 @@ Features included in this release:
 ### v1.7.14
 **Release Date: March 10, 2017**
 
-**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.7.6 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+**Important:** You will experience a **small window of downtime** during this
+particular deployment if you are upgrading from v1.7.6 or below as the RabbitMQ
+cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal
+recommends that you communicate with your application owners in advance to
+minimize the impact of this downtime.
 
 * Requires stemcell v3263.21.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 Packages:
 
@@ -86,10 +132,15 @@ Features included in this release:
 ### v1.7.13
 **Release Date: March 3, 2017**
 
-**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.7.6 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+**Important:** You will experience a **small window of downtime** during this
+particular deployment if you are upgrading from v1.7.6 or below as the RabbitMQ
+cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal
+recommends that you communicate with your application owners in advance to
+minimize the impact of this downtime.
 
 * Requires stemcell v3263.20.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 Packages:
 
@@ -101,16 +152,21 @@ Features included in this release:
 
 * This is a security release addressed by a new stemcell.
 * Includes `rabbitmq_jms_topic_exchange` plugin support.
-* Migrate metrics configuration to a new form and introduces a `Use non-secure communication for metrics` checkbox
-  for Ops Manager 1.10 compatibility.
+* Migrate metrics configuration to a new form and introduces a `Use non-secure
+communication for metrics` checkbox for Ops Manager 1.10 compatibility.
 
 ### v1.7.10
 **Release Date: January 27, 2017**
 
-**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.7.6 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+**Important:** You will experience a **small window of downtime** during this
+particular deployment if you are upgrading from v1.7.6 or below as the RabbitMQ
+cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal
+recommends that you communicate with your application owners in advance to
+minimize the impact of this downtime.
 
 * Requires stemcell v3263.17.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 Packages:
 
@@ -121,15 +177,21 @@ Packages:
 Features included in this release:
 
 * This is a security release addressed by a new stemcell.
-* It is now possible to set static IP addresses for HAproxy and/or RabbitMQ server nodes via Ops Manager
+* It is now possible to set static IP addresses for HAproxy and/or RabbitMQ
+server nodes via Ops Manager
 
 ### v1.7.9
 **Release Date: December 15, 2016**
 
-**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.7.6 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+**Important:** You will experience a **small window of downtime** during this
+particular deployment if you are upgrading from v1.7.6 or below as the RabbitMQ
+cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal
+recommends that you communicate with your application owners in advance to
+minimize the impact of this downtime.
 
 * Requires stemcell v3263.13.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 Packages:
 
@@ -144,10 +206,15 @@ Features included in this release:
 ### v1.7.8
 **Release Date: December 8, 2016**
 
-**Important:** You will experience a **small window of downtime** during this particular deployment if you are upgrading from v1.7.6 or below as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+**Important:** You will experience a **small window of downtime** during this
+particular deployment if you are upgrading from v1.7.6 or below as the RabbitMQ
+cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal
+recommends that you communicate with your application owners in advance to
+minimize the impact of this downtime.
 
 * Requires stemcell v3263.12.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 Packages:
 
@@ -162,10 +229,14 @@ Features included in this release:
 ### v1.7.7
 **Release Date: November 22, 2016**
 
-**Important:** You will experience a **small window of downtime** during this particular deployment as the RabbitMQ cluster is taken offline and each nodes is upgraded to v3.6.6. Pivotal recommends that you communicate with your application owners in advance to minimize the impact of this downtime.
+**Important:** You will experience a **small window of downtime** during this
+particular deployment as the RabbitMQ cluster is taken offline and each nodes
+is upgraded to v3.6.6. Pivotal recommends that you communicate with your
+application owners in advance to minimize the impact of this downtime.
 
 * Requires stemcell v3263.8.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 Packages:
 
@@ -175,32 +246,40 @@ Packages:
 
 Features included in this release:
 
-* The default number of RabbitMQ server nodes has been increased from 2 to 3. Customers with existing deployments will be unaffected.
-* This version of RabbitMQ addresses a security vulnerabiliy in the MQTT plugin.  For more information, see [here](https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_6).
+* The default number of RabbitMQ server nodes has been increased from 2 to 3.
+Customers with existing deployments will be unaffected.
+* This version of RabbitMQ addresses a security vulnerabiliy in the MQTT
+plugin.  For more information, see
+[here](https://github.com/rabbitmq/rabbitmq-server/releases/tag/rabbitmq_v3_6_6).
 
 ### v1.7.6
 **Release Date: October 21, 2016**
 
-* Requires stemcell v3263.8 for USN-3106-2: Linux kernel (Xenial HWE) vulnerability.
+* Requires stemcell v3263.8 for USN-3106-2: Linux kernel (Xenial HWE)
+vulnerability.
 * This will be a rolling deployment.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 Features included in this release:
 
-* Update to drain scripts during RabbitMQ node shutdown to cleanly shutdown the application and increase logging.
+* Update to drain scripts during RabbitMQ node shutdown to cleanly shutdown the
+application and increase logging.
 * Contains OSS RabbitMQ v3.6.5.
 * Erlang v18.1.
 * HAproxy v1.6.4.
 
 
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 ### v1.7.5
 **Release Date: October 14, 2016**
 
 * Requires stemcell v3263.7.
 * This will be a rolling deployment.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 Features included in this release:
 
@@ -215,7 +294,8 @@ Features included in this release:
 * Requires stemcell v3263.3.
 * You can upgrade to this version from v1.6.8 or later.
 * This will be a rolling deployment.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 Features included in this release:
 
@@ -223,19 +303,24 @@ Features included in this release:
 * Erlang 18.1.
 * HAProxy v1.6.9.
 * Includes stability and bug fixes.
-* Fixed an issue with SSL configuration options being applied incorrectly via Ops Manager.  Existing customers properties will be migrated and displayed properly
+* Fixed an issue with SSL configuration options being applied incorrectly via
+Ops Manager.  Existing customers properties will be migrated and displayed
+properly
 
 ### v1.7.3
 **Release Date: October 10, 2016**
 
 * Requires stemcell v3263.2.
 * This will be a rolling deployment.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 * Do not upgrade to this version from v1.6.8.
 
 Features included in this release:
 
-* Fixed an issue with SSL configuration options being applied incorrectly via Ops Manager.  Existing customers properties will be migrated and displayed properly.
+* Fixed an issue with SSL configuration options being applied incorrectly via
+Ops Manager.  Existing customers properties will be migrated and displayed
+properly.
 * RabbitMQ v3.6.3.
 * Erlang v18.1.
 * HAProxy v1.6.4.
@@ -246,15 +331,21 @@ Features included in this release:
 
 * Requires stemcell v3263.2.
 * This will be a rolling deployment.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 Features included in this release:
 
 * Using stemcell v3263.2.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
-* RabbitMQ v3.6.3 release is included and the option to enable the event_exchange plugin is available in Ops Manager.
-* Compatibility with all Ops Manager v1.8 features, such as multiple subnets in multiple Availability Zones (AWS, vSphere).
-* If deploying this tile as part of an Ops Manager v1.8 upgrade from Ops Manager v1.7, ensure that you are upgrading from RabbitMQ for PCF v1.6.6 or later.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
+* RabbitMQ v3.6.3 release is included and the option to enable the
+event_exchange plugin is available in Ops Manager.
+* Compatibility with all Ops Manager v1.8 features, such as multiple subnets in
+multiple Availability Zones (AWS, vSphere).
+* If deploying this tile as part of an Ops Manager v1.8 upgrade from Ops
+Manager v1.7, ensure that you are upgrading from RabbitMQ for PCF v1.6.6 or
+later.
 * This release is using Service Metrics v1.4.3.
 
 ### v1.7.0
@@ -262,23 +353,31 @@ Features included in this release:
 
 * Requires stemcell v3262.9.
 * This will be a rolling deployment.
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
 
 Features included in this release:
 
 * Using stemcell v3262.9
-* This version of the tile can only be installed in an Ops Manager v1.8 (or later) environment.
-* RabbitMQ v3.6.3 release is included and the option to enable the event_exchange plugin is available in Ops Manager.
-* Compatibility with all Ops Manager v1.8 features, such as multiple subnets in multiple Availability Zones (AWS, vSphere).
-* If deploying this tile as part of an Ops Manager v1.8 upgrade from Ops Manager v1.7, ensure that you are upgrading from RabbitMQ for PCF v1.6.6 or later.
+* This version of the tile can only be installed in an Ops Manager v1.8 (or
+later) environment.
+* RabbitMQ v3.6.3 release is included and the option to enable the
+event_exchange plugin is available in Ops Manager.
+* Compatibility with all Ops Manager v1.8 features, such as multiple subnets in
+multiple Availability Zones (AWS, vSphere).
+* If deploying this tile as part of an Ops Manager v1.8 upgrade from Ops
+Manager v1.7, ensure that you are upgrading from RabbitMQ for PCF v1.6.6 or
+later.
 * This release is using Service Metrics v1.4.3.
 
 ## <a id="16x"></a>v1.6.x
 
-For v1.6.x versions of RabbitMQ for PCF, see the [release notes](../1-6/releases.html) in the v1.6 version of this documentation.
+For v1.6.x versions of RabbitMQ for PCF, see the [release
+notes](../1-6/releases.html) in the v1.6 version of this documentation.
 
 ## <a id="15x"></a>v1.5.x and Earlier
 
-For v1.5.x and earlier versions of RabbitMQ for PCF, see the [release notes](../1-5/releases.html) in the v1.5 version of this documentation.
+For v1.5.x and earlier versions of RabbitMQ for PCF, see the [release
+notes](../1-5/releases.html) in the v1.5 version of this documentation.
 
 
