@@ -19,7 +19,7 @@ as a pre-provisioned service, see
 
 4. Click the newly added **RabbitMQ for PCF** tile.
 
-## <a id="tile_configurations"></a> Tile configurations
+## <a id="tile_configurations"></a> Tile Configurations
 
 ### Global Settings
 
@@ -28,7 +28,7 @@ as a pre-provisioned service, see
 - `VM options`:
   - Allow outbound internet access (IaaS-dependent, refer to Ops Manager documentation for more details, log forwarding and backups may require internet access).
 
-### Configuration options for plans
+### Configuration Options for Plans
 The following options are available for the RabbitMQ on demand broker:
 
 - `Enable this plan`: check this to enable dedicated RabbitMQ instances on CF marketplace.
@@ -42,12 +42,14 @@ The following options are available for the RabbitMQ on demand broker:
 
 <%= image_tag("images/config_rabbitmq_odb.png") %>
 
-### Enabling the on demand service broker
+### Enabling the On-Demand Service Broker
 In order to enable the ODB you need to check the `Enable this plan` checkbox in the *Settings > Dedicated Instance: Single Node Plan* section in the RabbitMQ tile.
 
 Note: if the ODB feature is not enabled, the ODB will be deployed alongside with RabbitMQ installation. Nevertheless, it is not going to be available in the marketplace.
-### Enabling and monitoring service instance quotas
-### Explanation of resource types and requirements
+### Enabling and Monitoring Service Instance Quotas
+
+### Explanation of Resource Types and Requirements
+
 It is possible to configure the VM type for RabbitMQ and HAProxy instances by using the fields `RabbitMQ VM Type` and `HAProxy VM Type` respectively. It is also possible to chose the size of the persistent disk that is going to be attached the RabbitMQ instances. It is also necessary to chose the Availability Zone (AZ) the service instance is going to live in.
 
 <%= image_tag("images/config_rabbitmq_odb_resources.png") %>
@@ -145,13 +147,17 @@ Its default name is Solo.
 
 12. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
 
-## <a id="disk-size-concerns"></a> Disk size concerns
+## <a id="disk-size-concerns"></a> Disk Size Concerns
 
-RabbitMQ raises alarms when disk space drops below the configured limit. Incorrect disk sizes could cause the deployed instance not to start (RabbitMQ decline to start if there is not enough space available according to the threshold).
+RabbitMQ raises alarms when disk space drops below the configured limit.
+Incorrect disk sizes may cause the deployed instance not to start.
+RabbitMQ declines to start if there is not enough space available according to the threshold.
 
-Dedicated instances are configured with a threshold set to the 40% of the memory (RAM) of the virtual machine. Operators can take the following table as an example when selecting the size of the persistent disk.
+Dedicated instances are configured with a threshold set to the 40% of the memory (RAM) of the VM.
+Operators can take the following table as an example when selecting the size of the persistent disk.
 
-The following table show an example of possible RAM values, absolute minimal value below which RabbitMQ will decline to start and the disk size suggested for an average use case.
+The following table shows an example of possible RAM values, absolute minimal value below which 
+RabbitMQ declines to start, and the disk size suggested for an average use case.
 
 <table border="1" class="nice">
   <tr>
@@ -178,12 +184,12 @@ The following table show an example of possible RAM values, absolute minimal val
 
 <%= image_tag("images/vm-ram-disk-example.png") %>
 
-### RabbitMQ documentation
+### RabbitMQ Documentation
 
 - [Alarms overview](http://www.rabbitmq.com/alarms.html)
 - [Disk Alarms](http://www.rabbitmq.com/disk-alarms.html)
 
-## <a id="smoke_test_process"></a> Smoke tests Steps
+## <a id="smoke_test_process"></a> Smoke-Tests Steps
 
 The smoke tests perform the following for each available service plan:
 
