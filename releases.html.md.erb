@@ -9,6 +9,23 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 ## <a id="18x"></a>v1.8.x
 
+### v1.8.7
+
+**Release Date:  June 1, 2017**
+
+#### Fixes
+
+* Requires stemcell 3363.25
+
+#### Known Issues
+
+* Deleting your RabbitMQ for PCF tile can timeout (1 hour) if many dedicated instances have been
+  deployed. Retrying will continue the cleanup process
+* Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
+* Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
+* `spring-boot` client libraries cannot bind to dedicated instance services
+
+
 ### v1.8.6
 
 **Release Date:  May 25, 2017**
