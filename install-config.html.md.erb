@@ -26,7 +26,7 @@ as a pre-provisioned service, see
 - `Marketplace name`: the service name that will appear in the Cloud Foundry (CF) Marketplace.
 - `Service instance quota`  min: 0, max: 50  set the total number of dedicated service instances which can be deployed.
 - `VM options`:
-  - Allow outbound internet access (IaaS-dependent, refer to Ops Manager documentation for more details, log forwarding and backups may require internet access).
+  - Allow outbound internet access (IaaS-dependent, for more information, see the Ops Manager documentation, log forwarding and backups may require internet access).
 
 ### Configuration Options for Plans
 The following options are available for the RabbitMQ on demand broker:
@@ -43,14 +43,18 @@ The following options are available for the RabbitMQ on demand broker:
 <%= image_tag("images/config_rabbitmq_odb.png") %>
 
 ### Enabling the On-Demand Service Broker
-In order to enable the ODB you need to check the `Enable this plan` checkbox in the *Settings > Dedicated Instance: Single Node Plan* section in the RabbitMQ tile.
+To enable the ODB, select `Enable this plan` in the **Settings > Dedicated Instance: Single Node Plan** section in the RabbitMQ tile.
 
-Note: if the ODB feature is not enabled, the ODB will be deployed alongside with RabbitMQ installation. Nevertheless, it is not going to be available in the marketplace.
+<p class="note"><strong>Note</strong>: If the ODB feature is not enabled, the ODB is deployed alongside with RabbitMQ installation.
+Nevertheless, it is not going to be available in the Marketplace.</p>
+
 ### Enabling and Monitoring Service Instance Quotas
 
 ### Explanation of Resource Types and Requirements
 
-It is possible to configure the VM type for RabbitMQ and HAProxy instances by using the fields `RabbitMQ VM Type` and `HAProxy VM Type` respectively. It is also possible to chose the size of the persistent disk that is going to be attached the RabbitMQ instances. It is also necessary to chose the Availability Zone (AZ) the service instance is going to live in.
+It is possible to configure the VM type for RabbitMQ and HAProxy instances by using the fields `RabbitMQ VM Type` and `HAProxy VM Type` respectively.
+It is also possible to chose the size of the persistent disk that is going to be attached the RabbitMQ instances.
+It is also necessary to chose the Availability Zone (AZ) the service instance is going to live in.
 
 <%= image_tag("images/config_rabbitmq_odb_resources.png") %>
 
@@ -60,7 +64,7 @@ In the `Solo` plan, there is a single node in the cluster. However, there is sti
 
 ### Syslog configuration (shared with multi-tenant) and example of log output with deployment name as a tag
 
-### Explanation of the smoke test errand
+### Explanation of the Smoke-Test Errand
 
 RabbitMQ for PCF runs a set of smoke tests during installation to confirm system health.
 
@@ -78,7 +82,7 @@ Its default name is Solo.
   <table>
     <tr><th>Field</th><th>Instructions</th></tr>
     <tr><td><strong>Place singleton jobs in</strong></td>
-        <td>Select the region that you want for singleton VMs. PCF creates the RabbitMQ broker in this availability zone (AZ).</td></tr>
+        <td>Select the region that you want for singleton VMs. PCF creates the RabbitMQ broker in this AZ.</td></tr>
     <tr><td><strong>Balance other jobs in</strong></td>
         <td>Select additional region. This selection does not affect the on-demand RabbitMQ for PCF service.</td></tr>
     <tr><td><strong>Network</strong></td>
