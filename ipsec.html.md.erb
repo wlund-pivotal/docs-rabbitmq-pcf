@@ -14,6 +14,7 @@ formation of RabbitMQ. As a result, we recommend you [configure RabbitMQ for PCF
 # Limitations & Risks
 
 * You can only deploy RabbitMQ to a single AZ.
+* It is not possible to add a node to an existing RabbitMQ cluster when IPsec is enabled on the RabbitMQ nodes.
 * Once IPs have been dynamically assigned (from a prior deployment) you cannot assign
   different static IPs.
 
