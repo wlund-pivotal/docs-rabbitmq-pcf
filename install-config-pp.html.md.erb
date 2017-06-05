@@ -60,8 +60,12 @@ If you change the topology of your RabbitMQ cluster, the HAProxy is automaticall
 
 You can choose how much disk space rabbit should attempt to keep free at any
 given time. For more information about how this works 'under the hood', see
-[here](https://www.rabbitmq.com/disk-alarms.html). In summary, rabbit will
-periodically check if there is sufficient free space on disk. If there is not,
+[here](https://www.rabbitmq.com/disk-alarms.html). 
+
+If this is a fresh deployment please check that the 'Resource Config' settings you choose for the RabbitMQ server, match the constraints which you choosed as outlined below.
+For example the default resource configurations will not work if you choose the '150% Memory' option, as it it optimised for high message volumes.
+
+In summary, rabbit will periodically check if there is sufficient free space on disk. If there is not,
 rabbit will temporarily stop accepting new messages. This gives your apps time
 to consume existing messages, and thus free up some disk space. In the RabbitMQ
 Tile, we provide four options for this value:
