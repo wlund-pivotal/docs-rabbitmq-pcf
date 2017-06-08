@@ -117,6 +117,8 @@ The following table provides version and version-support information about Rabbi
 * Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
 * `spring-boot` client libraries cannot bind to dedicated instance services
+* Cannot scale-out if [Erlang Cookie](/1-8/install-config-pp.html#erlang) is not specified
+* Changing [Erlang Cookie](/1-8/install-config-pp.html#erlang) value results in failed deployment
 
 ## <a id=''></a>Feedback
 
