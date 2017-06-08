@@ -216,6 +216,24 @@ This can be useful if you want to connect directly to the RabbitMQ cluster, such
 
 <%= image_tag("images/config_erlang.jpeg") %>
 
+**Scaling Known Issue**
+
+If you have not set the Erlang cookie and you wish to scale-out your cluster size. You'll need to perform
+the following steps:
+
+* BOSH ssh to one of the rabbitmq nodes
+* `sudo -i`
+* `echo $(cat /var/vcap/store/rabbitmq/.erlang.cookie)`
+* Paste the value from the above command into the Erlang cookie field displayed above.
+
+You'll then be able to adjust the size of your cluster.
+
+**Changing the Value Known Issue**
+
+If you wish to change your Erlang cookie value, it's required that you stop your RabbitMQ cluster
+first. To do this, issues a `bosh stop rabbitmq-server` command once you've targetted your
+BOSH director.
+
 ### <a id="config"></a>RabbitMQ Config
 
 You can provide a full <code>rabbitmq.config</code> file, if you wish.
