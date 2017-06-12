@@ -86,6 +86,10 @@ The following table provides version and version-support information about Rabbi
         <td>IaaS support</td>
         <td>AWS, Azure, GCP, OpenStack, and vSphere</td>
     </tr>
+    <tr>
+        <td>IPsec support</td>
+        <td>No</td>
+    </tr>
 </table>
 
 ## <a id='features'></a>Features
@@ -119,6 +123,7 @@ The following table provides version and version-support information about Rabbi
 * `spring-boot` client libraries cannot bind to dedicated instance services
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
+* IPsec does not work with this version of the tile and it must be installed into a non-IPsec subnet or by excluding the deployment IPs following the steps in the documentation.
 
 ## <a id=''></a>Feedback
 
