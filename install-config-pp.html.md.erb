@@ -290,6 +290,10 @@ When SSL is enabled:
 * `rabbitmq_mqtt ssl_listeners [8883]`
 * `rabbitmq_stomp ssl_listeners [61614]`
 
+## Configuring Metrics Polling Interval
+The default polling interval is 30 seconds for all deployed compenents and it is recommened not to change it.  The lowest interval setting is 10 seconds to avoid overwhelming components.
+This change will effect all deloyed instances. 
+  
 <%= image_tag("images/metrics_polling.png") %>
 
 
