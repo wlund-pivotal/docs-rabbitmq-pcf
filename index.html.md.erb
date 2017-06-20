@@ -64,11 +64,11 @@ The following table provides version and version-support information about Rabbi
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v1.8.8</td>
+        <td>v1.8.9</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>June 15, 2017</td>
+        <td>June 20, 2017</td>
     </tr>
     <tr>
         <td>Software component version</td>
@@ -76,11 +76,11 @@ The following table provides version and version-support information about Rabbi
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.9.x, and 1.10.x</td>
+        <td>v1.9.x, 1.10.x, and 1.11.x</td>
     </tr>
     <tr>
         <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.9.x, and 1.10.x</td>
+        <td>v1.9.x, 1.10.x, and 1.11x</td>
     </tr>
     <tr>
         <td>IaaS support</td>
@@ -120,7 +120,6 @@ The following table provides version and version-support information about Rabbi
   deployed. Retrying will continue the cleanup process
 * Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
-* `spring-boot` client libraries cannot bind to dedicated instance services
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
 * IPsec does not work with this version of the tile and it must be installed into a non-IPsec subnet or by excluding the deployment IPs following the steps in the documentation

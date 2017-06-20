@@ -9,6 +9,26 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 ## <a id="18x"></a>v1.8.x
 
+### v1.8.9
+
+**Release Date:  June 20, 2017**
+
+#### Features
+
+* On-Demand Service defaults the vhost to the `service-id` instead of `/` to
+improve compatibility with client libraries.
+* Fixes issue in 1.8.8 where On Demand instances could not be created
+* Upgrades Erlang to 19.3.6 which improves cluster stop/start resiliancy
+
+#### Known Issues
+
+* Deleting your RabbitMQ for PCF tile can timeout (1 hour) if many dedicated instances have been
+  deployed. Retrying will continue the cleanup process
+* Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
+* Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
+* Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
+* Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
+
 ### v1.8.8
 
 **Release Date:  June 15, 2017**
@@ -26,6 +46,7 @@ improve compatibility with client libraries.
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
+* `p.rabbitmq` services are not able to be created (fixed in 1.8.9)
 
 ### v1.8.7
 
