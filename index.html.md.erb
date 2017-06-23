@@ -123,6 +123,7 @@ The following table provides version and version-support information about Rabbi
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
 * IPsec does not work with this version of the tile and it must be installed into a non-IPsec subnet or by excluding the deployment IPs following the steps in the documentation
+* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
 
 ## <a id=''></a>Feedback
 
