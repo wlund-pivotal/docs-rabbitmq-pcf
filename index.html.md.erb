@@ -110,7 +110,7 @@ The following table provides version and version-support information about Rabbi
 
 ## Syslog Forwarding Configuration
 
-As of 1.9, syslog forwarding is preconfigured and set to on by default. We recommend that you keep the default setting as it is good operational practice. However, you can opt out by selecting **No** for **Do you want to configure syslog?** in the Ops Manager Settings tab.
+As of 1.9, syslog forwarding is preconfigured and set to on by default. We recommend that you keep the default setting as it is good operational practice. However, you can opt out by selecting **No** for **Do you want to configure syslog?** in the Ops Manager **Settings** tab.
 
 ![Ops Manager Syslog Forwarding Configuration](images/syslog-config-1.9.0.png)
 
@@ -126,36 +126,46 @@ The following table describes the logging tags:
   <th>Tag</th>
   <th>Description</th>
   <tr>
-    <td>pri</td>
+    <td><strong>pri</strong></td>
+    <td>Severity code:
+
+        <br>8—Emergency. System is unusable.
+        <br>9—Alert. Action must be taken immediately.
+        <br>10—Critical. Critical conditions
+        <br>11—Error. Error conditions
+        <br>12—Warning. Warning conditions
+        <br>13—Notice. Normal but significant condition
+        <br>14—Informational. Informational messages
+        <br>15—Debug. Debug-level messages
+    </td>
+  </tr>
+  <tr>
+    <td><strong>timestamp</strong></td>
+    <td>This is the timestamp of when the log is forwarded, for example, <code>2016-08-24T05:14:15.000003Z</code>. The timestamp value is typically slightly after when it was generated.</td>
+  </tr>
+  <tr>
+    <td><strong>ip_address</strong></td>
+    <td>The internal IP address of origin server</td>
+  </tr>
+  <tr>
+    <td><strong>program_name</strong></td>
+    <td>Process name of the program the generated the message. Same as <code>app_name</code> prior to 1.9.0</td>
+  </tr>
+  <tr>
+    <td><strong>name</strong></td>
     <td> </td>
   </tr>
   <tr>
-    <td>timestamp</td>
+    <td><strong>job_index</strong></td>
     <td> </td>
   </tr>
   <tr>
-    <td>ip_address</td>
+    <td><strong>job_id</strong></td>
     <td> </td>
   </tr>
   <tr>
-    <td>program_name</td>
-    <td>Same as `app_name` prior to 1.9.0</td>
-  </tr>
-  <tr>
-    <td>name</td>
-    <td> </td>
-  </tr>
-  <tr>
-    <td>job_index</td>
-    <td> </td>
-  </tr>
-  <tr>
-    <td>job_id</td>
-    <td> </td>
-  </tr>
-  <tr>
-    <td>message</td>
-    <td> </td>
+    <td><strong>message</strong></td>
+    <td>The log message that appears</td>
   </tr>
 </table>
 
