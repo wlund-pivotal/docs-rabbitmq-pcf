@@ -169,6 +169,21 @@ The following table describes the logging tags:
   </tr>
 </table>
 
+## <a id='errands'></a>Errands
+
+As of RabbitMQ for PCF 1.9.0, all post-deploy errands will be on by default. We recommend keeping this default, as
+the smoke tests can catch unexpected issues, and dedicated instances can fall behind if not automatically updated.
+
+Errands run rules can be configured in Ops Manager Settings tab:
+
+![Configuring Errand Run Rules](images/errands-pane.png)
+
+Alternatively, errands be toggled before an update with a one-time setting on the installation dashboard:
+
+![Configuring One-time Errands](images/errands-installation.png)
+
+For more on errand run rules, [see the Ops Manager documentation](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
 ## <a id='known-issues'></a>Known Issues
 
 * Allows changing of the `Marketplace name` for **Dedicated Instance**, which will be removed
@@ -178,6 +193,7 @@ The following table describes the logging tags:
   deployed. Retrying will continue the cleanup process
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
+* When errand run rules are set to "When Changed", Ops Manager versions before 1.10.9 may not run the errands when the tile has relevant changes. [See the Ops Manager docs for more information](https://docs.pivotal.io/tiledev/tile-errands.html).
 
 ## <a id=''></a>Feedback
 
