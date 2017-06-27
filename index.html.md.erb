@@ -106,6 +106,60 @@ The following table provides version and version-support information about Rabbi
 * Automated upgrades of RabbitMQ for major, minor and patch releases (see release notes for downtime requirements)
 * Configure the end point for the RabbitMQ Syslog
 * RabbitMQ and HAProxy metrics are exposed on the firehose
+* Syslog forwarding on by default
+
+## Syslog Forwarding Configuration
+
+As of 1.9, syslog forwarding must be configured and will be set to on by default.
+Operators can opt out by disabling syslog forwarding in Ops Manager.
+
+screenshot goes here
+![Ops Manager Syslog Forwarding Configuration](images/syslog-config-1.9.0.png)
+
+It is recommended that operators configure a syslog endpoint and port. In a future 1.9 release, the endpoint and port will be required.
+
+### Logging format
+
+Logging format will not change in 1.9.0, but `app_name` has been retagged as `program_name`.
+
+`<pri>timestamp ip_address program_name [job=<name> index=<job_index> id=<job_id>] message`
+
+<table class="nice">
+  <th>Tag</th>
+  <th>Description</th>
+  <tr>
+    <td>pri</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td>timestamp</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td>ip_address</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td>program_name</td>
+    <td>Same as `app_name` prior to 1.9.0</td>
+  </tr>
+  <tr>
+    <td>name</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td>job_index</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td>job_id</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td>message</td>
+    <td> </td>
+  </tr>
+</table>
 
 ## <a id='known-issues'></a>Known Issues
 
