@@ -110,19 +110,17 @@ The following table provides version and version-support information about Rabbi
 
 ## Syslog Forwarding Configuration
 
-As of 1.9, syslog forwarding must be configured and will be set to on by default.
-Operators can opt out by disabling syslog forwarding in Ops Manager.
+As of 1.9, syslog forwarding is preconfigured and set to on by default. We recommend that you keep the default setting as it is good operational practice. However, you can opt out by selecting **No** for **Do you want to configure syslog?** in the Ops Manager Settings tab.
 
-screenshot goes here
 ![Ops Manager Syslog Forwarding Configuration](images/syslog-config-1.9.0.png)
 
-It is recommended that operators configure a syslog endpoint and port. In a future 1.9 release, the endpoint and port will be required.
+We recommend that operators configure a syslog endpoint and port. In a future 1.9 release, the endpoint and port will be required.
 
-### Logging format
+### Logging Format
 
-Logging format will not change in 1.9.0, but `app_name` has been retagged as `program_name`.
+The logging format will not change in 1.9.0, but `app_name` has been retagged as `program_name`.
 
-`<pri>timestamp ip_address program_name [job=<name> index=<job_index> id=<job_id>] message`
+The following table describes the logging tags:
 
 <table class="nice">
   <th>Tag</th>
