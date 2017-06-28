@@ -118,15 +118,29 @@ We recommend that operators configure a syslog endpoint and port. In a future 1.
 
 ### Logging Format
 
-The logging format will not change in 1.9.0, but `app_name` has been retagged as `program_name`.
+The logging format will not change in 1.9.0, but `app_name` has been retagged as `program_name`. The log format is as follows:
 
-The following table describes the logging tags:
+`<PRI>TIMESTAMP IP_ADDRESS PROGRAM_NAME [job=NAME index=JOB_INDEX id=JOB_ID] MESSAGE`
+
+The raw logs will look similar to the following:
+
+```
+<7>2017-06-28T16:06:10.733560+00:00 10.244.16.133 vcap.agent [job=rmq index=0 id=e37ecdca-5b10-4141-abd8-e1d777dfd8b5]  2017/06/28 16:06:10  CEF:0|CloudFoundry|BOSH|1|agent_api|ssh|1|duser=director.be5a66bb-a9b4-459f-a0d3-1fc5c9c3ed79.be148cc6-91ef-4eed-a788-237b0b8c63b7 src=10. 254.50.4 spt=4222 shost=5ae233e0-ecc5-4868-9ae0-f9767571251b
+<86>2017-06-28T16:06:16.704572+00:00 10.244.16.133 useradd [job=rmq index=0 id=e37ecdca-5b10-4141-abd8-e1d777dfd8b5]  new group: name=bosh_ly0d2rbjr, GID=1003
+<86>2017-06-28T16:06:16.704663+00:00 10.244.16.133 useradd [job=rmq index=0 id=e37ecdca-5b10-4141-abd8-e1d777dfd8b5]  new user: name=bosh_ly0d2rbjr, UID=1001, GID=1003, home=/var/vcap/bosh_ssh/bosh_ly0d2rbjr, shell=/bin/bash
+<86>2017-06-28T16:06:16.736932+00:00 10.244.16.133 usermod [job=rmq index=0 id=e37ecdca-5b10-4141-abd8-e1d777dfd8b5]  add 'bosh_ly0d2rbjr' to group 'admin'
+<86>2017-06-28T16:06:16.736964+00:00 10.244.16.133 usermod [job=rmq index=0 id=e37ecdca-5b10-4141-abd8-e1d777dfd8b5]  add 'bosh_ly0d2rbjr' to group 'vcap'
+```
+
+Logs sent to external logging tools such as Papertrail may be presented in a different format.
+
+The following table describes the logging tags used in this template:
 
 <table class="nice">
   <th>Tag</th>
   <th>Description</th>
   <tr>
-    <td><strong>pri</strong></td>
+    <td><strong>PRI</strong></td>
     <td>Severity code:
 
         <br>8—Emergency. System is unusable.
@@ -140,49 +154,105 @@ The following table describes the logging tags:
     </td>
   </tr>
   <tr>
-    <td><strong>timestamp</strong></td>
+    <td><strong>TIMESTAMP</strong></td>
     <td>This is the timestamp of when the log is forwarded, for example, <code>2016-08-24T05:14:15.000003Z</code>. The timestamp value is typically slightly after when it was generated.</td>
   </tr>
   <tr>
-    <td><strong>ip_address</strong></td>
+    <td><strong>IP_ADDRESS</strong></td>
     <td>The internal IP address of origin server</td>
   </tr>
   <tr>
-    <td><strong>program_name</strong></td>
+    <td><strong>PROGRAM_NAME</strong></td>
     <td>Process name of the program the generated the message. Same as <code>app_name</code> prior to 1.9.0</td>
   </tr>
   <tr>
-    <td><strong>name</strong></td>
-    <td> </td>
+    <td><strong>NAME</strong></td>
+    <td>The BOSH instance group name (for example, `rabbitmq_server`) followed by a process name (for example `node_check`). Here are some examples: rabbit_server_node_check, rabbitmq_broker_startup_stdout</td>
   </tr>
   <tr>
-    <td><strong>job_index</strong></td>
-    <td> </td>
+    <td><strong>JOB_INDEX</strong></td>
+    <td>BOSH job index. Used to distinguish between multiple instances of the same job.</td>
   </tr>
   <tr>
-    <td><strong>job_id</strong></td>
-    <td> </td>
+    <td><strong>JOB_ID</strong></td>
+    <td>BOSH VM GUID. This is distinct from the CID displayed in the Ops Manager Status tab, which corresponds to the VM ID assigned by the infrastructure provider.</td>
   </tr>
   <tr>
-    <td><strong>message</strong></td>
+    <td><strong>MESSAGE</strong></td>
     <td>The log message that appears</td>
   </tr>
 </table>
 
+### RabbitMQ Program Names
+
+#### TO DO: Add table
+
 ## <a id='errands'></a>Errands
 
-As of RabbitMQ for PCF 1.9.0, all post-deploy errands will be on by default. We recommend keeping this default, as
-the smoke tests can catch unexpected issues, and dedicated instances can fall behind if not automatically updated.
+When deploying or updating the RabbitMQ for PCF tile, Ops Manager can optionally run a series of errands. An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
 
-Errands run rules can be configured in Ops Manager Settings tab:
-
-![Configuring Errand Run Rules](images/errands-pane.png)
-
-Alternatively, errands be toggled before an update with a one-time setting on the installation dashboard:
+You can decide whether to run errands by toggling them on or off before an update. This is a one-time setting on the installation dashboard:
 
 ![Configuring One-time Errands](images/errands-installation.png)
 
+As of RabbitMQ for PCF 1.9.0, **all post-deploy errands will be on by default**.
+
+Important: We recommend keeping these defaults, as
+the smoke tests can catch unexpected issues, and dedicated instances of RabbitMQ for PCF can fall behind if the **Upgrade All Service Instances** errand is not on by default.
+
+However, if necessary, you can configure change these defaults in the Ops Manager Settings tab:
+
+![Configuring Errand Run Rules](images/errands-pane.png)
+
 For more on errand run rules, [see the Ops Manager documentation](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+### Post-deploy Errands
+
+#### TO DO: Complete this table
+
+<table class="nice">
+  <th>Errand</th>
+  <th>Description</th>
+  <tr>
+    <td><strong>Broker Registrar</strong></td>
+    <td>TBD
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Smoke Tests</strong></td>
+    <td>This is the timestamp of when the log is forwarded, for example, <code>2016-08-24T05:14:15.000003Z</code>. The timestamp value is typically slightly after when it was generated.</td>
+  </tr>
+  <tr>
+    <td><strong>Register On-Demand Service Broker</strong></td>
+    <td>The internal IP address of origin server</td>
+  </tr>
+  <tr>
+    <td><strong>Upgrade All Service Instances</strong></td>
+    <td>Process name of the program the generated the message. Same as <code>app_name</code> prior to 1.9.0</td>
+  </tr>
+</table>
+
+### Pre-delete Errands
+
+#### TO DO: Complete this table
+
+<table class="nice">
+  <th>Errand</th>
+  <th>Description</th>
+  <tr>
+    <td><strong>Broker Deregistrar</strong></td>
+    <td>TBD
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Delete All Service Instances</strong></td>
+    <td>This is the timestamp of when the log is forwarded, for example, <code>2016-08-24T05:14:15.000003Z</code>. The timestamp value is typically slightly after when it was generated.</td>
+  </tr>
+  <tr>
+    <td><strong>Deregister On-Demand Service Broker</strong></td>
+    <td>The internal IP address of origin server</td>
+  </tr>
+</table>
 
 ## <a id='known-issues'></a>Known Issues
 
