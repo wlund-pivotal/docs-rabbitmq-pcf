@@ -118,14 +118,14 @@ We recommend that operators configure a syslog endpoint and port. In a future 1.
 
 ### Logging Format
 
-The logging format will not change in 1.9.0, but `app_name` has been retagged as `program_name`. The log format is as follows:
+The logging format will not change in 1.9.0. For users familiar with documentation for previous versions of the tile, the tag we used to call the `app_name` is now called the `program_name`. The log format is as follows:
 
 `<PRI>TIMESTAMP IP_ADDRESS PROGRAM_NAME [job=NAME index=JOB_INDEX id=JOB_ID] MESSAGE`
 
 The raw logs will look similar to the following:
 
 ```
-<7>2017-06-28T16:06:10.733560+00:00 10.244.16.133 vcap.agent [job=rmq index=0 id=e37ecdca-5b10-4141-abd8-e1d777dfd8b5]  2017/06/28 16:06:10  CEF:0|CloudFoundry|BOSH|1|agent_api|ssh|1|duser=director.be5a66bb-a9b4-459f-a0d3-1fc5c9c3ed79.be148cc6-91ef-4eed-a788-237b0b8c63b7 src=10. 254.50.4 spt=4222 shost=5ae233e0-ecc5-4868-9ae0-f9767571251b
+<7>2017-06-28T16:06:10.733560+00:00 10.244.16.133 vcap.agent [job=rmq index=0 id=e37ecdca-5b10-4141-abd8-e1d777dfd8b5]  2017/06/28 16:06:10  CEF:0|CloudFoundry|BOSH|1|agent_api|ssh|1|duser=director.be5a66bb-a9b4-459f-a0d3-1fc5c9c3ed79.be148cc6-91ef-4eed-a788-237b0b8c63b7 src=10.254.50.4 spt=4222 shost=5ae233e0-ecc5-4868-9ae0-f9767571251b
 <86>2017-06-28T16:06:16.704572+00:00 10.244.16.133 useradd [job=rmq index=0 id=e37ecdca-5b10-4141-abd8-e1d777dfd8b5]  new group: name=bosh_ly0d2rbjr, GID=1003
 <86>2017-06-28T16:06:16.704663+00:00 10.244.16.133 useradd [job=rmq index=0 id=e37ecdca-5b10-4141-abd8-e1d777dfd8b5]  new user: name=bosh_ly0d2rbjr, UID=1001, GID=1003, home=/var/vcap/bosh_ssh/bosh_ly0d2rbjr, shell=/bin/bash
 <86>2017-06-28T16:06:16.736932+00:00 10.244.16.133 usermod [job=rmq index=0 id=e37ecdca-5b10-4141-abd8-e1d777dfd8b5]  add 'bosh_ly0d2rbjr' to group 'admin'
@@ -141,36 +141,23 @@ The following table describes the logging tags used in this template:
   <th>Description</th>
   <tr>
     <td><strong>PRI</strong></td>
-    <td>This is a priority value, which is a numerical combination of a facility code and a severity code. The most important RabbitMQ-related codes are:
-
-        <br>8—Emergency. System is unusable.
-        <br>9—Alert. Action must be taken immediately.
-        <br>10—Critical. Critical conditions
-        <br>11—Error. Error conditions
-        <br>12—Warning. Warning conditions
-        <br>13—Notice. Normal but significant condition
-        <br>14—Informational. Informational messages
-        <br>15—Debug. Debug-level messages
-
-        We discuss priority values in more detail below.
-
-    </td>
+    <td>This is a value which in future will be used to describe the severity of the log message, and which facility it came from.</td>
   </tr>
   <tr>
     <td><strong>TIMESTAMP</strong></td>
-    <td>This is the timestamp of when the log is forwarded, for example, <code>2016-08-24T05:14:15.000003Z</code>. The timestamp value is typically slightly after when it was generated.</td>
+    <td>This is the timestamp of when the log is forwarded, for example, <code>2016-08-24T05:14:15.000003Z</code>. The timestamp value is typically slightly after when the log message was generated.</td>
   </tr>
   <tr>
     <td><strong>IP_ADDRESS</strong></td>
-    <td>The internal IP address of origin server</td>
+    <td>The internal IP address of server on which the log message originated</td>
   </tr>
   <tr>
     <td><strong>PROGRAM_NAME</strong></td>
-    <td>Process name of the program the generated the message. Same as <code>app_name</code> prior to 1.9.0</td>
+    <td>Process name of the program the generated the message. Same as <code>app_name</code> prior to 1.9.0</td>. We discuss these program name in more detail below.
   </tr>
   <tr>
     <td><strong>NAME</strong></td>
-    <td>The BOSH instance group name (for example, `rabbitmq_server`) followed by a process name (for example `node_check`). Here are some examples: rabbit_server_node_check, rabbitmq_broker_startup_stdout</td>
+    <td>The BOSH instance group name (for example, `rabbitmq_server`)</td>
   </tr>
   <tr>
     <td><strong>JOB_INDEX</strong></td>
@@ -186,41 +173,78 @@ The following table describes the logging tags used in this template:
   </tr>
 </table>
 
-### Priority Values
-
-TODO: say what's going on here
-
-| Severity ➡️ |  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|----------|----------|---|---|---|---|---|---|---|---|
-| **Facilities** ⤵️ | | | | | | | |
-| kernel | 0 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-| user | 1 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 |
-| mail | 2 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 |
-| system | 3 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 |
-| security | 4 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 |
-| syslog | 5 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 |
-| lpd | 6 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 |
-| nntp | 7 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 |
-| uucp | 8 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 |
-| time | 9 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 |
-| security | 10 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 87 |
-| ftpd | 11 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95 |
-| ntpd | 12 | 96 | 97 | 98 | 99 | 100 | 101 | 102 | 103 |
-| logaudit | 13 | 104 | 105 | 106 | 107 | 108 | 109 | 110 | 111 |
-| logalert | 14 | 112 | 113 | 114 | 115 | 116 | 117 | 118 | 119 |
-| clock | 15 | 120 | 121 | 122 | 123 | 124 | 125 | 126 | 127 |
-| local0 | 16 | 128 | 129 | 130 | 131 | 132 | 133 | 134 | 135 |
-| local1 | 17 | 136 | 137 | 138 | 139 | 140 | 141 | 142 | 143 |
-| local2 | 18 | 144 | 145 | 146 | 147 | 148 | 149 | 150 | 151 |
-| local3 | 19 | 152 | 153 | 154 | 155 | 156 | 157 | 158 | 159 |
-| local4 | 20 | 160 | 161 | 162 | 163 | 164 | 165 | 166 | 167 |
-| local5 | 21 | 168 | 169 | 170 | 171 | 172 | 173 | 174 | 175 |
-| local6 | 22 | 176 | 177 | 178 | 179 | 180 | 181 | 182 | 183 |
-| local7 | 23 | 184 | 185 | 186 | 187 | 188 | 189 | 190 | 191 |
-
 ### RabbitMQ Program Names
 
-#### TO DO: Add table
+<table>
+  <tr>
+    <td>rabbit_server_cluster_check</td>
+    <td>Checks that the RabbitMQ cluster is healthy. Runs after every deploy.</td>
+  </tr>
+  <tr>
+    <td>rabbit_server_node_check</td>
+    <td>Checks that the RabbitMQ node is healthy. Runs after every deploy.</td>
+  </tr>
+  <tr>
+    <td>rabbitmq_route_registrar_stderr</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rabbitmq_route_registrar_stdout</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rabbitmq_server</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rabbitmq_server_drain</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rabbitmq_server_http_api_access</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rabbitmq_server_init</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rabbitmq_server_post_deploy_stderr</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rabbitmq_server_post_deploy_stdout</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rabbitmq_server_pre_start</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rabbitmq_server_sasl</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rabbitmq_server_shutdown_stderr</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rabbitmq_server_shutdown_stdout</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rabbitmq_server_startup_stderr</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rabbitmq_server_startup_stdout</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>rabbitmq_server_upgrade</td>
+    <td></td>
+  </tr>
+</table>
 
 ## <a id='errands'></a>Errands
 
@@ -231,7 +255,7 @@ You can decide whether to run errands by toggling them on or off before an updat
 ![Configuring One-time Errands](images/errands-installation.png)
 
 <p class='note'><strong>IMPORTANT</strong>: As of RabbitMQ for PCF 1.9.0, all post-deploy errands will be ON by default. We recommend keeping these defaults, as
-the smoke tests can encounter unexpected issues, and dedicated instances of RabbitMQ for PCF may fall behind 
+the smoke tests can encounter unexpected issues, and dedicated instances of RabbitMQ for PCF may fall behind
    if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
 
 However, if necessary, you can change these defaults in the Ops Manager **Settings** tab:
