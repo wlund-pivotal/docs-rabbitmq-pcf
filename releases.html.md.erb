@@ -15,12 +15,12 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 #### Features
 
-Uses internal address for RabbitMQ api calls from the service broker
+* Uses internal address for RabbitMQ api calls from the service broker, fixes the port 80
+  known issue
+* Fixes known issue around deleting many service instances on an un-install.
 
 #### Known Issues
 
-* Deleting your RabbitMQ for PCF tile can timeout (1 hour) if many dedicated instances have been
-  deployed. Retrying will continue the cleanup process
 * Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
@@ -45,6 +45,8 @@ Uses internal address for RabbitMQ api calls from the service broker
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
 * As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
+* Dedicated instance service binding doesn't work when the CloudFoundry entry-point
+  disables/blocks port 80
 
 ### v1.8.9
 
@@ -65,6 +67,8 @@ improve compatibility with client libraries.
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
+* Dedicated instance service binding doesn't work when the CloudFoundry entry-point
+  disables/blocks port 80
 
 ### v1.8.8
 
