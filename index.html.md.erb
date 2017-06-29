@@ -176,74 +176,80 @@ The following table describes the logging tags used in this template:
 ### RabbitMQ Program Names
 
 <table>
-  <tr>
-    <td>rabbit_server_cluster_check</td>
-    <td>Checks that the RabbitMQ cluster is healthy. Runs after every deploy.</td>
-  </tr>
-  <tr>
-    <td>rabbit_server_node_check</td>
-    <td>Checks that the RabbitMQ node is healthy. Runs after every deploy.</td>
-  </tr>
-  <tr>
-    <td>rabbitmq_route_registrar_stderr</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>rabbitmq_route_registrar_stdout</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>rabbitmq_server</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>rabbitmq_server_drain</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>rabbitmq_server_http_api_access</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>rabbitmq_server_init</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>rabbitmq_server_post_deploy_stderr</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>rabbitmq_server_post_deploy_stdout</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>rabbitmq_server_pre_start</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>rabbitmq_server_sasl</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>rabbitmq_server_shutdown_stderr</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>rabbitmq_server_shutdown_stdout</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>rabbitmq_server_startup_stderr</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>rabbitmq_server_startup_stdout</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>rabbitmq_server_upgrade</td>
-    <td></td>
-  </tr>
+  <thead>
+    <th>Program Name</th>
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>rabbit_server_cluster_check</strong></td>
+      <td>Checks that the RabbitMQ cluster is healthy. Runs after every deploy.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbit_server_node_check</strong></td>
+      <td>Checks that the RabbitMQ node is healthy. Runs after every deploy.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_route_registrar_stderr</strong></td>
+      <td>Registers the route for the management API with the Gorouter in your Elastic Runtime deployment.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_route_registrar_stdout</strong></td>
+      <td>Registers the route for the management API with the Gorouter in your Elastic Runtime deployment.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_server</strong></td>
+      <td>The Erlang VM and RabbitMQ applications. _Logs may span multiple lines_.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_server_drain</strong></td>
+      <td>Shuts down the Erlang VM and RabbitMQ applications. Runs as part of the BOSH lifecycle.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_server_http_api_access</strong></td>
+      <td>Access to the RabbitMQ management UI.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_server_init</strong></td>
+      <td>Starts the Erlang VM and RabbitMQ.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_server_post_deploy_stderr</strong></td>
+      <td>Runs the node check and cluster check. Runs after every deploy.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_server_post_deploy_stdout</strong></td>
+      <td>Runs the node check and cluster check. Runs after every deploy.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_server_pre_start</strong></td>
+      <td>Runs before the rabbitmq-server job is started.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_server_sasl</strong></td>
+      <td>Supervisor, progress and crash reporting for the Erlang VM and RabbitMQ applications.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_server_shutdown_stderr</strong></td>
+      <td>Stops the RabbitMQ application and Erlang VM.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_server_shutdown_stdout</strong></td>
+      <td>Stops the RabbitMQ application and Erlang VM.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_server_startup_stderr</strong></td>
+      <td>Starts the RabbitMQ application and Erlang VM, then configures users and permissions.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_server_startup_stdout</strong></td>
+      <td>Starts the RabbitMQ application and Erlang VM, then configures users and permissions.</td>
+    </tr>
+    <tr>
+      <td><strong>rabbitmq_server_upgrade</strong></td>
+      <td>Shuts down Erlang VM and RabbitMQ application if required during an upgrade.</td>
+    </tr>
+  </tbody>
 </table>
 
 ## <a id='errands'></a>Errands
