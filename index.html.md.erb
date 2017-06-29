@@ -189,16 +189,14 @@ The following table describes the logging tags used in this template:
 
 ## <a id='errands'></a>Errands
 
-When deploying or updating the RabbitMQ for PCF tile, Ops Manager can optionally run a series of errands. An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
+When deploying or updating the RabbitMQ for PCF tile, Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands). An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
 
 You can decide whether to run errands by toggling them on or off before an update. This is a one-time setting on the installation dashboard:
 
 ![Configuring One-time Errands](images/errands-installation.png)
 
-As of RabbitMQ for PCF 1.9.0, **all post-deploy errands will be on by default**.
-
-<p class='note'><strong>IMPORTANT</strong>: We recommend keeping these defaults, as
-the smoke tests can catch unexpected issues, and dedicated instances of RabbitMQ for PCF can fall behind 
+<p class='note'><strong>IMPORTANT</strong>: As of RabbitMQ for PCF 1.9.0, all post-deploy errands will be ON by default. We recommend keeping these defaults, as
+the smoke tests can encounter unexpected issues, and dedicated instances of RabbitMQ for PCF may fall behind 
    if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
 
 However, if necessary, you can change these defaults in the Ops Manager **Settings** tab:
@@ -207,7 +205,7 @@ However, if necessary, you can change these defaults in the Ops Manager **Settin
 
 For more information on errand run rules, see the [Ops Manager documentation](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-### Post-deploy Errands
+### <a id='post-deploy-errands'></a>Post-deploy Errands
 
 #### TO DO: Complete this table
 
