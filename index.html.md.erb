@@ -36,9 +36,9 @@ This RabbitMQ for PCF v1.8 documentation describes both service types.
 Documentation for RabbitMQ for PCF v1.7 and earlier only describes a pre-provisioned service.
 
 ## What are dedicated instances and when to use them with RabbitMQ
-For PCF RabbitMQ versions before 1.8.0, the RabbitMQ Service
+For PCF RabbitMQ versions before v1.8.0, the RabbitMQ Service
 instances correspond to a unique RabbitMQ Vhost on the multi-tenant RabbitMQ
-cluster. As of PCF RabbitMQ 1.8.0, we introduced [On-Demand Broker
+cluster. As of RabbitMQ for PCF v1.8.0, we introduced [On-Demand Broker
 (ODB)](https://docs.pivotal.io/svc-sdk/odb/index.html) support (experimental). That means
 that a new cluster can be created and dedicated to a single application
 (single-tenant).
@@ -79,7 +79,7 @@ The following table provides version and version-support information about Rabbi
     </tr>
     <tr>
         <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.10.3 and higher</td>
+        <td>v1.10.3 and later</td>
     </tr>
     <tr>
         <td>IaaS support</td>
@@ -110,19 +110,23 @@ The following table provides version and version-support information about Rabbi
 
 ## <a id='logging'></a>Syslog Forwarding Configuration
 
-As of RabbitMQ for PCF 1.9.0, syslog forwarding is preconfigured and set to on by default. We recommend that you keep the default setting as it is good operational practice. However, you can opt out by selecting **No** for **Do you want to configure syslog?** in the Ops Manager **Settings** tab.
+As of RabbitMQ for PCF v1.9.0, syslog forwarding is preconfigured and set to on by default.
+Pivotal recommends that you keep the default setting as it is good operational practice.
+However, you can opt out by selecting **No** for **Do you want to configure syslog?** in the Ops Manager **Settings** tab.
 
 ![Ops Manager Syslog Forwarding Configuration](images/syslog-config-1.9.0.png)
 
-We recommend that operators configure a syslog endpoint and port. In a future 1.9 release, the endpoint and port will be required.
+Pivotal recommends that operators configure a syslog endpoint and port. In a future release, the endpoint and port will be required.
 
 ### Logging Format
 
-The logging format will not change in 1.9.0. For users familiar with documentation for previous versions of the tile, the tag we used to call the `app_name` is now called the `program_name`. The log format is as follows:
+The logging format does not change in v1.9.0.
+For users familiar with documentation for previous versions of the tile, the tag we used to call the `app_name` is now called the `program_name`.
+The log format is as follows:
 
 `<PRI>TIMESTAMP IP_ADDRESS PROGRAM_NAME [job=NAME index=JOB_INDEX id=JOB_ID] MESSAGE`
 
-The raw logs will look similar to the following:
+The raw logs look similar to the following:
 
 ```
 <7>2017-06-28T16:06:10.733560+00:00 10.244.16.133 vcap.agent [job=rmq index=0 id=e37ecdca-5b10-4141-abd8-e1d777dfd8b5]  2017/06/28 16:06:10  CEF:0|CloudFoundry|BOSH|1|agent_api|ssh|1|duser=director.be5a66bb-a9b4-459f-a0d3-1fc5c9c3ed79.be148cc6-91ef-4eed-a788-237b0b8c63b7 src=10.254.50.4 spt=4222 shost=5ae233e0-ecc5-4868-9ae0-f9767571251b
@@ -141,11 +145,12 @@ The following table describes the logging tags used in this template:
   <th>Description</th>
   <tr>
     <td><strong>PRI</strong></td>
-    <td>This is a value which in future will be used to describe the severity of the log message, and which facility it came from.</td>
+    <td>This is a value which in future will be used to describe the severity of the log message and which facility it came from.</td>
   </tr>
   <tr>
     <td><strong>TIMESTAMP</strong></td>
-    <td>This is the timestamp of when the log is forwarded, for example, <code>2016-08-24T05:14:15.000003Z</code>. The timestamp value is typically slightly after when the log message was generated.</td>
+    <td>This is the timestamp of when the log is forwarded, for example, <code>2016-08-24T05:14:15.000003Z</code>.
+        The timestamp value is typically slightly after when the log message was generated.</td>
   </tr>
   <tr>
     <td><strong>IP_ADDRESS</strong></td>
@@ -153,11 +158,13 @@ The following table describes the logging tags used in this template:
   </tr>
   <tr>
     <td><strong>PROGRAM_NAME</strong></td>
-    <td>Process name of the program the generated the message. Same as <code>app_name</code> prior to 1.9.0</td>. We discuss these program name in more detail below.
+    <td>Process name of the program the generated the message.
+        Same as <code>app_name</code> before v1.9.0. 
+        For more information about program name, see below.</td>
   </tr>
   <tr>
     <td><strong>NAME</strong></td>
-    <td>The BOSH instance group name (for example, `rabbitmq_server`)</td>
+    <td>The BOSH instance group name (for example, <code>rabbitmq_server</code>)</td>
   </tr>
   <tr>
     <td><strong>JOB_INDEX</strong></td>
@@ -260,9 +267,10 @@ You can decide whether to run errands by toggling them on or off before an updat
 
 ![Configuring One-time Errands](images/errands-installation.png)
 
-<p class='note'><strong>IMPORTANT</strong>: As of RabbitMQ for PCF 1.9.0, all post-deploy errands will be ON by default. We recommend keeping these defaults, as
-the smoke tests can encounter unexpected issues, and dedicated instances of RabbitMQ for PCF may fall behind
-   if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
+<p class='note'><strong>IMPORTANT</strong>: As of RabbitMQ for PCF v1.9.0, all post-deploy errands are ON by default.
+    Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
+    and dedicated instances of RabbitMQ for PCF may fall behind
+    if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
 
 However, if necessary, you can change these defaults in the Ops Manager **Settings** tab:
 
@@ -270,14 +278,14 @@ However, if necessary, you can change these defaults in the Ops Manager **Settin
 
 For more information on errand run rules, see the [Ops Manager documentation](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
-### <a id='post-deploy-errands'></a>Post-deploy Errands
+### <a id='post-deploy-errands'></a>Post-Deploy Errands
 
 <table class="nice">
   <th>Errand</th>
   <th>Description</th>
   <tr>
     <td><strong>Broker Registrar</strong></td>
-    <td>Makes the pre-provisioned RabbitMQ service available in the Cloud Foundry marketplace.
+    <td>Makes the pre-provisioned RabbitMQ service available in the Marketplace.
     </td>
   </tr>
   <tr>
@@ -286,22 +294,22 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
   </tr>
   <tr>
     <td><strong>Register On-Demand Service Broker</strong></td>
-    <td>Makes the on-demand RabbitMQ service available in the Cloud Foundry marketplace.</td>
+    <td>Makes the on-demand RabbitMQ service available in the Marketplace.</td>
   </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
-    <td>On-demand instances will be updated and redeployed if there are changes to the Dedicated Instance settings or the tile is upgraded.</td>
+    <td>On-demand instances are updated and redeployed if there are changes to the Dedicated Instance settings or the tile is upgraded.</td>
   </tr>
 </table>
 
-### <a id='pre-delete-errands'></a>Pre-delete Errands
+### <a id='pre-delete-errands'></a>Pre-Delete Errands
 
 <table class="nice">
   <th>Errand</th>
   <th>Description</th>
   <tr>
     <td><strong>Broker Deregistrar</strong></td>
-    <td>Removes the pre-provisioned RabbitMQ service from the Cloud Foundry marketplace. TODO: Does this also delete multitenant service instances?</td>
+    <td>Removes the pre-provisioned RabbitMQ service from the Marketplace. TODO: Does this also delete multitenant service instances?</td>
   </tr>
   <tr>
     <td><strong>Delete All Service Instances</strong></td>
@@ -317,7 +325,9 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
 
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
-* When errand run rules are set to "When Changed", Ops Manager may not run the errands when the tile has relevant changes. [See the Ops Manager documentation for more details](https://docs.pivotal.io/tiledev/tile-errands.html). We recommend leaving the default run rule set to **On**.
+* When errand run rules are set to "When Changed", Ops Manager may not run the errands when the tile has relevant changes.
+  For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
+  Pivotal recommends leaving the default run rule set to **On**.
 
 ## <a id=''></a>Feedback
 
