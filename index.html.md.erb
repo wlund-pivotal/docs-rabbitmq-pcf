@@ -272,49 +272,44 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
 
 ### <a id='post-deploy-errands'></a>Post-deploy Errands
 
-#### TO DO: Complete this table
-
 <table class="nice">
   <th>Errand</th>
   <th>Description</th>
   <tr>
     <td><strong>Broker Registrar</strong></td>
-    <td>TBD
+    <td>Makes the pre-provisioned RabbitMQ service available in the Cloud Foundry marketplace.
     </td>
   </tr>
   <tr>
     <td><strong>Smoke Tests</strong></td>
-    <td>This is the timestamp of when the log is forwarded, for example, <code>2016-08-24T05:14:15.000003Z</code>. The timestamp value is typically slightly after when it was generated.</td>
+    <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry application and that the RabbitMQ cluster is healthy by sending and receiving messages.</td>
   </tr>
   <tr>
     <td><strong>Register On-Demand Service Broker</strong></td>
-    <td>The internal IP address of origin server</td>
+    <td>Makes the on-demand RabbitMQ service available in the Cloud Foundry marketplace.</td>
   </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
-    <td>Process name of the program the generated the message. Same as <code>app_name</code> prior to 1.9.0</td>
+    <td>On-demand instances will be updated and redeployed if there are changes to the Dedicated Instance settings or the tile is upgraded.</td>
   </tr>
 </table>
 
 ### <a id='pre-delete-errands'></a>Pre-delete Errands
-
-#### TO DO: Complete this table
 
 <table class="nice">
   <th>Errand</th>
   <th>Description</th>
   <tr>
     <td><strong>Broker Deregistrar</strong></td>
-    <td>TBD
-    </td>
+    <td>Removes the pre-provisioned RabbitMQ service from the Cloud Foundry marketplace. TODO: Does this also delete multitenant service instances?</td>
   </tr>
   <tr>
     <td><strong>Delete All Service Instances</strong></td>
-    <td>This is the timestamp of when the log is forwarded, for example, <code>2016-08-24T05:14:15.000003Z</code>. The timestamp value is typically slightly after when it was generated.</td>
+    <td>TODO</td>
   </tr>
   <tr>
     <td><strong>Deregister On-Demand Service Broker</strong></td>
-    <td>The internal IP address of origin server</td>
+    <td>TODO</td>
   </tr>
 </table>
 
