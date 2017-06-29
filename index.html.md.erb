@@ -40,7 +40,7 @@ For PCF RabbitMQ versions before v1.8.0, the RabbitMQ Service
 instances correspond to a unique RabbitMQ Vhost on the multi-tenant RabbitMQ
 cluster. As of RabbitMQ for PCF v1.8.0, we introduced [On-Demand Broker
 (ODB)](https://docs.pivotal.io/svc-sdk/odb/index.html) support (experimental). That means
-that a new cluster can be created and dedicated to a single application
+that a new cluster can be created and dedicated to a single app
 (single-tenant).
 
 ## <a id='AboutRabbit'></a>About RabbitMQ
@@ -49,8 +49,8 @@ RabbitMQ is a fast and dependable open-source message server, which supports a w
 including reliable integration, content-based routing and global data delivery, and high-volume monitoring and data ingestion.
 
 Emerging as the de facto standard for cloud messaging, RabbitMQ is used for efficient communication
-between servers, applications and devices, and creates lasting value by enabling rapid development of modern decentralized
-application and data architectures that can scale with your business needs.
+between servers, apps and devices, and creates lasting value by enabling rapid development of modern decentralized
+app and data architectures that can scale with your business needs.
 
 
 
@@ -89,21 +89,21 @@ The following table provides version and version-support information about Rabbi
 
 ## <a id='features'></a>Features
 
-### On-Demand
+###<a id='on-demand'></a> On-Demand
 
 * Provision on-demand single node dedicated instances of RabbitMQ
 
-### Pre-Provisioned
+###<a id='pre-provisioned'></a> Pre-Provisioned
 
 * Provision an instance of the RabbitMQ service, which corresponds to a unique RabbitMQ Vhost (virtual host)
-* Bind applications to an instance of the plan, providing unique credentials for each binding
-* Management dashboard access to PCF Operators and application developers
+* Bind apps to an instance of the plan, providing unique credentials for each binding
+* Management dashboard access to PCF Operators and app developers
 * Deployment across multiple availability zones, with nodes striped across the AZs automatically
 * Enable SSL (Secure Sockets Layer) for the AMQP, MQTT, STOMP protocols
 * HAProxy load balancer across all nodes to balance connections
 * Plugin configuration can be easily changed at any time and the cluster redeployed and updated
 * The cluster topology can be changed and easily scaled out
-* Automated upgrades of RabbitMQ for major, minor and patch releases (see release notes for downtime requirements)
+* Automated upgrades of RabbitMQ for major, minor, and patch releases (see release notes for downtime requirements)
 * Configure the end point for the RabbitMQ Syslog
 * RabbitMQ and HAProxy metrics are exposed on the firehose
 * Syslog forwarding on by default
@@ -111,14 +111,14 @@ The following table provides version and version-support information about Rabbi
 ## <a id='logging'></a>Syslog Forwarding Configuration
 
 As of RabbitMQ for PCF v1.9.0, syslog forwarding is preconfigured and set to on by default.
-Pivotal recommends that you keep the default setting as it is good operational practice.
+Pivotal recommends that you keep the default setting because it is good operational practice.
 However, you can opt out by selecting **No** for **Do you want to configure syslog?** in the Ops Manager **Settings** tab.
 
 ![Ops Manager Syslog Forwarding Configuration](images/syslog-config-1.9.0.png)
 
 Pivotal recommends that operators configure a syslog endpoint and port. In a future release, the endpoint and port will be required.
 
-### Logging Format
+###<a id="log-format"></a> Logging Format
 
 The logging format does not change in v1.9.0.
 For users familiar with documentation for previous versions of the tile, the tag we used to call the `app_name` is now called the `program_name`.
@@ -160,7 +160,7 @@ The following table describes the logging tags used in this template:
     <td><strong>PROGRAM_NAME</strong></td>
     <td>Process name of the program the generated the message.
         Same as <code>app_name</code> before v1.9.0. 
-        For more information about program name, see below.</td>
+        For more information about program name, see <a href="#program-names">RabbitMQ Program Names</a> below.</td>
   </tr>
   <tr>
     <td><strong>NAME</strong></td>
@@ -180,7 +180,7 @@ The following table describes the logging tags used in this template:
   </tr>
 </table>
 
-### RabbitMQ Program Names
+###<a id='program-names'></a> RabbitMQ Program Names
 
 <table>
   <thead>
@@ -206,11 +206,11 @@ The following table describes the logging tags used in this template:
     </tr>
     <tr>
       <td><strong>rabbitmq_server</strong></td>
-      <td>The Erlang VM and RabbitMQ applications. _Logs may span multiple lines_.</td>
+      <td>The Erlang VM and RabbitMQ apps. <em>Logs may span multiple lines</em>.</td>
     </tr>
     <tr>
       <td><strong>rabbitmq_server_drain</strong></td>
-      <td>Shuts down the Erlang VM and RabbitMQ applications. Runs as part of the BOSH lifecycle.</td>
+      <td>Shuts down the Erlang VM and RabbitMQ apps. Runs as part of the BOSH lifecycle.</td>
     </tr>
     <tr>
       <td><strong>rabbitmq_server_http_api_access</strong></td>
@@ -234,27 +234,27 @@ The following table describes the logging tags used in this template:
     </tr>
     <tr>
       <td><strong>rabbitmq_server_sasl</strong></td>
-      <td>Supervisor, progress and crash reporting for the Erlang VM and RabbitMQ applications.</td>
+      <td>Supervisor, progress, and crash reporting for the Erlang VM and RabbitMQ apps.</td>
     </tr>
     <tr>
       <td><strong>rabbitmq_server_shutdown_stderr</strong></td>
-      <td>Stops the RabbitMQ application and Erlang VM.</td>
+      <td>Stops the RabbitMQ app and Erlang VM.</td>
     </tr>
     <tr>
       <td><strong>rabbitmq_server_shutdown_stdout</strong></td>
-      <td>Stops the RabbitMQ application and Erlang VM.</td>
+      <td>Stops the RabbitMQ app and Erlang VM.</td>
     </tr>
     <tr>
       <td><strong>rabbitmq_server_startup_stderr</strong></td>
-      <td>Starts the RabbitMQ application and Erlang VM, then configures users and permissions.</td>
+      <td>Starts the RabbitMQ app and Erlang VM, then configures users and permissions.</td>
     </tr>
     <tr>
       <td><strong>rabbitmq_server_startup_stdout</strong></td>
-      <td>Starts the RabbitMQ application and Erlang VM, then configures users and permissions.</td>
+      <td>Starts the RabbitMQ app and Erlang VM, then configures users and permissions.</td>
     </tr>
     <tr>
       <td><strong>rabbitmq_server_upgrade</strong></td>
-      <td>Shuts down Erlang VM and RabbitMQ application if required during an upgrade.</td>
+      <td>Shuts down Erlang VM and RabbitMQ app if required during an upgrade.</td>
     </tr>
   </tbody>
 </table>
@@ -290,7 +290,7 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
   </tr>
   <tr>
     <td><strong>Smoke Tests</strong></td>
-    <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry application and that the RabbitMQ cluster is healthy by sending and receiving messages.</td>
+    <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app and that the RabbitMQ cluster is healthy by sending and receiving messages.</td>
   </tr>
   <tr>
     <td><strong>Register On-Demand Service Broker</strong></td>
