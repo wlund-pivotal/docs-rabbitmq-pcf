@@ -285,20 +285,19 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
   <th>Description</th>
   <tr>
     <td><strong>Broker Registrar</strong></td>
-    <td>Makes the pre-provisioned RabbitMQ service available in the Marketplace.
-    </td>
+    <td>Makes the pre-provisioned RabbitMQ service available in the Marketplace</td>
   </tr>
   <tr>
     <td><strong>Smoke Tests</strong></td>
-    <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app and that the RabbitMQ cluster is healthy by sending and receiving messages.</td>
+    <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to an app and that the RabbitMQ cluster is healthy and able to send and receive messages</td>
   </tr>
   <tr>
     <td><strong>Register On-Demand Service Broker</strong></td>
-    <td>Makes the on-demand RabbitMQ service available in the Marketplace.</td>
+    <td>Makes the on-demand RabbitMQ service available in the Marketplace</td>
   </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
-    <td>On-demand instances are updated and redeployed if there are changes to the Dedicated Instance settings or the tile is upgraded.</td>
+    <td>On-demand instances are updated and redeployed if there are changes to the Dedicated Instance settings or the tile is upgraded. **We strongly recommend that you always run this errand**</td>
   </tr>
 </table>
 
@@ -309,15 +308,15 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
   <th>Description</th>
   <tr>
     <td><strong>Broker Deregistrar</strong></td>
-    <td>Removes the pre-provisioned RabbitMQ service from the Marketplace. TODO: Does this also delete multitenant service instances?</td>
+    <td>Removes the pre-provisioned RabbitMQ service from the Marketplace and deletes all associated service instances and bindings</td>
   </tr>
   <tr>
     <td><strong>Delete All Service Instances</strong></td>
-    <td>TODO</td>
+    <td>Unbinds and deletes existing dedicated service instances</td>
   </tr>
   <tr>
     <td><strong>Deregister On-Demand Service Broker</strong></td>
-    <td>TODO</td>
+    <td>Removes the on-demand RabbitMQ service from the Marketplace</td>
   </tr>
 </table>
 
