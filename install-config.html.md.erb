@@ -21,7 +21,7 @@ as a pre-provisioned service, see
 
 ## <a id="tile_configurations"></a> Tile Configurations
 
-The configuration screen appears when you click the RabbitMQ for PC tile in Ops Manager:
+The configuration screen appears when you click the RabbitMQ for PCF tile in Ops Manager:
 
 ![Configuring Errand Run Rules](images/errands-pane.png)
 
@@ -52,14 +52,14 @@ The following configuration options are available:
 
 ### Enabling the On-Demand Service Broker
 
-In order to enable the on-demand service plan, you must configure the **Dedicated Instance: Single Node Plan**. In the Dedicated Instance Single Node Plan plan, there is a single node in the cluster. However, there is still an `HAProxy` associated with the cluster.
+In order to enable the on-demand service plan, you must configure the **Dedicated Instance: Single Node Plan**. In the Dedicated Instance Single Node Plan, there is a single node in the cluster. However, there is still an `HAProxy` associated with the cluster.
 
   <p class="note"><strong>Note</strong>: If the ODB feature is not enabled, the ODB is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.</p>
 
 
 ### Explanation of Resource Types and Requirements
 
-It is possible to configure the VM type for RabbitMQ and HAProxy instances by using the fields `RabbitMQ VM Type` and `HAProxy VM Type` respectively.
+It is possible to configure the VM type for RabbitMQ and HAProxy instances by using the fields **RabbitMQ VM Type** and **HAProxy VM Type** respectively.
 It is also possible to chose the size of the persistent disk that is going to be attached the RabbitMQ instances.
 It is also necessary to chose the Availability Zone (AZ) the service instance is going to live in.
 
@@ -187,7 +187,7 @@ RabbitMQ declines to start, and the disk size suggested for an average use case.
 
 <%= image_tag("images/vm-ram-disk-example.png") %>
 
-For more information, see the following documentation links.</br></br>
+For more information, see the following documentation links:</br></br>
   - [Alarms overview](http://www.rabbitmq.com/alarms.html)<br></br>
   - [Disk Alarms](http://www.rabbitmq.com/disk-alarms.html)
 
