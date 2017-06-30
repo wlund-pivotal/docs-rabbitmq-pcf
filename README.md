@@ -4,6 +4,8 @@
 
 **master** - all documentation for the next unreleased version of **RabbitMQ** should land in master. Any changes on this branch will not be displayed publicly until a **minor** branch is cut, and an update to [docs-book-rabbitmq][docs-book-rabbitmq] is done (To be documented).
 
+**1.9-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-9](http://docs.pivotal.io/rabbitmq-cf/1-9/).
+
 **1.8-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-8](http://docs.pivotal.io/rabbitmq-cf/1-8/).
 
 **1.7-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-7](http://docs.pivotal.io/rabbitmq-cf/1-7/).
@@ -19,7 +21,7 @@
 When a commit is made into any of the above branches, the documentation is deployed by [this concourse build][docs-staging-deploy]. All the supported
 versions will be accessible on the [staging website][docs-staging].
 
-The **master** docs are deployed to [the 1.9 staging branch](http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-9/).
+The **master** docs are deployed to [the 1.10 staging branch](http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-10/).
 
 [docs-staging-deploy]: https://wings.concourse.ci/teams/cf-docs/pipelines/cf-services?groups=rabbitmq
 [docs-staging]:        http://docs-pcf-staging.cfapps.io/rabbitmq-cf/
