@@ -2,7 +2,15 @@
 
 ### Branch Management
 
-**master** - all documentation for the next unreleased version of **RabbitMQ** should land in master. Any changes on this branch will not be displayed publicly until a **minor** branch is cut, and an update to [docs-book-rabbitmq][docs-book-rabbitmq] is done (To be documented).
+**master** - all documentation for the next unreleased version of **RabbitMQ** is in master. This is the tree-trunk, so ALWAYS make changes you want carried forward in this branch. This includes
+
+* Unreleased features
+* Doc bug fixes
+* Doc reorganization or enhancement
+
+Then, if necessary, immediately cherry-pick/copy any changes that you want to push immediately to production into the appropriate "-live" branch below.
+
+Any changes on the master branch will not be displayed publicly until a **-live** branch is cut, and an update to [docs-book-rabbitmq][docs-book-rabbitmq] is done (To be documented).
 
 **1.9-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-9](http://docs.pivotal.io/rabbitmq-cf/1-9/).
 
