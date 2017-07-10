@@ -35,48 +35,6 @@ Click **Dedicated Instance: Global Settings** and configure the following:
   - **Allow outbound internet access (IaaS-dependent)**. For more information, see the Ops Manager documentation. Log forwarding and backups may require internet access.
 
 
-### <a id="azs-networks"></a>  Configure AZs and Networks
-
-Follow the steps below to configure the AZs and Networks for on-demand service instances. 
-
-1. Click **Assign AZs and Networks**.
-    <p class="note"><strong>IMPORTANT</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
-
-2. Configure the fields on the **Assign AZs and Networks** as follows:
-  <table>
-    <tr><th>Field</th><th>Instructions</th></tr>
-    <tr><td><strong>Place singleton jobs in</strong></td>
-        <td>Select the region that you want for singleton VMs. PCF creates the RabbitMQ broker in this AZ.</td></tr>
-    <tr><td><strong>Balance other jobs in</strong></td>
-        <td>Select additional region. This selection does not affect the on-demand RabbitMQ for PCF service.</td></tr>
-    <tr><td><strong>Network</strong></td>
-        <td>Select a subnet for the RabbitMQ broker.<br>
-            This network is represented by the Default Network in this <a href="./about.html#on-demand">picture</a>.
-            Typically, you select the subnet used for the Pivotal Elastic Runtime components.
-        </td></tr>
-    <tr><td><strong>Service Network</strong></td>
-        <td> This is the subnet that the on-demand service instances are on. 
-             A typical practice is to put all on-demand services on a single subnet. (?) 
-             This network is represented by the Services Network in this <a href="./about.html#on-demand">picture</a>. 
-             If you are not using on-demand services but only pre-provisioned services, you need to specify a subnet but which subnet you specify does not matter.</td></tr>
-  </table>
-
-3. Click **Save**.
-
-### <a id="credentials"></a> Enter Admin Credentials
-
-1. On the configuration screen, click **RabbitMQ**.
-
-    ![Entering RabbitMQ Credentials](images/rmq-creds.png)
-
-2. Enter **RabbitMQ admin user credentials**.<br><br>
-   These credentials are not used by the on-demand RabbitMQ for PCF service but the fields cannot be blank.<br><br>
-   You do not need to make any other edits to this page.
-
-3. (Optional) Enter a value for the **Metrics polling interval**. The default is 30&nbsp;seconds. 
-
-4. Click **Save**.
-
 ### <a id="service-plan"></a> Configure the Service Plan
 
 In order to enable the on-demand service plan, you must configure the **Dedicated Instance: Single Node Plan**. The default name of this plan is `Solo`. 
@@ -108,7 +66,7 @@ In the Dedicated Instance Single Node Plan, there is a single node in the cluste
     <tr><td><strong>Persistent disk type</strong></td>
     <td>This is where RabbitMQ will page messages to disk. See <a href="#disk-size-concerns">Disk Size Concerns</a> for more details.</td></tr>
     <tr><td><strong>AZ placement</strong></td>
-        <td>This field becomes available after you have completed the [Assign AZs and Networks](#azs-networks) page. Select one AZ for the single node.<br>The plan will create all the on-demand service instance VMs in this AZ.</td></tr>
+        <td>Select one AZ for the single node.<br>The plan will create all the on-demand service instance VMs in this AZ.</td></tr>
   </table>
     
 3. Click **Save**.
