@@ -95,7 +95,13 @@ The following table provides version and version-support information about Rabbi
 
 ###<a id='on-demand'></a> On-Demand
 
-* Provision on-demand single node dedicated instances of RabbitMQ
+* Provision on-demand single node dedicated instances of RabbitMQ with a unique RabbitMQ Vhost (virtual host)
+* Bind apps to an instance of the plan, providing unique credentials for each binding
+* Management dashboard access to app developers
+* Deployment into an availability zone specified by the plan
+* Automated upgrades of RabbitMQ for major, minor, and patch releases (see release notes for downtime requirements)
+* RabbitMQ Syslog forwarding configuration inherited from the pre-provisioned configuration
+* RabbitMQ metrics are exposed on the firehose
 
 ###<a id='pre-provisioned'></a> Pre-Provisioned
 
