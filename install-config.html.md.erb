@@ -88,11 +88,9 @@ Its default name is Solo.
         <td>Select a subnet for the RabbitMQ broker.<br>
             This network is represented by the Default Network in this <a href="./about.html#on-demand">picture</a>.
             Typically, you select the subnet used for the Pivotal Elastic Runtime components.
-            <strong>Q:</strong> Who sets up this subnet? Should I use the same subnet as for my ERT components? Do we need to specify that it cannot be an IPsec subnet?
-            <a href="https://docs.pivotal.io/rabbitmq-cf/1-7/">https://docs.pivotal.io/rabbitmq-cf/1-7/</a>.</td></tr>
     <tr><td><strong>Service Network</strong></td>
         <td> This is the subnet that the on-demand service instances are on. 
-             A typical practice is to put all on-demand services on a single subnet. (?) 
+             A typical practice is to put all on-demand services on a single subnet. 
              This network is represented by the Services Network in this <a href="./about.html#on-demand">picture</a>. 
              If you are not using on-demand services but only pre-provisioned services, you need to specify a subnet but which subnet you specify does not matter.</td></tr>
   </table>
