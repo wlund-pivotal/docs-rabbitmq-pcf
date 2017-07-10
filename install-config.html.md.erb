@@ -9,9 +9,9 @@ This topic provides instructions to PCF operators about how to install, configur
 as a pre-provisioned service, see
 <a href="./install-config-pp.html">the documentation for pre-provisioned RabbitMQ for PCF</a>.</p>
 
-## <a id="install"></a> Download and Install the Tile
+## <a id="install"></a> Download and Install RabbitMQ for PCF
 
-1. Download the product file from Pivotal Network.
+1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
 
 2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
 
@@ -19,14 +19,14 @@ as a pre-provisioned service, see
 
 4. Click the newly added **RabbitMQ for PCF** tile to configure the service.
 
-## <a id="tile_configurations"></a> Tile Configurations
+## <a id="tile_configurations"></a> Configure RabbitMQ for PCF
 
 The configuration screen appears when you click the RabbitMQ for PCF tile in Ops Manager:
 
 ![Configuring Errand Run Rules](images/errands-pane.png)
 
 
-### Configure Global Settings
+### <a id="global"></a>Configure Global Settings
 
 Click **Dedicated Instance: Global Settings** and configure the following:
  
@@ -34,87 +34,21 @@ Click **Dedicated Instance: Global Settings** and configure the following:
 - **VM options**:
   - **Allow outbound internet access (IaaS-dependent)**. For more information, see the Ops Manager documentation. Log forwarding and backups may require internet access.
 
-### Configuration Options for Service Plans
 
+### <a id="service-plan"></a> Configure the Service Plan
 
-The following configuration options are available:
+In order to enable the on-demand service plan, you must configure the **Dedicated Instance: Single Node Plan**. The default name of this plan is `Solo`. 
 
-- **Enable this plan**: Check this to enable on-demand (dedicated) RabbitMQ instances on CF marketplace.
-- **Service instance quota**: The maximum number of services that can be created by the on demand broker.
-- **Plan name**: The service name that appears in the CF marketplace. You can only configure this for the on-demand service plan.
-- **Plan description**: The plan description that appears in the CF marketplace.
-- **Plan features**: The features associated with this plan that will appear in the CF marketplace.
-- **RabbitMQ VM Type**: The type of VM that the RabbitMQ node will be created on.
-- **Persistent disk type**: The type of persistent disk that the RabbitMQ node will be created on.
-- **AZ placement**: The AZ(s) that the service instance will be deployed into.
-
-<%= image_tag("images/config_rabbitmq_odb.png") %>
-
-### Enabling the On-Demand Service Broker
-
-In order to enable the on-demand service plan, you must configure the **Dedicated Instance: Single Node Plan**. In the Dedicated Instance Single Node Plan, there is a single node in the cluster. However, there is still an `HAProxy` associated with the cluster.
+In the Dedicated Instance Single Node Plan, there is a single node in the cluster. However, there is still an `HAProxy` associated with the cluster.
 
   <p class="note"><strong>Note</strong>: If the ODB feature is not enabled, the ODB is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.</p>
 
 
-### Explanation of Resource Types and Requirements
-
-It is possible to configure the VM type for RabbitMQ and HAProxy instances by using the fields **RabbitMQ VM Type** and **HAProxy VM Type** respectively.
-It is also possible to chose the size of the persistent disk that is going to be attached the RabbitMQ instances.
-It is also necessary to chose the Availability Zone (AZ) the service instance is going to live in.
-
-<%= image_tag("images/config_rabbitmq_odb_resources.png") %>
-
-
-
-## <a id="config-on-demand"></a>  Configure the Tile for On-Demand Service
-
-Follow the steps below to configure the RabbitMQ for PCF tile for on-demand service instances. 
-This procedure only addresses how to configure RabbitMQ for PCF as an on-demand service. 
-Currently there is only one type of plan available for the on-demand service. 
-Its default name is Solo.
-
-1. Click **Assign AZs and Networks**.
-    <p class="note"><strong>IMPORTANT</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the final step below.</p>
-
-2. Configure the fields on the **Assign AZs and Networks** as follows:
-  <table>
-    <tr><th>Field</th><th>Instructions</th></tr>
-    <tr><td><strong>Place singleton jobs in</strong></td>
-        <td>Select the region that you want for singleton VMs. PCF creates the RabbitMQ broker in this AZ.</td></tr>
-    <tr><td><strong>Balance other jobs in</strong></td>
-        <td>Select additional region. This selection does not affect the on-demand RabbitMQ for PCF service.</td></tr>
-    <tr><td><strong>Network</strong></td>
-        <td>Select a subnet for the RabbitMQ broker.<br>
-            This network is represented by the Default Network in this <a href="./about.html#on-demand">picture</a>.
-            Typically, you select the subnet used for the Pivotal Elastic Runtime components.
-    <tr><td><strong>Service Network</strong></td>
-        <td> This is the subnet that the on-demand service instances are on. 
-             A typical practice is to put all on-demand services on a single subnet. 
-             This network is represented by the Services Network in this <a href="./about.html#on-demand">picture</a>. 
-             If you are not using on-demand services but only pre-provisioned services, you need to specify a subnet but which subnet you specify does not matter.</td></tr>
-  </table>
-
-3. Click **Save**.
-
-4. Click **RabbitMQ**.
-
-5. Enter **RabbitMQ admin user credentials**.<br>
-   These credentials are not used by the on-demand RabbitMQ for PCF service but the fields cannot be blank.
-   You do not need to make any other edits to this page.
-
-6. (Optional) Enter a value for the **Metrics polling interval**. The default is 30&nbsp;seconds. 
-
-6. Click **Save**.
-
-7. If you want to set up monitoring, click **Syslog**, complete the fields, and save.<br>
-   For more information, see [Monitoring RabbitMQ for PCF](./monitor.html).
-
-7. Click **Dedicated Instance: Single Node Plan**. 
+1. Click **Dedicated Instance: Single Node Plan**. 
 
      ![service-plan-tab-v1.8.0](service-plan-configuration.png)
 
-8. Configure the fields on the **Dedicated Instance: Single Node Plan** as follows:
+2. Configure the fields on the **Dedicated Instance: Single Node Plan** as follows:
   <table>
     <tr><th>Field</th><th>Instructions</th></tr>
     <tr><td><strong>Enable this plan</strong></strong></td>
@@ -130,25 +64,20 @@ Its default name is Solo.
     <tr><td><strong>RabbitMQ VM Type</strong></td>
         <td>Select a large VM type.<br>The plan will create a service instance of this size.</td></tr>
     <tr><td><strong>Persistent disk type</strong></td>
-    <td>This is where RabbitMQ will page messages to disk. See <a href="#disk-size-concers">Disk Size Concerns</a> for more details.</td></tr>
+    <td>This is where RabbitMQ will page messages to disk. See <a href="#disk-size-concerns">Disk Size Concerns</a> for more details.</td></tr>
     <tr><td><strong>AZ placement</strong></td>
         <td>Select one AZ for the single node.<br>The plan will create all the on-demand service instance VMs in this AZ.</td></tr>
   </table>
     
-9. Click **Save**.
+3. Click **Save**.
 
-10. Click **Stemcell**.
 
-11. Verify and, if necessary, import a new stemcell version.  
-    For more information, see the information about importing the stemcell for your IaaS:
-    [AWS](https://docs.pivotal.io/pivotalcf/customizing/cloudform-er-config.html#stemcell),
-    [Azure](https://docs.pivotal.io/pivotalcf/customizing/azure-er-config.html#stemcell), 
-    [GCP](https://docs.pivotal.io/pivotalcf/customizing/gcp-er-config.html#stemcell), or
-    [vSphere](https://docs.pivotal.io/pivotalcf/customizing/config-er-vmware.html#stemcell).
 
-12. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
+#### <a id="resources"></a> Resource Types and Disk Size Concerns
 
-## <a id="disk-size-concerns"></a> Disk Size Concerns
+It is possible to configure the VM type for RabbitMQ and the size of the persistent disk that is going to be attached to the RabbitMQ instances.
+
+<%= image_tag("images/vm-ram-disk-example.png") %>
 
 RabbitMQ raises alarms when disk space drops below the configured limit.
 Incorrect disk sizes may cause the deployed instance not to start.
@@ -183,20 +112,38 @@ RabbitMQ declines to start, and the disk size suggested for an average use case.
   <tr>
 </table>
 
-<%= image_tag("images/vm-ram-disk-example.png") %>
 
 For more information, see the following documentation links:</br></br>
   - [Alarms overview](http://www.rabbitmq.com/alarms.html)<br></br>
   - [Disk Alarms](http://www.rabbitmq.com/disk-alarms.html)
 
+### <a id="stemcell"></a> Verify the Stemcell
 
-## <a id='logging'></a>Configure Logging
+1. Click **Stemcell**.
+
+2. Verify and, if necessary, import a new stemcell version.  
+    For more information, see the information about importing the stemcell for your IaaS:
+    [AWS](https://docs.pivotal.io/pivotalcf/customizing/cloudform-er-config.html#stemcell),
+    [Azure](https://docs.pivotal.io/pivotalcf/customizing/azure-er-config.html#stemcell), 
+    [GCP](https://docs.pivotal.io/pivotalcf/customizing/gcp-er-config.html#stemcell), or
+    [vSphere](https://docs.pivotal.io/pivotalcf/customizing/config-er-vmware.html#stemcell).
+
+
+### <a id="apply-changes"></a> Apply Changes from your Configuration
+
+Your installation is not complete until you apply your configuration changes. Follow the steps below:
+
+1. Return to the Ops Manager Installation Dashboard. 
+
+2. Click **Apply Changes**.
+
+## <a id='logging'></a>Configure Logging to Monitor RabbitMQ for PCF
 
 Pivotal recommends that you configure logging to monitor the health of RabbitMQ for PCF. Follow [this procedure](./monitor.html#config) to configure logging.
 
 ## <a id='errands'></a>Errands
 
-When deploying or updating the RabbitMQ for PCF tile, Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands). An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
+When deploying or updating RabbitMQ for PCF, Ops Manager can optionally run a series of [post-deploy errands](#post-deploy-errands). An example is the `Smoke Tests` errand, which checks the health of the RabbitMQ cluster after a deploy or upgrade.
 
 You can decide whether to run errands by toggling them on or off before an update. This is a one-time setting on the installation dashboard:
 
@@ -223,7 +170,7 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
   <tr>
     <td><strong>Smoke Tests</strong></td>
     <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app, and that the app can
-    publish and subscribe to a RabbitMQ cluster</td>
+    publish and subscribe to a RabbitMQ cluster (<a href="#smoke_test_process">details</a> below)</td>
   </tr>
   <tr>
     <td><strong>Register On-Demand Service Broker</strong></td>
@@ -260,12 +207,13 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
 
 
 
-## <a id="smoke_test_process"></a> Smoke-Tests Steps
+### <a id="smoke_test_process"></a> Smoke Test Process
 
 The smoke tests perform the following for each available service plan:
 
-1. Targets the org <code>system</code> and creates a space to run the tests.
-1. Deploys an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) to this space
-1. Creates a RabbitMQ service instance and binds it to the CF RabbitMQ Example App
-1. Checks that the CF RabbitMQ Example App can write to and read from the RabbitMQ service instance
-1. Cleans up all deployed application and all its service bindings. Finally, the cf space is deleted.
+1. Target the org <code>system</code> and create a cf space to run the tests.
+1. Deploy an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) this cf space.
+1. Create a RabbitMQ service instance and bind it to the CF RabbitMQ Example App.
+1. Check that the CF RabbitMQ Example App can write to, and read from, the RabbitMQ service instance
+1. Clean up the deployed Example App and all its service bindings. 
+1. Delete the cf space created for the tests.
