@@ -26,12 +26,41 @@ The configuration screen appears when you click the RabbitMQ for PCF tile in Ops
 ![Configuring Errand Run Rules](images/errands-pane.png)
 
 
+### <a id="azs-networks"></a>  Configure AZs and Networks
+ 
+ Follow the steps below to configure the AZs and Networks.
+ 
+ 1. Click **Assign AZs and Networks**.
+     <p class="note"><strong>IMPORTANT</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
+ 
+ 2. Configure the fields on the **Assign AZs and Networks** as follows:
+   <table>
+     <tr><th>Field</th><th>Instructions</th></tr>
+     <tr><td><strong>Place singleton jobs in</strong></td>
+         <td>Select the region that you want for singleton VMs. PCF creates the RabbitMQ broker in this AZ.</td></tr>
+     <tr><td><strong>Balance other jobs in</strong></td>
+         <td>Select additional region. This selection does not affect the on-demand RabbitMQ for PCF service.</td></tr>
+     <tr><td><strong>Network</strong></td>
+         <td>Select a network for the RabbitMQ On-Demand Broker.<br><br>
+             This should be a separate network from the one you select for <strong>Service Network</strong>. This network is represented by the Default Network in this <a href="./about.html#on-demand">picture</a>.
+             Typically, you select the network used for the Pivotal Elastic Runtime components.
+         </td></tr>
+     <tr><td><strong>Service Network</strong></td>
+         <td> Select a separate network that the on-demand service instances run on.<br><br>
+              A typical practice is to put all on-demand services on a single network, separate from the network that ERT and the On-Demand Broker run on.  
+              This network is represented by the Services Network in this <a href="./about.html#on-demand">picture</a>. <br><br>
+              This field is also required for the pre-provisioned service, though in that case, it doesn't matter which network you select.</td></tr>
+   </table>
+ 
+ 3. Click **Save**.
+
+
 ### <a id="global"></a>Configure Global Settings
 
 1. Click **Dedicated Instance: Global Settings** and configure the following:<br><br>
   * **Service instance quota**  min: 0, max: 50  set the total number of dedicated service instances which can be deployed.<br><br>
   * **VM options**:<br><br>
-       **Allow outbound internet access (IaaS-dependent)**. Log forwarding and backups may require internet access.
+       **Allow outbound internet access (IaaS-dependent)**. This checkbox must be ticked to allow external log forwarding, sending backup artifacts to external destinations, and communicating with an external BOSH blob store.
 1. Click **Save**.
 
 ### <a id="service-plan"></a> Configure the Service Plan
@@ -65,7 +94,7 @@ In the Dedicated Instance Single Node Plan, there is a single node in the cluste
     <tr><td><strong>Persistent disk type</strong></td>
     <td>This is where RabbitMQ will page messages to disk. See <a href="#resources">Disk Size Concerns</a> for more details.</td></tr>
     <tr><td><strong>AZ placement</strong></td>
-        <td>Select one AZ for the single node.<br>The plan will create all the on-demand service instance VMs in this AZ.</td></tr>
+        <td>This field becomes available after you have completed the [Assign AZs and Networks](#azs-networks) page.<br> Select one AZ for the single node. The plan creates all the on-demand service instance VMs in this AZ.</td></tr>
   </table>
     
 3. Click **Save**.
