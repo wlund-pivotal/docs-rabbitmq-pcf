@@ -64,7 +64,7 @@ In the Dedicated Instance Single Node Plan, there is a single node in the cluste
     <tr><td><strong>RabbitMQ VM Type</strong></td>
         <td>Select a large VM type.<br>The plan will create a service instance of this size.</td></tr>
     <tr><td><strong>Persistent disk type</strong></td>
-    <td>This is where RabbitMQ will page messages to disk. See <a href="#disk-size-concerns">Disk Size Concerns</a> for more details.</td></tr>
+    <td>This is where RabbitMQ will page messages to disk. See <a href="#resources">Disk Size Concerns</a> for more details.</td></tr>
     <tr><td><strong>AZ placement</strong></td>
         <td>Select one AZ for the single node.<br>The plan will create all the on-demand service instance VMs in this AZ.</td></tr>
   </table>
@@ -113,9 +113,10 @@ RabbitMQ declines to start, and the disk size suggested for an average use case.
 </table>
 
 
-For more information, see the following documentation links:</br></br>
-  - [Alarms overview](http://www.rabbitmq.com/alarms.html)<br></br>
-  - [Disk Alarms](http://www.rabbitmq.com/disk-alarms.html)
+For more information, see the following documentation links:
+
++ [Alarms overview](http://www.rabbitmq.com/alarms.html)<br></br>
++ [Disk Alarms](http://www.rabbitmq.com/disk-alarms.html)
 
 ### <a id="stemcell"></a> Verify the Stemcell
 
@@ -149,7 +150,7 @@ You can decide whether to run errands by toggling them on or off before an updat
 
 ![Configuring One-time Errands](images/errands-installation.png)
 
-<p class='note'><strong>IMPORTANT</strong>: As of RabbitMQ for PCF v1.9.0, all post-deploy errands are ON by default.
+<p class='note'><strong>IMPORTANT</strong>: As of RabbitMQ for PCF v1.9.0, all post-deploy errands are on by default.
     Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
     and dedicated instances of RabbitMQ for PCF may fall behind
     if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
@@ -180,8 +181,8 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
     <td>On-demand instances are updated and redeployed if there are changes to the Dedicated Instance settings or the
-    tile is upgraded. If this errand is set to "Off" or "When Changed", updates to Dedicated Instance settings will **not**
-    be applied to existing service instances. **Pivotal strongly recommends that this errand is configured to always run**.</td>
+    tile is upgraded. If this errand is set to "Off" or "When Changed", updates to Dedicated Instance settings will <strong>not</strong>
+    be applied to existing service instances. <strong>Pivotal strongly recommends that this errand is configured to always run</strong>.</td>
   </tr>
 </table>
 
@@ -214,6 +215,6 @@ The smoke tests perform the following for each available service plan:
 1. Target the org <code>system</code> and create a cf space to run the tests.
 1. Deploy an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) this cf space.
 1. Create a RabbitMQ service instance and bind it to the CF RabbitMQ Example App.
-1. Check that the CF RabbitMQ Example App can write to, and read from, the RabbitMQ service instance
+1. Check that the CF RabbitMQ Example App can write to, and read from, the RabbitMQ service instance.
 1. Clean up the deployed Example App and all its service bindings. 
 1. Delete the cf space created for the tests.
