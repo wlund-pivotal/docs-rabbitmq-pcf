@@ -35,13 +35,12 @@ This table summarizes the main differences between the two:
 This RabbitMQ for PCF v1.8 documentation describes both service types.
 Documentation for RabbitMQ for PCF v1.7 and earlier only describes a pre-provisioned service.
 
-### <a id="dedicated"></a> What are dedicated instances
+### <a id="dedicated"></a> What are Dedicated Instances
 For PCF RabbitMQ versions before v1.8.0, the RabbitMQ Service
 instances correspond to a unique RabbitMQ Vhost on the multi-tenant RabbitMQ
 cluster. As of RabbitMQ for PCF v1.8.0, we introduced [On-Demand Broker
-(ODB)](https://docs.pivotal.io/svc-sdk/odb/index.html) support (experimental). That means
-that a new cluster can be created and dedicated to a single app
-(single-tenant).
+(ODB)](https://docs.pivotal.io/svc-sdk/odb/index.html) support. That means
+that a new, single-tenant, cluster can be created and dedicated to a single app.
 
 For more information, see [On-Demand Service Architecture](./about.html).
 
