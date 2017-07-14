@@ -3,11 +3,19 @@ title: Installing and Configuring RabbitMQ for PCF as an On-Demand Service
 owner: London Services
 ---
 
-This topic provides instructions to PCF operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide on-demand service. 
+This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide on-demand service. 
 
 <p class="note"><strong>Note</strong>: For instructions on how to install, configure, and deploy the RabbitMQ for PCF tile 
 as a pre-provisioned service, see
 <a href="./install-config-pp.html">the documentation for pre-provisioned RabbitMQ for PCF</a>.</p>
+
+## <a id="prerequisites"></a> Prerequisites for Deploying the On-Demand Service
+
+Before deploying RabbitMQ for PCF as an on-demand service, you must ensure that the required network rules are in place to allow various components to communicate.
+
+See [Required Networking Rules for On-Demand Services](about.html#network-rules) for details on the network connections that must be open to enable the on-demand service.
+
+For information on the on-demand service architecture, see [this page](about.html).
 
 ## <a id="install"></a> Download and Install RabbitMQ for PCF
 
@@ -24,7 +32,6 @@ as a pre-provisioned service, see
 The configuration screen appears when you click the RabbitMQ for PCF tile in Ops Manager:
 
 ![Configuring Errand Run Rules](images/errands-pane.png)
-
 
 ### <a id="azs-networks"></a>  Configure AZs and Networks
  

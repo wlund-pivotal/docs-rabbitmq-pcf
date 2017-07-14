@@ -22,3 +22,7 @@ The on-demand service broker uses this capability to create single-tenant servic
 The diagram below shows worker VMs in an on-demand service instance, such as RabbitMQ for PCF, running on a separate services network, while other components run on the default network.
 
 ![Default Network and Service Network](images/ODB-RMQ-architecture.png)
+
+## <a id="network-rules"></a> Required Networking Rules for On-Demand Services
+
+<%= partial '../../rabbitmq-cf/odb/service_networks_table' %>
