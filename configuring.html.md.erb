@@ -74,12 +74,12 @@ Ensure the following ports are enabled for those VMs:
 * 8080
 
 The following is a template for configuring your Cloud Foundry security groups:
-```
+```<%-# ANCHOR:START:application-security-group-example -%>
 [
 {"protocol":"tcp","destination":"<haproxy-node-IP-addresses>","ports":"5671,5672,1883,8883,61613,61614,15672,15674"},
 {"protocol":"tcp","destination":"<service-broker-node-IP-addresses>","ports":"4567"}
 ]
-```
+```<%-# ANCHOR:END:application-security-group-example -%>
 
 ## <a id="asg"></a>Application Security Groups
 
