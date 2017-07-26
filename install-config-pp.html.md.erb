@@ -134,6 +134,9 @@ For example with two HAProxy jobs deployed the following properties will be pres
 * 15674 = Web STOMP
 * 4567 = RabbitMQ Service Broker
 * 3457 - 3459 = CF Loggregator
+* 4001 = CF Loggregator - Doppler
+* 8300 - 8301 = Consul
+
 
 ### <a id='sec-groups'></a>Security Groups
 
@@ -141,16 +144,30 @@ To enable access to the RabbitMQ tile service, you must ensure your security
 group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment. You can obtain the IP addresses for these from the Ops Manager **Status** page for the RabbitMQ tile.
 Ensure the following ports are enabled for those VMs:
 
-* 15672
-* 5672
-* 5671
-* 1883
-* 8883
-* 61613
-* 61614
-* 15674
-* 4567
-* 3457 - 3459
+* Inbound
+
+| Port(s)         | Protocol(s)    | Source                  | Reason
+|---              |---             |---                      |---
+| 15672           | tcp            | Broker and internet(*)  | Allowing access to the RabbitMQ Management Dashboard & API
+| 5671 - 5672     | tcp            | All AMQP clients        | RabbitMQ will listen on those ports for AMQP
+| 1883, 8883      | tcp            | All MQTT clients        | RabbitMQ will listen on those ports for MQTT
+| 61613, 61614    | tcp            | All STOMP clients       | RabbitMQ will listen on those ports for STOMP
+| 15674           | tcp            | All Web STOMP clients   | RabbitMQ will listen on this port for STOMP-over-WebSockets
+| 4567            | tcp            | ERT                     | ERT sends commands to the Service Broker for RabbitMQ
+| 8080            | tcp            | ERT                     | ERT sends commands to the On Demand Service Broker for RabbitMQ
+| 3457 - 3459     | tcp            | ERT                     | Between RabbitMQ and ERT network for Metrics
+| 8300 - 8301     | tcp, udp       | ERT                     | Between RabbitMQ and ERT network for Consul
+
+(*) Everyone that needs to access the RabbitMQ Management Dashboard & API externally
+
+* Outbound
+
+| Port(s)       | Protocol(s)  | Destination | Reason
+|---     			  |---           |---          |---
+| 3457 - 3459   | tcp          | ERT         | Between RabbitMQ and ERT network for Metrics
+| 4001   			  | tcp          | ERT         | From RabbitMQ to ERT (etcd) for Metron
+| 8300 - 8301   | tcp, udp     | ERT         | Between RabbitMQ and ERT network for Consul
+
 
 The following is a template for configuring your Cloud Foundry security groups:
 ```
