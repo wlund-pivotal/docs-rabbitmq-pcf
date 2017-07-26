@@ -53,6 +53,9 @@ If you change the topology of your RabbitMQ cluster, the HAProxy is automaticall
 * 15674 = Web STOMP
 * 4567 = RabbitMQ Service Broker
 * 3457 - 3459 = CF Loggregator
+* 4001 = CF Loggregator - Doppler
+* 8300 - 8301 = Consul
+
 
 ## Security Groups
 
@@ -60,16 +63,29 @@ To enable access to the RabbitMQ tile service, you must ensure your security
 group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment. You can obtain the IP addresses for these from the Ops Manager **Status** page for the RabbitMQ tile.
 Ensure the following ports are enabled for those VMs:
 
-* 15672
-* 5672
-* 5671
-* 1883
-* 8883
-* 61613
-* 61614
-* 15674
-* 4567
-* 3457 - 3459
+* Inbound
+
+| Port(s)         | Protocol(s)    | Source                  | Reason
+|---              |---             |---                      |---
+| 15672           | tcp            | Broker and internet(*)  | Allowing access to the RabbitMQ Management Dashboard & API
+| 5671 - 5672     | tcp            | All AMQP clients        | RabbitMQ will listen on those ports for AMQP
+| 1883, 8883      | tcp            | All MQTT clients        | RabbitMQ will listen on those ports for MQTT
+| 61613, 61614    | tcp            | All STOMP clients       | RabbitMQ will listen on those ports for STOMP
+| 15674           | tcp            | All Web STOMP clients   | RabbitMQ will listen on this port for STOMP-over-WebSockets
+| 4567            | tcp            | ERT                     | ERT sends commands to the Service Broker for RabbitMQ
+| 3457 - 3459     | tcp            | ERT                     | Between RabbitMQ and ERT network for Metrics
+| 8300 - 8301     | tcp, udp       | ERT                     | Between RabbitMQ and ERT network for Consul
+
+(*) Everyone that needs to access the RabbitMQ Management Dashboard & API externally
+
+* Outbound
+
+| Port(s)       | Protocol(s)  | Destination | Reason
+|---     			  |---           |---          |---
+| 3457 - 3459   | tcp          | ERT         | Between RabbitMQ and ERT network for Metrics
+| 4001   			  | tcp          | ERT         | From RabbitMQ to ERT (etcd) for Metron
+| 8300 - 8301   | tcp, udp     | ERT         | Between RabbitMQ and ERT network for Consul
+
 
 The following is a template for configuring your Cloud Foundry security groups:
 ```
@@ -92,13 +108,13 @@ Application containers that use instances of the RabbitMQ service require the fo
 
 |Destination        |Ports       |Protocol   |Reason
 |---                |---         |---        |---
-|`HAProxy IPs`     |5672         |tcp        |Application containers using AMQP
-|`HAProxy IPs`     |5671       |tcp        |Application containers using AMQP over SSL
-|`HAProxy IPs`     |1883         |tcp        |Application containers using MQTT
-|`HAProxy IPs`     |8883        |tcp        |Application containers using MQTT over SSL
-|`HAProxy IPs`     |61613         |tcp        |Application containers using STOMP
-|`HAProxy IPs`     |61614        |tcp        |Application containers using STOMP over SSL
-|`HAProxy IPs`     |61613         |tcp        |Application containers using Web STOMP
+|`HAProxy IPs`      |5672        |tcp        |Application containers using AMQP
+|`HAProxy IPs`      |5671        |tcp        |Application containers using AMQP over SSL
+|`HAProxy IPs`      |1883        |tcp        |Application containers using MQTT
+|`HAProxy IPs`      |8883        |tcp        |Application containers using MQTT over SSL
+|`HAProxy IPs`      |61613       |tcp        |Application containers using STOMP
+|`HAProxy IPs`      |61614       |tcp        |Application containers using STOMP over SSL
+|`HAProxy IPs`      |61613       |tcp        |Application containers using Web STOMP
 
 Create an ASG name `rabbitmq-app-containers` with the above configuration and bind it to the appropriate space, or, to provide access to all started apps, bind it to the `default-running` ASG set and restart your apps. If you are using an external load balancer or have more than one IP address for HAProxy, you must also create egress rules for these. Example:
 
