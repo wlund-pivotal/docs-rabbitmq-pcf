@@ -209,7 +209,7 @@ SSL settings are applied equally across all machines in the cluster.
 
 For more information about SSL support, see [https://www.rabbitmq.com/ssl.html](https://www.rabbitmq.com/ssl.html).
 
-### <a id="erlang"></a>Erlang Cookie
+## <a id="erlang"></a>Erlang Cookie
 
 You can provide an Erlang cookie to be used by the cluster.
 This can be useful if you want to connect directly to the RabbitMQ cluster, such as with `rabbitmqctl`, or to connect other machines running Erlang.
@@ -235,7 +235,7 @@ If you wish to change your Erlang cookie value, it's required that you stop your
 first. To do this, issue a `bosh stop rabbitmq-server` command once you've targetted your
 BOSH director.
 
-### <a id="config"></a>RabbitMQ Config
+## <a id="config"></a>RabbitMQ Config
 
 You can provide a full <code>rabbitmq.config</code> file, if you wish.
 
@@ -245,7 +245,7 @@ This file is then provided to all the nodes in the cluster.
 
 For more information about the RabbitMQ configuration, see [https://www.rabbitmq.com/configure.html](https://www.rabbitmq.com/configure.html).
 
-### <a id="tls"></a>TLS Support
+## <a id="tls"></a>TLS Support
 
 TLS v1.0 is disabled by default, due to insecurities.
 
@@ -260,14 +260,14 @@ TLS v1.1 and 1.2 are enabled by default and cannot be turned on or off.
 
 You can configure a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) to application developers.
 
-### <a id="assigned_ips"></a> Assigned IPs
+## <a id="assigned_ips"></a> Assigned IPs
 
 It is not supported to change the IP addresses which have been assigned to the RabbitMQ deployments.  Doing so will cause the deployment to fail.
 For example it is not supported to change the subnet into which the RabbitMQ cluster was originally provisioned. 
 
-### <a id="static_ips"></a> Static IPs
+## <a id="static_ips"></a> Static IPs
 
-#### Switching from dynamic IPs to static IPs (Upgrading)
+## <a id="switching"></a>Switching from dynamic IPs to static IPs (Upgrading)
 
 It is not possible to switch from dynamic IPs to a different set of static IPs, but you can
 set up Ops Manager so the current set of dynamically assigned IPs will always continue to be used.
@@ -279,7 +279,7 @@ set up Ops Manager so the current set of dynamically assigned IPs will always co
 
 <%= image_tag("images/config_static_ip.png") %>
 
-## RabbitMQ Server settings that cannot be overwritten
+## <a id="no-overwrite"></a>RabbitMQ Server settings that cannot be overwritten
 * `rabbit halt_on_upgrade_failure false`
 * `rabbitmq_mqtt subscription_ttl 1800000`
 * `log_levels [{connection,info}]`
@@ -295,7 +295,7 @@ When SSL is enabled:
 * `rabbitmq_mqtt ssl_listeners [8883]`
 * `rabbitmq_stomp ssl_listeners [61614]`
 
-## Configuring Metrics Polling Interval
+## <a id="polling"></a>Configuring Metrics Polling Interval
 The default polling interval is 30 seconds for all deployed compenents and it is recommened not to change it.  The lowest interval setting is 10 seconds to avoid overwhelming components.
 This change will effect all deloyed instances.
 
