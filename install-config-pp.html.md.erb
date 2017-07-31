@@ -3,10 +3,10 @@ title: Installing and Configuring RabbitMQ for PCF as a Pre-Provisioned Service
 owner: London Services
 ---
 
-This topic provides instructions to PCF operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide 
-a pre-provisioned service. 
+This topic provides instructions to PCF operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide
+a pre-provisioned service.
 
-<p class="note"><strong>Note</strong>: For instructions on how to install, configure, and deploy the RabbitMQ for PCF tile 
+<p class="note"><strong>Note</strong>: For instructions on how to install, configure, and deploy the RabbitMQ for PCF tile
 as an on-demand service, see <a href="./install-config.html">
 Installing and Configuring RabbitMQ for PCF as an On-Demand Service</a>.</p>
 
@@ -14,7 +14,7 @@ Installing and Configuring RabbitMQ for PCF as an On-Demand Service</a>.</p>
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
 
-2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
+2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
 3. Under the **Import a Product** button, click **+** next to the version number of RabbitMQ for PCF. This adds the tile to your staging area.
 
@@ -68,7 +68,7 @@ Tile, we provide four options for this value:
 
 <%= image_tag("images/disk_alarm_threshold.png") %>
 
-* `50MB` is a bare minimum value. 
+* `50MB` is a bare minimum value.
 * `100% Memory` ensures that at the time when rabbit checks the available disk,
   there must be enough space for rabbit to page all memory-based messages out
   to disk.
@@ -81,7 +81,7 @@ Tile, we provide four options for this value:
   confidence that rabbit will never run out of disk.
 
   Selecting *50MB* is not recommended and could cause data loss. See below.
-  
+
 #### What are the dangers of setting this value too low?
 
 If the disk of a given rabbit node completely fills while rabbit is running,
@@ -260,6 +260,11 @@ TLS v1.1 and 1.2 are enabled by default and cannot be turned on or off.
 
 You can configure a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) to application developers.
 
+### <a id="assigned_ips"></a> Assigned IPs
+
+It is not supported to change the IP addresses which have been assigned to the RabbitMQ deployments.  Doing so will cause the deployment to fail.
+For example it is not supported to change the subnet into which the RabbitMQ cluster was originally provisioned. 
+
 ### <a id="static_ips"></a> Static IPs
 
 #### Switching from dynamic IPs to static IPs (Upgrading)
@@ -292,8 +297,8 @@ When SSL is enabled:
 
 ## Configuring Metrics Polling Interval
 The default polling interval is 30 seconds for all deployed compenents and it is recommened not to change it.  The lowest interval setting is 10 seconds to avoid overwhelming components.
-This change will effect all deloyed instances. 
-  
+This change will effect all deloyed instances.
+
 <%= image_tag("images/metrics_polling.png") %>
 
 
@@ -302,6 +307,3 @@ This change will effect all deloyed instances.
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to install RabbitMQ for PCF tile.
 
 2. **Q:** How does one follow the progress of the tile, what to check? how long does it take?
-
-
-
