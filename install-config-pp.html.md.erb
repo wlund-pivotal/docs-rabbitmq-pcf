@@ -218,8 +218,8 @@ This can be useful if you want to connect directly to the RabbitMQ cluster, such
 
 **Scaling Known Issue**
 
-If you have not set the Erlang cookie and you wish to scale-out your cluster size. You'll need to perform
-the following steps:
+If you have not set the Erlang cookie and you wish to scale-out your cluster
+size without downtime, you'll need to perform the following steps:
 
 * Follow the steps for [troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare)
 * `bosh ssh rabbitmq-server/0`
@@ -229,11 +229,18 @@ the following steps:
 
 You'll then be able to adjust the size of your cluster and run **Apply Changes**.
 
+**Note**: BOSH will tell you that the cookie has changed - this is because the
+default value in the manifest is empty, which results in an auto-generated
+cookie. The value of the cookie on the server will remain the same, so the section
+below will **not** apply.
+
 **Changing the Value Known Issue**
 
-If you wish to change your Erlang cookie value, it's required that you stop your RabbitMQ cluster
-first. To do this, issue a `bosh stop rabbitmq-server` command once you've targetted your
-BOSH director.
+If you wish to change your Erlang cookie value, this will require cluster downtime.
+It is also *strongly* recommended that you do not change anything else, as it is
+possible for configuration to be inconsistently applied during this process.
+
+The deployment may also fail - if it does, redeploying will fix the issue.
 
 ## <a id="config"></a>RabbitMQ Config
 
