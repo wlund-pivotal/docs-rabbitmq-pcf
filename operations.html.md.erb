@@ -55,7 +55,7 @@ have a remote syslog configured, this will appear as the `rmq_server_drain`
 program.
 
 First, `bosh ssh` into the failing rabbitmq-server instance and start the
-rabbimtq-server job by running `monit start rabbitmq-server`). You will not be
+rabbitmq-server job by running `monit start rabbitmq-server`). You will not be
 able to start the job via `bosh start` as this always runs the drain script first and fails since the drain script is failing. Once rabbitmq-server job is
 running (confirm this via `monit status`), run `DEBUG=1`
 `/var/vcap/jobs/rabbitmq-server/bin/drain`. This will tell why it is failing.
