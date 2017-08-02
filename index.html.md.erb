@@ -51,7 +51,7 @@ The following table provides version and version-support information about Rabbi
 Upgrades are normally a rolling deployment unless otherwise noted in the release notes.
 
 Consider the following compatibility information before upgrading RabbitMQ for Pivotal Cloud Foundry.
-<p class="note"><strong>Note</strong>: Customers installing the 1.7 tile into PCF versions 1.8, 1.9 adn 1.10 must select the right secure messaging option for metrics or else they will face installation issues.  Please read [this](https://docs.pivotal.io/rabbitmq-cf/1-7/metrics_logging.html#metrics) information before installing </p>
+<p class="note"><strong>Note</strong>: Customers installing the 1.7 tile into PCF versions 1.8, 1.9, and 1.10 must select the right secure messaging option for metrics or else they will face installation issues.  Please read [this](https://docs.pivotal.io/rabbitmq-cf/1-7/metrics_logging.html#metrics) information before installing </p>
 
 <p class="note"><strong>Note</strong>: Any tile upgrading to RabbitMQ v3.6.9 or later will require downtime as the RabbitMQ cluster cannot run in mixed-mode with versions lower than v3.6.9. </p>
 <p class="note"><strong>Note</strong>: Any tile upgrading to RabbitMQ v3.6.6 or later will require downtime as the RabbitMQ cluster cannot run in mixed-mode with versions lower than v3.6.6. </p>
@@ -156,7 +156,7 @@ We hope to address all of these limitations in future releases.
 * In versions `1.5.0` and `1.5.1`, when performing a fresh installation or upgrade, if the Elastic Runtime system and application domains are different then the `Broker Registrar` errand will fail. To resolve this disable the errand and redeploy, then register the broker manually using the system domain route `pivotal-rabbitmq-broker.system.domain`. For more information on registering brokers see the [CloudFoundry documentation](http://docs.cloudfoundry.org/services/managing-service-brokers.html).
 * In the `1.5.0, 1.5.1, 1.5.2, 1.5.3` releases, when performing a fresh installation or upgrade, if you have the rabbitmq\_jsonrpc\_channel or rabbitmq\_jsonrpc\_channel_examples plugins selected then the RabbitMQ nodes will fail to start. The plugins are no longer distributed with RabbitMQ and plugin validation was introduced in RabbitMQ `3.5.7`, causing the nodes to fail to start. To resolve this issue you should install or upgrade to version `1.5.4` or later of the tile.
 * In the `1.5.x` and `1.6.x` tiles it is not possible to install the RabbitMQ tile in multiAZ with multi-subnet networks.
-* It is not currently possible to set the HAproxy instance count to 0.
+* It is not currently possible to set the HAProxy instance count to 0.
 * IPsec is not required for the RabbitMQ tile since it can be secured via TLS, which will encrypt traffic from clients to the RabbitMQ cluster. RabbitMQ should be deployed in its own subnet outside the IPsec mesh. Refer to the documentation to set up TLS. 
 * In rare circumstances when manually stopping all RabbitMQ nodes in a cluster, it is possible for all queue masters to reside on the last node to be stopped.  This is a known limitation in RabbitMQ and should you encounter it please contact support.
 * Cannot scale-out if [Erlang Cookie](./configuring.html#erlang) is not specified
