@@ -9,6 +9,28 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 ## <a id="19x"></a>v1.9.x
 
+### v1.9.2
+
+**Release Date:  August 7th, 2017**
+
+* Update to RabbitMQ 3.6.10
+* Requires stemcell 3363.26
+* This version of the tile can only be installed in an Ops Manager v1.10.3+ and v1.11 environments
+
+Features:
+
+* This version of the tile will use RabbitMQ Native Cluster formation rather than the rabbitmq-clusterer plugin.
+
+Known issues:
+
+* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are downtime required deployments, and may result in failed deployments
+
+Packages:
+
+* OSS RabbitMQ v3.6.10
+* Erlang v19.3.6
+* HAProxy v1.6.11
+
 ### v1.9.1
 
 **Release Date:  July 7th, 2017**
@@ -59,4 +81,3 @@ For v1.6.x versions of RabbitMQ for PCF, see the [release notes](http://docs.piv
 ## <a id="15x"></a>v1.5.x and Earlier
 
 For v1.5.x and earlier versions of RabbitMQ for PCF, see the [release notes](http://docs.pivotal.io/rabbitmq-cf/1-5/releases.html) in the v1.5 version of this documentation.
-
