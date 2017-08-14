@@ -1,5 +1,5 @@
 #!/bin/bash
-DIR=$(dirname $0)
+DIR=$(dirname $0)/..
 yq '.job_types | map({label: .resource_label, instances: .instance_definition.default, resource_definitions: .resource_definitions, static_ip: .static_ip, dynamic_ip: .dynamic_ip})' "$DIR/../p-rabbitmq/metadata_parts/handcraft.yml" \
   | jq -r 'map("  <tr>
     <td>RabbitMQ</td>
@@ -15,4 +15,4 @@ yq '.job_types | map({label: .resource_label, instances: .instance_definition.de
   | sed -e $'s/  /\t/g' \
   | pbcopy
 
-echo "Updated resource requirements copied to clipboard - paste into resources.html.md.erb"
+echo "Updated resource requirements copied to clipboard - paste into deploying.html.md.erb"
