@@ -1,0 +1,18 @@
+#!/bin/bash
+DIR=$(dirname $0)
+yq '.job_types | map({label: .resource_label, instances: .instance_definition.default, resource_definitions: .resource_definitions, static_ip: .static_ip, dynamic_ip: .dynamic_ip})' "$DIR/../p-rabbitmq/metadata_parts/handcraft.yml" \
+  | jq -r 'map("  <tr>
+    <td>RabbitMQ</td>
+    <td>\(.label)</td>
+    <td>\(.instances)</td>
+    <td>\(.resource_definitions[] | select( .name == "cpu"  ).default )</td>
+    <td>\(.resource_definitions[] | select(.name == "ram").default)</td>
+    <td>\(.resource_definitions[] | select(.name == "ephemeral_disk").default)</td>
+    <td>\(.resource_definitions[] | select(.name == "persistent_disk").default)</td>
+    <td>\(.static_ip)</td>
+    <td>\(.dynamic_ip)</td>
+  </tr>")  | join("\n")' \
+  | sed -e $'s/  /\t/g' \
+  | pbcopy
+
+echo "Updated resource requirements copied to clipboard - paste into resources.html.md.erb"
