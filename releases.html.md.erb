@@ -9,6 +9,28 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 ## <a id="19x"></a>v1.9.x
 
+### v1.9.4
+
+**Release Date:  August 15th, 2017**
+
+* Update to RabbitMQ 3.6.10
+* Requires stemcell 3363.30
+* This version of the tile can only be installed in an Ops Manager v1.10.3+ and v1.11 environments
+
+Features:
+
+* This is a security release addressed by a new stemcell
+
+Known issues:
+
+* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are downtime required deployments, and may result in failed deployments
+
+Packages:
+
+* OSS RabbitMQ v3.6.10
+* Erlang v19.3.6
+* HAProxy v1.6.11
+
 ### v1.9.3
 
 **Release Date:  August 8th, 2017**
