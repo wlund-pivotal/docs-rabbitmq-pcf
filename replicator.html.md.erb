@@ -47,8 +47,8 @@ This topic describes how to install the replicator and generate replica tiles of
 
 ### <a id="prereqs"></a> Prerequisites
 
-1. RabbitMQ for PCF version 1.8.x or 1.9.x
-2. 2.5 GB of free disk space
+* RabbitMQ for PCF version 1.8.x or 1.9.x
+* 2.5 GB of free disk space
 
 ### <a id="download"></a> Download and Run the Replicator
 
@@ -86,9 +86,11 @@ Once you have generated a replica tile, you can upload it to Ops Manager as you 
 
 ## <a id="upgrading"></a> Upgrading Replica Tiles
 
-You can upgrade replica tiles like regular tiles with one important difference. You must generate a replica of the newer version of the RabbitMQ for PCF tile, using the replicator, and give the new replica the same `name` as the existing replica.
+You can upgrade replica tiles like regular tiles with one important difference. You must generate a replica of the newer version of the RabbitMQ for PCF tile, using the replicator, and give the new replica the same `name` as the existing replica. This is shown in the example workflow below.
 
-For example, here is the workflow for an in-place upgrade. Suppose you used the replicator to generate a replica of v1 of the RabbitMQ for PCF tile with the `name` **trading-team**, and you installed it in Ops Manager. Here is your replicator command for the initial installation:
+### Example of an In-Place Upgrade of a Replica
+
+Suppose you used the replicator to generate a replica of v1 of the RabbitMQ for PCF tile, with the `name` **trading-team**, and you installed it in Ops Manager. Here is the sample replicator command you used for the initial installation:
 
 ```mac
 ./rabbitmq-replicator-darwin\
@@ -97,18 +99,24 @@ For example, here is the workflow for an in-place upgrade. Suppose you used the 
 --output /output/p-rabbitmq-v1-trading-team.pivotal
 ```
 
-Now you want to upgrade to v2. You download the new RabbitMQ for PCF v2, use the replicator command using the path to the RabbitMQ for PCF v2 tile, and supply the same `name`, **trading-team**. Here is your replicator command for v2.
+To upgrade to v2, follow these steps: 
 
-```mac
-./rabbitmq-replicator-darwin\
---name trading-team\
---path /download/p-rabbitmq-v2.pivotal\
---output /output/p-rabbitmq-v2-trading-team.pivotal
-```
+1. Download the new RabbitMQ for PCF v2. 
 
-Once you have a replica v2 tile, upload the replica tile **p-rabbitmq-v2-trading-team.pivotal** to Ops Manager, which will then upgrade the v1 replica tile in place. You can then proceed with upgrading the cluster.
+2. Run the replicator command, using the path to the new RabbitMQ for PCF v2 tile, and supply the same `name`, **trading-team**, as shown below.
 
-If you'd like to do a blue-green style upgrade, see [Blue-Green Upgrades](#blue-green).
+    ```mac
+    ./rabbitmq-replicator-darwin\
+    --name trading-team\
+    --path /download/p-rabbitmq-v2.pivotal\
+    --output /output/p-rabbitmq-v2-trading-team.pivotal
+    ```
+
+3. Once you have the replica tile **p-rabbitmq-v2-trading-team.pivotal**, upload it to Ops manager. This upgrades the v1 replica tile in place. 
+
+You can then proceed with upgrading the cluster.
+
+If you want to do a blue-green style upgrade, see [Blue-Green Upgrades](#blue-green).
 
 
 ## <a id="limitations"></a> Limitations
@@ -119,7 +127,3 @@ If you'd like to do a blue-green style upgrade, see [Blue-Green Upgrades](#blue-
 
 If you have a feature request, questions, or information about a bug, please email the
 [Pivotal Cloud Foundry Feedback](mailto:pivotal-cf-feedback@pivotal.io) list.
-
-## <a id='license'></a>License
-
-**List any license information here.**
