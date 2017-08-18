@@ -1,5 +1,5 @@
 ---
-title: Rabbit MQ for PCF Replicator
+title: RabbitMQ for PCF Replicator
 owner: Services
 ---
 
@@ -9,14 +9,12 @@ RabbitMQ for PCF Replicator is a tool that allows you to install multiple Rabbit
 
 For example, you may want to isolate the cluster serving Spring Cloud Services (SCS) from the cluster serving apps in the marketplace. Or you may want to give a certain team their own dedicated, preprovisioned cluster that you manage for them. For information on how to accomplish these scenarios, see [Common Use Cases](#usecases). 
 
-## <a id="usecases"></a> Common Use Cases
-
-### Using the RabbitMQ Replicator to Create Isolation
+### <a id="usecases"></a> Common Use Cases
 
 The image below illustrates how to isolate SCS on RabbitMQ for PCF from clusters dedicated to different teams. In the use case below, the unreplicated RabbitMQ instance is used as a backing service for SCS, while two replica instances are each dedicated to a specific team. 
 ![alt text](/images/flowchart.png)
 
-These scenarios are explained in detail below.
+These scenarios are explained below in [Running SCS on a Dedicated RabbitMQ Cluster](#scs-isolation) and [Providing a Preprovisioned Dedicated Cluster](#dedicated).
 
 ### <a id="scs-isolation"></a> Running SCS on a Dedicated RabbitMQ Cluster
 
@@ -38,7 +36,7 @@ The On-Demand service is not offered in replica tiles, since the purpose of the 
 
 ### <a id="blue-green"></a> Blue-Green Upgrades (Advanced)
 
-In order to do blue-green style updates to minimize downtime, you can stand up a new cluster, and migrate data and users over to the new cluster over a period of time. Speak with your Platform Architect about how to enable this workflow.
+In order to do blue-green style upgrades to minimize downtime, you can stand up a new cluster and migrate data and users over to the new cluster over a period of time. Speak with your Platform Architect about how to enable this workflow.
 
 
 ## <a id="generate"></a> Generating Replica Tiles
@@ -123,7 +121,3 @@ If you want to do a blue-green style upgrade, see [Blue-Green Upgrades](#blue-gr
 
 * The On-Demand service is not offered on replica tiles.
 
-## <a id="feedback"></a>Feedback
-
-If you have a feature request, questions, or information about a bug, please email the
-[Pivotal Cloud Foundry Feedback](mailto:pivotal-cf-feedback@pivotal.io) list.
