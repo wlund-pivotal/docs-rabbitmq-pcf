@@ -34,7 +34,7 @@ This will grant you full admin access to RabbitMQ through the Management UI.
 
 ### <a id='ha-cluster'></a>Plugins
 
-You can choose which plugins you wish to enable.
+You can choose which plugins you want to enable.
 
 You must leave the management plugin enabled otherwise nothing will work.
 
@@ -107,7 +107,7 @@ space free to satisfy the `disk free alarm limit` that you have chosen.
 #### When should I use the `50MB` value?
 
 This is not recommended in production. However, if you are experimenting with a
-development environment you might wish to use a small disk to keep down costs,
+development environment you might want to use a small disk to keep down costs,
 at the expense of increasing the chances that rabbit might crash and lose data.
 
 ### <a id='ha-cluster'></a>Connecting to a Highly Available RabbitMQ Cluster
@@ -261,7 +261,7 @@ This can be useful if you want to connect directly to the RabbitMQ cluster, such
 
 **Scaling Known Issue**
 
-If you have not set the Erlang cookie and you wish to scale-out your cluster
+If you have not set the Erlang cookie and you want to scale-out your cluster
 size without downtime, you'll need to perform the following steps:
 
 * Follow the steps for [troubleshooting with the BOSH CLI](https://docs.pivotal.io/pivotalcf/1-10/customizing/trouble-advanced.html#prepare)
@@ -279,7 +279,7 @@ below will **not** apply.
 
 **Changing the Value Known Issue**
 
-If you wish to change your Erlang cookie value, this will require cluster downtime.
+If you want to change your Erlang cookie value, this will require cluster downtime.
 It is also *strongly* recommended that you do not change anything else, as it is
 possible for configuration to be inconsistently applied during this process.
 
@@ -287,7 +287,7 @@ The deployment may also fail - if it does, redeploying will fix the issue.
 
 ## <a id="config"></a>RabbitMQ Config
 
-You can provide a full <code>rabbitmq.config</code> file, if you wish.
+You can provide a full <code>rabbitmq.config</code> file, if you want.
 
 <%= image_tag("images/config_rabbitmq.jpeg") %>
 
