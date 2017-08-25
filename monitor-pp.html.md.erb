@@ -49,7 +49,29 @@ Metrics are long, single lines of text that follow the format:
 
 ```
 origin:"p-rabbitmq" eventType:ValueMetric timestamp:1441188462382091652 deployment:"cf-rabbitmq" job:"cf-rabbitmq-node" index:"0" ip:"10.244.3.46" valueMetric: < name:"/p-rabbitmq/rabbitmq/system/memory" value:1024 unit:"MB">
+``
+
+## <a id="kpi"></a>Key Partition Indicator
+
+A new metric has been introduced to help to identify network partitions.
+Essentially it exposes how many nodes each node knows. When a node is in
+partition the only node that it recognizes is itself and that is a good
+indication that that node might be in a partition.
+
+An example of that metrics is:
+
 ```
+origin:"p-rabbitmq" eventType:ValueMetric timestamp:1441188462382091652 deployment:"cf-rabbitmq" job:"cf-rabbitmq-node" index:"0" ip:"10.244.3.46" valueMetric: < name:"/p-rabbitmq/rabbitmq/erlang/reachable_nodes" value:3 unit:"count">
+``
+
+Monitors can be created to emit alerts in case a cluster seems to be in a
+partition. A metrics is emitted for each node in the cluster. For example: in a
+three-node cluster a monitor can expect to have a total of 9 (nine) since each
+node is expected to emit 3 (2 reachable nodes and itself). Otherwise, an alert
+can be sent to the team.
+
+
+A new metric has been introduced to help identifying partitions
 
 ## <a id="kpi"></a>Key Performance Indicators
 
