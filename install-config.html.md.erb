@@ -113,6 +113,7 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
 #### <a id="resources"></a> Resource Types and Disk Size Concerns
 
 It is possible to configure the VM type for RabbitMQ and the size of the persistent disk that is going to be attached to the RabbitMQ instances.
+Suggested value is 2x the amount of RAM of the selected VM type. Refer to the PCF RabbitMQ documentation for more details.
 
 <%= image_tag("images/vm-ram-disk-example.png") %>
 
