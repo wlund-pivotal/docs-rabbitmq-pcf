@@ -73,28 +73,30 @@ Follow the steps below to configure global settings.
 
 ### <a id="service-plan"></a> Configure the Service Plan
 
-In order to enable the on-demand service plan, you must configure the **Dedicated Instance: Single Node Plan**. The default name of this plan is `Solo`. 
+In order to enable the on-demand service plan(s), you must configure the  **Dedicated Instance: Single Node Plan** or **Dedicated Instance: Three Node Plan**.
 
-In the Dedicated Instance Single Node Plan, there is a single node in the cluster. However, there is still an `HAProxy` associated with the cluster.
+**Dedicated Instance: Single Node Plan**: It is a single node of RabbitMQ Server.
+**Dedicated Instance: Three Node Plan**: It is a cluster with three RabbitMQ Server nodes.
 
-  <p class="note"><strong>Note</strong>: If the ODB feature is not enabled, the ODB is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.</p>
+
+<p class="note"><strong>Note</strong>: If the ODB feature is not enabled, the ODB is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.</p>
 
 
-1. Click **Dedicated Instance: Single Node Plan**. 
+1. Choose the dedicated service instance you want to configure, Single Node Plan and/or Three Node Plan:
 
      ![service-plan-tab-v1.8.0](service-plan-configuration.png)
 
-2. Configure the fields on the **Dedicated Instance: Single Node Plan** as follows:
+2. Configure the fields as follows:
   <table>
     <tr><th>Field</th><th>Instructions</th></tr>
     <tr><td><strong>Enable this plan</strong></strong></td>
         <td>Select the checkbox.</td></tr>
-    <tr><td><strong>Service instance quota</strong></td>
-        <td>Enter the maximum number of dedicated service instances that can be available at one time.</td></tr>
     <tr><td><strong>Plan name</strong></td>
         <td>Accept the default or enter a name. This is the name that appears in the Marketplace.</td></tr>
     <tr><td><strong>Plan description</strong></td>
         <td>Accept the default or enter a description.</td></tr>
+    <tr><td><strong>Service instance quota</strong></td>
+        <td>Enter the maximum number of dedicated service instances that can be available at one time.</td></tr>
     <tr><td><strong>Plan features</strong></td>
         <td>Accept the default or enter information about the plan to help your app developers.</td></tr>
     <tr><td><strong>RabbitMQ VM Type</strong></td>
@@ -104,9 +106,8 @@ In the Dedicated Instance Single Node Plan, there is a single node in the cluste
     <tr><td><strong>AZ placement</strong></td>
         <td>This field becomes available after you have completed the [Assign AZs and Networks](#azs-networks) page.<br> Select one AZ for the single node. The plan creates all the on-demand service instance VMs in this AZ.</td></tr>
   </table>
-    
-3. Click **Save**.
 
+3. Click **Save**.
 
 
 #### <a id="resources"></a> Resource Types and Disk Size Concerns
