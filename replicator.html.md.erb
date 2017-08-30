@@ -13,8 +13,13 @@ To save time in configuring replica tiles, you can use the Config Cloner tool. T
 
 ### <a id="usecases"></a> Common Use Cases
 
-The image below illustrates how to isolate SCS on RabbitMQ for PCF from clusters dedicated to different teams. In the use case below, the unreplicated RabbitMQ instance is used as a backing service for SCS, while two replica instances are each dedicated to a specific team. 
-![alt text](/images/flowchart.png)
+The image below illustrates how to isolate SCS on RabbitMQ for PCF from clustered and single node service instances dedicated to different teams. In this use case: 
+
+* The unreplicated RabbitMQ for PCF tile deploys two types of services: <br>
+	* a preprovisioned service is used as a backing service for SCS <br>
+	* an on-demand service is used to create three completely isolated single node service instances. 
+* Two replica tiles are used to create two dedicated pre-provisioned clusters, with each one dedicated to a specific team. 
+<br><br>![alt text](/images/flowchart.png)
 
 These scenarios are explained below in [Running SCS on a Dedicated RabbitMQ Cluster](#scs-isolation) and [Providing a Preprovisioned Dedicated Cluster](#dedicated).
 
