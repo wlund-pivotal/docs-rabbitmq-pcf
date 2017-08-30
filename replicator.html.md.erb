@@ -15,11 +15,13 @@ To save time in configuring replica tiles, you can use the Config Cloner tool. T
 
 ### <a id="usecases"></a> Common Use Cases
 
-This section describes four common use cases for the RabbitMQ for PCF Replicator.
+The image below illustrates how to isolate SCS on RabbitMQ for PCF from clustered and single node service instances dedicated to different teams. In this use case: 
 
-The image below shows RabbitMQ for PCF serving SCS on one cluster, while two other clusters are dedicated to specific teams. 
-The unreplicated RabbitMQ instance is used as a backing service for SCS, while two replica instances are each dedicated to a specific team.<br><br> 
-![alt text](/images/flowchart.png)
+* The unreplicated RabbitMQ for PCF tile deploys two types of services: <br>
+	* a preprovisioned service is used as a backing service for SCS <br>
+	* an on-demand service is used to create three completely isolated single node service instances. 
+* Two replica tiles are used to create two dedicated pre-provisioned clusters, with each one dedicated to a specific team. 
+<br><br>![alt text](/images/flowchart.png)
 
 These and other common use cases are explained below.
 
