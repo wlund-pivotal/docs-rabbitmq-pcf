@@ -29,7 +29,7 @@ In this use case:
 * Two replica tiles are used to create two dedicated pre-provisioned clusters, with each one dedicated to a specific team. 
 <br><br>![alt text](/images/flowchart.png)
 
-These scenarios are explained below in [Running SCS on a Dedicated RabbitMQ Cluster](#scs-isolation) and [Providing a Preprovisioned Dedicated Cluster](#dedicated).
+These scenarios are explained below in [Running SCS on a Dedicated RabbitMQ Cluster](#scs-isolation) and [Providing a Pre-Provisioned Dedicated Cluster](#dedicated).
 
 ### <a id="scs-isolation"></a> Running SCS on a Dedicated RabbitMQ Cluster
 
@@ -50,7 +50,7 @@ To offer RabbitMQ as a cloud messaging service in the Marketplace, create one or
 install them in Ops Manager, and either allow the broker registrar errand to run, or
 [register the service manually using CF](https://docs.pivotal.io/pivotalcf/services/managing-service-brokers.html#register-broker).  
 
-### <a id="dedicated"></a> Providing a Preprovisioned Dedicated Cluster
+### <a id="dedicated"></a> Providing a Pre-Provisioned Dedicated Cluster
 
 To reserve a RabbitMQ cluster for use by a specific team, all you need to do is
 [disable the broker registrar errand in Ops Manager](http://docs.pivotal.io/rabbitmq-cf/install-config.html#errands).
