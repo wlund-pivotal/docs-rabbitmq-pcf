@@ -6,10 +6,10 @@ owner: Services
 ## <a id="overview"></a> Overview
 
 RabbitMQ for PCF Replicator is a tool that allows you to install multiple RabbitMQ for Pivotal Cloud Foundry (PCF) 
-tiles in a single Ops Manager environment. This lets you run multiple preprovisioned RabbitMQ clusters that are isolated from each other. 
+tiles in a single Ops Manager environment. This lets you run multiple pre-provisioned RabbitMQ clusters that are isolated from each other. 
 
 For example, you may want to isolate the cluster serving Spring Cloud Services (SCS) from the cluster serving apps in the marketplace. 
-Or you may want to give a certain team their own dedicated, preprovisioned cluster that you manage for them. 
+Or you may want to give a certain team their own dedicated, pre-provisioned cluster that you manage for them. 
 
 To save time in configuring replica tiles, you can use the Config Cloner tool. This tool supplements the functionality of the RabbitMQ for PCF Replicator by letting you configure the RabbitMQ for PCF tile in Ops Manager once, then propagate this configuration to all replica tiles with a single action. For instructions, see [Cloning Configuration for Replica Tiles](#cloning).
 
@@ -18,7 +18,7 @@ To save time in configuring replica tiles, you can use the Config Cloner tool. T
 The image below illustrates how to isolate SCS on RabbitMQ for PCF from clustered and single node service instances dedicated to different teams. In this use case: 
 
 * The unreplicated RabbitMQ for PCF tile deploys two types of services: <br>
-	* a preprovisioned service is used as a backing service for SCS <br>
+	* a pre-provisioned service is used as a backing service for SCS <br>
 	* an on-demand service is used to create three completely isolated single node service instances 
 * Two replica tiles are used to create two dedicated pre-provisioned clusters, with each one dedicated to a specific team. 
 <br><br>![alt text](/images/flowchart.png)
