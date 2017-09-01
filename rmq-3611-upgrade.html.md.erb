@@ -1,49 +1,61 @@
 ---
-title: Changes to Memory Allocation when Upgrading to RabbitMQ 3.6.11 or Higher
+title: Changes to Memory Allocation when Upgrading to RabbitMQ v3.6.11 or Later
 owner: RabbitMQ Tile
 ---
 
 ## Overview
 
-Upgrading to release 1.10.0 from earlier versions of RabbitMQ for PCF upgrades your RabbitMQ software to version 3.6.11. After this upgrade, RabbitMQ may report much higher memory usage than before due to a change in how nodes calculate the RAM they use. With this upgrade, the memory use is reported more accurately, whereas before the upgrade it was underreported.
+Upgrading to release v1.10.0 from earlier versions of RabbitMQ for PCF upgrades your RabbitMQ software to v3.6.11.
+After this upgrade, RabbitMQ might report much higher memory usage than before because of how nodes now calculate the RAM they use.
+With this upgrade, the memory use is reported more accurately, whereas before the upgrade it was underreported.
 
-Due to this change, you may have to increase the amount of memory allocated to the `RabbitMQ Server` job for each RabbitMQ server node. Follow the steps below to adjust the memory allocation if necessary.
+Due to this change, you might have to increase the amount of memory allocated to the `RabbitMQ Server` job for each RabbitMQ server node.
+Follow the steps below to adjust the memory allocation if necessary.
 
-### Changing the Memory Allocation
+### Change the Memory Allocation
 
-Prior to upgrading to this version, compare the memory
-used by the RabbitMQ server nodes against the high watermark. You can see these figures in the RabbitMQ Management UI:
+Before upgrading to RabbitMQ v3.6.11 or later, do the following:
 
-![Configure syslog pane](high_watermark.png)
+1. Compare the memory used by the RabbitMQ server nodes against the high watermark.
 
-Here is a closer look at the memory use figures for the three nodes listed:
+    You can see these figures in the RabbitMQ Management UI:
 
-![High watermark closeup](highwatermark_closeup.png)
+    ![Configure syslog pane](high_watermark.png)
 
-In the above image, the high watermark for each node is 6.0GB. The numbers in green represent the maximum memory used by each node at this particular time.
+    Here is a closer look at the memory use figures for the three nodes listed:
 
-If the memory used by a node is more than 45% of the high watermark, you must increase the amount of memory allocated to the `RabbitMQ Server` job to avoid the risk of blocking publishers. Use the formula below to calculate the new memory allocation. The result must be applied to increase memory allocated on all nodes. 
+    ![High watermark closeup](highwatermark_closeup.png)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**0.4m > 2.5n** 
+    In the above image, the high watermark for each node is 6.0&nbsp;GB.
+    The numbers in green represent the maximum memory used by each node at this particular time.
 
-where:
+2. If the memory used by a node is more than 45% of the high watermark,
+   increase the amount of memory allocated to the `RabbitMQ Server` job to avoid the risk of blocking publishers.
+   Use the formula below to calculate the new memory allocation.
+   Increase the memory allocation on all nodes. 
 
-**m** is the new memory allocation for each node.<br> 
-**n** is the highest value reported for maximum memory among any of the RabbitMQ nodes. 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**0.4m > 2.5n** 
 
-For example, if you have three nodes and the one with the most memory used reports 4.8GB, then the value of **m** for each node is calculated as follows: 
+    Where:
+    + **m** is the new memory allocation for each node.<br> 
+    + **n** is the highest value reported for maximum memory among any of the RabbitMQ nodes. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2.5 × 4.8 = 12; 12/.4 = 30**
+    For example, if you have three nodes and the one with the most memory used reports 4.8&nbsp;GB,
+    then the value of **m** for each node is calculated as follows: 
 
-In the above example, each node should then be allocated a minimum of 30GB of RAM.
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**m > 2.5 × 4.8 / 0.4**, that is,
 
-### Avoiding Paging to Disk
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**m > 30**
 
-If the memory used is less than 45% of the high watermark, memory alarms
-may be triggered after the upgrade, and it is likely that RabbitMQ will page out
-certain queue contents to disk.  This is normal,
-and is not a cause for concern. However, if you want to avoid
-paging to disk, then increase the amount of memory allocated to each node's `RabbitMQ Server` job using the following formula: 
+    In the above example, each node should then be allocated a minimum of 30&nbsp;GB of RAM.
+
+### Avoid Paging to Disk
+
+If the memory used is less than 45% of the high watermark, memory alarms may be triggered after the upgrade,
+and it is likely that RabbitMQ will page out certain queue contents to disk.
+This is normal and is not a cause for concern.
+
+However, if you want to avoid paging to disk, then increase the amount of memory allocated to each node's `RabbitMQ Server` job using the following formula: 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**0.2m > 2.5n**
 
