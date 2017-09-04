@@ -215,7 +215,12 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
     <td><strong>Register On-Demand Service Broker</strong></td>
     <td>Makes the on-demand RabbitMQ service plans available in the Marketplace. If you change the Service Plan Configuration,
     you must run this errand in order for the changes to be reflected in the Marketplace.</td>
-      </tr>
+  </tr>
+  <tr>
+    <td><strong>Dedicated Instance Smoke Tests</strong></td>
+    <td>Checks that on-demand RabbitMQ service instances can be bound to a Cloud Foundry app, and that the app can
+    publish and subscribe to a RabbitMQ cluster (<a href="#dedicated_instance_smoke_test_process">details</a> below)</td>
+  </tr>
   <tr>
     <td><strong>Upgrade All Service Instances</strong></td>
     <td>On-demand instances are updated and redeployed if there are changes to the Dedicated Instance settings or the
@@ -251,8 +256,19 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
 The smoke tests perform the following for each available service plan:
 
 1. Target the org <code>system</code> and create a cf space to run the tests.
-1. Deploy an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) this cf space.
+1. Deploy an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) in this cf space.
 1. Create a RabbitMQ service instance and bind it to the CF RabbitMQ Example App.
 1. Check that the CF RabbitMQ Example App can write to, and read from, the RabbitMQ service instance.
-1. Clean up the deployed Example App and all its service bindings. 
+1. Clean up the deployed Example App and all its service bindings.
 1. Delete the cf space created for the tests.
+
+### <a id="dedicated_instance_smoke_test_process"></a> Dedicated Instance Smoke Test Process
+
+The smoke tests perform the following for each available service plan:
+
+1. Create and target the org <code>smoke-test-org</code> and the space <code>smoke-test-space</code> to run the tests.
+1. Deploy an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) in this cf space.
+1. Create a three node RabbitMQ cluster and bind it to the CF RabbitMQ Example App.
+1. Check that the CF RabbitMQ Example App can write to, and read from, the RabbitMQ service instance.
+1. Clean up the deployed Example App and all its service bindings.
+1. Delete the cf org and space created for the tests.
