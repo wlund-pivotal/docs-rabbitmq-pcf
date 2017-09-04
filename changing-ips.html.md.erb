@@ -1,0 +1,43 @@
+---
+breadcrumb: RabbitMQ for Pivotal Cloud Foundry Documentation
+title: Changing Network and/or IP Addresses Results in a Failed Upgrade Deployment
+owner: London Services
+---
+
+
+RabbitMQ for PCF requires that the IP addresses assigned to a `RabbitMQ Server` job do not change once assigned. If these IP addresses change during an upgrade, the deployment of the upgrade fails.
+
+## <a id="scenarios"></a> Scenarios that Result in an IP Address Change
+
+The following actions result in a new IP address being assigned to the `RabbitMQ Server` job. Therefore, taking these actions results in a failed upgrade deployment:
+
+* Selecting a different `Network` or `Service Network` in the RabbitMQ tile's `Assign AZs and Networks` page.
+* Changing the `Network` or `Service Network` definition such that the existing IP addresses are no longer
+part of that network
+
+## <a id="diagnose"></a> Diagnose a Failed Deployment
+
+When a deployment fails after upgrade, check the `Apply Changes` log on Ops Manager, under `Detecting deployment changes`. If you see changes similar to those below, then it is likely that the IP addresses assigned to the `RabbitMQ Server` job have changed, causing the failed deployment:
+
+```
+  networks:
+  - name: ert-subnet
+    subnets:
+    - range: 10.16.64.0/22
+      reserved:
++     - 10.16.64.62-10.16.64.65
++     - 10.16.64.182-10.16.64.196
+-     - 10.16.64.120
+-     - 10.16.64.185-10.16.64.196
+      static:
++     - 10.16.64.120
+-     - 10.16.64.62
+-     - 10.16.64.63
+-     - 10.16.64.64
+-     - 10.16.64.65
+```
+
+
+## <a id="recover"></a> Recover from a Failed Deployment
+
+Contact Pivotal Support if you have changed the IP address of a node.
