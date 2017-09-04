@@ -161,7 +161,7 @@ We hope to address all of these limitations in future releases.
 * In rare circumstances when manually stopping all RabbitMQ nodes in a cluster, it is possible for all queue masters to reside on the last node to be stopped.  This is a known limitation in RabbitMQ and should you encounter it please contact support.
 * Cannot scale-out if [Erlang Cookie](./configuring.html#erlang) is not specified
 * Changing [Erlang Cookie](./configuring.html#erlang) value results in failed deployment
-
+* Changing networks an/or IP addresses for the `RabbitMQ Server` job results in a failed upgrade deployment. For details, see [this page](./changing-ips.html).
 
 ### Feedback
 Please provide any bugs, feature requests, or questions to [the Pivotal Cloud Foundry Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
