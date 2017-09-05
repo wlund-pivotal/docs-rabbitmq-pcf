@@ -31,16 +31,17 @@ Before upgrading to RabbitMQ v3.6.11 or later, do the following:
 
 2. If the memory used by a node is more than 45% of the high watermark,
    increase the amount of memory allocated to the `RabbitMQ Server` job to avoid the risk of blocking publishers.
-   Use the formula below to calculate the new memory allocation.
-   Increase the memory allocation on all nodes. 
+   Use the formula below to calculate the new memory allocation, and apply this allocation to each node. 
 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**0.4m > 2.5n** 
-
+    
     Where:
     + **m** is the new memory allocation for each node.<br> 
     + **n** is the highest value reported for maximum memory among any of the RabbitMQ nodes. 
 
-    For example, if you have three nodes and the one with the most memory used reports 4.8&nbsp;GB,
+    **Example**
+
+    If you have three nodes and the one with the most memory used reports 4.8&nbsp;GB,
     then the value of **m** for each node is calculated as follows: 
 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**m > 2.5 × 4.8 / 0.4**, that is,
