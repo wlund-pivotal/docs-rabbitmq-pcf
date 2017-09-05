@@ -80,18 +80,9 @@ This topic describes how to install the replicator and generate replica tiles of
 * RabbitMQ for PCF v1.8.x or v1.9.x
 * 2.5 GB of free disk space
 
-### <a id="download"></a> Download and Run the Replicator
+### <a id="download"></a> Request the Replicator from your Platform Architect
 
-You can download the replicator from Pivotal Network.
-Binaries are available for Linux, Mac, and Windows operating systems.
-Follow these steps to download and run the replicator:
-
-1. Download the RabbitMQ for PCF Replicator from [Pivotal Network](https://network.pivotal.io/).
-1. Uncompress the downloaded archive.<br><br>
-	This archive includes both the replicator and the [config cloner](#cloning) binaries.
-
-1. Run the replicator binary for your operating system.
-
+The Replicator is currently available on request from Pivotal. Contact your platform architect to get the Replicator binaries. These include the [Config Cloner](#cloning).
 
 ### <a id="replica"></a> Generate Replica Tiles
 
@@ -126,23 +117,16 @@ To save time in configuring replica tiles, use the Config Cloner as described in
 
 The Config Cloner lets you clone and propagate the tile configuration from one RabbitMQ for PCF tile to all other tiles.
 
+The Config Cloner is included with the Replicator, and both are available on request from Pivotal. Contact your platform architect to request both tools.
+
 <p class="note"><strong>Note</strong>: The config cloner does not clone credentials and certificates, so you must supply these manually to each replica tile.</p>
 
-### <a id="installconfigcloner"></a> Download and Run the Config Cloner
+### <a id="installconfigcloner"></a> Run the Config Cloner
 
-The Config Cloner is downloaded from Pivotal Network along with the RabbitMQ for PCF Replicator, and binaries are available for Linux, Mac, and Windows operating systems.
-Follow these steps to download and run the Config Cloner:
-
-1. Download the RabbitMQ for PCF Replicator from [Pivotal Network](https://network.pivotal.io/).
-1. Uncompress the downloaded archive.<br><br>
-	This archive includes both the [replicator](#overview) and the config cloner binaries.
-
-1. Run the config cloner binary for your operating system. 
-
+Run the Config Cloner binary. 
 
 #### Prerequisites for Using the Config Cloner
 
-* RabbitMQ for PCF config cloner utility
 * A source RabbitMQ for PCF tile
 * One or multiple RabbitMQ for PCF replica tiles
 
