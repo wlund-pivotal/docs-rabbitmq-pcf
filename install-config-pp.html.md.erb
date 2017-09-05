@@ -216,7 +216,7 @@ This can be useful if you want to connect directly to the RabbitMQ cluster, such
 
 <%= image_tag("images/config_erlang.jpeg") %>
 
-**Scaling Known Issue**
+### <a id="scaling-issue"></a> Clustser Scaling Known Issue
 
 If you have not set the Erlang cookie and you wish to scale-out your cluster
 size without downtime, you'll need to perform the following steps:
@@ -234,7 +234,7 @@ default value in the manifest is empty, which results in an auto-generated
 cookie. The value of the cookie on the server will remain the same, so the section
 below will **not** apply.
 
-**Changing the Value Known Issue**
+### <a id="changing-issue"></a> Changing the Erlang Cookie Value Known Issue
 
 If you wish to change your Erlang cookie value, this will require cluster downtime.
 It is also *strongly* recommended that you do not change anything else, as it is
