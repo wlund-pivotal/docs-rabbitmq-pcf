@@ -196,8 +196,8 @@ You can configure a DNS name or IP address of an external load balancer to be re
 
 ## <a id="assigned_ips"></a> Assigned IPs
 
-It is not supported to change the IP addresses which have been assigned to the RabbitMQ deployments. Doing so will cause the deployment to fail.
-For example it is not supported to change the subnet into which the RabbitMQ cluster was originally provisioned.   
+RabbitMQ for PCF does not support changing the IP addresses which have been assigned to the RabbitMQ deployments. Doing so will cause the deployment to fail.
+For example you cannot change the subnet into which the RabbitMQ cluster was originally provisioned. For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html). 
   
 ## <a id="static_ips"></a> Static IPs
 
