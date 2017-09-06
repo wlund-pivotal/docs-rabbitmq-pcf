@@ -38,7 +38,7 @@ The configuration screen appears when you click the RabbitMQ for PCF tile in Ops
  Follow the steps below to configure the AZs and networks.
  
  1. Click **Assign AZs and Networks**.
-     <p class="note"><strong>IMPORTANT</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
+     <p class="note"><strong>Important</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
  
  2. Configure the fields on the **Assign AZs and Networks** as follows:
    <table>
@@ -58,6 +58,8 @@ The configuration screen appears when you click the RabbitMQ for PCF tile in Ops
               This network is represented by the Services Network in this <a href="./about.html#on-demand">picture</a>. <br><br>
               This field is also required for the pre-provisioned service, though in that case, it doesn't matter which network you select.</td></tr>
    </table>
+
+    <p class="note"><strong>Warning</strong>: Changing the Network or Service Network, or changing their IP configurations, results in a failed deployment. For details, see <a href="./changing-ips.html">this topic</a>.</p>
  
  3. Click **Save**.
 
