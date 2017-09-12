@@ -3,9 +3,9 @@ title: Installing and Configuring RabbitMQ for PCF as an On-Demand Service
 owner: London Services
 ---
 
-This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide on-demand service. 
+This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide on-demand service.
 
-<p class="note"><strong>Note</strong>: For instructions on how to install, configure, and deploy the RabbitMQ for PCF tile 
+<p class="note"><strong>Note</strong>: For instructions on how to install, configure, and deploy the RabbitMQ for PCF tile
 as a pre-provisioned service, see
 <a href="./install-config-pp.html">the documentation for pre-provisioned RabbitMQ for PCF</a>.</p>
 
@@ -21,7 +21,7 @@ For information on the on-demand service architecture, see [this page](about.htm
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
 
-2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
+2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
 3. Under the **Import a Product** button, click **+** next to the version number of RabbitMQ for PCF. This adds the tile to your staging area.
 
@@ -34,12 +34,12 @@ The configuration screen appears when you click the RabbitMQ for PCF tile in Ops
 ![Configuring Errand Run Rules](images/errands-pane.png)
 
 ### <a id="azs-networks"></a>  Configure AZs and Networks
- 
+
  Follow the steps below to configure the AZs and networks.
- 
+
  1. Click **Assign AZs and Networks**.
      <p class="note"><strong>Important</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
- 
+
  2. Configure the fields on the **Assign AZs and Networks** as follows:
    <table>
      <tr><th>Field</th><th>Instructions</th></tr>
@@ -62,7 +62,7 @@ The configuration screen appears when you click the RabbitMQ for PCF tile in Ops
     <p class="note warning"><strong>WARNING</strong>: Changing the Network or Service Network, or changing their IP configurations,
        results in a failed deployment.
        For more information, see <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.</p>
- 
+
  3. Click **Save**.
 
 ### <a id="global"></a>Configure Global Settings
@@ -77,24 +77,24 @@ Follow the steps below to configure global settings.
 
 ### <a id="service-plan"></a> Configure the Service Plan
 
-In order to enable the on-demand service plan(s), you must configure the  **Dedicated Instance: Single Node Plan** or **Dedicated Instance: Three Node Plan**.
+In order to enable the on-demand service plan(s), you must configure the  **Dedicated Instance: Single Node Plan** or **Dedicated Instance: Cluster Plan**.
 
 **Dedicated Instance: Single Node Plan**: It is a single node of RabbitMQ Server.
-**Dedicated Instance: Three Node Plan**: It is a cluster with three RabbitMQ Server nodes.
+**Dedicated Instance: Cluster Plan**: It is a cluster with three to seven RabbitMQ Server nodes.
 
 
 <p class="note"><strong>Note</strong>: If the ODB feature is not enabled, the ODB is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.</p>
 
 
-1. Choose the dedicated service instance you want to configure, Single Node Plan and/or Three Node Plan:
+1. Choose the dedicated service instance you want to configure, Single Node Plan and/or Cluster Plan:
 
-     ![service-plan-tab-v1.8.0](service-plan-configuration.png)
+     ![service-plan-tab-v1.10.0](service-plan-configuration.png)
 
 2. Configure the fields as follows:
   <table>
     <tr><th>Field</th><th>Instructions</th></tr>
     <tr><td><strong>Enable this plan</strong></strong></td>
-        <td>Select the checkbox.</td></tr>
+        <td>Select plan enable.</td></tr>
     <tr><td><strong>Plan name</strong></td>
         <td>Accept the default or enter a name. This is the name that appears in the Marketplace.</td></tr>
     <tr><td><strong>Plan description</strong></td>
@@ -103,12 +103,14 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
         <td>Enter the maximum number of dedicated service instances that can be available at one time.</td></tr>
     <tr><td><strong>Plan features</strong></td>
         <td>Accept the default or enter information about the plan to help your app developers.</td></tr>
+    <tr><td><strong>Number of nodes</strong></strong></td>
+        <td>Enter a numeric value between 3 and 7. We recommend using 3, 5 or 7.</td></tr>
     <tr><td><strong>RabbitMQ VM Type</strong></td>
         <td>Select a large VM type.<br>The plan will create a service instance of this size.</td></tr>
     <tr><td><strong>Persistent disk type</strong></td>
     <td>This is where RabbitMQ will page messages to disk. See <a href="#resources">Disk Size Concerns</a> for more details.</td></tr>
     <tr><td><strong>AZ placement</strong></td>
-        <td>This field becomes available after you have completed the [Assign AZs and Networks](#azs-networks) page.<br> Select one AZ for the single node or three node plan. The plan creates all the on-demand service instance VMs in this AZ.</td></tr>
+        <td>This field becomes available after you have completed the [Assign AZs and Networks](#azs-networks) page.<br> Select one AZ for the single node or cluster plan. The plan creates all the on-demand service instance VMs in this AZ.</td></tr>
   </table>
 
 3. Click **Save**.
@@ -128,7 +130,7 @@ RabbitMQ declines to start if there is not enough space available according to t
 Dedicated instances are configured with a threshold set to the 40% of the memory (RAM) of the VM.
 Operators can take the following table as an example when selecting the size of the persistent disk.
 
-The following table shows an example of possible RAM values, absolute minimal value below which 
+The following table shows an example of possible RAM values, absolute minimal value below which
 RabbitMQ declines to start, and the disk size suggested for an average use case.
 
 <table border="1" class="nice">
@@ -167,7 +169,7 @@ For more information, see the following documentation links:
 2. Verify and, if necessary, import a new stemcell version.  
     For more information, see the information about importing the stemcell for your IaaS:
     [AWS](https://docs.pivotal.io/pivotalcf/1-11/customizing/pcf-aws-manual-er-config.html#stemcell),
-    [Azure](https://docs.pivotal.io/pivotalcf/customizing/azure-er-config.html#stemcell), 
+    [Azure](https://docs.pivotal.io/pivotalcf/customizing/azure-er-config.html#stemcell),
     [GCP](https://docs.pivotal.io/pivotalcf/customizing/gcp-er-config.html#stemcell), or
     [vSphere](https://docs.pivotal.io/pivotalcf/customizing/config-er-vmware.html#stemcell).
 
@@ -176,7 +178,7 @@ For more information, see the following documentation links:
 
 Your installation is not complete until you apply your configuration changes. Follow the steps below:
 
-1. Return to the Ops Manager Installation Dashboard. 
+1. Return to the Ops Manager Installation Dashboard.
 
 2. Click **Apply Changes**.
 
@@ -268,11 +270,11 @@ The smoke tests perform the following for each available service plan:
 
 ### <a id="dedicated_instance_smoke_test_process"></a> Dedicated Instance Smoke Test Process
 
-The smoke tests perform the following for each available service plan:
+The smoke tests perform the following for each enabled service plan:
 
 1. Create and target the org <code>smoke-test-org</code> and the space <code>smoke-test-space</code> to run the tests.
 1. Deploy an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) in this cf space.
-1. Create a three node RabbitMQ cluster and bind it to the CF RabbitMQ Example App.
+1. Create the RabbitMQ cluster and bind it to the CF RabbitMQ Example App.
 1. Check that the CF RabbitMQ Example App can write to, and read from, the RabbitMQ service instance.
 1. Clean up the deployed Example App and all its service bindings.
 1. Delete the cf org and space created for the tests.
