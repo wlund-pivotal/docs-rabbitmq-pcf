@@ -1,5 +1,5 @@
 ---
-title: RabbitMQ for PCF Replicator
+title: Creating Isolation with the RabbitMQ for PCF Replicator
 owner: Services
 ---
 
@@ -12,11 +12,6 @@ This lets you run multiple pre-provisioned RabbitMQ clusters that are isolated f
 For example, you may want to isolate the cluster serving Spring Cloud Services (SCS) from the cluster serving apps in the Marketplace.
 Or you may want to give a certain team their own dedicated, pre-provisioned cluster that you manage for them.
 For information on how to accomplish these scenarios, see [Common Use Cases](#usecases). 
-
-To save time in configuring replica tiles, you can use the Config Cloner tool.
-This tool supplements the functionality of the RabbitMQ for PCF Replicator by letting you configure the RabbitMQ for PCF tile in Ops Manager once,
-then propagate this configuration to all replica tiles with a single action.
-For instructions, see [Cloning Configuration for Replica Tiles](#cloning).
 
 ### <a id="usecases"></a> Common Use Cases
 
@@ -80,9 +75,9 @@ This topic describes how to install the replicator and generate replica tiles of
 * RabbitMQ for PCF v1.8.x or v1.9.x
 * 2.5 GB of free disk space
 
-### <a id="download"></a> Request the Replicator from your Platform Architect
+### <a id="download"></a> Download the Replicator
 
-The Replicator is currently available on request from Pivotal. Contact your platform architect to get the Replicator binaries. These include the [Config Cloner](#cloning).
+The RabbitMQ for PCF Replicator is currently available from [Pivotal Network](https://network.pivotal.io). Search for and download this archive and run the enclosed binary. 
 
 ### <a id="replica"></a> Generate Replica Tiles
 
@@ -110,61 +105,6 @@ After you have generated a replica tile, you can upload it to Ops Manager as you
 After you have uploaded it, follow the instructions for [Installing and Configuring RabbitMQ for PCF as a
 Pre-Provisioned Service](https://docs.pivotal.io/rabbitmq-cf/install-config-pp.html).
 The On-Demand service is not offered on replica tiles.
-
-To save time in configuring replica tiles, use the Config Cloner as described in the following section.
-
-## <a id="cloning"></a> Cloning Configuration for Replica Tiles
-
-The Config Cloner lets you clone and propagate the tile configuration from one RabbitMQ for PCF tile to all other tiles.
-
-The Config Cloner is included with the Replicator, and both are available on request from Pivotal. Contact your platform architect to request both tools.
-
-<p class="note"><strong>Note</strong>: The config cloner does not clone credentials and certificates, so you must supply these manually to each replica tile.</p>
-
-### <a id="installconfigcloner"></a> Run the Config Cloner
-
-Run the Config Cloner binary. 
-
-#### Prerequisites for Using the Config Cloner
-
-* A source RabbitMQ for PCF tile
-* One or multiple RabbitMQ for PCF replica tiles
-
-### <a id="retrieve-name"></a> Retrieve Source and Destination Tile Deployment Names
-
-Retrieve the deployment names for your source and destination tiles by clicking on each tile in turn, and copying the deployment name from the URL.
-The deployment name is highlighted in the example URL shown below:
-<br><br>![deployment](configcloner-deployment-name.png)
-
-### <a id="propagate"></a> Propagate Configuration from One Tile to Another
-
-Use the config cloner as described below, using the source and destination deployment names you retrieved above.
-After cloning configurations for one or more tiles, supply the credentials and certificates for each tile, and then **Apply Changes** in Ops Manager. 
-
-The following is the syntax for using the config cloner:
-
-```mac
-./config-cloner \
---source SOURCE_TILE_DEPLOYMENT_NAME \
---destination DESTINATION_TILE_DEPLOYMENT_NAME \
---opsmanager-url YOUR_OPS_MANAGER_URL \ 
---opsmanager-username YOUR_OPS_MANAGER_USERNAME \
---opsmanager-password YOUR_OPS_MANAGER_PASSWORD
-```
-
-The following parameters are expected in the above syntax:
-
-| **Parameter**            | **Description**                                                                                                                                                                 |
-|---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `source`              | The deployment name of the tile from which you want to copy the configuration                                                                                                              |
-| `destination`         | The deployment name(s) of the tile(s) to which you want to push the configuration. If you have more than one destination tile, you can supply a comma separated list of deployment names.  |
-| `opsmanager-url`      | The domain name or IP address of your Ops Manager                                                                                                                               |
-| `opsmanager-username` | Your Ops Manager username                                                                                                                                                       |
-| `opsmanager-password` | Your Ops Manager password                                                                                                                                                       |
-
-<p class="note"><strong>Note</strong>:
-The Config Cloner does not clone credentials and certificates, so you must supply these manually to each replica tile.
-</p>
 
 
 ## <a id="upgrading"></a> Upgrading Replica Tiles
@@ -211,5 +151,3 @@ If you want to do a blue-green style upgrade, see [Blue-Green Upgrades](#blue-gr
 ## <a id="limitations"></a> Limitations
 
 * The On-Demand service is not offered on replica tiles.
-
-* The Config Cloner does not clone credentials and certificates, so you must supply these manually for each RabbitMQ for PCF tile.
