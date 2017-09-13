@@ -1,12 +1,14 @@
 ---
-title: Changes to Memory Allocation when Upgrading to RabbitMQ v3.6.11 or Later
+title: Changes to Memory Allocation when Upgrading to RabbitMQ v3.6.12 or Later
 owner: RabbitMQ Tile
 ---
 
 ##<a id="overview"></a> Overview
 
-Upgrading to release v1.10.0 from earlier versions of RabbitMQ for PCF upgrades your RabbitMQ software to v3.6.11.
-After this upgrade, RabbitMQ might report much higher memory usage than before because of how nodes now calculate the RAM they use.
+Upgrading to some versions of RabbitMQ for PCF from earlier versions of the tile upgrades your RabbitMQ component software to v3.6.12. 
+Refer to the [Product Snapshot](./index.html#snapshot) to verify the component version to which you are upgrading.
+
+If you upgrade to this component version, RabbitMQ might report much higher memory usage than before because of how nodes now calculate the RAM they use.
 With this upgrade, the memory use is reported more accurately, whereas before the upgrade it was underreported.
 
 Due to this change, you might have to increase the amount of memory allocated to the `RabbitMQ Server` job for each RabbitMQ server node.
@@ -14,7 +16,7 @@ Follow the steps below to adjust the memory allocation if necessary.
 
 ##<a id="memory-allocation"></a> Change the Memory Allocation
 
-Before upgrading to RabbitMQ v3.6.11 or later, do the following:
+Before upgrading to RabbitMQ v3.6.12 or later, do the following:
 
 1. Compare the memory used by the RabbitMQ server nodes against the high watermark.
 
