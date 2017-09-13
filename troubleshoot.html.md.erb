@@ -48,6 +48,12 @@ Start here if you're responding to a specific errors or error messages.
 
 ### <a id="upgrade-all-fails"></a>Upgrade All Instances Fails
 
+It is not possible to downgrade the number of RabbitMQ nodes after a tile has been installed (<a href="./install-config.html#service-plan">see further documentation on configuring clusters</a>). Upgrade All Instances will fail with output similar to the following:
+
+`Upgrade failed for service instance b6805d26-7e84-4084-8308-35bd6d22b446unexpected status code: 500. description: error: downgrading from a '5' node cluster to a '3' node cluster is not supported.`
+
+In this case, please reset the number of RabbitMQ nodes back to the original deployment.
+
 <%= partial '../../rabbitmq-cf/odb/tshoot-err-upgrade-all-fails' %>
 
 ### <a id="missing-logs"></a>Missing Logs and Metrics
