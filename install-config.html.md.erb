@@ -115,6 +115,7 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
     <td>This field becomes available after you have completed the [Assign AZs and Networks](#azs-networks) page.
         <br>Select one AZ for the single node or multiple AZs for the cluster plan.
         <br>It is not recommended to deploy the cluster plan across multiple AZs, and this should only be done when low latency can be guaranteed.
+        <br>Once you have selected AZ's and have deployed instances, if you change this configuration existing instances will be destroyed and recreated in the new AZ selection.
     </td></tr>
   </table>
 
