@@ -27,9 +27,9 @@ To use on-demand RabbitMQ for PCF with your PCF apps, you need:
 
 ### Entries in the VCAP_SERVICES Environment Variable
 
-Applications running in Cloud Foundry gain access to the bound service instances via an environment variable credentials hash called `VCAP_SERVICES`. An example hash is show below:
+Applications running in Cloud Foundry gain access to the bound service instances via an environment variable credentials hash called `VCAP_SERVICES`. An example hash is shown below:
 
-<pre><code>
+<pre>
 {
     "p-rabbitmq": [{
         "credentials": {
@@ -49,11 +49,13 @@ Applications running in Cloud Foundry gain access to the bound service instances
         }
     }]
 }
-</code></pre>
+</pre>
 
-You can read more details about the environment variable `VCAP_SERVICES` <a href="./reference.html">here</a>.
 
-## <a id='process'></a>The Create-Bind Process
+You can read more details about the environment variable `VCAP_SERVICES` [here](./reference.html).
+
+
+## <a id="process"></a> The Create-Bind Process
 
 Because every app and service in PCF is scoped to a [space](http://docs.pivotal.io/pivotalcf/concepts/roles.html#spaces), an app can only use a service if an instance of the service exists in the same space. 
 
@@ -203,31 +205,3 @@ To delete a service instance, run `cf delete-service`.
 
 You cannot delete a service instance that an app is bound to.
 
-## <a id="admin-service-key"></a>Create an admin user for a Service Instance
-
-To create an admin user on a RabbitMQ instance run `$ cf create-service-key`.
-
-1. Enter `cf create-service-key SERVICE_INSTANCE SERVICE_KEY -c '{"tags": "administrator"}'`
-
-    Where `SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service` and `SERVICE_KEY` is a name you choose to identify the service key.
-
-    <pre class="terminal">
-   $ cf create-service-key my-instance my-admin-key -c '{"tags":"administrator"}'<br>
-   Creating service key my-admin-key for service instance my-instance as user<span>@</span>example.com...
-   OK
-</pre>
-
-1. Enter `cf service-key SERVICE_INSTANCE SERVICE_KEY`
-
-    This will return a Dashboard URL containing the admin credentials which can be used to access the management UI.
-
-    <pre class="terminal">
-   $ cf service-key my-instance my-admin-key<br>
-   Getting key my-admin-key for service instance my-instance as user<span>@</span>example.com...
-   {
-     "dashboard_url": "https://my-instance.bosh-lite.com/#/login/admin-username/admin-password",
-     "username": "admin-username",
-     "password": "admin-password",
-     ...
-   }
-</pre>
