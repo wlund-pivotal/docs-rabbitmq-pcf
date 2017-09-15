@@ -5,7 +5,7 @@ owner: London Services
 
 Pivotal recommends that you upgrade to the latest version of your current minor line, then upgrade to the latest available version of the new minor line. For example, if you use an older v1.7.x version, upgrade to the latest v1.7.x version before upgrading to the latest v1.8.x version.
 
-See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf) for product versions and upgrade paths.
+For product versions and upgrade paths, see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
 ## <a id="18x"></a>v1.8.x
 
@@ -15,18 +15,20 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 #### Features
 
-Features:
-
-* Update to RabbitMQ 3.6.12 - this involves [major changes]
+* Update to RabbitMQ 3.6.12: this involves [major changes]
 (./rmq-3611-upgrade.html) to the memory calculations.
 
 #### Known Issues
 
-* Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
-* Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
-* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are downtime required deployments, and may result in failed deployments
-* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Smoke tests fail if SSL/TLS is configured for your RabbitMQ cluster.
+* Metrics `name` is namespaced with `/p-rabbitmq` instead of `/p.rabbitmq`.
+* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are deployments that require downtime
+  and may result in failed deployments.
+* As of Ops Manager v10.0.0, errands set to the When Changed rule do not always run when the tile has relevant changes.
+  For more information, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).<br>
+  One-time rules should be set when using Ops Manager v1.10.7 or earlier to ensure that Update All Service Instances is run.
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### v1.8.17
 
