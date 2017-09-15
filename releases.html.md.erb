@@ -9,6 +9,22 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 
 ## <a id="18x"></a>v1.8.x
 
+### v1.8.18
+
+**Release Date:  September 15, 2017**
+
+#### Features
+
+* RabbitMQ upgrade to 3.6.12
+
+#### Known Issues
+
+* Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
+* Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
+* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are downtime required deployments, and may result in failed deployments
+* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
 ### v1.8.17
 
 **Release Date:  August 21, 2017**
