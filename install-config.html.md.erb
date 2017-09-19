@@ -96,13 +96,16 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
     <tr><td><strong>Enable this plan</strong></strong></td>
         <td>Select plan enable.</td></tr>
     <tr><td><strong>CF Service Access</strong></strong></td>
-    <td>For the Cluster Plan, select an access level. This setting is enabled by default. If you change this default setting, the smoke tests fail. Therefore, disable the smoke tests [errand](#errands) for this plan if you change the default.<br>
+    <td>For the Cluster Plan, select an access level.
+        This setting is enabled by default.
+        If you change this default setting, the smoke tests fail.
+        Therefore, disable the smoke tests [errand](#errands) for this plan if you change the default.<br>
       <br><ul>
-        <li>**Enable Service Access**---Gives access to all orgs, and displays the service plan to all developers in the CF marketplace.
+        <li>**Enable Service Access**---Gives access to all orgs, and displays the service plan to all developers in the Marketplace.
         </li>
-        <li>**Disable Service Access**---Disables access to all orgs, and hides the service plan to all developers in the CF marketplace. This setting cannot be selected at a later time in the UI.
+        <li>**Disable Service Access**---Disables access to all orgs, and hides the service plan to all developers in the Marketplace. This setting cannot be selected at a later time in the UI.
         </li>
-        <li>**Leave Service Access Unchanged**---Keeps any existing access settings, and only displays the service plan in the CF marketplace to members of orgs that have access to the plan. You can [change the access settings](#access) later manually using the cf CLI.
+        <li>**Leave Service Access Unchanged**---Keeps any existing access settings, and only displays the service plan in the Marketplace to members of orgs that have access to the plan. You can [change the access settings](#access) later manually using the cf CLI.
         </li>
       </ul></td></tr>
     <tr><td><strong>Plan name</strong></td>
@@ -116,7 +119,8 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
     <tr><td><strong>Number of nodes</strong></strong></td>
         <td>Enter 3, 5 or 7. **After installation, the number of nodes cannot be lowered**.</td></tr>
     <tr><td><strong>Network partition behaviour</strong></strong></td>
-        <td>Select pause minority or autoheal. We recommend using pause minority. See <a href="./partitions.html">the partitions documentation</a> for more details.</td></tr>
+        <td>Select pause minority or autoheal. Pivotal recommends using pause minority.
+            For more information, see <a href="./partitions.html">the partitions documentation</a>.</td></tr>
     <tr><td><strong>RabbitMQ VM Type</strong></td>
         <td>Select a large VM type.<br>The plan will create a service instance of this size.</td></tr>
     <tr><td><strong>Persistent disk type</strong></td>
