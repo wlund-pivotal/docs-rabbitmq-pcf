@@ -96,13 +96,13 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
     <tr><td><strong>Enable this plan</strong></strong></td>
         <td>Select plan enable.</td></tr>
     <tr><td><strong>CF Service Access</strong></strong></td>
-    <td>Select whether the plan is displayed in the marketplace. This setting is enabled by default. If you change this default setting, the smoke tests fail. Therefore, disable smoke tests for this plan if you change the default setting.
+    <td>For the Cluster Plan, select an access level. This setting is enabled by default. If you change this default setting, the smoke tests fail. Therefore, disable the smoke tests [errand](#errands) for this plan if you change the default.<br>
       <br><ul>
-        <li>**Enable Service Access** displays the service plan to all developers in the CF marketplace.
+        <li>**Enable Service Access**---Gives access to all orgs, and displays the service plan to all developers in the CF marketplace.
         </li>
-        <li>**Disable Service Access** does not display the service plan to developers in the CF marketplace and the setting cannot be enabled at a later time.
+        <li>**Disable Service Access**---Disables access to all orgs, and hides the service plan to all developers in the CF marketplace. This setting cannot be selected at a later time in the UI.
         </li>
-        <li>**Leave Service Access Unchanged** does not display the service plan in the CF marketplace by default but the setting can be enabled at a later time.
+        <li>**Leave Service Access Unchanged**---Keeps any existing access settings, and only displays the service plan in the CF marketplace to members of orgs that have access to the plan. You can [change the access settings](#access) later manually using the cf CLI.
         </li>
       </ul></td></tr>
     <tr><td><strong>Plan name</strong></td>
@@ -131,6 +131,23 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
 
 3. Click **Save**.
 
+#### <a id="access"></a> Change Access to Service Plans Manually
+
+You may want to restrict access to a service plan, enabling it only for a specific org. 
+
+<p class="note"><strong>Note</strong>: If the plan you are restricting is currently enabled for all orgs, you must first <strong>Disable Service Access</strong> for the plan, then grant access to the plan to specific orgs. See the <strong>CF Service Access</strong> field in the above table.</p>
+
+To enable access to a plan for a specific org, run this command:
+
+`cf enable-service-access p.rabbitmq -p PLAN_NAME -o ORG_NAME`
+
+For example:
+
+<pre class="terminal">
+  $ cf enable-service-access p.rabbitmq -p my-cluster-plan -o my-dev-org
+</pre> 
+
+For more information on the above command, see [Enable Access to Service Plans](https://docs.cloudfoundry.org/services/access-control.html#enable-access).
 
 #### <a id="resources"></a> Resource Types and Disk Size Concerns
 
