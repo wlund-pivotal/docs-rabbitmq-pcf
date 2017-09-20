@@ -124,7 +124,9 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
     <tr><td><strong>RabbitMQ VM Type</strong></td>
         <td>Select a large VM type.<br>The plan will create a service instance of this size.</td></tr>
     <tr><td><strong>Persistent disk type</strong></td>
-    <td>This is where RabbitMQ will page messages to disk. See <a href="#resources">Disk Size Concerns</a> for more details.</td></tr>
+    <td>This is where RabbitMQ will page messages to disk.
+    Service instance deployments will fail unless this value is set to 2x the amount of RAM of the selected RabbitMQ VM Type.
+    See <a href="#resources">Disk Size Concerns</a> for more details.</td></tr>
     <tr><td><strong>AZ placement</strong></td>
     <td>This field becomes available after you have completed the [Assign AZs and Networks](#azs-networks) page.
         <br>Select one AZ for the single node or multiple AZs for the cluster plan.
@@ -137,7 +139,7 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
 
 #### <a id="access"></a> Change Access to Service Plans Manually
 
-You may want to restrict access to a service plan, enabling it only for a specific org. 
+You may want to restrict access to a service plan, enabling it only for a specific org.
 
 <p class="note"><strong>Note</strong>: If the plan you are restricting is currently enabled for all orgs, you must first <strong>Disable Service Access</strong> for the plan, then grant access to the plan to specific orgs. See the <strong>CF Service Access</strong> field in the above table.</p>
 
@@ -149,7 +151,7 @@ For example:
 
 <pre class="terminal">
   $ cf enable-service-access p.rabbitmq -p my-cluster-plan -o my-dev-org
-</pre> 
+</pre>
 
 For more information on the above command, see [Enable Access to Service Plans](https://docs.cloudfoundry.org/services/access-control.html#enable-access).
 
@@ -164,7 +166,7 @@ RabbitMQ raises alarms when disk space drops below the configured limit.
 Incorrect disk sizes may cause the deployed instance not to start.
 RabbitMQ declines to start if there is not enough space available according to the threshold.
 
-Dedicated instances are configured with a threshold set to the 40% of the memory (RAM) of the VM.
+Dedicated instances are configured with a threshold set to the 150% of the memory (RAM) of the VM.
 Operators can take the following table as an example when selecting the size of the persistent disk.
 
 The following table shows an example of possible RAM values, absolute minimal value below which
@@ -173,7 +175,7 @@ RabbitMQ declines to start, and the disk size suggested for an average use case.
 <table border="1" class="nice">
   <tr>
     <td>RAM</td>
-    <td>Free disk alarm threshold (0.4xRAM)</td>
+    <td>Free disk alarm threshold (1.5xRAM)</td>
     <td>Suggested disk size (2xRAM)</td>
   <tr>
   <tr>
