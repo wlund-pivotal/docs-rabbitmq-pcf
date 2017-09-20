@@ -132,11 +132,9 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
     </td></tr>
   </table>
 
-<p class='note'><strong>Important</strong>: Once you have selected AZs and have deployed service instances, if you change this configuration,
-  existing instances will **not** be placed in the newly configured AZs when the Upgrade All Service Instances errand is run.
-  This is to prevent the recreation of the VMs in different AZs which can lead to data loss.
-  <br> All new service instances, however, will be created in the newly configured AZs
-  </p>
+<p class='note'><strong>Important</strong>: If you change this configuration after you have selected AZs and deployed service instances, existing instances will **not** be placed in the newly configured AZs when the Upgrade All Service Instances errand is run. This is to prevent re-creation of the VMs in different AZs, which can lead to data loss.
+<br>All new service instances, however, will be created in the newly configured AZs.
+</p>
 
 3. Click **Save**.
 
