@@ -132,17 +132,20 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
     </td></tr>
   </table>
 
-<p class='note'><strong>Important</strong>: If you change this configuration after you have selected AZs and deployed service instances, existing instances will **not** be placed in the newly configured AZs when the Upgrade All Service Instances errand is run. This is to prevent re-creation of the VMs in different AZs, which can lead to data loss.
-<br>All new service instances, however, will be created in the newly configured AZs.
-</p>
+    <p class='note'><strong>Important</strong>: If you change this configuration after you have selected AZs and deployed service instances,
+       existing instances are <strong>not</strong> placed in the newly configured AZs when the Upgrade All Service Instances errand is run.
+       This prevents re-creation of the VMs in different AZs, which can lead to data loss.
+       <br>All new service instances, however, will be created in the newly configured AZs.</p>
 
 3. Click **Save**.
 
 #### <a id="access"></a> Change Access to Service Plans Manually
 
-You may want to restrict access to a service plan, enabling it only for a specific org.
+You might want to restrict access to a service plan, enabling it only for a specific org.
 
-<p class="note"><strong>Note</strong>: If the plan you are restricting is currently enabled for all orgs, you must first <strong>Disable Service Access</strong> for the plan, then grant access to the plan to specific orgs. See the <strong>CF Service Access</strong> field in the above table.</p>
+<p class="note"><strong>Note</strong>: If the plan you are restricting is currently enabled for all orgs,
+   you must first <strong>Disable Service Access</strong> for the plan, then grant access to the plan to specific orgs.
+   See the <strong>CF Service Access</strong> field in the above table.</p>
 
 To enable access to a plan for a specific org, run this command:
 
