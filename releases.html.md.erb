@@ -9,6 +9,26 @@ For product versions and upgrade paths, see the [Product Compatibility Matrix](h
 
 ## <a id="18x"></a>v1.8.x
 
+### v1.8.19
+
+**Release Date:  September 20, 2017**
+
+#### Features
+
+* Required stemcell updated to 3421.26
+
+#### Known Issues
+
+* Smoke tests fail if SSL/TLS is configured for your RabbitMQ cluster.
+* Metrics `name` is namespaced with `/p-rabbitmq` instead of `/p.rabbitmq`.
+* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are deployments that require downtime
+  and may result in failed deployments.
+* As of Ops Manager v10.0.0, errands set to the When Changed rule do not always run when the tile has relevant changes.
+  For more information, see [Errands](http://docs.pivotal.io/tiledev/tile-errands.html).<br>
+  One-time rules should be set when using Ops Manager v1.10.7 or earlier to ensure that Update All Service Instances is run.
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+
 ### v1.8.18
 
 **Release Date:  September 15, 2017**
