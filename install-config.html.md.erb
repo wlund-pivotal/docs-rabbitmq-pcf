@@ -137,6 +137,15 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
        This prevents re-creation of the VMs in different AZs, which can lead to data loss.
        <br>All new service instances, however, will be created in the newly configured AZs.</p>
 
+    <p class='note'><strong>Note</strong>: If you need to know in which AZs a specific service instance is placed you can do one of the following things:
+    <ul>
+      <li>Get the service GUID e.g. via `cf service SERVICE_NAME --guid` and run `bosh instances` for the deployment `service-instance_GUID`</li>
+      <li>With syslog forwarding enabled, inspect the service broker logs when running the <strong>Upgrade All Service Instances</strong> errand.
+      A log line will be emitted for each service instance which will not be moved across AZs, this log will include the service instance GUID and the AZs
+      the service instance is running in.</li>
+    </ul>
+    </p>
+
 3. Click **Save**.
 
 #### <a id="access"></a> Change Access to Service Plans Manually
