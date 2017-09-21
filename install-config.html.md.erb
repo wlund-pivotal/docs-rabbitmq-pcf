@@ -131,17 +131,23 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
     <td>This field becomes available after you have completed the [Assign AZs and Networks](#azs-networks) page.
         <br>Select one AZ for the single node or multiple AZs for the cluster plan.
         <br>It is not recommended to deploy the cluster plan across multiple AZs, and this should only be done when low latency can be guaranteed.
-        <br>Once you have selected AZ's and have deployed instances, if you change this configuration existing instances will be destroyed and recreated in the new AZ selection.
     </td></tr>
   </table>
+
+    <p class='note'><strong>Important</strong>: If you change this configuration after you have selected AZs and deployed service instances,
+       existing instances are <strong>not</strong> placed in the newly configured AZs when the Upgrade All Service Instances errand is run.
+       This prevents re-creation of the VMs in different AZs, which can lead to data loss.
+       <br>All new service instances, however, will be created in the newly configured AZs.</p>
 
 3. Click **Save**.
 
 #### <a id="access"></a> Change Access to Service Plans Manually
 
-You may want to restrict access to a service plan, enabling it only for a specific org.
+You might want to restrict access to a service plan, enabling it only for a specific org.
 
-<p class="note"><strong>Note</strong>: If the plan you are restricting is currently enabled for all orgs, you must first <strong>Disable Service Access</strong> for the plan, then grant access to the plan to specific orgs. See the <strong>CF Service Access</strong> field in the above table.</p>
+<p class="note"><strong>Note</strong>: If the plan you are restricting is currently enabled for all orgs,
+   you must first <strong>Disable Service Access</strong> for the plan, then grant access to the plan to specific orgs.
+   See the <strong>CF Service Access</strong> field in the above table.</p>
 
 To enable access to a plan for a specific org, run this command:
 
@@ -205,7 +211,7 @@ For more information, see the following documentation links:
 
 1. Click **Stemcell**.
 
-2. Verify and, if necessary, import a new stemcell version.  
+2. Verify and, if necessary, import a new stemcell version.
     For more information, see the information about importing the stemcell for your IaaS:
     [AWS](https://docs.pivotal.io/pivotalcf/1-11/customizing/pcf-aws-manual-er-config.html#stemcell),
     [Azure](https://docs.pivotal.io/pivotalcf/customizing/azure-er-config.html#stemcell),
@@ -233,7 +239,7 @@ You can decide whether to run errands by toggling them on or off before an updat
 
 ![Configuring One-time Errands](images/errands-installation.png)
 
-<p class='note'><strong>IMPORTANT</strong>: As of RabbitMQ for PCF v1.9.0, all post-deploy errands are on by default.
+<p class='note'><strong>Important</strong>: As of RabbitMQ for PCF v1.9.0, all post-deploy errands are on by default.
     Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
     and dedicated instances of RabbitMQ for PCF may fall behind
     if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
@@ -330,7 +336,7 @@ To create an admin user on a RabbitMQ instance do the following:
 
     <br>`cf create-service-key SERVICE_INSTANCE SERVICE_KEY -c '{"tags": "administrator"}'`
 
-    <br>where: 
+    <br>where:
 
     <br>`SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service` <br> `SERVICE_KEY` is a name you choose to identify the service key.
 

@@ -47,19 +47,21 @@ To specify the destination for RabbitMQ for PCF log messages, do the following:
     </tr>
     <tr>
         <td>Format for logs</td>
-        <td>Format for logs. `RFC 5424` is recommended, but `Legacy Format` can be used for compatibility reasons.</td>
+        <td>Format for logs. Pivotal recommends `RFC 5424`, but `Legacy Format` can be used for compatibility reasons.</td>
     </tr>
     <tr>
         <td>Enable TLS</td>
         <td>Enable TLS to the syslog server.</td>
     </tr>
     <tr>
-        <td>Permitted peer</td>
-        <td>If there are several peer servers that can respond to remote syslog connections, then you may provide a wildcard in the domain, such as `*.example.com`.</td>
+        <td>Permitted Peer</td>
+        <td>If there are several peer servers that can respond to remote syslog connections,
+            then you may provide a wildcard in the domain, such as `*.example.com`.</td>
     </tr>
     <tr>
-        <td>Custom CA certificate</td>
-        <td>If the server certificate is not signed by a known authority, for example, an internal syslog server, provide the CA certificate of the log management service endpoint.</td>
+        <td>Custom CA Certificate</td>
+        <td>If the server certificate is not signed by a known authority, for example, an internal syslog server,
+            provide the CA certificate of the log management service endpoint.</td>
     </tr>
 </table>
 
