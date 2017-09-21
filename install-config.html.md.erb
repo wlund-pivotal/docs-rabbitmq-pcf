@@ -38,7 +38,7 @@ The configuration screen appears when you click the RabbitMQ for PCF tile in Ops
  Follow the steps below to configure the AZs and networks.
 
  1. Click **Assign AZs and Networks**.
-     <p class="note"><strong>Important</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
+     <p class="note warning"><strong>Important</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
 
  2. Configure the fields on the **Assign AZs and Networks** as follows:
    <table>
@@ -135,20 +135,17 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
     </td></tr>
   </table>
 
-    <p class='note'><strong>Important</strong>: If you change this configuration after you have selected AZs and deployed service instances,
+    <p class='note warning'><strong>Important</strong>: If you change this configuration after you have selected AZs and deployed service instances,
        existing instances are <strong>not</strong> placed in the newly configured AZs when the Upgrade All Service Instances errand is run.
        This prevents re-creation of the VMs in different AZs, which can lead to data loss.
        <br>All new service instances, however, will be created in the newly configured AZs.</p>
 
-    <p class='note'><strong>Note</strong>: To determine which AZs a service instance is placed in, do one of the following:
-    <ul>
-      <li>Run <code>cf service SERVICE_NAME --guid</code> to get the service GUID, 
-       and then run <code>bosh instances</code> and look for service GUID to get the <code>service-instance_GUID</code>.</li>
-      <li>With syslog forwarding enabled, inspect the service broker logs 
+    <p class='note'><strong>Note</strong>: To determine which AZs a service instance is placed in, do one of the following:<br><br>
+      &#9702; Run <code>cf service SERVICE_NAME --guid</code> to get the service GUID, 
+       and then run <code>bosh instances</code> and look for service GUID to get the <code>service-instance_GUID</code>.<br><br>
+      &#9702; With syslog forwarding enabled, inspect the service broker logs 
           when running the <strong>Upgrade All Service Instances</strong> errand.
-      Search the logs for the service instance GUID. Those log lines contain the AZ that the service instance runs in.</li>
-    </ul>
-    </p>
+      Search the logs for the service instance GUID. Those log lines contain the AZ that the service instance runs in. </p>
 
 3. Click **Save**.
 
@@ -250,7 +247,7 @@ You can decide whether to run errands by toggling them on or off before an updat
 
 ![Configuring One-time Errands](images/errands-installation.png)
 
-<p class='note'><strong>Important</strong>: As of RabbitMQ for PCF v1.9.0, all post-deploy errands are on by default.
+<p class='note warning'><strong>Important</strong>: As of RabbitMQ for PCF v1.9.0, all post-deploy errands are on by default.
     Pivotal recommends keeping these defaults, because the smoke tests can encounter unexpected issues,
     and dedicated instances of RabbitMQ for PCF may fall behind
     if the <strong>Upgrade All Service Instances</strong> errand is not on by default.</p>
