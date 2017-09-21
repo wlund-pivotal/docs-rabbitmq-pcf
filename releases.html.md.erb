@@ -21,8 +21,8 @@ For product versions and upgrade paths, see the [Product Compatibility Matrix](h
 
 * Smoke tests fail if SSL/TLS is configured for your RabbitMQ cluster.
 * Metrics `name` is namespaced with `/p-rabbitmq` instead of `/p.rabbitmq`.
-* Scaling the RabbitMQ cluster or changing the Erlang Cookie value require downtime
-  and might result in failed deployments.
+* Scaling the RabbitMQ cluster or changing the Erlang Cookie value requires cluster downtime
+  and can result in failed deployments.
   If it does, redeploying fixes the issue.
   For more information, see [Erlang Cookie](./install-config-pp.html#erlang).
 * As of Ops Manager v10.0.0, errands set to the **When Changed** rule do not always run when the tile has relevant changes.
