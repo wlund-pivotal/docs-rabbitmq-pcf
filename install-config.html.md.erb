@@ -125,9 +125,9 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
     <tr><td><strong>RabbitMQ VM Type</strong></td>
         <td>Select a large VM type.<br>The plan will create a service instance of this size.</td></tr>
     <tr><td><strong>Persistent disk type</strong></td>
-    <td>This is where RabbitMQ will page messages to disk.
-    Service instance deployments will fail unless this value is set to 2x the amount of RAM of the selected RabbitMQ VM Type.
-    See <a href="#resources">Disk Size Concerns</a> for more details.</td></tr>
+    <td>This is where RabbitMQ pages messages to disk.
+    Service instance deployments fail if this value is less than twice the volume of RAM of the selected RabbitMQ VM Type.
+    For more information, see <a href="#resources">Resource Types and Disk Size Concerns</a> below.</td></tr>
     <tr><td><strong>AZ placement</strong></td>
     <td>This field becomes available after you have completed the [Assign AZs and Networks](#azs-networks) page.
         <br>Select one AZ for the single node or multiple AZs for the cluster plan.
@@ -184,16 +184,16 @@ Incorrect disk sizes may cause the deployed instance not to start.
 RabbitMQ declines to start if there is not enough space available according to the threshold.
 
 Dedicated instances are configured with a threshold set to the 150% of the memory (RAM) of the VM.
-Operators can take the following table as an example when selecting the size of the persistent disk.
+Use the following table as a guide when selecting the size of the persistent disk.
 
 The following table shows an example of possible RAM values, absolute minimal value below which
 RabbitMQ declines to start, and the disk size suggested for an average use case.
 
 <table border="1" class="nice">
   <tr>
-    <td>RAM</td>
-    <td>Free disk alarm threshold (1.5xRAM)</td>
-    <td>Suggested disk size (2xRAM)</td>
+    <th>RAM</th>
+    <th>Free disk alarm threshold (1.5xRAM)</td>
+    <th>Suggested disk size (2xRAM)</th>
   <tr>
   <tr>
     <td>10 GB</td>
