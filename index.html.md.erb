@@ -30,11 +30,11 @@ The following table provides version and version-support information about Rabbi
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.8.x, v1.9.x, v1.10.x</td>
+        <td>v1.8.x, v1.9.x, and v1.10.x</td>
     </tr>
     <tr>
         <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.8.x, v1.9.x, v1.10.x</td>
+        <td>v1.8.x, v1.9.x, and v1.10.x</td>
     </tr>
     <tr>
         <td>IaaS support</td>
@@ -50,7 +50,7 @@ The following table provides version and version-support information about Rabbi
 
 Upgrades are normally a rolling deployment unless otherwise noted in the release notes.
 
-<p class="note"><strong>Note</strong>: Customers installing the 1.7 tile into PCF versions 1.8, 1.9, and 1.10 must select the right secure messaging option for metrics or else they will face installation issues.  Please read <a href="https://docs.pivotal.io/rabbitmq-cf/1-7/metrics_logging.html#metrics"> this information></a> before installing. </p>
+<p class="note"><strong>Note</strong>: Customers installing the v1.7 tile into PCF v1.8, v1.9, and v1.10 must select the right secure messaging option for metrics or else they will face installation issues.  Please read <a href="https://docs.pivotal.io/rabbitmq-cf/1-7/metrics_logging.html#metrics"> this information></a> before installing. </p>
 
 ### Compatibility Information
 
@@ -65,7 +65,7 @@ Consider the following compatibility information before upgrading RabbitMQ for P
 
 * Customers with v1.6.6 of the tile can upgrade to v1.7.0 or later.
 
-* Customers with v1.6.7-9 of the tile should only upgrade to v1.7.4 or later.
+* Customers with v1.6.7–9 of the tile should only upgrade to v1.7.4 or later.
 
 * Customers with v1.6.10 or later of the tile should only upgrade to v1.7.7 or later.
 
@@ -116,13 +116,13 @@ For more information, see the full [Product Compatibility Matrix](http://docs.pi
 * Bind applications to an instance of the plan, providing unique credentials for each binding
 * Management dashboard access to PCF Operators and application developers
 * Deployment across multiple availability zones, with nodes striped across the AZs automatically
-* Enable SSL (Secure Sockets Layer) for the AMQP, MQTT, STOMP protocols
+* Enable SSL (Secure Sockets Layer) for the AMQP, MQTT, and STOMP protocols
 * HAProxy load balancer across all nodes to balance connections
 * Plugin configuration can be easily changed at any time and the cluster redeployed and updated
 * The cluster topology can be changed and easily scaled out
 * Automated upgrades of RabbitMQ for major, minor and patch releases (see release notes for downtime requirements)
 * Configure the end point for the RabbitMQ Syslog
-* RabbitMQ and HAProxy metrics are exposed on the firehose
+* RabbitMQ and HAProxy metrics are exposed on the Firehose
 
 ## <a id="install"></a> Install RabbitMQ for PCF
 
@@ -136,7 +136,7 @@ To install RabbitMQ for PCF, follow the procedure for installing Pivotal Ops Man
 
 This product requires Ops Manager v1.7.0 or later.
 
-## <a id="using"></a> Using RabbitMQ in your application
+## <a id="using"></a> Using RabbitMQ in Your Application
 
 RabbitMQ is shown in the services marketplace, either in the Apps Manager or
 through `cf marketplace` on the CLI.
@@ -151,8 +151,6 @@ Limitations with the current RabbitMQ for PCF product include:
 
 * Availability Zone configuration **cannot** be changed once deployed.
 * IPsec does not work with this version of the tile and it must be installed into a non-IPsec subnet or by excluding the deployment IPs following the steps in the documentation. 
-
-We hope to address all of these limitations in future releases.
 
 ## <a id="issues"></a> Known Issues
 
