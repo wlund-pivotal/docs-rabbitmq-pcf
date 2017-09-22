@@ -9,9 +9,9 @@ RabbitMQ is a fast and dependable open-source message server that supports a wid
 Emerging as the de facto standard for cloud messaging, RabbitMQ is used for efficient communication between servers, applications and devices, and creates lasting value by enabling rapid development of modern decentralized application and data architectures that can scale with your business needs.
 The [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) (PCF) installer enables cloud operators to deploy a [RabbitMQ service](https://network.pivotal.io/products/pivotal-rabbitmq-service) in PCF. You can deploy the service as a single node or a cluster.
 
-## Product Snapshot
+## <a id="snapshot"></a> Product Snapshot
 
-The following table provides version and version-support information about RabbitMQ for PCF:
+The following table provides version and version-support information about RabbitMQ for (PCF):
 
 <table class="nice">
     <th>Element</th>
@@ -46,28 +46,31 @@ The following table provides version and version-support information about Rabbi
     </tr>
 </table>
 
-## Upgrading to the Latest Version
+## <a id="upgrade"></a> Upgrading to the Latest Version
 
 Upgrades are normally a rolling deployment unless otherwise noted in the release notes.
 
-Consider the following compatibility information before upgrading RabbitMQ for Pivotal Cloud Foundry.
-<p class="note"><strong>Note</strong>: Customers installing the 1.7 tile into PCF versions 1.8, 1.9, and 1.10 must select the right secure messaging option for metrics or else they will face installation issues.  Please read [this](https://docs.pivotal.io/rabbitmq-cf/1-7/metrics_logging.html#metrics) information before installing </p>
+<p class="note"><strong>Note</strong>: Customers installing the 1.7 tile into PCF versions 1.8, 1.9, and 1.10 must select the right secure messaging option for metrics or else they will face installation issues.  Please read <a href="https://docs.pivotal.io/rabbitmq-cf/1-7/metrics_logging.html#metrics"> this information></a> before installing. </p>
 
-<p class="note"><strong>Note</strong>: Any tile upgrading to RabbitMQ v3.6.9 or later will require downtime as the RabbitMQ cluster cannot run in mixed-mode with versions lower than v3.6.9. </p>
-<p class="note"><strong>Note</strong>: Any tile upgrading to RabbitMQ v3.6.6 or later will require downtime as the RabbitMQ cluster cannot run in mixed-mode with versions lower than v3.6.6. </p>
+### Compatibility Information
 
-<p class="note"><strong>Note</strong>: Pivotal recommends that customers always upgrade to the latest patch version of their minor line, and then only upgrade to the latest available new minor patch.  This is to ensure that RabbitMQ or Erlang versions are not downgraded during the process.</p>
+Consider the following compatibility information before upgrading RabbitMQ for PCF:
 
-<p class="note"><strong>Note</strong>: You can only upgrade this tile from v1.6.5 or later.  This must be completed before upgrading from Ops Manager v1.7x to v1.8.x.</p>
+* Any tile upgrading to RabbitMQ v3.6.9 or later will require downtime as the RabbitMQ cluster cannot run in mixed-mode with versions lower than v3.6.9. 
+* Any tile upgrading to RabbitMQ v3.6.6 or later will require downtime as the RabbitMQ cluster cannot run in mixed-mode with versions lower than v3.6.6. 
 
-<p class="note"><strong>Note</strong>: Customers with v1.6.6 of the tile can upgrade to v1.7.0 or later.</p>
+* Pivotal recommends that customers always upgrade to the latest patch version of their minor line, and then only upgrade to the latest available new minor patch.  This is to ensure that RabbitMQ or Erlang versions are not downgraded during the process.
 
-<p class="note"><strong>Note</strong>: Customers with v1.6.7-9 of the tile should only upgrade to v1.7.4 or later.</p>
+* You can only upgrade this tile from v1.6.5 or later.  This must be completed before upgrading from Ops Manager v1.7x to v1.8.x.
 
-<p class="note"><strong>Note</strong>: Customers with v1.6.10 or later of the tile should only upgrade to v1.7.7 or later.</p>
+* Customers with v1.6.6 of the tile can upgrade to v1.7.0 or later.
 
-<p class="note"><strong>Note</strong>: All customers upgrading from v1.6.x to v1.6.5 or later versions of the tile should read the
-<em>Additional upgrade steps for customers going from v1.6.x to v1.6.5</em> document located with the release on https://network.pivotal.io/products/pivotal-rabbitmq-service.</p>
+* Customers with v1.6.7-9 of the tile should only upgrade to v1.7.4 or later.
+
+* Customers with v1.6.10 or later of the tile should only upgrade to v1.7.7 or later.
+
+* All customers upgrading from v1.6.x to v1.6.5 or later versions of the tile should read the
+<em>Additional upgrade steps for customers going from v1.6.x to v1.6.5</em> document located with the release on https://network.pivotal.io/products/pivotal-rabbitmq-service.
 
 For more information, see the full [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
@@ -107,7 +110,7 @@ For more information, see the full [Product Compatibility Matrix](http://docs.pi
 </table>
 
 
-## Features
+## <a id="features"></a> Features
 
 * Provision an instance of the RabbitMQ service, which corresponds to a unique RabbitMQ Vhost (virtual host)
 * Bind applications to an instance of the plan, providing unique credentials for each binding
@@ -121,7 +124,7 @@ For more information, see the full [Product Compatibility Matrix](http://docs.pi
 * Configure the end point for the RabbitMQ Syslog
 * RabbitMQ and HAProxy metrics are exposed on the firehose
 
-### Install via Pivotal Ops Manager
+## <a id="install"></a> Install RabbitMQ for PCF
 
 To install RabbitMQ for PCF, follow the procedure for installing Pivotal Ops Manager tiles:
 
@@ -133,7 +136,7 @@ To install RabbitMQ for PCF, follow the procedure for installing Pivotal Ops Man
 
 This product requires Ops Manager v1.7.0 or later.
 
-### Using RabbitMQ in your application
+## <a id="using"></a> Using RabbitMQ in your application
 
 RabbitMQ is shown in the services marketplace, either in the Apps Manager or
 through `cf marketplace` on the CLI.
@@ -143,7 +146,7 @@ For this service an instance equals a **Vhost** on the RabbitMQ cluster.
 
 Creating a binding gives the user permissions to access this Vhost and associated management dashboard.
 
-### Current Limitations
+## <a id="limitations"></a> Current Limitations
 Limitations with the current RabbitMQ for PCF product include:
 
 * Availability Zone configuration **cannot** be changed once deployed.
@@ -151,7 +154,7 @@ Limitations with the current RabbitMQ for PCF product include:
 
 We hope to address all of these limitations in future releases.
 
-### Known Issues
+## <a id="issues"></a> Known Issues
 
 * In versions `1.5.0` and `1.5.1`, when performing a fresh installation or upgrade, if the Elastic Runtime system and application domains are different then the `Broker Registrar` errand will fail. To resolve this disable the errand and redeploy, then register the broker manually using the system domain route `pivotal-rabbitmq-broker.system.domain`. For more information on registering brokers see the [CloudFoundry documentation](http://docs.cloudfoundry.org/services/managing-service-brokers.html).
 * In the `1.5.0, 1.5.1, 1.5.2, 1.5.3` releases, when performing a fresh installation or upgrade, if you have the rabbitmq\_jsonrpc\_channel or rabbitmq\_jsonrpc\_channel_examples plugins selected then the RabbitMQ nodes will fail to start. The plugins are no longer distributed with RabbitMQ and plugin validation was introduced in RabbitMQ `3.5.7`, causing the nodes to fail to start. To resolve this issue you should install or upgrade to version `1.5.4` or later of the tile.
@@ -163,5 +166,5 @@ We hope to address all of these limitations in future releases.
 * Changing [Erlang Cookie](./configuring.html#erlang) value results in failed deployment
 * Changing networks an/or IP addresses for the `RabbitMQ Server` job results in a failed upgrade deployment. For details, see [this page](./changing-ips.html).
 
-### Feedback
+## <a id="feedback"></a> Feedback
 Please provide any bugs, feature requests, or questions to [the Pivotal Cloud Foundry Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
