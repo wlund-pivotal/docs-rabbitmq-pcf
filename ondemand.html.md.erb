@@ -5,7 +5,7 @@ owner: London Services
 
 ## <a id="intro"></a> Introduction
 
-RabbitMQ for PCF v1.10 responds to the demands of PCF platform operators to offer a RabbitMQ on-demand cluster for their application teams, in addition to the existing single-node on-demand plan. The on-demand cluster plan is aimed at workloads that require the same resilience requirements as the Pre-Provisioned offering, but also require their workloads be isolated.  
+RabbitMQ for Pivotal Cloud Foundry (PCF) v1.10 responds to the demands of PCF platform operators to offer a RabbitMQ on-demand cluster for their application teams, in addition to the existing single-node on-demand plan. The on-demand cluster plan is aimed at workloads that require the same resilience requirements as the Pre-Provisioned offering, but also require their workloads be isolated.  
 
 The platform team can now configure a RabbitMQ for PCF cluster to meet their business requirements, and empower application teams to self-serve their own RabbitMQ cluster. Release 1.10 also provides smoke tests for the on-demand plans so that operations teams can validate the application developer workflow for on-demand services. See [](http://docs-pcf-staging.cfapps.io/rabbitmq-cf/1-10/install-config.html#dedicated_instance_smoke_test_process) 
 
@@ -17,14 +17,18 @@ Platform operators can now offer their application developers three types of Rab
 
 * **On-demand cluster**---For an increased level of message resilience and cluster availability, as well as the benefits of workload isolation mentioned above. 
 
+This topic explains how to benefit from the on-demand plans. 
+
+For information about the pre-provisioned plan, see [Deploying the RabbitMQ Pre-Provisioned Service](./deploying.html). For information on using pre-provisioned plans to isolate workloads, see [Creating Isolation with the Tile Replicator](./replicator.html).
+
 ## <a id="resources"></a> Managing On-Demand Resources Through Plans
 
-There are a number of operational controls provided to the platform operations team to manage the potential resources consumed by on-demand RabbitMQ:   
+There are a number of operational controls that platform operations teams can use to manage the resources consumed by on-demand RabbitMQ:   
 
-* **Control Access**---Operators can choose the development orgs and spaces for which the plans are available and visible.  Each plan is can be enabled or disabled, and service access and visibility can either be organization-wide or enabled per org and space through the command line.<br><br>
+* **Control Access**---Operators can choose the development orgs and spaces for which the plans are available and visible.  Each plan can be enabled or disabled, and service access and visibility can either be global, or enabled per org and space through the command line.<br><br>
 	For example, you may decide to enable the single node on-demand plan across all application teams to meet their demand to isolate their workload. You may then choose to offer the on-demand cluster plan only to a subset of application teams who require the extra resources.
 
-* **Set Quotas**---You can set a global quota for all on-demand instances that takes precedence over each plan quota.  This lets you guard against the risk of over-committing resources, but allows the flexibility of over-committing each plan, so you can meet the fluctuating demands your app developers. 
+* **Set Quotas**---You can set a global quota for all on-demand instances that takes precedence over each plan quota.  This lets you guard against the risk of over-committing resources, but allows the flexibility of over-committing each plan, so you can meet the fluctuating demands of your app developers. 
 
 * **Control Resource Consumption**---Each plan offers more fine-grained control over individual plan resource consumption.  At the highest level, you can use the plan quota to control the number of instances that can be deployed within a foundation. For each plan, you can also configure the number of nodes that constitute a cluster (3, 5, or 7), the instance type, and persistent disk storage size to best suit your requirements. 
 
@@ -33,18 +37,21 @@ There are a number of operational controls provided to the platform operations t
 
 ## <a id="customizing"></a> Customizing Plan Options 
 
-The RabbitMQ for PCF on-demand plans now expose a number of configuration options that it is important for an operations team to make determinations about so that they are providing the best service to their application developers.  In most instances the defaults that have been pre-selected will meet most application demands.  
+The RabbitMQ for PCF on-demand plans expose a number of configuration options. In most cases the default configurations meet most application demands. However, it is important for an operations team to consider the options to ensure that they provide the best service to their app developers. This section explains these options.   
 
 ### <a id="singlenode"></a> Single Node Plan 
 
-This plan is designed to be simple to configure, deploy and use.  It gives application teams fast access to the power of the leading open source message broker backed by BOSH, to meet all but the most demanding High Availability application messaging requirements.  This can suit high performance workloads requiring messaging resilience and asynchronous messaging replication. RabbitMQ copies messages to disk for resilience, and allows asynchronous messaging replication through the RabbitMQ Federation plug-in.<BR>
-========CHECK ACCURACY OF THIS LAST SENTENCE. ALSO WHEN IS THIS PLUGIN AVAILABLE? WE SHOULD NOT MENTION FUTURE PRODUCTS EXCEPT IN A VAGUE WAY... MAYBE DON'T MENTION ASYNCHRONOUS MESSAGE REPLICATION EXCEPT TO SAY "AT A FUTURE DATE, A PLUGIN WILL BE....===========
+This plan is designed to be simple to configure, deploy, and use.  It gives application teams fast access to the power of the leading open source message broker backed by BOSH, to meet all but the most demanding High Availability application messaging requirements.  
+
+This plan can suit high-performance workloads requiring messaging resilience and asynchronous messaging replication. RabbitMQ copies messages to disk for resilience, and allows asynchronous messaging replication through the RabbitMQ Federation plug-in.
+
+========CHECK ACCURACY OF THE LAST SENTENCE ABOVE. ALSO WHEN IS THIS PLUGIN AVAILABLE? WE SHOULD NOT MENTION FUTURE PRODUCTS EXCEPT IN A VAGUE WAY... MAYBE DON'T MENTION ASYNCHRONOUS MESSAGE REPLICATION EXCEPT TO SAY "AT A FUTURE DATE, A PLUGIN WILL BE....===========
 
 The plan offers:
 
 * Fast access to an isolated instance of RabbitMQ scoped for the application teams 
-* Org and Space Administrator access to the RabbitMQ Management UI so that application teams can have full control over the node
-* Updates and upgrades initiated and controlled by operator to keep the instance up to date with the latest security patches and bug fixes 
+* Org and Space Administrator access to the RabbitMQ Management UI so application teams can have full control over the node
+* Updates and upgrades initiated and controlled by the operator to keep the instance up to date with the latest security patches and bug fixes 
 * Message resilience provided through RabbitMQ exchange or queue federation (post GA)
 * Complex topologies enabled through deployment of multiple instances within PCF
 
@@ -53,78 +60,93 @@ The plan offers:
 
 **Configuration Options** 
 
-* Enable/ Disable plan configuration 
-* Determine which organisations and spaces to make the plan available
-* Service Instance Quota 
-* AZ placement (where applicable)
-* The instance (CPU and Memory) and persistent disk (Persisted Message Store) size for the RabbitMQ instance. You should ensure the size of the persistent disk is at least twice as large as the instance memory. 
+* Enable/ Disable plan 
+* Determine which orgs and spaces can see and access the plan
+* Set Service Instance Quota 
+* Select AZ placement (where applicable)
+* Set RabbitMQ instance size (CPU and Memory)
+* Set persistent disk size (Persisted Message Store) for the RabbitMQ instance. Ensure the size of the persistent disk is at least twice as large as the instance memory. 
 
 
 **Things that are Preconfigured** 
 
-* Metrics are emitted to the firehose for all dedicated instances and the interval is controlled from a single point by the ‘Metrics polling interval’ section of the ‘RabbitMQ’ side tab of Ops Manager.  Due to the impact of some of the cluster settings detailed below, it is strongly recommended that you monitor the metrics exposed and configure alarms as per the KPI documentation. 
-* RabbitMQ on-demand instance logs are forwarded using the same configuration as contained in the ‘Syslog’ configuration section of the RabbitMQ for PCF tile. 
-* The disk free space limit has been set to be 40% of the RAM of the instance type you select.  So if you selected an instance type with 10GB of RAM, the disk free space limit would be set to 4GB.  Global flow control will be triggered if the amount of free disk space drops below this, and all publishers will be blocked.  Please see [this](https://www.rabbitmq.com/disk-alarms.html)  document for more information
-* The memory threshold at which ‘Flow Control’ is triggered is set to 40% of the instance RAM.  Once the alarm is triggered all connections publishing messages will be blocked cluster wide until the alarm is cleared.  For example, if you selected an instance type with 10GB of RAM, once more than 4GB of memory has been used all publishing connections would be blocked. Please see [this](https://www.rabbitmq.com/memory.html) document for more information. 
-* The memory paging threshold is the level at which RabbitMQ will try and free up memory by instructing queues to page their contents out to disk, to try and avoid the high watermark being hit and blocking publishers.  This is set to 50% of the configured high watermark (so 20% of configured memory).  For example, if you selected an instance type with 10GB of RAM, once more than 2GB of memory has been used all queues will start writing all queue contents to disk. Please see [this](https://www.rabbitmq.com/memory.html) document for more information. 
+* **Metrics**---Emitted to the firehose for all on-demand instances. The polling interval is set in the Ops Manager, in the **Metrics polling interval** field, in the **RabbitMQ** tab of the RabbitMQ for PCF tile.  Due to the impact of some of the cluster settings detailed below, Pivotal strongly recommends that you monitor the exposed metrics and configure alarms as recommended in [Monitoring and KPIs for On-Demand RabbitMQ for PCF](./monitor.html#kpi). 
+
+* **Logs**---RabbitMQ on-demand instance logs are forwarded using the same configuration as contained in the **Syslog** tab of the RabbitMQ for PCF tile. 
+
+* **Disk free space limit**---Set to 40% of the RAM of the instance type you select. For example, if you select an instance type with 10GB of RAM, the disk free space limit is set to 4GB.  Global flow control is triggered if the amount of free disk space drops below this, and all publishers are blocked.  For more information, see [Disk Alarms](https://www.rabbitmq.com/disk-alarms.html) in the RabbitMQ documentation.
+
+* **Memory threshold for triggering flow control**---Threshold at which flow control is triggered is set to 40% of the instance RAM. This means that once the alarm is triggered, all connections publishing messages are blocked cluster-wide until the alarm is cleared.  <br><br>For example, if you select an instance type with 10GB of RAM, once more than 4GB of memory is used, all publishing connections are blocked. For more information, see [Memory Alarms](https://www.rabbitmq.com/memory.html) in the RabbitMQ documentation. 
+
+* **Memory paging threshold**---This is the level at which RabbitMQ tries to free up memory by instructing queues to page their contents out to disk. This is done to try to avoid reaching the high watermark and blocking publishers.  This threshold is set to 50% of the configured high watermark, which is 20% of configured memory. <br><br>======REGARDING '20% OF CONFIGURED MEMORY' STATEMENT ABOVE.... I DON'T THINK THERE'S A REFERENCE TO THIS ELSEWHERE... SHOULD WE SAY IN THE "CONFIGURATION OPTIONS" BULLET LIST ABOVE THIS, THAT YOU SHOULD CONFIGURE 'MEMORY' TO BE 40% OF THE HIGH WATERMARK?============<br><br>For example, if you select an instance type with 10GB of RAM, once more than 2GB of memory is used, all queues start writing all queue contents to disk. For more information, see [Memory Alarms](https://www.rabbitmq.com/memory.html) in the RabbitMQ documentation. 
+
+
  
 ### <a id="cluster"></a> Cluster Plan
 
-Like the single node plan, this plan is designed to be simple to configure, deploy and use.  It gives application teams fast access to the power of the leading Open Source message broker backed by BOSH, to meet all but the most demanding High Availability application messaging requirements.  This can suit high performance workloads requiring messaging resilience (copied to disk), and asynchronous messaging replication (though the RabbitMQ Federation plugin - post GA). With this plan, however, you also scale out RabbitMQ for PC to multiple nodes.  
+Like the single node plan, this plan is designed to be simple to configure, deploy and use.  It gives application teams fast access to the power of the leading Open Source message broker backed by BOSH, to meet all but the most demanding High Availability application messaging requirements.  
+
+This plan can suit high performance workloads requiring messaging resilience (copied to disk), and asynchronous messaging replication (though the RabbitMQ Federation plugin - post GA). With this plan, however, you also scale out RabbitMQ for PC to multiple nodes.  
 
 This plan offers:
 
-* Fast access to an isolated clustered instance of RabbitMQ scoped to the application teams Organisation and Space 
-* Administrator access to the RabbitMQ Management UI for full control over the cluster for the application team.
-* Operator initiated and controlled updates and upgrades to keep the instance up to date with latest security patches and bug fixes. 
-* Message resilience provided through the ability to mirror queues across RabbitMQ nodes (as well as the option to use Federation and Shovel - post GA) 
-* Complex topologies enabled through the deployment of multiple instances within PCF. 
+* Fast access to an isolated clustered instance of RabbitMQ scoped to the application team Orgs and Spaces 
+* Administrator access to the RabbitMQ Management UI to give application teams full control over the cluster
+* Updates and upgrades initiated and controlled by the operator to keep the instance up to date with the latest security patches and bug fixes. 
+* Message resilience provided through the ability to mirror queues across RabbitMQ nodes (as well as the option to use Federation and Shovel - available at a future date) 
+* Complex topologies enabled through deployment of multiple instances within PCF 
 
 
 The following are some general principles to be aware of when configuring the cluster plan:
 
 **Designed for Consistency**
 
-RabbitMQ clustering is not primarily a solution for increased availability (see this more detailed description  http://www.rabbitmq.com/distributed.html), instead it is designed for consistency and partition tolerance from the CAP theorem (https://en.wikipedia.org/wiki/CAP_theorem).  RabbitMQ clustering is designed to provide the ability to scale out and enable increased message resilience thorough queue mirroring. Other options such as the use of Federation between exchanges or queues can be used to address this requirement. 
+RabbitMQ clustering is not primarily a solution for increased availability. Instead, it is designed for consistency and partition tolerance, as described in the [CAP theorem](https://en.wikipedia.org/wiki/CAP_theorem). RabbitMQ clustering provides increased message consistency through queue mirroring. This means that messages accessed in one queue are exactly the same as in another queue. For more detailed information, see [The Consistency or Availability Tradeoff](#tradeoff).
+
+Other options can be used for availability requirements, such as the use of federation between exchanges or queues. 
+
+For a more detailed description of distributed RabbitMQ brokers, see the [RabbitMQ documentation](http://www.rabbitmq.com/distributed.html).
 
 **Number of Nodes**
 
-Because every node in the cluster must maintain a complete database of all metadata, and all changes to the metadata must be confirmed by every node in the cluster, going beyond 7 nodes can have a significant negative impact on performance.  In fact it is recommended that for most workloads 3 nodes will provide optimum resilience and performance. 
+Every node in the on-demand cluster maintains a complete database of all metadata, and all changes to the metadata are confirmed by every node in the cluster. Therefore, going beyond 7 nodes can have a significant negative impact on performance. For optimum resilience and performance, Pivotal recommends 3 nodes for most workloads. 
 
 **Network Latency**
 
-RabbitMQ clusters are only recommended to be deployed in low latency networks, which normally means that it is not advisable to deploy across availability zones.  The stability and performance of the RabbitMQ cluster is heavily influenced by the workload being run on the nodes, replication choices and network latency.  
+RabbitMQ clusters are only recommended for deployment in low latency networks, which normally means that it is not advisable to deploy these clusters across availability zones (AZs). The stability and performance of the RabbitMQ cluster is heavily influenced by the workload on the nodes, replication choices, and network latency.  
 
-For this reason, Pivotal that RabbitMQ clusters are deployed into a single Ops Manager Availability Zone.  However, where different availability zones are within the same datacenter with reliable low latency links, spanning Availability Zones could be used.  For cloud IaaS deployments it is not recommended that deployments span ‘Regions’.  
+For this reason, Pivotal recommends that RabbitMQ clusters are deployed into a single Ops Manager AZ.  However, where different AZs are in the same datacenter, with reliable low latency links, spanning AZs could be used.  
 
-For example, in Amazon Web Services (AWS) terms (http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/RegionsAndAZs.html), deploying a RabbitMQ cluster across Availabilty Zones within a region should provide high enough network performance to prevent impact cluster stability.  However, deploying across AWS ‘Regions’ will likely lead to cluster instability.  
+For cloud IaaS deployments, Pivotal does not recommend that deployments span *regions*. For example, in Amazon Web Services (AWS) terms, deploying a RabbitMQ cluster across AZs within a region should provide high enough network performance to prevent impacting cluster stability.  However, deploying across AWS regions will likely lead to cluster instability. For more information, see the [AWS documentation](http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/RegionsAndAZs.html).
 
-#### The consistency or availability tradeoff 
+#### <a id="tradeoff"></a> The Consistency or Availability Tradeoff 
 
-In a distributed messaging system a tradeoff must be made between availability or consistency when a network partition event occurs and one or more nodes are not able to communicate with each other.  The cluster plan allows Operators to make a choice about how they want the deployed RabbitMQ cluster to react in the event of a network partition.  
+In a distributed messaging system, a tradeoff must be made between availability or consistency when a network partition event occurs, and one or more nodes are not able to communicate with each other.  The cluster plan lets operators decide how they want the RabbitMQ cluster to react in the event of a network partition.  
 
-It is recommended that in the majority of cases keeping the default cluster partition option of ‘pause\_minority’ will satisfy most use cases.  A detailed discussion of the benefits of each option are discussed here (https://www.rabbitmq.com/partitions.html), but currently only ‘pause_minority’ and ‘autoheal’ can be chosen.  Choosing the ‘pause\_minoirty’ partition handling strategy will favour message consistency over availability, which is what most customers should choose.  A more detailed description of the options available in RabbitMQ for PCF can be found here (https://docs.pivotal.io/rabbitmq-cf/1-8/partitions.html). 
+Pivotal recommends keeping the default cluster partition option of `pause_minority` since this will satisfy most use cases.  Choosing the `pause_minoirty` partition-handling strategy favors message consistency over availability. A detailed discussion of the benefits of the possible options are discussed the [RabbitMQ documentation](https://www.rabbitmq.com/partitions.html). For a more detailed description of the options available in RabbitMQ for PCF see [Clustering and Network Partitions](./partitions.html). 
 
-For example, if you create a RabbitMQ cluster with three nodes and one node becomes unable to communicate with the other two nodes (a full network partition) then the node that is in the minority (it cannot communicate with the other two nodes) will pause and the other two nodes will continue serving traffic.  Should each node loose connectivity with the other two, then the entire cluster will be paused to preserve data as no majority can be established.  The cluster will ‘heal’ when two or more nodes are able to communicate with each other. 
+Here is an example of how `pause_minority` works. If you create a RabbitMQ cluster with three nodes and one node becomes unable to communicate with the other two, this node is in the minority. The node that is in the minority is paused, and the other two nodes continue serving traffic.  If each of the nodes loses connectivity with the other two, then the entire cluster is paused to preserve data since no majority can be established. The cluster *heals* when two or more nodes are able to communicate with each other. 
 
 #### RabbitMQ Queue Availability
 
-It is important to be aware that in the discussion above we have focused on the RabbitMQ clusters availability and its ability to respond correctly to requests.  Cluster availability does not mean that all of the messages within the queues are also available.  By default, queues within a RabbitMQ cluster are located on a single node (the node on which they were first declared). Queues can be configured to mirror across multiple nodes, and any message published to the queue is replicated to all mirrors.  Enabling mirroring can have a negative impact on queue performance as messages must be copied to all mirrors before being acknowledged. 
+It is important to be aware that message queue availability is different from cluster availability, so having cluster availability does not mean that all of the messages within the queues are also available.  
 
-Each mirrored queue consists of one master and one or more mirrors, with the oldest mirror being promoted to the new master if the old master disappears for any reason.  Consumers are connected to the master regardless of which node they connect to, with mirrors dropping messages that have been acknowledged at the master. Queue mirroring therefore enhances availability, but does not distribute load across nodes (all participating nodes each do all the work).
+By default, queues within a RabbitMQ cluster are located on a single node---the node on which they were first declared. However, queues can be configured to mirror across multiple nodes, so that any message published to the queue is replicated to all mirrors.  Enabling mirroring can have a negative impact on queue performance since messages must be copied to all mirrors before being acknowledged. 
 
-Application developers must decide if they want to use queue mirroring and the policy that they want to apply to their queues (https://www.rabbitmq.com/ha.html) as their choices will have significant impact on the availability of their queue.  
+Each mirrored queue consists of one master and one or more mirrors, with the oldest mirror being promoted to the new master if the old master disappears for any reason.  Consumers are connected to the master regardless of which node they connect to, and mirrors drop messages that have been acknowledged at the master. Queue mirroring enhances queue availability, but does not distribute load across nodes since each of the participating nodes must still do all the work.
 
-Unlike the Pre-provisioned plan we do not ship the cluster with a default load balancer, and so developers will need to account for the fact that they will need to configure their application to use the array of hosts provided in VCAP_SERVICES.  Applications will also need to ensure that they have re-try logic and reconnection logic that will iterate over the range of hosts provided if they have enabled queue mirroring.  Most common RabbitMQ clients have this logic built into them (i.e. Spring AMQP https://docs.spring.io/spring-amqp/reference/htmlsingle/#auto-recovery).
+App developers must decide if they want to use queue mirroring and determine the policy they want to apply to their queues. These choices have significant impact on the availability of their queues. For more information, see the [RabbitMQ documentation](https://www.rabbitmq.com/ha.html).
 
-As the cluster plan has been created to enable Application teams to self-serve, not having a load balancer in front of the RabbitMQ cluster can confer the following benefits: 
+Unlike the pre-provisioned plan, the cluster plan does not ship with a default load balancer. Therefore, developers must configure their application to use the array of hosts provided in `VCAP_SERVICES`. If developers enable queue mirroring, they must also ensure their applications have re-try logic, and reconnection logic that iterates over the range of hosts provided.  Most common RabbitMQ clients have this logic built into them. For more information, see the [Spring AMQP documentation](https://docs.spring.io/spring-amqp/reference/htmlsingle/#auto-recovery).
 
-* Manage resources better (fewer vms)
-* Help with troubleshooting : client IP will now be the IP of the source container and not HAproxy
-* Reduce the number of hops (latency) between apps and broker 
-* Enable deterministic queue placement; for larger scale deployments it makes less sense not to be able to control queue placement 
-* Empower application teams to manage their cluster in the best way for their application 
-* Make more explicit that re-try logic is required in an application if it requires HA access to a queue (all nodes can route a queue if it is available) 
+Since the cluster plan is designed to enable application teams to self-serve, not having a load balancer in front of the RabbitMQ cluster has these benefits: 
+
+* Manage resources better, as fewer VMs are needed.
+* Help with troubleshooting. Client IP is now the IP of the source container and not the HAproxy.
+* Reduce the number of hops between apps and broker. This helps with latency.
+* Determine queue placement. This makes sense for larger scale deployments. 
+* Empower application teams to manage their cluster in the best way for their application. 
+* Require re-try logic in an application if it needs HA access to a queue. Thus, all nodes can route to a queue if it is available. 
 
 #### Plan Configuration 
 
