@@ -23,13 +23,14 @@ To use on-demand RabbitMQ for PCF with your PCF apps, you need:
    - the Linux [watch](http://www.linfo.org/watch.html) command
 * To [log into](http://docs.pivotal.io/pivotalcf/cf-cli/getting-started.html#login) the org and space containing your app
 
-## <a id='developer_guide'></a>Developer Guide
+## <a id='developer_guide'></a> Developer Guide
 
 ### Entries in the VCAP_SERVICES Environment Variable
 
 Applications running in Cloud Foundry gain access to the bound service instances via an environment variable credentials hash called `VCAP_SERVICES`. An example hash is show below:
 
-<pre><code>
+<pre class="terminal">
+
 {
     "p-rabbitmq": [{
         "credentials": {
@@ -49,7 +50,7 @@ Applications running in Cloud Foundry gain access to the bound service instances
         }
     }]
 }
-</code></pre>
+</pre>
 
 You can read more details about the environment variable `VCAP_SERVICES` <a href="./reference.html">here</a>.
 
