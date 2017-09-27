@@ -21,33 +21,14 @@ This topic explains how to benefit from the on-demand plans.
 
 For information about the pre-provisioned plan, see [Deploying the RabbitMQ Pre-Provisioned Service](./deploying.html). For information on using pre-provisioned plans to isolate workloads, see [Creating Isolation with the Tile Replicator](./replicator.html).
 
-## <a id="resources"></a> Managing On-Demand Resources Through Plans
 
-There are a number of operational controls that platform operations teams can use to manage the resources consumed by on-demand RabbitMQ:   
-
-* **Control Access**---Operators can choose the development orgs and spaces for which the plans are available and visible.  Each plan can be enabled or disabled, and service access and visibility can either be global, or enabled per org and space through the command line.<br><br>
-	For example, you may decide to enable the single node on-demand plan across all application teams to meet their demand to isolate their workload. You may then choose to offer the on-demand cluster plan only to a subset of application teams who require the extra resources.
-
-* **Set Quotas**---You can set a global quota for all on-demand instances that takes precedence over each plan quota.  This lets you guard against the risk of over-committing resources, but allows the flexibility of over-committing each plan, so you can meet the fluctuating demands of your app developers. 
-
-* **Control Resource Consumption**---Each plan offers more fine-grained control over individual plan resource consumption.  At the highest level, you can use the plan quota to control the number of instances that can be deployed within a foundation. For each plan, you can also configure the number of nodes that constitute a cluster (3, 5, or 7), the instance type, and persistent disk storage size to best suit your requirements. 
-
-* **Monitor**---You can monitor the number of instances that have been deployed against the quota you have set so that you can start future resource planning requirements.   
- 
-
-## <a id="customizing"></a> Customizing Plan Options 
-
-The RabbitMQ for PCF on-demand plans expose a number of configuration options. In most cases the default configurations meet most application demands. However, it is important for an operations team to consider the options to ensure that they provide the best service to their app developers. This section explains these options.   
-
-### <a id="singlenode"></a> Single Node Plan 
+## <a id="singlenode"></a> On-Demand Single Node Plan 
 
 This plan is designed to be simple to configure, deploy, and use.  It gives application teams fast access to the power of the leading open source message broker backed by BOSH, to meet all but the most demanding High Availability application messaging requirements.  
 
-This plan can suit high-performance workloads requiring messaging resilience and asynchronous messaging replication. RabbitMQ copies messages to disk for resilience, and allows asynchronous messaging replication through the RabbitMQ Federation plug-in.
+This plan can suit high-performance workloads requiring messaging resilience and asynchronous messaging replication. RabbitMQ copies messages to disk for resilience, and allows asynchronous messaging replication through the RabbitMQ Federation plug-in.<br><br>==========<br>CHECK ACCURACY OF THE LAST SENTENCE ABOVE. ALSO WHEN IS THIS PLUGIN AVAILABLE? WE SHOULD NOT MENTION FUTURE PRODUCTS EXCEPT IN A VAGUE WAY... MAYBE DON'T MENTION ASYNCHRONOUS MESSAGE REPLICATION EXCEPT TO SAY "AT A FUTURE DATE, A PLUGIN WILL BE...."<br>===========
 
-========CHECK ACCURACY OF THE LAST SENTENCE ABOVE. ALSO WHEN IS THIS PLUGIN AVAILABLE? WE SHOULD NOT MENTION FUTURE PRODUCTS EXCEPT IN A VAGUE WAY... MAYBE DON'T MENTION ASYNCHRONOUS MESSAGE REPLICATION EXCEPT TO SAY "AT A FUTURE DATE, A PLUGIN WILL BE....===========
-
-The plan offers:
+This plan offers:
 
 * Fast access to an isolated instance of RabbitMQ scoped for the application teams 
 * Org and Space Administrator access to the RabbitMQ Management UI so application teams can have full control over the node
@@ -56,33 +37,7 @@ The plan offers:
 * Complex topologies enabled through deployment of multiple instances within PCF
 
 
-#### Plan Configuration 
-
-**Configuration Options** 
-
-* Enable/ Disable plan 
-* Determine which orgs and spaces can see and access the plan
-* Set Service Instance Quota 
-* Select AZ placement (where applicable)
-* Set RabbitMQ instance size (CPU and Memory)
-* Set persistent disk size (Persisted Message Store) for the RabbitMQ instance. Ensure the size of the persistent disk is at least twice as large as the instance memory. 
-
-
-**Things that are Preconfigured** 
-
-* **Metrics**---Emitted to the firehose for all on-demand instances. The polling interval is set in the Ops Manager, in the **Metrics polling interval** field, in the **RabbitMQ** tab of the RabbitMQ for PCF tile.  Due to the impact of some of the cluster settings detailed below, Pivotal strongly recommends that you monitor the exposed metrics and configure alarms as recommended in [Monitoring and KPIs for On-Demand RabbitMQ for PCF](./monitor.html#kpi). 
-
-* **Logs**---RabbitMQ on-demand instance logs are forwarded using the same configuration as contained in the **Syslog** tab of the RabbitMQ for PCF tile. 
-
-* **Disk free space limit**---Set to 40% of the RAM of the instance type you select. For example, if you select an instance type with 10GB of RAM, the disk free space limit is set to 4GB.  Global flow control is triggered if the amount of free disk space drops below this, and all publishers are blocked.  For more information, see [Disk Alarms](https://www.rabbitmq.com/disk-alarms.html) in the RabbitMQ documentation.
-
-* **Memory threshold for triggering flow control**---Threshold at which flow control is triggered is set to 40% of the instance RAM. This means that once the alarm is triggered, all connections publishing messages are blocked cluster-wide until the alarm is cleared.  <br><br>For example, if you select an instance type with 10GB of RAM, once more than 4GB of memory is used, all publishing connections are blocked. For more information, see [Memory Alarms](https://www.rabbitmq.com/memory.html) in the RabbitMQ documentation. 
-
-* **Memory paging threshold**---This is the level at which RabbitMQ tries to free up memory by instructing queues to page their contents out to disk. This is done to try to avoid reaching the high watermark and blocking publishers.  This threshold is set to 50% of the configured high watermark, which is 20% of configured memory. <br><br>======REGARDING '20% OF CONFIGURED MEMORY' STATEMENT ABOVE.... I DON'T THINK THERE'S A REFERENCE TO THIS ELSEWHERE... SHOULD WE SAY IN THE "CONFIGURATION OPTIONS" BULLET LIST ABOVE THIS, THAT YOU SHOULD CONFIGURE 'MEMORY' TO BE 40% OF THE HIGH WATERMARK?============<br><br>For example, if you select an instance type with 10GB of RAM, once more than 2GB of memory is used, all queues start writing all queue contents to disk. For more information, see [Memory Alarms](https://www.rabbitmq.com/memory.html) in the RabbitMQ documentation. 
-
-
- 
-### <a id="cluster"></a> Cluster Plan
+## <a id="cluster"></a> On-Demand Cluster Plan
 
 Like the single node plan, this plan is designed to be simple to configure, deploy and use.  It gives application teams fast access to the power of the leading Open Source message broker backed by BOSH, to meet all but the most demanding High Availability application messaging requirements.  
 
@@ -119,7 +74,7 @@ For this reason, Pivotal recommends that RabbitMQ clusters are deployed into a s
 
 For cloud IaaS deployments, Pivotal does not recommend that deployments span *regions*. For example, in Amazon Web Services (AWS) terms, deploying a RabbitMQ cluster across AZs within a region should provide high enough network performance to prevent impacting cluster stability.  However, deploying across AWS regions will likely lead to cluster instability. For more information, see the [AWS documentation](http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/RegionsAndAZs.html).
 
-#### <a id="tradeoff"></a> The Consistency or Availability Tradeoff 
+### <a id="tradeoff"></a> The Consistency or Availability Tradeoff 
 
 In a distributed messaging system, a tradeoff must be made between availability or consistency when a network partition event occurs, and one or more nodes are not able to communicate with each other.  The cluster plan lets operators decide how they want the RabbitMQ cluster to react in the event of a network partition.  
 
@@ -127,7 +82,7 @@ Pivotal recommends keeping the default cluster partition option of `pause_minori
 
 Here is an example of how `pause_minority` works. If you create a RabbitMQ cluster with three nodes and one node becomes unable to communicate with the other two, this node is in the minority. The node that is in the minority is paused, and the other two nodes continue serving traffic.  If each of the nodes loses connectivity with the other two, then the entire cluster is paused to preserve data since no majority can be established. The cluster *heals* when two or more nodes are able to communicate with each other. 
 
-#### RabbitMQ Queue Availability
+### <a id="queues"></a> RabbitMQ Queue Availability
 
 It is important to be aware that message queue availability is different from cluster availability, so having cluster availability does not mean that all of the messages within the queues are also available.  
 
@@ -148,35 +103,58 @@ Since the cluster plan is designed to enable application teams to self-serve, no
 * Empower application teams to manage their cluster in the best way for their application. 
 * Require re-try logic in an application if it needs HA access to a queue. Thus, all nodes can route to a queue if it is available. 
 
-#### Plan Configuration 
+## <a id="resources"></a> Managing On-Demand Resources Through Plans
+
+In configuring each plan, there are a number of operational controls that platform operations teams can use to manage the resources consumed by on-demand RabbitMQ:   
+
+* **Control Access**---Operators can choose the development orgs and spaces for which the plans are available and visible.  Each plan can be enabled or disabled, and service access and visibility can either be global, or enabled per org and space through the command line.<br><br>
+	For example, you may decide to enable the single node on-demand plan across all application teams to meet their demand to isolate their workload. You may then choose to offer the on-demand cluster plan only to a subset of application teams who require the extra resources.
+
+* **Set Quotas**---You can set a global quota for all on-demand instances that takes precedence over each plan quota.  This lets you guard against the risk of over-committing resources, but allows the flexibility of over-committing each plan, so you can meet the fluctuating demands of your app developers. 
+
+* **Control Resource Consumption**---Each plan offers more fine-grained control over individual plan resource consumption.  At the highest level, you can use the plan quota to control the number of instances that can be deployed within a foundation. For each plan, you can also configure the number of nodes that constitute a cluster (3, 5, or 7), the instance type, and persistent disk storage size to best suit your requirements. 
+
+* **Monitor**---You can monitor the number of instances that have been deployed against the quota you have set so that you can start future resource planning requirements.  
+ 
+
+## <a id="customizing"></a> Customizing Plan Options 
+
+The RabbitMQ for PCF on-demand plans expose a number of configuration options. In most cases the default configurations meet most application demands. However, it is important for an operations team to consider the options to ensure that they provide the best service to their app developers. This section explains these options.   
 
 
-Configuration Options: 
+### <a id="configoptions"></a> Configuration Options 
 
-* Enable/ Disable plan configuration 
-* Determine which organisations and spaces to make the plan available 
-* Service instance quota
-* Number of nodes (3,5 or 7) 
-* Network Partition behaviour (see notes above)
-* AZ placement (See notes above)
-* The instance (CPU and Memory) and persistent disk (Persisted Message Store) size for the RabbitMQ instance. You should ensure the size of the persistent disk is at least twice as large as the instance memory. 
+#### Single Node and Cluster Plans
 
+* Enable/ Disable plan 
+* Determine which orgs and spaces can see and access the plan
+* Set Service Instance Quota 
+* Select AZ placement (where applicable)
+* Set RabbitMQ instance size (CPU and Memory)
+* Set persistent disk size (Persisted Message Store) for the RabbitMQ instance. Ensure the size of the persistent disk is at least twice as large as the instance memory. 
 
-Things that are preconfigured: 
+#### Cluster Plan Only
 
-* Metrics are emitted to the firehose for all dedicated instances and the interval is controlled from a single point by the ‘Metrics polling interval’ section of the ‘RabbitMQ’ side tab of Ops Manager.  Due to the impact of some of the cluster settings detailed below, it is strongly recommended that you monitor the metrics exposed and configure alarms as per the KPI documentation. 
-* RabbitMQ on-demand instance logs are forwarded using the same configuration as contained in the ‘Syslog’ configuration section of the RabbitMQ for PCF tile. 
-* The disk free space limit has been set to be 40% of the RAM of the instance type you select.  So if you selected an instance type with 10GB of RAM, the disk free space limit would be set to 4GB.  Global flow control will be triggered if the amount of free disk space drops below this, and all publishers will be blocked.  Please see [this](https://www.rabbitmq.com/disk-alarms.html)  document for more information
-* The memory threshold at which ‘Flow Control’ is triggered is set to 40% of the instance RAM.  Once the alarm is triggered all connections publishing messages will be blocked cluster wide until the alarm is cleared.  For example, if you selected an instance type with 10GB of RAM, once more than 4GB of memory has been used all publishing connections would be blocked. Please see [this](https://www.rabbitmq.com/memory.html) document for more information. 
-* The memory paging threshold is the level at which RabbitMQ will try and free up memory by instructing queues to page their contents out to disk, to try and avoid the high watermark being hit and blocking publishers.  This is set to 50% of the configured high watermark (so 20% of configured memory).  For example, if you selected an instance type with 10GB of RAM, once more than 2GB of memory has been used all queues will start writing all queue contents to disk. Please see [this](https://www.rabbitmq.com/memory.html) document for more information. 
+* Set number of nodes to 3, 5, or 7
+* Determine network partition behavior (see notes [above](#tradeoff))
 
 
+### <a id="preconfigurd"></a> Things that are Preconfigured 
 
+The following is pre-configured for both the single node and the cluster plans:
 
-### <a id="general"></a> General Considerations for On-Demand RabbitMQ Clusters
+* **Metrics**---Emitted to the firehose for all on-demand instances. The polling interval is set in the Ops Manager, in the **Metrics polling interval** field, in the **RabbitMQ** tab of the RabbitMQ for PCF tile.  Due to the impact of some of the cluster settings detailed below, Pivotal strongly recommends that you monitor the exposed metrics and configure alarms as recommended in [Monitoring and KPIs for On-Demand RabbitMQ for PCF](./monitor.html#kpi).See also [Monitoring On-Demand RabbitMQ Clusters](#monitor-clusters) below.
 
-* It is important to monitor the number of instances that have been deployed vs the quota that has been set via the metric exposed on the CF Firehose. 
+* **Logs**---RabbitMQ on-demand instance logs are forwarded using the same configuration as contained in the **Syslog** tab of the RabbitMQ for PCF tile. 
 
-* Each instance is pre-configured to emit metrics to the CF Firehose, and can be identified by the ‘deployment’ tag, which will have the service instance id.   It is important to monitor these metrics as per the KPI information listed here (https://docs.pivotal.io/rabbitmq-cf/1-8/monitor.html)
+* **Disk free space limit**---Set to 40% of the RAM of the instance type you select. For example, if you select an instance type with 10GB of RAM, the disk free space limit is set to 4GB.  Global flow control is triggered if the amount of free disk space drops below this, and all publishers are blocked.  For more information, see [Disk Alarms](https://www.rabbitmq.com/disk-alarms.html) in the RabbitMQ documentation.
 
+* **Memory threshold for triggering flow control**---Threshold at which flow control is triggered is set to 40% of the instance RAM. This means that once the alarm is triggered, all connections publishing messages are blocked cluster-wide until the alarm is cleared.  <br><br>For example, if you select an instance type with 10GB of RAM, once more than 4GB of memory is used, all publishing connections are blocked. For more information, see [Memory Alarms](https://www.rabbitmq.com/memory.html) in the RabbitMQ documentation. 
 
+* **Memory paging threshold**---This is the level at which RabbitMQ tries to free up memory by instructing queues to page their contents out to disk. This is done to try to avoid reaching the high watermark and blocking publishers.  This threshold is set to 50% of the configured high watermark, which is 20% of configured memory. <br><br>==========<br>REGARDING '20% OF CONFIGURED MEMORY' STATEMENT ABOVE.... I DON'T THINK THERE'S A REFERENCE TO THIS ELSEWHERE... SHOULD WE SAY IN THE "CONFIGURATION OPTIONS" BULLET LIST ABOVE THIS, THAT YOU SHOULD CONFIGURE 'MEMORY' TO BE 40% OF THE HIGH WATERMARK?<br>============<br><br>For example, if you select an instance type with 10GB of RAM, once more than 2GB of memory is used, all queues start writing all queue contents to disk. For more information, see the [RabbitMQ documentation](https://www.rabbitmq.com/memory.html). 
+
+#### <a id="monitor-clusters"></a> Monitoring On-Demand RabbitMQ Clusters
+
+* It is important to monitor and compare the number of instances that have been deployed against the quota you set via the metric exposed on the CF Firehose. 
+
+* Each instance is pre-configured to emit metrics to the CF Firehose, and can be identified by the `deployment` tag, which has the service instance ID. It is important to monitor these metrics as recommended in [Monitoring and KPIs for On-Demand RabbitMQ for PCF](./monitor.html#kpi).
