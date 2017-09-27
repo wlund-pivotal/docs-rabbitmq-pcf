@@ -211,7 +211,7 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
   <tr>
     <td><strong>Smoke Tests</strong></td>
     <td>Checks that a pre-provisioned RabbitMQ service instance can be bound to a Cloud Foundry app, and that the app can
-    publish and subscribe to a RabbitMQ cluster (<a href="#smoke_test_process">details</a> below)</td>
+    publish and subscribe to a RabbitMQ cluster (<a href="#dedicated_instance_smoke_test_process">details</a> below)</td>
   </tr>
   <tr>
     <td><strong>Register On-Demand Service Broker</strong></td>
@@ -247,14 +247,54 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
 </table>
 
 
+### <a id="dedicated_instance_smoke_test_process"></a> Dedicated Instance Smoke Test Process
 
-### <a id="smoke_test_process"></a> Smoke Test Process
+The smoke tests perform the following for each enabled service plan:
 
-The smoke tests perform the following for each available service plan:
-
-1. Target the org <code>system</code> and create a cf space to run the tests.
-1. Deploy an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) this cf space.
-1. Create a RabbitMQ service instance and bind it to the CF RabbitMQ Example App.
+1. Create and target the org <code>smoke-test-org</code> and the space <code>smoke-test-space</code> to run the tests.
+1. Deploy an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) in this cf space.
+1. Create the RabbitMQ cluster and bind it to the CF RabbitMQ Example App.
 1. Check that the CF RabbitMQ Example App can write to, and read from, the RabbitMQ service instance.
-1. Clean up the deployed Example App and all its service bindings. 
-1. Delete the cf space created for the tests.
+1. Clean up the deployed Example App and all its service bindings.
+1. Delete the cf org and space created for the tests.
+
+## <a id="admin-service-key"></a>Create an Admin User for a Service Instance
+
+If you want to give app developers admin privileges to the RabbitMQ Management UI, you can create an admin user for a service instance and share the user credentials with app developers.
+
+Both operators and app developers can use this procedure.
+
+To create an admin user on a RabbitMQ instance do the following:
+
+1. Run this command to create a service key:
+
+    <br>`cf create-service-key SERVICE_INSTANCE SERVICE_KEY -c '{"tags": "administrator"}'`
+
+    <br>where:
+
+    <br>`SERVICE_INSTANCE` is the name you supplied when you ran `cf create-service` <br> `SERVICE_KEY` is a name you choose to identify the service key.
+
+    <br>For example:
+
+    <pre class="terminal">
+   $ cf create-service-key my-instance my-admin-key -c '{"tags":"administrator"}'<br>
+   Creating service key my-admin-key for service instance my-instance as user<span>@</span>example.com...
+   OK
+</pre>
+
+1. Run this command to get the admin user credentials:
+
+    <br>`cf service-key SERVICE_INSTANCE SERVICE_KEY` where the variables are the same as above.
+
+    <br>This returns a Dashboard URL containing the admin credentials, which can be used to access the management UI. For example:
+
+    <pre class="terminal">
+   $ cf service-key my-instance my-admin-key<br>
+   Getting key my-admin-key for service instance my-instance as user<span>@</span>example.com...
+   {
+     "dashboard_url": "https://my-instance.bosh-lite.com/#/login/admin-username/admin-password",
+     "username": "admin-username",
+     "password": "admin-password",
+     ...
+   }
+</pre>

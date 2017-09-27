@@ -335,4 +335,16 @@ This change will effect all deployed instances.
 2. **Q:** How does one follow the progress of the tile, what to check? how long does it take?
 
 
+## <a id="smoke_test_process"></a> Smoke Test Process
+
+Smoke tests run as a post-deployment errand. The smoke tests perform the following for each available service plan:
+
+1. Target the org <code>system</code> and create a cf space to run the tests.
+1. Deploy an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) in this cf space.
+1. Create a RabbitMQ service instance and bind it to the CF RabbitMQ Example App.
+1. Check that the CF RabbitMQ Example App can write to, and read from, the RabbitMQ service instance.
+1. Clean up the deployed Example App and all its service bindings.
+1. Delete the cf space created for the tests.
+
+For more information, see [Errands](./install-config.html#errands).
 
