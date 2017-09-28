@@ -50,14 +50,11 @@ You can choose which ports HAProxy should load balance to the RabbitMQ nodes.
 
 <%= image_tag("images/config_haproxy.jpeg") %>
 
-By default, all the default ports of all the available plugins will be load-balanced.
+* By default, all the default ports of all the available plugins will be load-balanced. However, if you install extra protocol plugins, or provide a custom configuration that changes the ports RabbitMQ listens on, then you must update the list of load-balanced ports.
 
-However, if you install extra protocol plugins, or provide a custom configuration which changes the ports that 
-RabbitMQ listens on then you must update the list of load-balanced ports.
+* You must always leave the management plugin listening on port `15672` and load balance that port.
 
-Note that you must always leave the management plugin listening on port `15672` and load balance that port.
-
-If you change the topology of your RabbitMQ cluster, the HAProxy is automatically reconfigured during the deployment.
+* If you change the topology of your RabbitMQ cluster, the HAProxy is automatically reconfigured during the deployment.
 
 ### Disk free alarm limit <a id="disk_free_alarm_selector"></a>
 
@@ -185,9 +182,13 @@ Application containers that use instances of the RabbitMQ service require the fo
 |`HAProxy IPs`     |61614        |tcp        |Application containers using STOMP over SSL
 |`HAProxy IPs`     |61613         |tcp        |Application containers using Web STOMP
 
-Create an ASG name `rabbitmq-app-containers` with the above configuration and bind it to the appropriate space, or, 
-  to provide access to all started apps, bind it to the `default-running` ASG set and restart your apps. If you are using an external 
-  load balancer or have more than one IP address for HAProxy, you must also create egress rules for these. Example:
+Create an ASG named `rabbitmq-app-containers` with the above configuration and bind it to either:
+
+* the appropriate space 
+* the `default-running` ASG set if you want to provide access to all started apps. Then restart your apps. 
+
+  If you are using an external 
+  load balancer, or have more than one IP address for HAProxy, you must also create egress rules for these. For example:
 
 ```
 [
@@ -273,7 +274,7 @@ TLS v1.1 and 1.2 are enabled by default and cannot be turned on or off.
 <%= image_tag("images/config_elb.jpeg") %>
 
 You can configure a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) 
-  to application developers. In this case HAProxy instance count can be set to zero avoiding an unnecessary vm deployment.
+  to application developers. In this case, HAProxy instance count can be set to zero to avoid an unnecessary vm deployment.
 
 ## <a id="assigned_ips"></a> Assigned IPs
 
@@ -287,7 +288,7 @@ For more information, see [Changing Network or IP Addresses Results in a Failed 
 ### <a id="switching"></a>Switching from dynamic IPs to static IPs (Upgrading)
 
 You cannot switch from dynamic IP addresses to a different set of static IP addresses, but you can configure Ops Manager so the 
-  current set of dynamically assigned IP addresses always continue to be used.
+  current set of dynamically assigned IP addresses always continue to be used. To do this, follow these steps:
 
 1. Go to the Status page on the RabbitMQ product.
 2. Note the IP addresses for the RabbitMQ Server and HAProxy for RabbitMQ jobs, in the order nodes appear in the UI.
@@ -313,18 +314,16 @@ When SSL is enabled:
 * `rabbitmq_stomp ssl_listeners [61614]`
 
 ## <a id="polling"></a>Configuring Metrics Polling Interval
-The default polling interval is 30 seconds for all deployed components. We recommend that you dot change this interval. 
+The default polling interval is 30 seconds for all deployed components. Pivotal recommends that you do not change this interval. 
   The lowest interval setting is 10 seconds to avoid overwhelming components.
-This change will effect all deployed instances.
+This change will affect all deployed instances.
 
 <%= image_tag("images/metrics_polling.png") %>
 
 
 ## <a id="apply-changes"></a>Apply Configuration and Complete the Installation
 
-1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to install RabbitMQ for PCF tile.
-
-2. **Q:** How does one follow the progress of the tile, what to check? how long does it take?
+Return to the Ops Manager Installation Dashboard and click **Apply Changes** to complete the installation of RabbitMQ for PCF.
 
 
 ## <a id="smoke_test_process"></a> Smoke Test Process
