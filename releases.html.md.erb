@@ -5,7 +5,9 @@ owner: London Services
 
 ## <a id="upgrade"></a> Upgrade to the Latest Version
 
-Pivotal recommends that you upgrade to the latest version of your current minor line, then upgrade to the latest available version of the new minor line. For example, if you use an older v1.7.x version, upgrade to the latest v1.7.x version before upgrading to the latest v1.8.x version.
+Pivotal recommends that you upgrade to the latest version of your current minor line,
+then upgrade to the latest available version of the new minor line.
+For example, if you use an older v1.7.x version, upgrade to the latest v1.7.x version before upgrading to the latest v1.8.x version.
 
 See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf) for product versions and upgrade paths.
 
@@ -14,6 +16,8 @@ See the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matr
 To view the release notes for another product version, select the version from the drop-down list at the top of this page.
 
 ## <a id="110x"></a>v1.10.x
+
+**Release Date**: September 29, 2017
 
 ### v1.10.0
 
@@ -24,15 +28,18 @@ To view the release notes for another product version, select the version from t
 
 Features:
 
-* Update to RabbitMQ 3.6.12 - this involves [major changes]
+* Update to RabbitMQ 3.6.12 — this involves [major changes]
 (./rmq-3611-upgrade.html) to the memory calculations.
-* Haproxy instance count can be set to zero if an external load balancer is used
+* HAProxy instance count can be set to zero if an external load balancer is used
 
 Known issues:
 
-* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime, and may result in failed deployments. For details see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
+* Cluster scaling or changing the [Erlang Cookie](./install-config-pp.html#erlang) value require cluster downtime,
+  and might result in failed deployments.
+  For more information, see [Cluster Scaling Known Issue](./install-config-pp.html#scaling-issue) and [Changing the Erlang Cookie Value Known Issue](./install-config-pp.html#changing-issue).
 
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
+  For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 * When errand run rules are set to **When Changed**, Ops Manager may not run the errands when the tile has relevant changes.
   For more information, see [Managing Errands in Ops Manager](https://docs.pivotal.io/pivotalcf/1-11/customizing/managing_errands.html).
