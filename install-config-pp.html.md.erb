@@ -265,7 +265,7 @@ TLS v1.1 and 1.2 are enabled by default and cannot be turned on or off.
 ## External load balancer
 <%= image_tag("images/config_elb.jpeg") %>
 
-You can configure a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) to application developers.
+You can configure a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) to application developers. In this case HAProxy instance count can be set to zero avoiding an unnecessary vm deployment.
 
 ## <a id="assigned_ips"></a> Assigned IPs
 
