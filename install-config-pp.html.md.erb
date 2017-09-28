@@ -16,7 +16,8 @@ Installing and Configuring RabbitMQ for PCF as an On-Demand Service</a>.</p>
 
 2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
-3. Under the **Import a Product** button, click **+** next to the version number of RabbitMQ for PCF. This adds the tile to your staging area.
+3. Under the **Import a Product** button, click **+** next to the version number of RabbitMQ for PCF. 
+This adds the tile to your staging area.
 
 4. Click the newly added **RabbitMQ for PCF** tile.
 
@@ -30,7 +31,8 @@ This will grant you full admin access to RabbitMQ through the Management UI.
 
 <%= image_tag("images/config_credentials.jpeg") %>
 
-<p class="note"><strong>Note</strong>: To rotate your administrator credentials, enter a new username and password, save your options, and redeploy by returning to the Ops Manager Installation Dashboard and clicking <strong>Apply Changes</strong>.</p>
+<p class="note"><strong>Note</strong>: To rotate your administrator credentials, enter a new username and password, 
+  save your options, and redeploy by returning to the Ops Manager Installation Dashboard and clicking <strong>Apply Changes</strong>.</p>
 
 ### <a id='ha-cluster'></a>Plugins
 
@@ -50,7 +52,8 @@ You can choose which ports HAProxy should load balance to the RabbitMQ nodes.
 
 By default, all the default ports of all the available plugins will be load-balanced.
 
-However, if you install extra protocol plugins, or provide a custom configuration which changes the ports that RabbitMQ listens on then you must update the list of load-balanced ports.
+However, if you install extra protocol plugins, or provide a custom configuration which changes the ports that 
+RabbitMQ listens on then you must update the list of load-balanced ports.
 
 Note that you must always leave the management plugin listening on port `15672` and load balance that port.
 
@@ -138,7 +141,8 @@ For example with two HAProxy jobs deployed the following properties will be pres
 ### <a id='sec-groups'></a>Security Groups
 
 To enable access to the RabbitMQ tile service, you must ensure your security
-group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment. You can obtain the IP addresses for these from the Ops Manager **Status** page for the RabbitMQ tile.
+group allows access to the HAProxy and RabbitMQ Service Broker VMs configured in your deployment. 
+You can obtain the IP addresses for these from the Ops Manager **Status** page for the RabbitMQ tile.
 Ensure the following ports are enabled for those VMs:
 
 * 15672
@@ -181,7 +185,9 @@ Application containers that use instances of the RabbitMQ service require the fo
 |`HAProxy IPs`     |61614        |tcp        |Application containers using STOMP over SSL
 |`HAProxy IPs`     |61613         |tcp        |Application containers using Web STOMP
 
-Create an ASG name `rabbitmq-app-containers` with the above configuration and bind it to the appropriate space, or, to provide access to all started apps, bind it to the `default-running` ASG set and restart your apps. If you are using an external load balancer or have more than one IP address for HAProxy, you must also create egress rules for these. Example:
+Create an ASG name `rabbitmq-app-containers` with the above configuration and bind it to the appropriate space, or, 
+  to provide access to all started apps, bind it to the `default-running` ASG set and restart your apps. If you are using an external 
+  load balancer or have more than one IP address for HAProxy, you must also create egress rules for these. Example:
 
 ```
 [
@@ -212,7 +218,8 @@ For more information about SSL support, see [https://www.rabbitmq.com/ssl.html](
 ## <a id="erlang"></a>Erlang Cookie
 
 You can provide an Erlang cookie to be used by the cluster.
-This can be useful if you want to connect directly to the RabbitMQ cluster, such as with `rabbitmqctl`, or to connect other machines running Erlang.
+This can be useful if you want to connect directly to the RabbitMQ cluster, such as with `rabbitmqctl`, 
+  or to connect other machines running Erlang.
 
 <%= image_tag("images/config_erlang.jpeg") %>
 
@@ -265,7 +272,8 @@ TLS v1.1 and 1.2 are enabled by default and cannot be turned on or off.
 ## External load balancer
 <%= image_tag("images/config_elb.jpeg") %>
 
-You can configure a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) to application developers. In this case HAProxy instance count can be set to zero avoiding an unnecessary vm deployment.
+You can configure a DNS name or IP address of an external load balancer to be returned in the binding credentials (`VCAP_SERVICES`) 
+  to application developers. In this case HAProxy instance count can be set to zero avoiding an unnecessary vm deployment.
 
 ## <a id="assigned_ips"></a> Assigned IPs
 
@@ -278,7 +286,8 @@ For more information, see [Changing Network or IP Addresses Results in a Failed 
 
 ### <a id="switching"></a>Switching from dynamic IPs to static IPs (Upgrading)
 
-You cannot switch from dynamic IP addresses to a different set of static IP addresses, but you can configure Ops Manager so the current set of dynamically assigned IP addresses always continue to be used.
+You cannot switch from dynamic IP addresses to a different set of static IP addresses, but you can configure Ops Manager so the 
+  current set of dynamically assigned IP addresses always continue to be used.
 
 1. Go to the Status page on the RabbitMQ product.
 2. Note the IP addresses for the RabbitMQ Server and HAProxy for RabbitMQ jobs, in the order nodes appear in the UI.
@@ -304,7 +313,8 @@ When SSL is enabled:
 * `rabbitmq_stomp ssl_listeners [61614]`
 
 ## <a id="polling"></a>Configuring Metrics Polling Interval
-The default polling interval is 30 seconds for all deployed components. We recommend that you dot change this interval. The lowest interval setting is 10 seconds to avoid overwhelming components.
+The default polling interval is 30 seconds for all deployed components. We recommend that you dot change this interval. 
+  The lowest interval setting is 10 seconds to avoid overwhelming components.
 This change will effect all deployed instances.
 
 <%= image_tag("images/metrics_polling.png") %>
