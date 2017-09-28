@@ -11,7 +11,7 @@ On-demand RabbitMQ for PCF components generate many of the [same metrics](./moni
 
 [//]: # (, but with the prefix `p.rabbitmq` instead of `p-rabbitmq`.)
 
-<p class="note"><strong>Note</strong>: Metrics are prefixed with <code>p.rabbitmq</code> (with a dot), to distinguish them from pre-provisioned service metrics.
+<p class="note"><strong>Note</strong>: On-demand service metrics are prefixed with <code>p.rabbitmq</code> (with a dot), to distinguish them from the pre-provisioned service metrics.</p>
 
 See [Logging and Metrics](http://docs.pivotal.io/pivotalcf/loggregator/index.html) for general information about logging and metrics in PCF.
 
@@ -272,7 +272,7 @@ All BOSH-deployed components generate the following system health metrics. Comin
    <tr><th colspan="2" style="text-align: center;"><br> system.mem.percent <br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>RAM being consumed by the <code>p-rabbitmq</code> VM.<br><br>
+      <td>RAM being consumed by the <code>p.rabbitmq</code> VM.<br><br>
    
       <strong>Use</strong>: RabbitMQ is considered to be in a good state when it has little or no messages. 
               In other words, "an empty rabbit is a happy rabbit." 
@@ -306,7 +306,7 @@ All BOSH-deployed components generate the following system health metrics. Comin
    <tr><th colspan="2" style="text-align: center;"><br> system.cpu.percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>CPU being consumed by the <code>p-rabbitmq</code> VM.<br><br>
+      <td>CPU being consumed by the <code>p.rabbitmq</code> VM.<br><br>
    
       <strong>Use</strong>: A node that experiences context switching or high CPU usage will become unresponsive. 
       This also affects the ability of the node to report metrics.
@@ -339,7 +339,7 @@ All BOSH-deployed components generate the following system health metrics. Comin
    <tr><th colspan="2" style="text-align: center;"><br> system.disk.percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Ephemeral Disk being consumed by the <code>p-rabbitmq</code> VM.<br><br>
+      <td>Ephemeral Disk being consumed by the <code>p.rabbitmq</code> VM.<br><br>
       <strong>Use</strong>: If system disk fills up, there are too few consumers.
       <br><br>
       Healthmonitor reports when RabbitMQ uses more than 40% of its CPU for the past ten minutes.
@@ -370,7 +370,7 @@ All BOSH-deployed components generate the following system health metrics. Comin
    <tr><th colspan="2" style="text-align: center;"><br> persistent.disk.percent<br><br></th></tr>
    <tr>
       <th width="25%">Description</th>
-      <td>Persistent Disk being consumed by the <code>p-rabbitmq</code> VM.<br><br>
+      <td>Persistent Disk being consumed by the <code>p.rabbitmq</code> VM.<br><br>
       <strong>Use</strong>: If system disk fills up, there are too few consumers.
       <br><br>
       Healthmonitor reports when RabbitMQ uses more than 40% of its CPU for the past ten minutes.
