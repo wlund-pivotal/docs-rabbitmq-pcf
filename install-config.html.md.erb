@@ -86,15 +86,20 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
 <p class="note"><strong>Note</strong>: If the ODB feature is not enabled, the ODB is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.</p>
 
 
-1. Choose the dedicated service instance you want to configure, Single Node Plan and/or Cluster Plan:
+1. Choose the dedicated service instance you want to configure:
+- #### For the single node plan:
 
-     ![service-plan-tab-v1.10.0](service-plan-configuration.png)
+   ![service-plan-tab-v1.10.0](images/single-node-plan-configuration.png)
+
+- #### For the cluster plan:
+
+   ![service-plan-tab-v1.10.0](images/cluster-plan-configuration.png)
 
 2. Configure the fields as follows:
   <table>
     <tr><th>Field</th><th>Instructions</th></tr>
     <tr><td><strong>Enable this plan</strong></strong></td>
-        <td>Select plan enable.</td></tr>
+        <td>(Cluster Plan Only) Select plan enable.</td></tr>
     <tr><td><strong>CF Service Access</strong></strong></td>
     <td>For the Cluster Plan, select an access level.
         This setting is enabled by default.
@@ -117,10 +122,10 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
     <tr><td><strong>Plan features</strong></td>
         <td>Accept the default or enter information about the plan to help your app developers.</td></tr>
     <tr><td><strong>Number of nodes</strong></strong></td>
-        <td>Enter 3, 5 or 7. This setting only affects new service instances.
+        <td>(Cluster Plan Only) Enter 3, 5 or 7. This setting only affects new service instances.
             Previously deployed service instances are **not** updated.</td></tr>
     <tr><td><strong>Network partition behaviour</strong></strong></td>
-        <td>Select pause minority or autoheal. Pivotal recommends using pause minority.
+        <td>(Cluster Plan Only) Select pause minority or autoheal. Pivotal recommends using pause minority.
             For more information, see <a href="./partitions.html">the partitions documentation</a>.</td></tr>
     <tr><td><strong>RabbitMQ VM Type</strong></td>
         <td>Select a large VM type.<br>The plan will create a service instance of this size.</td></tr>
@@ -310,7 +315,7 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
 
 ### <a id="dedicated_instance_smoke_test_process"></a> Dedicated Instance Smoke Test Process
 
-The smoke tests perform the following for each enabled service plan:
+Smoke tests will run only against the cluster plan when this plan is enabled. The smoke tests perform the following steps:
 
 1. Create and target the org <code>smoke-test-org</code> and the space <code>smoke-test-space</code> to run the tests.
 1. Deploy an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) in this cf space.
