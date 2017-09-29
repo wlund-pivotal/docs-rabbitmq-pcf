@@ -65,23 +65,23 @@ The following table provides version and version-support information about Rabbi
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v1.9.0</td>
+        <td>v1.10.0</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>June 30, 2017</td>
+        <td>September 29, 2017</td>
     </tr>
     <tr>
         <td>Software component version</td>
-        <td>RabbitMQ OSS v3.6.9</td>
+        <td>RabbitMQ OSS v3.6.12</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.10.x</td>
+        <td>v1.11.x, v1.12.x</td>
     </tr>
     <tr>
         <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.10.3 and later</td>
+        <td>v1.11.x and later</td>
     </tr>
     <tr>
         <td>IaaS support</td>
@@ -98,12 +98,16 @@ The following table provides version and version-support information about Rabbi
 ###<a id='on-demand'></a> On-Demand
 
 * Provision on-demand single node dedicated instances of RabbitMQ with a unique RabbitMQ Vhost (virtual host)
+* Provision on-demand clustered dedicated instances of RabbitMQ
 * Bind apps to an instance of the plan, providing unique credentials for each binding
 * Management dashboard access to app developers
 * Deployment into an availability zone specified by the plan
 * Automated upgrades of RabbitMQ for major, minor, and patch releases (see release notes for downtime requirements)
 * RabbitMQ Syslog forwarding configuration inherited from the pre-provisioned configuration
 * RabbitMQ metrics are exposed on the firehose
+* Run smoke tests for on-demand plans
+
+For more information, see [Unlocking the Power of On-Demand RabbitMQ for PCF](./ondemand.html).
 
 ###<a id='pre-provisioned'></a> Pre-Provisioned
 

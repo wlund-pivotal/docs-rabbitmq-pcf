@@ -53,10 +53,11 @@ This plan offers:
 * Message resilience provided through the ability to mirror queues across RabbitMQ nodes (as well as the option to use Federation and Shovel - available at a future date) 
 * Complex topologies enabled through deployment of multiple instances within PCF 
 
+### <a id="principles"></a> General Principles of the Cluster Plan
 
 The following are some general principles to be aware of when configuring the cluster plan:
 
-**Designed for Consistency**
+#### Designed for Consistency
 
 RabbitMQ clustering is not primarily a solution for increased availability. Instead, it is designed for consistency and partition tolerance, as described in the [CAP theorem](https://en.wikipedia.org/wiki/CAP_theorem). RabbitMQ clustering provides increased message consistency through queue mirroring. This means that messages accessed in one queue are exactly the same as in another queue. For more detailed information, see [The Consistency or Availability Tradeoff](#tradeoff).
 
@@ -64,11 +65,11 @@ Other options can be used for availability requirements, such as the use of fede
 
 For a more detailed description of distributed RabbitMQ brokers, see the [RabbitMQ documentation](http://www.rabbitmq.com/distributed.html).
 
-**Number of Nodes**
+#### Number of Nodes
 
 Every node in the on-demand cluster maintains a complete database of all metadata, and all changes to the metadata are confirmed by every node in the cluster. Therefore, going beyond 7 nodes can have a significant negative impact on performance. For optimum resilience and performance, Pivotal recommends 3 nodes for most workloads. 
 
-**Network Latency**
+#### <a id="latency"></a> Network Latency
 
 RabbitMQ clusters are only recommended for deployment in low latency networks, which normally means that it is not advisable to deploy these clusters across availability zones (AZs). The stability and performance of the RabbitMQ cluster is heavily influenced by the workload on the nodes, replication choices, and network latency.  
 
@@ -76,7 +77,7 @@ For this reason, Pivotal recommends that RabbitMQ clusters are deployed into a s
 
 For cloud IaaS deployments, Pivotal does not recommend that deployments span *regions*. For example, in Amazon Web Services (AWS) terms, deploying a RabbitMQ cluster across AZs within a region should provide high enough network performance to prevent impacting cluster stability.  However, deploying across AWS regions will likely lead to cluster instability. For more information, see the [AWS documentation](http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/RegionsAndAZs.html).
 
-### <a id="tradeoff"></a> The Consistency or Availability Tradeoff 
+### <a id="tradeoff"></a> Consistency or Availability Tradeoff 
 
 In a distributed messaging system, a tradeoff must be made between availability or consistency when a network partition event occurs, and one or more nodes are not able to communicate with each other.  The cluster plan lets operators decide how they want the RabbitMQ cluster to react in the event of a network partition.  
 

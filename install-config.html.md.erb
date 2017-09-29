@@ -130,9 +130,10 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
     For more information, see <a href="#resources">Resource Types and Disk Size Concerns</a> below.</td></tr>
     <tr><td><strong>AZ placement</strong></td>
     <td>This field becomes available after you have completed the [Assign AZs and Networks](#azs-networks) page.
-        <br>For a single-node plan, select one or more AZs. For a cluster plan, select only one AZ.
-        <br>Pivotal recommends deploying a cluster plan to only one AZ to minimize risk of partitions.
-    </td></tr>
+        <ul><li>For a single-node plan, select one or more AZs.</li> 
+          <li>For a cluster plan, select only one AZ.
+        Pivotal recommends deploying a cluster plan to only one AZ to minimize risks due to network latency and partitions. See <a href="./ondemand.html#latency">Network Latency</a> and <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a> for details.</li>
+      </ul></td></tr>
   </table>
 
     <p class='note warning'><strong>Important</strong>: If you change this configuration after you have selected AZs and deployed service instances,
