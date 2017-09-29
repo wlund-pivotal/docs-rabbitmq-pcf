@@ -86,14 +86,13 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
 <p class="note"><strong>Note</strong>: If the ODB feature is not enabled, the ODB is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.</p>
 
 
-1. Choose the dedicated service instance you want to configure:
-- #### For the single node plan:
+1. Choose the dedicated service instance you want to configure:<br><br>For the single node plan:
 
-   ![service-plan-tab-v1.10.0](images/single-node-plan-configuration.png)
+    ![service-plan-tab-v1.10.0](images/single-node-plan-configuration.png)
 
-- #### For the cluster plan:
+    For the cluster plan:
 
-   ![service-plan-tab-v1.10.0](images/cluster-plan-configuration.png)
+    ![service-plan-tab-v1.10.0](images/cluster-plan-configuration.png)
 
 2. Configure the fields as follows:
   <table>
@@ -126,9 +125,9 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
             Previously deployed service instances are **not** updated.</td></tr>
     <tr><td><strong>Network partition behaviour</strong></strong></td>
         <td>(Cluster Plan Only) Select pause minority or autoheal. Pivotal recommends using pause minority.
-            For more information, see <a href="./partitions.html">the partitions documentation</a>.</td></tr>
+            For more information, see <a href="./ondemand.html#tradeoff">this topic</a>.</td></tr>
     <tr><td><strong>RabbitMQ VM Type</strong></td>
-        <td>Select a large VM type.<br>The plan will create a service instance of this size.</td></tr>
+        <td>Select a large VM type. The plan creates a service instance of this size.</td></tr>
     <tr><td><strong>Persistent disk type</strong></td>
     <td>This is where RabbitMQ pages messages to disk.
     Service instance deployments fail if this value is less than twice the volume of RAM of the selected RabbitMQ VM Type.
@@ -327,7 +326,7 @@ For more information on errand run rules, see the [Ops Manager documentation](ht
 
 ### <a id="dedicated_instance_smoke_test_process"></a> Dedicated Instance Smoke Test Process
 
-Smoke tests will run only against the cluster plan when this plan is enabled. The smoke tests perform the following steps:
+Smoke tests only run against the cluster plan. The smoke tests perform the following steps:
 
 1. Create and target the org <code>smoke-test-org</code> and the space <code>smoke-test-space</code> to run the tests.
 1. Deploy an instance of the [CF RabbitMQ Example App](https://github.com/pivotal-cf/rabbit-example-app) in this cf space.
