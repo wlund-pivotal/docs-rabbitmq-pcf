@@ -176,12 +176,13 @@ For more information on the above command, see [Enable Access to Service Plans](
 #### <a id="resources"></a> Resource Types and Disk Size Concerns
 
 It is possible to configure the VM type for RabbitMQ and the size of the persistent disk that is going to be attached to the RabbitMQ instances.
-Suggested value is 2x the amount of RAM of the selected VM type. Refer to the PCF RabbitMQ documentation for more details.
+Suggested value is twice the amount of RAM of the selected VM type.
+For more information, see the [Pivotal RabbitMQ](https://rabbitmq.docs.pivotal.io/index.html) documentation.
 
 <%= image_tag("images/vm-ram-disk-example.png") %>
 
 RabbitMQ raises alarms when disk space drops below the configured limit.
-Incorrect disk sizes may cause the deployed instance not to start.
+Incorrect disk sizes might cause the deployed instance not to start.
 RabbitMQ declines to start if there is not enough space available according to the threshold.
 
 Dedicated instances are configured with a threshold set to the 150% of the memory (RAM) of the VM.
