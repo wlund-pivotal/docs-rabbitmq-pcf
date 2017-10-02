@@ -207,38 +207,43 @@ This section explains these options.
 <p class="note"><strong>Note</strong>: A loadbalancer, such as HAproxy, is not deployed with on-demand cluster plans.</p>
 
 
-### <a id="preconfigurd"></a> Things that are Preconfigured
+### <a id="preconfigurd"></a> Things That Are Preconfigured
 
 The following is pre-configured for both the single node and the cluster plans:
 
-* **Metrics**---Emitted to the firehose for all on-demand instances.
+* **Metrics**---Emitted to the Loggregator Firehose for all on-demand instances.
   The polling interval is set in the Ops Manager, in the **Metrics polling interval** field, in the **RabbitMQ** tab of the RabbitMQ for PCF tile.
-  Due to the impact of some of the cluster settings detailed below, Pivotal strongly recommends that you monitor the exposed metrics and configure alarms as recommended in [Monitoring and KPIs for On-Demand RabbitMQ for PCF](./monitor.html#kpi).See also [Monitoring On-Demand RabbitMQ Clusters](#monitor-clusters) below.
+  Due to the impact of some of the cluster settings detailed below,
+  Pivotal strongly recommends that you monitor the exposed metrics
+  and configure alarms as recommended in [Monitoring and KPIs for On-Demand RabbitMQ for PCF](./monitor.html#kpi).
+  See also [Monitoring On-Demand RabbitMQ Clusters](#monitor-clusters) below.
 
 * **Logs**---RabbitMQ on-demand instance logs are forwarded using the same configuration as contained in the **Syslog** tab of the RabbitMQ for PCF tile.
 
 * **Disk free space limit**---The disk free space limit is set to 150% of RAM of the instance type you select.
-  For example, if you select an instance type with 10GB of RAM, the disk free space limit is set to 15GB.
+  For example, if you select an instance type with 10&nbsp;GB of RAM, the disk free space limit is set to 15&nbsp;GB.
   A cluster-wide alarm is triggered if the amount of free disk space drops below this, and all publishers are blocked.
-  Instances must be configured to have persistent disks that are at least 2x the size of instance RAM.
+  Instances must be configured to have persistent disks that are at least twice the size of instance RAM.
   For more information, see the [RabbitMQ documentation](https://www.rabbitmq.com/disk-alarms.html). 
 
 * **Memory threshold for triggering flow control**---Threshold at which flow control is triggered is set to 40% of the instance RAM.
-  This means that once the alarm is triggered, all connections publishing messages are blocked cluster-wide until the alarm is cleared.
+  This means that when the alarm is triggered, all connections publishing messages are blocked cluster-wide until the alarm is cleared.
   <br><br>
-  For example, if you select an instance type with 10GB of RAM, once more than 4GB of memory is used, all publishing connections are blocked.
+  For example, if you select an instance type with 10&nbsp;GB of RAM, once more than 4&nbsp;GB of memory is used, all publishing connections are blocked.
   For more information, see [Memory Alarms](https://www.rabbitmq.com/memory.html) in the RabbitMQ documentation.
 
 * **Memory paging threshold**---This is the level at which RabbitMQ tries to free up memory by instructing queues to page their contents out to disk. This is done to try to avoid reaching the high watermark and blocking publishers.
   This threshold is set to 50% of the configured high watermark, which is 20% of configured memory.
-  For more information on memory calculation, see [this topic](./rmq-3611-upgrade.html).<br><br>For example, if you select an instance type with 10GB of RAM, once more than 2GB of memory is used, all queues start writing all queue contents to disk.
+  For more information on memory calculation, see [Changes to Memory Allocation when Upgrading](./rmq-3611-upgrade.html).<br><br>
+  For example, if you select an instance type with 10&nbsp;GB of RAM, when more than 2&nbsp;GB of memory is used,
+  all queues start writing all queue contents to disk.
   For more information, see the [RabbitMQ documentation](https://www.rabbitmq.com/memory.html).
 
 
 #### <a id="monitor-clusters"></a> Monitoring On-Demand RabbitMQ Clusters
 
-* It is important to monitor and compare the number of instances that have been deployed against the quota you set via the metric exposed on the CF Firehose.
+* It is important to monitor and compare the number of instances that have been deployed against the quota you set via the metric exposed on the Firehose.
 
-* Each instance is pre-configured to emit metrics to the CF Firehose and can be identified by the `deployment` tag,
+* Each instance is pre-configured to emit metrics to the Firehose and can be identified by the `deployment` tag,
   which has the service instance ID.
   It is important to monitor these metrics as recommended in [Monitoring and KPIs for On-Demand RabbitMQ for PCF](./monitor.html#kpi).
