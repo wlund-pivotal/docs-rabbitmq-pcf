@@ -35,7 +35,7 @@ This plan offers:
 * Fast access to an isolated instance of RabbitMQ scoped for the application teams
 * Org and Space Administrator access to the RabbitMQ Management UI so application teams can have full control over the node
 * Updates and upgrades initiated and controlled by the operator to keep the instance up to date with the latest security patches and bug fixes
-* Message resilience provided through RabbitMQ exchange or queue Federation and/or Shovel plugins.
+* Message resilience provided through RabbitMQ exchange, queue Federation, and/or Shovel plugins.
 
 
 ## <a id="cluster"></a> On-Demand Cluster Plan
@@ -49,7 +49,7 @@ This plan offers:
 * Fast access to an isolated clustered instance of RabbitMQ scoped to the application team Orgs and Spaces
 * Administrator access to the RabbitMQ Management UI to give application teams full control over the cluster
 * Updates and upgrades initiated and controlled by the operator to keep the instance up to date with the latest security patches and bug fixes.
-* Message resilience provided through the ability to mirror queues across RabbitMQ nodes, as well as the option to use the Federation and/or Shovel plugins.
+* Message resilience provided by mirroring queues across RabbitMQ nodes, and the option to use the Federation and/or Shovel plugins.
 
 ### <a id="principles"></a> General Principles of the Cluster Plan
 
@@ -136,10 +136,10 @@ The RabbitMQ for PCF on-demand plans expose a number of configuration options. I
 
 #### Cluster Plan Only
 
-* Same as for the single node plan
 * Set number of nodes to 3, 5, or 7
 * Determine network partition behavior (see notes [above](#tradeoff))
-* **Note**: A loadblancer (i.e. HAproxy) is not deployed with on demand cluster plans
+
+<p class="note"><strong>Note</strong>: A loadbalancer, such as HAproxy, is not deployed with on-demand cluster plans.</p>
 
 
 ### <a id="preconfigurd"></a> Things that are Preconfigured
@@ -150,7 +150,7 @@ The following is pre-configured for both the single node and the cluster plans:
 
 * **Logs**---RabbitMQ on-demand instance logs are forwarded using the same configuration as contained in the **Syslog** tab of the RabbitMQ for PCF tile.
 
-* **Disk free space limit**---The disk free space limit has been set to be 150% of the RAM of the instance type you select.  So if you selected an instance type with 10GB of RAM, the disk free space limit would be set to 15GB.  A cluster-wide alarm will be triggered if the amount of free disk space drops below this, and all publishers will be blocked. Instances must be configured to have persistent disks which are at least 2 x the size of instance RAM.  Please see [this](https://www.rabbitmq.com/disk-alarms.html)  document for more information
+* **Disk free space limit**---The disk free space limit is set to 150% of RAM of the instance type you select.  For example, if you select an instance type with 10GB of RAM, the disk free space limit is set to 15GB.  A cluster-wide alarm is triggered if the amount of free disk space drops below this, and all publishers are blocked. Instances must be configured to have persistent disks that are at least 2x the size of instance RAM.  For more information, see the [RabbitMQ documentation](https://www.rabbitmq.com/disk-alarms.html). 
 
 * **Memory threshold for triggering flow control**---Threshold at which flow control is triggered is set to 40% of the instance RAM. This means that once the alarm is triggered, all connections publishing messages are blocked cluster-wide until the alarm is cleared.  <br><br>For example, if you select an instance type with 10GB of RAM, once more than 4GB of memory is used, all publishing connections are blocked. For more information, see [Memory Alarms](https://www.rabbitmq.com/memory.html) in the RabbitMQ documentation.
 
