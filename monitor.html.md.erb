@@ -448,6 +448,11 @@ RabbitMQ for PCF message server components emit the following metrics.
         <td>The number of messages with the status <code>messages_unacknowledged</code> on the node</td>
     </tr>
     <tr>
+        <td><code>/p-rabbitmq/rabbitmq/messages/queue_depth</code></td>
+        <td>count</td>
+        <td>The number of messages with the status <code>messages_unacknowledged</code> and <code>messages_ready</code> on the node</td>
+    </tr>
+    <tr>
         <td><code>/p-rabbitmq/rabbitmq/system/file descriptors</code></td>
         <td>count</td>
         <td>The number of open file descriptors on the node</td>
