@@ -37,7 +37,7 @@ Documentation for RabbitMQ for PCF v1.7 and earlier only describes a pre-provisi
 
 ### <a id="dedicated"></a> What are Dedicated Instances
 In RabbitMQ for PCF versions before v1.8.0, the RabbitMQ service
-instances correspond to a unique RabbitMQ Vhost on the multi-tenant RabbitMQ
+instances correspond to a unique RabbitMQ virtual host on the multi-tenant RabbitMQ
 cluster. RabbitMQ for PCF v1.8.0 introduced [On-Demand Broker
 (ODB)](https://docs.pivotal.io/svc-sdk/odb/index.html) support. That means
 that a new, single-tenant, cluster can be created and dedicated to a single app.
@@ -96,7 +96,7 @@ The following table provides version and version-support information about Rabbi
 
 ###<a id='on-demand'></a> On-Demand
 
-* Provision on-demand single node dedicated instances of RabbitMQ with a unique RabbitMQ Vhost (virtual host)
+* Provision on-demand single node dedicated instances of RabbitMQ with a unique RabbitMQ virtual host
 * Bind apps to an instance of the plan, providing unique credentials for each binding
 * Management dashboard access to app developers
 * Deployment into an availability zone specified by the plan
@@ -106,7 +106,7 @@ The following table provides version and version-support information about Rabbi
 
 ###<a id='pre-provisioned'></a> Pre-Provisioned
 
-* Provision an instance of the RabbitMQ service, which corresponds to a unique RabbitMQ Vhost (virtual host)
+* Provision an instance of the RabbitMQ service, which corresponds to a unique RabbitMQ virtual host
 * Bind apps to an instance of the plan, providing unique credentials for each binding
 * Management dashboard access to PCF Operators and app developers
 * Deployment across multiple availability zones, with nodes striped across the AZs automatically
