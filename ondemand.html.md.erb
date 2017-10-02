@@ -229,7 +229,7 @@ The following is pre-configured for both the single node and the cluster plans:
 * **Memory threshold for triggering flow control**---Threshold at which flow control is triggered is set to 40% of the instance RAM.
   This means that when the alarm is triggered, all connections publishing messages are blocked cluster-wide until the alarm is cleared.
   <br><br>
-  For example, if you select an instance type with 10&nbsp;GB of RAM, once more than 4&nbsp;GB of memory is used, all publishing connections are blocked.
+  For example, if you select an instance type with 10&nbsp;GB of RAM, when more than 4&nbsp;GB of memory is used, all publishing connections are blocked.
   For more information, see [Memory Alarms](https://www.rabbitmq.com/memory.html) in the RabbitMQ documentation.
 
 * **Memory paging threshold**---This is the level at which RabbitMQ tries to free up memory by instructing queues to page their contents out to disk. This is done to try to avoid reaching the high watermark and blocking publishers.
