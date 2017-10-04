@@ -62,3 +62,30 @@ and will fail since the drain script is failing.
 Once rabbitmq-server job is running (confirm this via `monit status`), run `DEBUG=1`
 `/var/vcap/jobs/rabbitmq-server/bin/drain`. This will tell you exactly why it’s
 failing.
+
+## How can I manually backup the state of the RabbitMQ cluster (on demand and pre-provisioned)
+
+It is possible to backup the state of a RabbitMQ cluster (vhosts, exchanges, queues and users) using the exposed RabbitMQ Management API. This can be accomplished manually by logging into the RabbitMQ Management UI as the admin user you created and selecting 'export definitions' from the main page.  Alternatively you could script it using the exposed API, using code similar to:  
+
+The steps to do this are:
+
+```
+curl -u "$USERNAME:$PASSWORD" "http://$RABBIT_ADDRESS:15672/api/definitions"
+-o "$BACKUP_FOLDER/rabbit-backup.json"
+```
+
+and to restore:
+
+```
+curl -u "$USERNAME:$PASSWORD" "http://$RABBIT_ADDRESS:15672/api/definitions"
+-X POST -H "Content-Type: application/json" -d
+"@$BACKUP_FOLDER/rabbit-backup.json"
+```
+
+## Pre-upgrade checks
+
+Before doing any upgrade of RabbitMQ it is advisable to check the following:
+
+1. In Operations Manager check that the status of all of the instances is healthy
+2. Log into the RabbitMQ Management UI and check that no alarms have been triggered and that all nodes are healthy (they should display as green).
+3. Check that the system is not close to hitting either the memory or disk alarm by looking at what has been consumed by each node through the RabbitMQ Managment UI.
