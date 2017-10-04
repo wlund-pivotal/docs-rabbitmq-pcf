@@ -3,7 +3,9 @@ title: RabbitMQ&reg; for PCF Release Notes
 owner: London Services
 ---
 
-Pivotal recommends that you upgrade to the latest version of your current minor line, then upgrade to the latest available version of the new minor line. For example, if you use an older v1.7.x version, upgrade to the latest v1.7.x version before upgrading to the latest v1.8.x version.
+Pivotal recommends that you upgrade to the latest version of your current minor line, then upgrade to the latest 
+available version of the new minor line. For example, if you use an older v1.7.x version, upgrade to the latest v1.7.x 
+version before upgrading to the latest v1.8.x version.
 
 For product versions and upgrade paths, see the [Product Compatibility Matrix](http://docs.pivotal.io/compatibility-matrix.pdf).
 
@@ -31,6 +33,10 @@ For product versions and upgrade paths, see the [Product Compatibility Matrix](h
 * Changing networks or IP addresses for the `RabbitMQ Server` job results in a failed deployment.
   For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 * Metrics are not emitted if RabbitMQ for PCF v1.8.x is installed on Ops Manager v1.11.0 or later.
+
+* Certain special characters cannot be used with the RabbitMQ administrator password, and using them can lead to issues 
+logging into the Management UI as that user.
+
 
 ### v1.8.18
 
@@ -69,9 +75,13 @@ For product versions and upgrade paths, see the [Product Compatibility Matrix](h
 
 * Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
-* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are downtime required deployments, and may result in failed deployments
-* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are downtime required deployments, 
+and may result in failed deployments
+* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has relevant 
+changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set 
+when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, 
+see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### v1.8.16
 
@@ -85,9 +95,12 @@ For product versions and upgrade paths, see the [Product Compatibility Matrix](h
 
 * Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
-* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are downtime required deployments, and may result in failed deployments
-* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are downtime required deployments, 
+and may result in failed deployments
+* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has 
+relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### v1.8.15
 
@@ -101,9 +114,13 @@ For product versions and upgrade paths, see the [Product Compatibility Matrix](h
 
 * Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
-* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are downtime required deployments, and may result in failed deployments
-* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are downtime required deployments, 
+and may result in failed deployments
+* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run 
+when the tile has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). 
+One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 
 ### v1.8.14
@@ -118,9 +135,12 @@ For product versions and upgrade paths, see the [Product Compatibility Matrix](h
 
 * Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
-* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are downtime required deployments, and may result in failed deployments
-* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are downtime required deployments, 
+and may result in failed deployments
+* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile 
+has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### v1.8.13
 
@@ -134,9 +154,13 @@ For product versions and upgrade paths, see the [Product Compatibility Matrix](h
 
 * Smoke tests will fail if SSL/TLS is configured for your RabbitMQ cluster
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
-* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are downtime required deployments, and may result in failed deployments
-* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Cluster scaling or changing [Erlang Cookie](./install-config-pp.html#erlang) are downtime required deployments, 
+and may result in failed deployments
+* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the 
+tile has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). 
+One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### v1.8.12
 
@@ -152,8 +176,10 @@ For product versions and upgrade paths, see the [Product Compatibility Matrix](h
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
-* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has relevant 
+changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### v1.8.11
 
@@ -171,8 +197,11 @@ For product versions and upgrade paths, see the [Product Compatibility Matrix](h
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
-* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile 
+has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set 
+when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### v1.8.10
 
@@ -191,10 +220,12 @@ For product versions and upgrade paths, see the [Product Compatibility Matrix](h
 * Metrics `name` is namespaced with `/p-rabbitmq` (this should be `/p.rabbitmq`)
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
-* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
+* As of Ops Manager v10.0.0, [errands set to the When Changed rule do not always run when the tile has 
+relevant changes](http://docs.pivotal.io/tiledev/tile-errands.html). One-time rules should be set when using Ops Manager 1.10.7 or earlier to ensure that Update All Service Instances is run.
 * Dedicated instance service binding doesn't work when the CloudFoundry entry-point
   disables/blocks port 80
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### v1.8.9
 
@@ -217,7 +248,8 @@ improve compatibility with client libraries.
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
 * Dedicated instance service binding doesn't work when the CloudFoundry entry-point
   disables/blocks port 80
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### v1.8.8
 
@@ -237,7 +269,8 @@ improve compatibility with client libraries.
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
 * `p.rabbitmq` services are not able to be created (fixed in 1.8.9)
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### v1.8.7
 
@@ -256,7 +289,8 @@ improve compatibility with client libraries.
 * `spring-boot` client libraries cannot bind to dedicated instance services
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 
 ### v1.8.6
@@ -279,7 +313,8 @@ improve compatibility with client libraries.
 * `spring-boot` client libraries cannot bind to dedicated instance services
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 
 ### v1.8.4
@@ -307,7 +342,8 @@ improve compatibility with client libraries.
 * `spring-boot` client libraries cannot bind to dedicated instance services
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### v1.8.2
 
@@ -334,7 +370,8 @@ Known Issues
 * `spring-boot` client libraries cannot bind to dedicated instance services
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 
 ### v1.8.1
@@ -366,7 +403,8 @@ Known Issues
 * `spring-boot` client libraries cannot bind to dedicated instance services
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ### v1.8.0
 
@@ -397,7 +435,8 @@ Features included in this release:
 * `spring-boot` client libraries cannot bind to dedicated instance services
 * Cannot scale-out if [Erlang Cookie](./install-config-pp.html#erlang) is not specified
 * Changing [Erlang Cookie](./install-config-pp.html#erlang) value results in failed deployment
-* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
+* Changing networks and/or IP addresses for the `RabbitMQ Server` job results in a failed deployment. 
+For details, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 
 ## <a id="17x"></a>v1.7.x
 
@@ -409,5 +448,5 @@ For v1.6.x versions of RabbitMQ for PCF, see the [release notes](../1-6/releases
 
 ## <a id="15x"></a>v1.5.x and Earlier
 
-For v1.5.x and earlier versions of RabbitMQ for PCF, see the [release notes](../1-5/releases.html) in the v1.5 version of this documentation.
-
+For v1.5.x and earlier versions of RabbitMQ for PCF, see the [release notes](../1-5/releases.html) 
+in the v1.5 version of this documentation.
