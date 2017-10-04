@@ -6,7 +6,8 @@ owner: London Services
 # Operation Tips
 
 ## What should I check before deploying a new version of the tile?
-Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the firehose.  You cannot rely solely
+Ensure that all nodes in the cluster are healthy via the RabbitMQ Management UI, or health metrics exposed via the firehose.  
+You cannot rely solely
 on the `bosh instances` output as that reflects the state of the Erlang VM used by RabbitMQ and not
 the RabbitMQ application.
 
@@ -65,7 +66,10 @@ failing.
 
 ## How can I manually backup the state of the RabbitMQ cluster (on demand and pre-provisioned)
 
-It is possible to backup the state of a RabbitMQ cluster (vhosts, exchanges, queues and users) using the exposed RabbitMQ Management API. This can be accomplished manually by logging into the RabbitMQ Management UI as the admin user you created and selecting 'export definitions' from the main page.  Alternatively you could script it using the exposed API, using code similar to:  
+It is possible to backup the state of a RabbitMQ cluster (vhosts, exchanges, queues and users) using the exposed 
+RabbitMQ Management API. This can be accomplished manually by logging into the RabbitMQ Management UI as the admin 
+user you created and selecting 'export definitions' from the main page.  Alternatively you could script it using the exposed API, 
+using code similar to:  
 
 The steps to do this are:
 
@@ -87,5 +91,7 @@ curl -u "$USERNAME:$PASSWORD" "http://$RABBIT_ADDRESS:15672/api/definitions"
 Before doing any upgrade of RabbitMQ it is advisable to check the following:
 
 1. In Operations Manager check that the status of all of the instances is healthy
-2. Log into the RabbitMQ Management UI and check that no alarms have been triggered and that all nodes are healthy (they should display as green).
-3. Check that the system is not close to hitting either the memory or disk alarm by looking at what has been consumed by each node through the RabbitMQ Managment UI.
+2. Log into the RabbitMQ Management UI and check that no alarms have been triggered and that all nodes are healthy 
+(they should display as green).
+3. Check that the system is not close to hitting either the memory or disk alarm by looking at what has been 
+consumed by each node through the RabbitMQ Managment UI.
