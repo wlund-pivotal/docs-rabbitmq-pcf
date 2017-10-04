@@ -287,15 +287,15 @@ The deployment may also fail - if it does, redeploying will fix the issue.
 
 ## <a id="config"></a>RabbitMQ Config
 
-You can provide a full <code>rabbitmq.config</code> file, if you want.
+You can optionally provide a full <code>rabbitmq.config</code> file.
 
 <%= image_tag("images/config_rabbitmq.jpeg") %>
 
-The input need to be Base64 encoded. Example `[]. -> 'W10u'`
+The input must be Base64 encoded, for example, `[]. -> 'W10u'`.
 
 This file is then provided to all the nodes in the cluster.
 
-For more information about the RabbitMQ configuration, see [https://www.rabbitmq.com/configure.html](https://www.rabbitmq.com/configure.html).
+For more information about the RabbitMQ configuration, see the [RabbitMQ documentation](https://www.rabbitmq.com/configure.html).
 
 ## <a id="tls"></a>TLS Support
 
