@@ -3,9 +3,9 @@ title: Installing and Configuring RabbitMQ for PCF as an On-Demand Service
 owner: London Services
 ---
 
-This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide on-demand service. 
+This topic provides instructions to Pivotal Cloud Foundry (PCF) operators about how to install, configure, and deploy the RabbitMQ for PCF tile to provide on-demand service.
 
-<p class="note"><strong>Note</strong>: For instructions on how to install, configure, and deploy the RabbitMQ for PCF tile 
+<p class="note"><strong>Note</strong>: For instructions on how to install, configure, and deploy the RabbitMQ for PCF tile
 as a pre-provisioned service, see
 <a href="./install-config-pp.html">the documentation for pre-provisioned RabbitMQ for PCF</a>.</p>
 
@@ -21,7 +21,7 @@ For information on the on-demand service architecture, see [this page](about.htm
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/pivotal-rabbitmq-service/).
 
-2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
+2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
 3. Under the **Import a Product** button, click **+** next to the version number of RabbitMQ for PCF. This adds the tile to your staging area.
 
@@ -34,12 +34,12 @@ The configuration screen appears when you click the RabbitMQ for PCF tile in Ops
 ![Configuring Errand Run Rules](images/errands-pane.png)
 
 ### <a id="azs-networks"></a>  Configure AZs and Networks
- 
+
  Follow the steps below to configure the AZs and networks.
- 
+
  1. Click **Assign AZs and Networks**.
      <p class="note"><strong>Important</strong>: You cannot change the regions or networks after you have clicked **Apply Changes** in the [final step](#apply-changes) below.</p>
- 
+
  2. Configure the fields on the **Assign AZs and Networks** as follows:
    <table>
      <tr><th>Field</th><th>Instructions</th></tr>
@@ -62,7 +62,7 @@ The configuration screen appears when you click the RabbitMQ for PCF tile in Ops
     <p class="note warning"><strong>WARNING</strong>: Changing the Network or Service Network, or changing their IP configurations,
        results in a failed deployment.
        For more information, see <a href="./changing-ips.html">Changing Network or IP Addresses Results in a Failed Deployment</a>.</p>
- 
+
  3. Click **Save**.
 
 ### <a id="global"></a>Configure Global Settings
@@ -77,14 +77,14 @@ Follow the steps below to configure global settings.
 
 ### <a id="service-plan"></a> Configure the Service Plan
 
-In order to enable the on-demand service plan, you must configure the **Dedicated Instance: Single Node Plan**. The default name of this plan is `Solo`. 
+In order to enable the on-demand service plan, you must configure the **Dedicated Instance: Single Node Plan**. The default name of this plan is `Solo`.
 
-In the Dedicated Instance Single Node Plan, there is a single node in the cluster. However, there is still an `HAProxy` associated with the cluster.
+This plan will deploy a single RabbitMQ node on a single virtual machine.  
 
-  <p class="note"><strong>Note</strong>: If the ODB feature is not enabled, the ODB is deployed alongside the RabbitMQ installation, but it is not available in the Marketplace.</p>
+  <p class="note"><strong>Note</strong>: If the on demand plans are not enabled, the RabbitMQ On Demand Broker VM is deployed alongside the RabbitMQ installation, but the plans will not available in the Marketplace.</p>
 
 
-1. Click **Dedicated Instance: Single Node Plan**. 
+1. Click **Dedicated Instance: Single Node Plan**.
 
      ![service-plan-tab-v1.8.0](service-plan-configuration.png)
 
@@ -108,7 +108,7 @@ In the Dedicated Instance Single Node Plan, there is a single node in the cluste
     <tr><td><strong>AZ placement</strong></td>
         <td>This field becomes available after you have completed the [Assign AZs and Networks](#azs-networks) page.<br> Select one AZ for the single node. The plan creates all the on-demand service instance VMs in this AZ.</td></tr>
   </table>
-    
+
 3. Click **Save**.
 
 
@@ -126,7 +126,7 @@ RabbitMQ declines to start if there is not enough space available according to t
 Dedicated instances are configured with a threshold set to the 40% of the memory (RAM) of the VM.
 Operators can take the following table as an example when selecting the size of the persistent disk.
 
-The following table shows an example of possible RAM values, absolute minimal value below which 
+The following table shows an example of possible RAM values, absolute minimal value below which
 RabbitMQ declines to start, and the disk size suggested for an average use case.
 
 <table border="1" class="nice">
@@ -165,7 +165,7 @@ For more information, see the following documentation links:
 2. Verify and, if necessary, import a new stemcell version.  
     For more information, see the information about importing the stemcell for your IaaS:
     [AWS](https://docs.pivotal.io/pivotalcf/1-11/customizing/pcf-aws-manual-er-config.html#stemcell),
-    [Azure](https://docs.pivotal.io/pivotalcf/customizing/azure-er-config.html#stemcell), 
+    [Azure](https://docs.pivotal.io/pivotalcf/customizing/azure-er-config.html#stemcell),
     [GCP](https://docs.pivotal.io/pivotalcf/customizing/gcp-er-config.html#stemcell), or
     [vSphere](https://docs.pivotal.io/pivotalcf/customizing/config-er-vmware.html#stemcell).
 
@@ -174,7 +174,7 @@ For more information, see the following documentation links:
 
 Your installation is not complete until you apply your configuration changes. Follow the steps below:
 
-1. Return to the Ops Manager Installation Dashboard. 
+1. Return to the Ops Manager Installation Dashboard.
 
 2. Click **Apply Changes**.
 
