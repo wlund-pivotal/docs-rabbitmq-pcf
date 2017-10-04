@@ -32,6 +32,9 @@ For product versions and upgrade paths, see the [Product Compatibility Matrix](h
   For more information, see [Changing Network or IP Addresses Results in a Failed Deployment](./changing-ips.html).
 * Metrics are not emitted if RabbitMQ for PCF v1.8.x is installed on Ops Manager v1.11.0 or later.
 
+* Certain special characters cannot be used with the RabbitMQ administrator password, and using them can lead to issues logging into the Management UI as that user.
+
+
 ### v1.8.18
 
 **Release Date:  September 15, 2017**
@@ -410,4 +413,3 @@ For v1.6.x versions of RabbitMQ for PCF, see the [release notes](../1-6/releases
 ## <a id="15x"></a>v1.5.x and Earlier
 
 For v1.5.x and earlier versions of RabbitMQ for PCF, see the [release notes](../1-5/releases.html) in the v1.5 version of this documentation.
-
