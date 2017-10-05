@@ -291,7 +291,22 @@ You can optionally provide a full <code>rabbitmq.config</code> file.
 
 <%= image_tag("images/config_rabbitmq.jpeg") %>
 
-The input must be Base64 encoded, for example, `[]. -> 'W10u'`.
+The input must be Base64 encoded. For example, if you wanted to configure the
+rates_mode of the rabbitmq_management stats which looks like this:
+
+```
+[
+  {rabbitmq_management, [
+    {rates_mode, detailed}
+  ]}
+].
+```
+
+Once base64 encoded it would then look like this:
+
+```
+WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9CiAgXX0KXS4K
+```
 
 This file is then provided to all the nodes in the cluster.
 
