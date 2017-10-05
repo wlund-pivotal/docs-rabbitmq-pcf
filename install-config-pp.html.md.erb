@@ -253,8 +253,10 @@ The deployment may also fail - if it does, redeploying will fix the issue.
 ## <a id="config"></a>RabbitMQ Config
 
 You can optionally provide a full <code>rabbitmq.config</code> file by pasting its contents in the **RabbitMQ configuration** field in the **RabbitMQ** tab.  
-
+  
 <%= image_tag("images/config_rabbitmq.png") %>
+  
+This `rabbitmq.config` file is then provided to all the nodes in the cluster.
 
 You can see an example `rabbitmq.config` file [here](https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example).
 
@@ -274,8 +276,6 @@ Once the above is Base64 encoded, it would look like this:
 ```
 WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9CiAgXX0KXS4K
 ```
-
-This `rabbitmq.config` file is then provided to all the nodes in the cluster.
 
 For more information about the RabbitMQ configuration, see the [RabbitMQ documentation](https://www.rabbitmq.com/configure.html).
 
