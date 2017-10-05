@@ -283,7 +283,7 @@ If you want to change your Erlang cookie value, this will require cluster downti
 It is also *strongly* recommended that you do not change anything else, as it is
 possible for configuration to be inconsistently applied during this process.
 
-The deployment may also fail - if it does, redeploying will fix the issue.
+The deployment may also fail---if it does, redeploying will fix the issue.
 
 ## <a id="config"></a>RabbitMQ Config
 
@@ -295,8 +295,11 @@ You can optionally provide a full <code>rabbitmq.config</code> file by pasting i
 This `rabbitmq.config` file is then provided to all the nodes in the cluster.
 
 You can see an example `rabbitmq.config` file [here](https://github.com/rabbitmq/rabbitmq-server/blob/stable/docs/rabbitmq.config.example).
+For more information about the RabbitMQ configuration, see the [RabbitMQ documentation](https://www.rabbitmq.com/configure.html).
 
-The input must be Base64 encoded. For example, suppose you wanted to configure the
+The input must be Base64 encoded.
+
+For example, to configure the
 `rates_mode` of the `rabbitmq_management` stats, which looks like this:
 
 ```
@@ -307,13 +310,15 @@ The input must be Base64 encoded. For example, suppose you wanted to configure t
 ].
 ```
 
-Once the above is Base64 encoded, it would look like this:
+1. Encode the file into Base64: 
 
-```
-WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9CiAgXX0KXS4K
-```
+    ```
+    WwogIHtyYWJiaXRtcV9tYW5hZ2VtZW50LCBbCiAgICB7cmF0ZXNfbW9kZSwgZGV0YWlsZWR9CiAgXX0KXS4K
+    ```
 
-For more information about the RabbitMQ configuration, see the [RabbitMQ documentation](https://www.rabbitmq.com/configure.html).
+2. Paste it into the **RabbitMQ configuration** field:
+
+    <%= image_tag("images/config_rabbitmq_file.png") %>
 
 ## <a id="tls"></a>TLS Support
 
