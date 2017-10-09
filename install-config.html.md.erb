@@ -134,7 +134,7 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
     For more information, see <a href="#resources">Resource Types and Disk Size Concerns</a> below.</td></tr>
     <tr><td><strong>AZ placement</strong></td>
     <td>This field becomes available after you have completed the [Assign AZs and Networks](#azs-networks) page.
-        <ul><li>For a single-node plan, select one or more AZs.</li> 
+        <ul><li>For a single-node plan, select one or more AZs.</li>
           <li>For a cluster plan, select only one AZ.
         Pivotal recommends deploying a cluster plan to only one AZ to minimize risks due to network latency and partitions. See <a href="./ondemand.html#latency">Network Latency</a> and <a href="./ondemand.html#tradeoff">Consistency or Availability Tradeoff</a> for details.</li>
       </ul></td></tr>
@@ -148,7 +148,7 @@ In order to enable the on-demand service plan(s), you must configure the  **Dedi
     <p class='note'><strong>Note</strong>: To determine which AZs a service instance is placed in, do one of the following:<br><br>
       &#9702; Retrieve the service GUID using the <code>cf service SERVICE_INSTANCE --guid</code> command
        and then run the <code>bosh instances</code> command for the <code>service-instance_GUID</code> deployment.<br><br>
-      &#9702; With syslog forwarding enabled, inspect the service broker logs 
+      &#9702; With syslog forwarding enabled, inspect the service broker logs
           when running the <strong>Upgrade All Service Instances</strong> errand. For each existing service instance, the log message includes the service instance GUID and the AZs the service instance is running in.</p>
 
 3. Click **Save**.
@@ -254,6 +254,7 @@ The following plugins are enabled by default and cannot be disabled:
 * `rabbitmq_federation`
 * `rabbitmq_federation_management`
 * `rabbitmq_shovel`
+* `rabbitmq_shovel_management`
 
 ## <a id='errands'></a>Errands
 
@@ -376,4 +377,3 @@ To create an admin user on a RabbitMQ instance do the following:
      ...
    }
 </pre>
-
