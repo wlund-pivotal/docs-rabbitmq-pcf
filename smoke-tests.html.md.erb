@@ -15,6 +15,8 @@ The smoke tests perform the following for each available service plan:
 1. Checks that the CF RabbitMQ Example App can write to and read from the RabbitMQ service instance
 1. Cleans up all deployed application and all its service bindings. Finally, the cf space is deleted.
 
+**Note:** Smoke tests will fail unless you enable global default application security groups (ASGs). You can enable global default ASGs by binding the ASG to the `system` org without specifying a space. To enable global default ASGs, use `cf bind-running-security-group`.
+
 
 ### Troubleshooting
 
