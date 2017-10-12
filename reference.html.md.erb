@@ -21,7 +21,7 @@ Applications running in Cloud Foundry gain access to the bound service instances
             "dashboard_url": "http://pivotal-rabbitmq.your.pcf.example.com/#/login/b5d0ad14-4352-48e8-8982-d5b1d257029f/tavk86pnnns1ddiqpsdtbchurn",
             "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f",
             "vhost": "62e5ab21-7b38-44ac-b139-6aa97af01cd7",
-            "password": "tavk86pnnns1ddiqpsdtbchurn",
+            "password": "#passwordexample123456789",
             "ssl": false,
             "hostname": "10.0.0.41",
             "hostnames": [
@@ -37,7 +37,7 @@ Applications running in Cloud Foundry gain access to the bound service instances
                 "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.51:15672/api"],
             "protocols": {
                 "amqp": {
-                    "password": "tavk86pnnns1ddiqpsdtbchurn",
+                    "password": "passwordexample123456789",
                     "port": 5672,
                     "ssl": false,
                     "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f",
@@ -46,13 +46,13 @@ Applications running in Cloud Foundry gain access to the bound service instances
                     "hosts": [
                         "10.0.0.41",
                         "10.0.0.51"],
-                    "uri": "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+                    "uri": "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789@10.0.0.41:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
                     "uris": [
-                        "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
-                        "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.51:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7"]},
+                        "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789@10.0.0.41:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7",
+                        "amqp://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789@10.0.0.51:5672/62e5ab21-7b38-44ac-b139-6aa97af01cd7"]},
                 "management": {
                     "username": "b5d0ad14-4352-48e8-8982-d5b1d257029f",
-                    "password": "tavk86pnnns1ddiqpsdtbchurn",
+                    "password": "passwordexample123456789",
                     "path": "/api",
                     "port": 15672,
                     "ssl": false,
@@ -60,10 +60,10 @@ Applications running in Cloud Foundry gain access to the bound service instances
                     "hosts": [
                         "10.0.0.41",
                         "10.0.0.51"],
-                    "uri": "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:15672/api",
+                    "uri": "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789@10.0.0.41:15672/api",
                     "uris": [
-                        "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.41:15672/api",
-                        "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:tavk86pnnns1ddiqpsdtbchurn@10.0.0.51:15672/api"]}}}}]}
+                        "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789@10.0.0.41:15672/api",
+                        "http://b5d0ad14-4352-48e8-8982-d5b1d257029f:passwordexample123456789@10.0.0.51:15672/api"]}}}}]}
 </code></pre>
 
 You can search for your service by its `name`, given when creating the service instance, or dynamically via the `tags` or `label` properties. The `credentials` property can be used as follows:
