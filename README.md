@@ -12,6 +12,8 @@ Then, if necessary, immediately cherry-pick/copy any changes that you want to pu
 
 Any changes on the master branch will not be displayed publicly until a **-live** branch is cut, and an update to [docs-book-rabbitmq][docs-book-rabbitmq] is done (To be documented).
 
+**1.10-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-10](http://docs.pivotal.io/rabbitmq-cf/1-10/).
+
 **1.9-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-9](http://docs.pivotal.io/rabbitmq-cf/1-9/).
 
 **1.8-live** - current branch for documentation that is assumed/expected to be live on [docs.pivotal.io/rabbitmq-cf/1-8](http://docs.pivotal.io/rabbitmq-cf/1-8/).
